@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
 import { ConstantsProvider } from '../../providers/constants/constants';
+import { CustomerDetailsPage } from '../customer-details/customer-details';
 
 /**
  * Generated class for the CustomerMgmtPage page.
@@ -128,6 +129,17 @@ export class CustomerMgmtPage {
       console.log('Customers List Length = ' + this.customersList.length);
     } else {
       this.customersList = this.orginalCustomersList;
+    }
+  }
+
+  viewCustomerDetails(customer: any) {
+
+    console.log('viewCustomerDetails CustomerMgmtPage');
+
+    if (this.commonUtility.isNetworkAvailable()) {
+      this.navCtrl.push(CustomerDetailsPage, {
+        customer: customer
+      })
     }
   }
 }

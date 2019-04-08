@@ -25,6 +25,8 @@ import { GeocoderProvider } from '../providers/geocoder/geocoder';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { CustomerMgmtPage } from '../pages/customer-mgmt/customer-mgmt';
 import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
+import { CustomerDetailsPage } from '../pages/customer-details/customer-details';
+import { CustomerAgingReportPage } from '../pages/customer-aging-report/customer-aging-report';
 // import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 
 @NgModule({
@@ -39,7 +41,9 @@ import { LocationTrackerProvider } from '../providers/location-tracker/location-
     ContactUpdatePage,
     TrackingPage,
     TrackingHistoryPage,
-    CustomerMgmtPage
+    CustomerMgmtPage,
+    CustomerDetailsPage,
+    CustomerAgingReportPage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +62,9 @@ import { LocationTrackerProvider } from '../providers/location-tracker/location-
     ContactUpdatePage,
     TrackingPage,
     TrackingHistoryPage,
-    CustomerMgmtPage
+    CustomerMgmtPage,
+    CustomerDetailsPage,
+    CustomerAgingReportPage
   ],
   providers: [
     StatusBar,
