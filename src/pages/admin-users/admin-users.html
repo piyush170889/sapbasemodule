@@ -1,0 +1,122 @@
+<!--
+  Generated template for the AdminUsersPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="navbar" text-center>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Users
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar *ngIf="adminUsersList.length > 0 || isUsersLoaded" [(ngModel)]="myInput" (ionChange)="onInput()"
+    placeholder="Search By Name">
+  </ion-searchbar>
+
+  <div *ngIf="adminUsersList.length==0 && isUsersLoaded" class="pj-empty-page" style="margin-top: 40%;">
+    <ion-icon name="ios-contact-outline"></ion-icon>
+    <h4>No Users To Show</h4>
+
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button class="pj-button" type="button" (click)="addAdminUser()">ADD ONE ?</button>
+      </ion-col>
+    </ion-row>
+
+  </div>
+
+  <ion-card *ngFor="let adminUsers of adminUsersList">
+
+    <ion-card-header>
+      <ion-row>
+        <ion-col col-12>
+          <strong>{{adminUsers.userDtl.firstName}} {{adminUsers.userDtl.lastName}}</strong>
+        </ion-col>
+      </ion-row>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-row>
+        <ion-col col-5>
+          UserName
+        </ion-col>
+        <ion-col col-7>
+          {{adminUsers.contactNum}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="isSales(adminUsers)">
+        <ion-col col-5>
+          Role
+        </ion-col>
+        <ion-col col-7>
+          Sales Executive
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row *ngIf="isAdmin(adminUsers)">
+        <ion-col col-5>
+          Role
+        </ion-col>
+        <ion-col col-7>
+          Admin
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="isSales(adminUsers)">
+        <ion-col col-5>
+          Todays Travel
+        </ion-col>
+        <ion-col col-5>
+          {{adminUsers.distanceTravelled}} Km
+        </ion-col>
+        <ion-col col-2 (click)="showTodaysTrackingRecord(adminUsers)">
+          <ion-icon name="ios-pin-outline"></ion-icon>
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col col-4 text-center (click)="udpateAdminUser(adminUsers)">
+        <ion-icon name="md-create" color="primary"></ion-icon>
+      </ion-col>
+      <ion-col col-4 text-center (click)="changeAdminUserPassword(adminUsers)">
+        <ion-icon name="md-lock" color="primary"></ion-icon>
+      </ion-col>
+
+      <ion-col col-4 text-center >
+          <!-- <ion-icon name="ios-navigate" color="primary" (click)="navigateToTrackingView(adminUsers)"></ion-icon> -->
+          <ion-icon *ngIf="adminUsers?.firebaseId != null"  name="ios-navigate" color="primary" (click)="navigateToTrackingView(adminUsers)"></ion-icon>
+          <ion-icon *ngIf="adminUsers?.firebaseId == null" (click)="showFirebaseIdNotPresentAlert()" name="ios-navigate" color="light"></ion-icon>
+      </ion-col>
+
+    </ion-row>
+
+  </ion-card>
+
+  <!-- Infinite Scroll Content -->
+  <!-- <ion-infinite-scroll (ionInfinite)="getRecordsPaginated($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading Users...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+
+
+  <!-- Add Product Button -->
+  <ion-fab *ngIf="adminUsersList.length > 0" bottom right (click)="addAdminUser()">
+    <button color="primary" ion-fab>
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>

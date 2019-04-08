@@ -1,0 +1,157 @@
+import { Injectable } from '@angular/core';
+import { ToastController, AlertController, LoadingController, Events } from 'ionic-angular';
+import { HttpHeaders } from '@angular/common/http';
+import { Network } from "@ionic-native/network";
+import { ConstantsProvider } from '../constants/constants';
+
+@Injectable()
+export class CommonUtilityProvider {
+
+    hasRoleInArray(rolesArray: string[], role: string): any {
+
+        // console.log('rolesArray = ' + JSON.stringify(rolesArray));
+        let isRolePresent: boolean = false;
+
+        if (null != rolesArray && rolesArray.length != 0) {
+            let rolesArrayLength = rolesArray.length;
+            for (let j = 0; j < rolesArrayLength; j++) {
+                if (role == rolesArray[j]) {
+                    isRolePresent = true;
+                }
+            }
+        }
+
+        return isRolePresent;
+    }
+
+    constructor(
+        private toastCtrl: ToastController,
+        private alertCtrl: AlertController,
+        public events: Events,
+        private loadingCtrl: LoadingController,
+        private network: Network
+    ) {
+        console.log('Hello CommonUtilityProvider Provider');
+    }
+
+    isNetworkAvailableFlag: boolean = true;
+
+    isNetworkAvailable() {
+
+        if (!this.isNetworkAvailableFlag) {
+            let alert = this.alertCtrl.create({
+                subTitle: 'No Internet Connection',
+                enableBackdropDismiss: false,
+                buttons: [
+                    {
+                        text: 'OK',
+                        handler: () => {
+                            this.isNetworkAvailable();
+                        }
+                    }
+                ]
+            });
+            alert.present();
+        }
+
+        return this.isNetworkAvailableFlag;
+    }
+
+
+    //    isNetworkAvailable() {
+    //     if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
+    //       let alert = this.alertCtrl.create({
+    //           subTitle: 'No Internet Connection',
+    //           enableBackdropDismiss: false ,
+    //           buttons: [
+    //                   {
+    //                       text: 'OK',
+    //                       handler: () => {
+    //                           this.isNetworkAvailable();
+    //                       }
+    //                   }
+    //               ]
+    //           });
+    //           alert.present();
+    //           return false;
+    //       } else {
+    //           return true;
+    //       }  
+
+    //   }
+
+    createLoader(message: string = "Please wait...") { // Optional Parameter
+        return this.loadingCtrl.create({
+            content: message
+        });
+    }
+
+    presentToast(messageContent, messageDuration) {
+
+        const toast = this.toastCtrl.create({
+            message: messageContent,
+            duration: messageDuration
+        });
+
+        toast.present();
+    }
+
+    presentErrorToast(error) {
+        const toast = this.toastCtrl.create({
+            message: error,
+            duration: 5000
+        });
+
+        toast.present();
+    }
+
+    createBasicAuthHeaderOptions() {
+
+        let headers = new HttpHeaders({
+            "Authorization": "Basic " + ConstantsProvider.BASIC_AUTH_TOKEN
+        });
+
+        console.log("Login Header Options - " + JSON.stringify(headers.get("Authorization")));
+        return headers;
+    }
+
+    public clearStorage() {
+        localStorage.clear();
+    }
+
+    public setTokenInStorage(data: any) {
+        console.log('Access Token = ' + data.access_token);
+        console.log('Refresh Token = ' + data.refresh_token);
+
+        localStorage.setItem('token', data.access_token);
+        localStorage.setItem('refresh-token', data.refresh_token);
+        localStorage.setItem('isLoggedIn', '1');
+    }
+
+    public hasRole(...rolesToCheck) {
+        console.log('rolesToCheck = ' + rolesToCheck);
+        let rolesArray = JSON.parse(localStorage.getItem('roles'));
+        console.log('rolesArray = ' + JSON.stringify(rolesArray));
+
+        let isRolePresent: boolean = false;
+
+        if (null != rolesArray && rolesArray.length != 0) {
+            let rolesToCheckLength = rolesToCheck.length;
+            let rolesArrayLength = rolesArray.length;
+            for (let i = 0; i < rolesToCheckLength; i++) {
+                let roleInCheck = rolesToCheck[i];
+                console.log('roleInCheck = ' + roleInCheck);
+                for (let j = 0; j < rolesArrayLength; j++) {
+                    if (roleInCheck == rolesArray[j]) {
+                        isRolePresent = true;
+                    }
+                }
+            }
+        } else {
+            this.events.publish("unauthorized:requestError");
+        }
+
+        return isRolePresent;
+    }
+
+}

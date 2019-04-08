@@ -1,0 +1,7 @@
+{
+  "name": "infinity",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

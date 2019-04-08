@@ -1,0 +1,178 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+@font-face {
+    font-family: Lato;
+    src:url('../assets/fonts/Lato/S6uyw4BMUTPHjx4wXg.woff2');
+}
+
+$colors: (
+    primary:    #FFCB08,
+    secondary:  #32db64,
+    danger:     #f53d3d,
+    plain:      #fff,
+    light:      #E4EBED,
+    semidark:   #AFB6C0,
+    bgcolor:    #2F3C51,
+    dark:       #1c2431,
+    navbar:     #1c2431,
+    );
+    
+    
+p,ion-item,h1,h2,ion-title,ion-label,ion-title,b{
+    font-family: Lato !important;
+    //font-size: large;
+    //text-align: justify;
+}
+
+#map {
+    height: 90%;
+}
+ 
+ion-content{
+    font-family: Lato, 'Calibri', sans-serif;
+    background-color: color($colors, bgcolor, base) !important;
+    color: color($colors, primary, base) !important;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+ion-title {
+    font-family: 'Lato', 'Calibri', sans-serif;
+}
+
+ion-footer {
+    font-family: 'Lato', 'Calibri', sans-serif;
+    background-color: color($colors, primary, base) !important;
+}
+
+ion-item {
+    background-color: color($colors, bgcolor, base) !important;
+    color: color($colors, light, base) !important;
+}
+
+ion-card {
+    font-family: 'Lato', 'Calibri', sans-serif;
+    background-color: color($colors, dark, base) !important;
+    color: color($colors, light, base) !important;
+}
+
+ion-card-header {
+    color: color($colors, primary, base) !important;
+}
+
+.pj-floating-label {
+    color: color($colors, semidark, base) !important;
+    text-align: center;
+}
+
+.pj-button {
+    background-color: color($colors, primary, base) !important;
+    width: 100%;
+    font-weight: bold;
+    color: color($colors, dark, base) !important;
+    border-radius: 25px;
+    margin-top: 5%;
+    padding: 25px;
+}
+
+.pj-button-danger {
+    background-color: color($colors, danger, base) !important;
+    width: 100%;
+    font-weight: bold;
+    color: color($colors, light, base) !important;
+    border-radius: 25px;
+    margin-top: 5%;
+    padding: 25px;
+}
+.logo {
+    color: color($colors, light, base) !important;
+    font-weight: bold;
+    margin-top: 25%;
+}
+
+.pj-full-width-border {
+    width: 100%;
+    border-top: 1px solid color($colors, primary, base) !important;
+    border-bottom: 1px solid color($colors, primary, base) !important;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 5%;
+    background-color: color($colors, dark, base) !important;
+    color: color($colors, primary, base);
+}
+
+.pj-empty-page {
+    font-style: italic;
+    color: color($colors, light, base) !important;
+    text-align: center;
+    width: 100%;
+}
+
+
+.pj-empty-page > h4 {
+   color: color($colors, light, base) !important;
+   font-size: 1.5rem;
+}
+
+.stock-table-header {
+    color: #AFB6C0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 5px;
+    border-bottom: 1px solid #AFB6C0;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+.stock-table-rows {
+    padding: 5px;
+    word-wrap: break-word;
+}
+
+.pj-light-content {
+    color: color($colors, light, base) !important;
+}
+
+.pj-state-btn {
+
+    padding: 3% 0;
+    background-color: color($colors, light, base) !important;
+    border-radius: 15px;
+    font-size: 10px;
+    font-weight: bold;
+    color: color($colors, dark, base) !important;
+    text-align: center;
+}
+
+.pj-empty-page {
+    font-style: italic;
+    color: color($colors, light, base) !important;
+    text-align: center;
+    padding: 6%;
+    width: 100%;
+}
+  
+.pj-empty-page > h4 {
+    color: color($colors, light, base) !important;
+}
+    
+.pj-empty-page > ion-icon {
+    font-size: 3.2em;
+}
+  

@@ -1,0 +1,60 @@
+<!--
+  Generated template for the CustomerMgmtPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="navbar" text-center>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Customer Management
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar [(ngModel)]="myInput" (ionChange)="onInput()" placeholder="Search By Name, Phone No., Code">
+  </ion-searchbar>
+
+  <div *ngIf="customersList.length==0" class="pj-empty-page" style="margin-top: 40%;">
+    <ion-icon name="ios-contact-outline"></ion-icon>
+    <h4>No Customers To Show</h4>
+  </div>
+
+  <ion-card *ngFor="let customer of customersList">
+
+    <ion-card-header>
+      <ion-row>
+        <ion-col col-12>
+          <strong>{{customer.customerDetails.cardCode}} - {{customer.customerDetails.cardName}}</strong>
+        </ion-col>
+      </ion-row>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-row>
+        <ion-col col-5>
+          Contact No.
+        </ion-col>
+        <ion-col col-7>
+          {{customer.customerDetails.phone1 == null || customer.customerDetails.phone1 == '' ? 'Not Available' : customer.customerDetails.phone1 }}
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+
+
+  </ion-card>
+
+  <!-- Infinite Scroll Content -->
+  <ion-infinite-scroll (ionInfinite)="getRecordsPaginated($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading Customers...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
