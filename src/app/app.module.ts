@@ -27,6 +27,7 @@ import { CustomerMgmtPage } from '../pages/customer-mgmt/customer-mgmt';
 import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
 import { CustomerDetailsPage } from '../pages/customer-details/customer-details';
 import { CustomerAgingReportPage } from '../pages/customer-aging-report/customer-aging-report';
+import { AgingReportFiltersPage } from '../pages/aging-report-filters/aging-report-filters';
 // import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 
 @NgModule({
@@ -43,7 +44,8 @@ import { CustomerAgingReportPage } from '../pages/customer-aging-report/customer
     TrackingHistoryPage,
     CustomerMgmtPage,
     CustomerDetailsPage,
-    CustomerAgingReportPage
+    CustomerAgingReportPage,
+    AgingReportFiltersPage
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,8 @@ import { CustomerAgingReportPage } from '../pages/customer-aging-report/customer
     TrackingHistoryPage,
     CustomerMgmtPage,
     CustomerDetailsPage,
-    CustomerAgingReportPage
+    CustomerAgingReportPage,
+    AgingReportFiltersPage
   ],
   providers: [
     StatusBar,

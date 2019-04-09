@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
 import { CustomerAgingReportPage } from '../customer-aging-report/customer-aging-report';
+import { AgingReportFiltersPage } from '../aging-report-filters/aging-report-filters';
 
 /**
  * Generated class for the CustomerDetailsPage page.
@@ -36,9 +37,15 @@ export class CustomerDetailsPage {
     console.log('showAgingReport CustomerDetailsPage');
 
     if (this.commonUtility.isNetworkAvailable()) {
-      this.navCtrl.push(CustomerAgingReportPage, {
+      this.navCtrl.push(AgingReportFiltersPage, {
         customer: this.customer
       });
     }
+  }
+
+  showOrders() {
+
+    console.log('showOrders CustomerDetailsPage');
+    this.commonUtility.presentToast('Not Yet Implemented', 5000);
   }
 }

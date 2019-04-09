@@ -5,11 +5,19 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar color="navbar" text-center>
-    <ion-title>Customer Aging Report</ion-title>
-  </ion-navbar>
 
+    <ion-title>
+      Customer Aging Report
+    </ion-title>
+
+    <ion-buttons end>
+      <button (click)="downloadReport()" ion-button item-end style="background-color: #1c2431; font-size: 25px;">
+        <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
 </ion-header>
 
 <ion-content no-padding>
@@ -30,88 +38,80 @@
         <td class="long bold-heading">Doc. No.</td>
         <td class="long bold-heading">Instal. No.</td>
         <td class="long bold-heading">BP Ref. No.</td>
-        <td class="long bold-heading">Balance Due (currency)</td>
-        <td class="long bold-heading">Balance Due</td>
-        <td class="long bold-heading">Future Remit (currency)</td>
-        <td class="long bold-heading">Future Remit</td>
+        <!-- <td class="long bold-heading">Balance Due (currency)</td> -->
+        <td class="long bold-heading">Balance Due(INR)</td>
+        <!-- <td class="long bold-heading">Future Remit (currency)</td> -->
+        <td class="long bold-heading">Future Remit(INR)</td>
+        <td class="long bold-heading" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 30">0
+          - 30</td>
+        <td class="long bold-heading" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 60">30
+          - 60</td>
+        <td class="long bold-heading" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 30">60
+          - 90</td>
+        <td class="long bold-heading" *ngIf="agingReport == null || agingReport == undefined">0 - 30</td>
         <td class="long bold-heading">Payment Method Code</td>
-        <td class="long bold-heading">0 - 30</td>
-        <!-- <td class="long"></td> -->
       </tr>
-      <tr>
-        <th class="headcol">02/04/19</th>
-        <td class="long">02/05/19</td>
-        <td class="long">N/A</td>
-        <td class="long">IN</td>
-        <td class="long">2</td>
-        <td class="long">1</td>
-        <td class="long"></td>
-        <td class="long">INR</td>
-        <td class="long">Rs. 602400</td>
-        <td class="long">INR</td>
-        <td class="long">Rs. 602400</td>
-        <td class="long"></td>
-        <td class="long"></td>
+      <tr *ngFor="let agingReport of agingReportList">
+        <th class="headcol">{{agingReport.postingDate}}</th>
+        <td class="long">{{agingReport.dueDate}}</td>
+        <td class="long">{{agingReport.blanketAgreement}}</td>
+        <td class="long">{{agingReport.type}}</td>
+        <td class="long">{{agingReport.docNo}}</td>
+        <td class="long">{{agingReport.installationNo}}</td>
+        <td class="long">{{agingReport.bpRefNo}}</td>
+        <!-- <td class="long">INR</td> -->
+        <td class="long">Rs. {{agingReport.balanceDue}}</td>
+        <!-- <td class="long">INR</td> -->
+        <td class="long">Rs. {{agingReport.futureRemit}}</td>
+        <td class="long">{{agingReport.noOfDays}}</td>
+        <td class="long">{{agingReport.paymentMethodCode}}</td>
       </tr>
+    </table>
+  </div>
+
+  <div id="pdfDiv" style="display: none">
+    <h4>Report Date - {{currentDate}}</h4>
+    <h4>Customer Code - {{customer.customerDetails.cardCode}}</h4>
+    <h4>Customer Name - {{customer.customerDetails.cardName}}</h4>
+    <table style="width:100%;border-collapse: collapse; margin-top: 5%;">
       <tr>
-        <th class="headcol">02/04/19</th>
-        <td class="long">02/05/19</td>
-        <td class="long">N/A</td>
-        <td class="long">IN</td>
-        <td class="long">2</td>
-        <td class="long">1</td>
-        <td class="long"></td>
-        <td class="long">INR</td>
-        <td class="long">Rs. 602400</td>
-        <td class="long">INR</td>
-        <td class="long">Rs. 602400</td>
-        <td class="long"></td>
-        <td class="long"></td>
+        <td style="border: 1px solid black;border-collapse: collapse;">Posting Date</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">Due Date</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">Blanket Agreement</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">Type</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">Doc. No.</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">Instal. No.</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">BP Ref. No.</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">Balance Due(INR)</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">Future Remit(INR)</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">Payment Method Code</td>
+        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport == null || agingReport == undefined">0
+          - 30</td>
+        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 30">0
+          - 30</td>
+        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 60">30
+          - 60</td>
+        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 30">60
+          - 90</td>
       </tr>
-      <tr>
-        <th class="headcol">02/04/19</th>
-        <td class="long">02/05/19</td>
-        <td class="long">N/A</td>
-        <td class="long">IN</td>
-        <td class="long">2</td>
-        <td class="long">1</td>
-        <td class="long"></td>
-        <td class="long">INR</td>
-        <td class="long">Rs. 602400</td>
-        <td class="long">INR</td>
-        <td class="long">Rs. 602400</td>
-        <td class="long"></td>
-        <td class="long"></td>
-      </tr>
-      <tr>
-        <th class="headcol">02/04/19</th>
-        <td class="long">02/05/19</td>
-        <td class="long">N/A</td>
-        <td class="long">IN</td>
-        <td class="long">2</td>
-        <td class="long">1</td>
-        <td class="long"></td>
-        <td class="long">INR</td>
-        <td class="long">Rs. 602400</td>
-        <td class="long">INR</td>
-        <td class="long">Rs. 602400</td>
-        <td class="long"></td>
-        <td class="long"></td>
-      </tr>
-      <tr>
-        <th class="headcol">02/04/19</th>
-        <td class="long">02/05/19</td>
-        <td class="long">N/A</td>
-        <td class="long">IN</td>
-        <td class="long">2</td>
-        <td class="long">1</td>
-        <td class="long"></td>
-        <td class="long">INR</td>
-        <td class="long">Rs. 602400</td>
-        <td class="long">INR</td>
-        <td class="long">Rs. 602400</td>
-        <td class="long"></td>
-        <td class="long"></td>
+      <tr *ngFor="let agingReport of agingReportList">
+        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.postingDate}}</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.dueDate}}</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.blanketAgreement}}</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.type}}</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.docNo}}</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.installationNo}}</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.bpRefNo}}</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.balanceDue}}</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.futureRemit}}</td>
+        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.paymentMethodCode}}</td>
+        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 30">0
+          - 30</td>
+        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 60">30
+          - 60</td>
+        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 90">60
+          - 90</td>
+        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport == null || agingReport == undefined"></td>
       </tr>
     </table>
   </div>

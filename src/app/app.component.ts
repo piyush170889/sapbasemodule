@@ -12,6 +12,7 @@ import { AuthorizatonSettingsPage } from '../pages/authorizaton-settings/authori
 import { SettingsPage } from '../pages/settings/settings';
 import { AdminUsersPage } from '../pages/admin-users/admin-users';
 import { CustomerMgmtPage } from '../pages/customer-mgmt/customer-mgmt';
+import { AgingReportFiltersPage } from '../pages/aging-report-filters/aging-report-filters';
 
 const config = {
   apiKey: 'AIzaSyAwE6RUI2st4uTM40fotjuPJVRJNfuayko',
@@ -43,10 +44,7 @@ export class MyApp {
     console.log('Refresh Token = ' + localStorage.getItem('refresh-token'));
     this.rootPage = localStorage.getItem('refresh-token') == null ? LoginPage : AuthorizatonSettingsPage;
 
-    // this.pages = [
-    //   { title: 'Logout', component: LoginPage },
-    // ];
-
+    
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
