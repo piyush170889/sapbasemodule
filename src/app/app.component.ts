@@ -13,6 +13,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { AdminUsersPage } from '../pages/admin-users/admin-users';
 import { CustomerMgmtPage } from '../pages/customer-mgmt/customer-mgmt';
 import { AgingReportFiltersPage } from '../pages/aging-report-filters/aging-report-filters';
+import { OrderMgmtPage } from '../pages/order-mgmt/order-mgmt';
 
 const config = {
   apiKey: 'AIzaSyAwE6RUI2st4uTM40fotjuPJVRJNfuayko',
@@ -101,6 +102,7 @@ export class MyApp {
       this.pages.push(
         // { title: 'Tag Mgmt', component: TagMgmtPage },
         { title: 'Customer Management', component: CustomerMgmtPage },
+        { title: 'Orders', component: OrderMgmtPage },
         { title: 'Users Mgmt', component: AdminUsersPage },
         { title: 'Settings', component: SettingsPage },
       );
@@ -108,6 +110,7 @@ export class MyApp {
       console.log('ROLE_SALES Matched');
       this.pages.push(
         { title: 'Customer Management', component: CustomerMgmtPage },
+        { title: 'Orders', component: OrderMgmtPage },
         { title: 'Settings', component: SettingsPage }
       );
     } else {

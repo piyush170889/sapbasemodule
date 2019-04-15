@@ -1,0 +1,131 @@
+<!--
+  Generated template for the InvoiceDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="navbar" text-center>
+    <ion-title>Invoice Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-padding>
+
+  <ion-row>
+    <ion-col col-12 class="pj-full-width-border" no-margin>
+      <p>{{customer.customerDetails.cardCode}} - {{customer.customerDetails.cardName}}</p>
+      <span class="pj-info-letters">01 Mar 19 | Sales GST</span><br />
+      <span class="pj-info-letters">Ref#: JB1234</span>
+    </ion-col>
+  </ion-row>
+
+  <ion-row style="margin-top: 5%;">
+    <ion-col col-12 no-margin class="pj-full-width-border">
+      ITEMS
+    </ion-col>
+  </ion-row>
+
+  <ion-row padding class="light-color-imp">
+    <ion-col col-8>
+      <span>Birla Super</span>
+    </ion-col>
+    <ion-col col-4>
+      <span><i class="fa fa-rupee"></i> 24,000</span>
+    </ion-col>
+  </ion-row>
+
+  <ion-row padding class="semidark-color-imp">
+    <ion-col col-12 style="font-size:12px !important;">
+      <p> Qty: 100 bags(5.0 tons)</p>
+      <p> Rate: 257.81/bags</p>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="semidark-color-imp" style="border-bottom:1px solid #AFAFAF;">
+    <ion-col col-12 style="font-size:12px !important; padding: 0 21px;">
+      <p> HSN/SAC: 25232910</p>
+      <p> CGST @ 14%: 14%</p>
+      <p> SGST @ 14%: 14%</p>
+    </ion-col>
+  </ion-row>
+
+  <ion-row padding class="light-color-imp" style="margin-bottom: 5%;">
+    <ion-col col-8 no-margin>
+      Net Amount
+    </ion-col>
+    <ion-col col-4 no-margin>
+      <i class="fa fa-rupee"></i> 25,781.25
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col col-12 no-margin class="pj-full-width-border">
+      SUMMARY
+    </ion-col>
+  </ion-row>
+
+  <ion-row padding class="light-color-imp">
+    <ion-col col-8>
+      <span>CGST@14%</span>
+    </ion-col>
+    <ion-col col-4>
+      <span><i class="fa fa-rupee"></i> 3,609.38</span>
+    </ion-col>
+  </ion-row>
+
+  <ion-row padding class="light-color-imp">
+    <ion-col col-8>
+      <span>SGST@14%</span>
+    </ion-col>
+    <ion-col col-4>
+      <span><i class="fa fa-rupee"></i> 3,609.38</span>
+    </ion-col>
+  </ion-row>
+
+  <ion-row padding class="light-color-imp">
+    <ion-col col-8>
+      <span>Round Off</span>
+    </ion-col>
+    <ion-col col-4>
+      <span><i class="fa fa-rupee"></i> -0.01</span>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row padding>
+    <ion-col col-8>
+      <span><strong>Gross Total</strong></span>
+    </ion-col>
+    <ion-col col-4>
+      <span><strong><i class="fa fa-rupee"></i> 33,000</strong></span>
+    </ion-col>
+  </ion-row>
+
+  <ion-row style="margin-top: 5%;">
+    <ion-col col-12 no-margin class="pj-full-width-border">
+      NARRATION
+    </ion-col>
+  </ion-row>
+
+  <ion-row padding class="light-color-imp">
+    <ion-col col-12>
+      <span>Dispatch Report as on 28.2.19</span>
+    </ion-col>
+  </ion-row>
+
+  <ion-row style="margin-top: 5%;">
+    <ion-col col-12 no-margin class="pj-full-width-border">
+      TERMS
+    </ion-col>
+  </ion-row>
+
+  <ion-row padding class="light-color-imp">
+    <ion-col col-12>
+      <span>Due Date: 30 Days</span>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

@@ -4,6 +4,7 @@ import { CommonUtilityProvider } from '../../providers/common-utility/common-uti
 import { DatePipe } from '@angular/common';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
 import { ConstantsProvider } from '../../providers/constants/constants';
+import { InvoicesListingPage } from '../invoices-listing/invoices-listing';
 
 /**
  * Generated class for the CustomerAgingReportPage page.
@@ -23,9 +24,10 @@ export class CustomerAgingReportPage {
 
   customer: any;
   currentDate: string;
-  agingReportList: any[] = [];
+  // agingReportList: any[] = [];
+  agingReportDetails: any = {};
   fromDate: string;
-  noOfDays: string;
+  // noOfDays: string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -33,16 +35,14 @@ export class CustomerAgingReportPage {
 
     this.customer = this.navParams.get('customer');
     this.fromDate = this.navParams.get('fromDate');
-    this.noOfDays = this.navParams.get('noOfDays');
 
-    this.currentDate = new DatePipe('en-Us').transform(new Date().toISOString(), 'dd-MMM-yyy hh:mm a');
-    console.log('Current Date = ' + this.currentDate);
+    // this.currentDate = new DatePipe('en-Us').transform(new Date().toISOString(), 'dd-MMM-yyy hh:mm a');
+    // console.log('Current Date = ' + this.currentDate);
 
     let agingReportApiEndpoint: string = ConstantsProvider.API_BASE_URL
       + ConstantsProvider.API_ENDPOINT_CUST_DTLS + ConstantsProvider.URL_SEPARATOR
       + this.customer.customerDetails.cardCode + ConstantsProvider.URL_SEPARATOR
-      + ConstantsProvider.API_ENDPOINT_AGING_REPORT + "?from-date=" + this.fromDate
-      + "&no-of-days=" + this.noOfDays;
+      + ConstantsProvider.API_ENDPOINT_AGING_REPORT + "?from-date=" + this.fromDate;
 
     console.log('agingReport = ' + agingReportApiEndpoint);
 
@@ -51,7 +51,8 @@ export class CustomerAgingReportPage {
         (response) => {
 
           console.log('Response = ' + JSON.stringify(response.response));
-          this.agingReportList = response.response;
+          // this.agingReportList = response.response;
+          this.agingReportDetails = response.response;
         }
       )
   }
@@ -66,5 +67,16 @@ export class CustomerAgingReportPage {
 
     var page = document.getElementById('pdfDiv');
     cordova.plugins.printer.print(page, 'Aging_Report.pdf');
+  }
+
+  viewBills() {
+
+    console.log('viewBills CustomerAgingReportPage');
+
+    this.navCtrl.push(InvoicesListingPage, {
+      customer: this.customer,
+      fromDate: this.fromDate
+    })
+
   }
 }

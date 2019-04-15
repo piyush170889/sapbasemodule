@@ -28,6 +28,10 @@ import { LocationTrackerProvider } from '../providers/location-tracker/location-
 import { CustomerDetailsPage } from '../pages/customer-details/customer-details';
 import { CustomerAgingReportPage } from '../pages/customer-aging-report/customer-aging-report';
 import { AgingReportFiltersPage } from '../pages/aging-report-filters/aging-report-filters';
+import { InvoicesListingPage } from '../pages/invoices-listing/invoices-listing';
+import { InvoiceDetailsPage } from '../pages/invoice-details/invoice-details';
+import { OrderMgmtPage } from '../pages/order-mgmt/order-mgmt';
+import { OrderDetailsPage } from '../pages/order-details/order-details';
 // import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 
 @NgModule({
@@ -45,7 +49,11 @@ import { AgingReportFiltersPage } from '../pages/aging-report-filters/aging-repo
     CustomerMgmtPage,
     CustomerDetailsPage,
     CustomerAgingReportPage,
-    AgingReportFiltersPage
+    AgingReportFiltersPage,
+    InvoicesListingPage,
+    InvoiceDetailsPage,
+    OrderMgmtPage,
+    OrderDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -67,7 +75,11 @@ import { AgingReportFiltersPage } from '../pages/aging-report-filters/aging-repo
     CustomerMgmtPage,
     CustomerDetailsPage,
     CustomerAgingReportPage,
-    AgingReportFiltersPage
+    AgingReportFiltersPage,
+    InvoicesListingPage,
+    InvoiceDetailsPage,
+    OrderMgmtPage,
+    OrderDetailsPage
   ],
   providers: [
     StatusBar,

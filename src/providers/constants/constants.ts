@@ -25,6 +25,10 @@ export class ConstantsProvider {
   // PRODUCTION
   // public static API_BASE_URL: string = "http://67.211.220.180:8080/sapbaseapi/v1/";
 
+  // SAP API
+  // public static API_BASE_URL_SAP = "http://67.211.220.180:8080/sapdbapi/v1/";
+  // public static SAP_API_ENDPOINT_ORDERS = "ext/orders";
+
   //API Endpoints
   public static API_ENDPOINT_ACTIVATE_DEACTIVATE = "activate-deactivate";
   public static API_ENDPOINT_USERS = "users";
@@ -32,6 +36,7 @@ export class ConstantsProvider {
   public static URL_SEPARATOR = "/";
   public static URL_PARAM_PAGE_NO = "pageNo=";
   public static API_ENDPOINT_OAUTH = "oauth/token";
+  public static URL_PARAM_LIMIT = "&limit=";
 
   //API Endpoints
   public static API_ENDPOINT_ROLES = ConstantsProvider.API_ENDPOINT_USERS

@@ -1,0 +1,319 @@
+<!--
+  Generated template for the OrderDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="navbar">
+        <ion-title text-center>Order Details</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+
+    <ion-card>
+        <ion-card-content>
+
+            <ion-row>
+                <ion-col col-6>
+                    <!-- <p class="pj-card-label-primary">{{ orderDetails.orderPrefix }}{{ orderDetails.orderNo }}</p> -->
+                    <p>{{ orderDetails.docNum }} </p>
+                </ion-col>
+                <!-- <ion-col col-6>
+                    <p class="pj-date-and-status" style="color: #ccc;">
+                        {{ orderDetails.createdTs | date: 'dd MMM yyyy H:mm a' }}
+                    </p>
+                </ion-col> -->
+            </ion-row>
+
+            <!-- <ion-row>
+                <ion-col col-6>
+                    <p class="pj-card-label-primary">Quotation No</p>
+                    <p class="pj-card-label-primary">{{ orderDetails.quotationPrefix }}{{ orderDetails.quotationNo }}</p>
+                </ion-col>
+                <ion-col col-6>
+                    <p class="pj-card-label-primary">Customer No*</p>
+                    <p class="pj-card-label-light" *ngIf="orderDetails.custNo != null || orderDetails.custNo != ''">{{ orderDetails.custNo }}</p>
+                    <p class="pj-card-label-light" *ngIf="orderDetails.custNo == null || orderDetails.custNo == ''">Unregistered Customer</p>
+                </ion-col>
+            </ion-row> -->
+
+            <ion-row>
+                <ion-col col-12>
+                    <p>{{orderDetails.cardCode}} - {{ orderDetails.cardName }}</p>
+                </ion-col>
+            </ion-row>
+
+            <!-- Sale Order Quantity Details -->
+            <ion-row>
+                <ion-col col-8 class="semidark-color-imp">
+                    <p>Sales Order Qty</p>
+                    <p>Sales Order Opening Qty</p>
+                    <p>Sales Order Delivery Qty</p>
+                    <p>Sales Order Pending Qty</p>
+                </ion-col>
+                <ion-col col-4 class="semidark-color-imp">
+                    <p>{{ orderDetails.quantity }} Cum</p>
+                    <p>{{ orderDetails.openQuantity }} Cum</p>
+                    <p>{{ orderDetails.deliveredQuantity }} Cum</p>
+                    <p>{{ orderDetails.openQuantity }} Cum</p>
+                </ion-col>
+            </ion-row>
+
+            <!-- <ion-row>
+                <ion-col col-8 class="pj-card-label-light">
+                    Sales Order Opening Qty
+                </ion-col>
+                <ion-col col-4 class="pj-sub-title">
+                    500 Cum
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col col-6>
+                    Sales Order Delivery Qty
+                </ion-col>
+                <ion-col col-6>
+                    50 Cum
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col col-6>
+                    Sales Order Pending Qty
+                </ion-col>
+                <ion-col col-6>
+                    450 Cum
+                </ion-col>
+            </ion-row> -->
+
+            <!-- 
+            <ion-row>
+                <ion-col col-12>
+                    <p class="pj-card-label-primary">GST No.*</p>
+                    <p class="pj-card-label-light">{{ orderDetails.custGSTNo}}</p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col col-8>
+                    <p class="pj-card-label-primary">Contact Person</p>
+                    <p class="pj-card-label-light">{{ orderDetails.cntcPerNm }}</p>
+                </ion-col>
+                <ion-col col-4>
+                    <p class="pj-card-label-primary">Contact No.*</p>
+                    <p class="pj-card-label-light">{{ orderDetails.cntcPerNo }}</p>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col col-12>
+                    <p class="pj-card-label-primary">Customer Email*</p>
+                    <p class="pj-card-label-light">{{ orderDetails.custEmail }}</p>
+                </ion-col>
+            </ion-row> 
+-->
+
+            <!-- Delivery Address -->
+            <ion-row>
+                <ion-col col-12 text-center class="pj-underline-heading">
+                    Delivery Address
+                </ion-col>
+            </ion-row>
+
+            <ion-row center>
+
+                <div>
+                    <!-- <ion-row>
+                        <ion-col col-12>
+                            <h3 class="pj-card-label-light">{{ orderDetails.addrNm }}</h3>
+                        </ion-col>
+                    </ion-row> -->
+                    <ion-row>
+                        <ion-col col-12 class="semidark-color-imp">
+                            <!-- <h4 class="pj-sub-title">{{ orderDetails.stAddr }}, {{ orderDetails.landmark }}, {{
+                                orderDetails.areaText }}, {{ orderDetails.cityText
+                                }}, {{ orderDetails.stateText }}
+                            </h4> -->
+                            {{ orderDetails.shipToCode }}
+                        </ion-col>
+                    </ion-row>
+                </div>
+
+            </ion-row>
+            <!-- ./Delivery Address -->
+
+            <!--Billing Details-->
+            <!-- <ion-row class="pj-underline-title">
+                <ion-col col-12>
+                    <h4>Billing Details</h4>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col col-6>
+                    <p class="pj-sub-title">SubTotal</p>
+                </ion-col>
+                <ion-col col-6>
+                    <p class="pj-sub-title">Rs. {{orderDetails.subTotal}}</p>
+                </ion-col>
+                <ion-col col-6>
+                    <p class="pj-sub-title">Total Taxes</p>
+                </ion-col>
+                <ion-col col-6>
+                    <p class="pj-sub-title">Rs. {{orderDetails.totalTax}}</p>
+                </ion-col>
+                <ion-col col-6>
+                    <p class="pj-sub-title">Total Discount</p>
+                </ion-col>
+                <ion-col col-6>
+                    <p class="pj-sub-title">Rs. {{orderDetails.discount}}</p>
+                </ion-col>
+                <ion-col col-6>
+                    <p class="pj-sub-title">Grand Total</p>
+                </ion-col>
+                <ion-col col-6>
+                    <p class="pj-sub-title">Rs. {{orderDetails.grandTotal}}</p>
+                </ion-col>
+            </ion-row> -->
+            <!--Billing Details-->
+
+
+            <ion-row class="pj-underline-heading">
+                <ion-col col-10>
+                    Order Items
+                </ion-col>
+            </ion-row>
+
+
+            <div *ngIf="orderItems.length==0" class="pj-empty-page">
+                <ion-icon name="ios-cart-outline"></ion-icon>
+                <h4>No Item Added To Show</h4>
+            </div>
+
+            <ion-row>
+                <ion-col col-12>
+                    <ion-list>
+
+                        <button color="dark" ion-item *ngFor="let orderItem of orderItems; let i of index">
+                            <ion-row>
+                                <ion-col col-12>
+                                    <!-- <h4 class="pj-card-label-primary">{{ orderItem.itemDtlsId.itemNo }} - {{
+                                        (orderItem.itemDtlsId.itemName == '' || orderItem.itemDtlsId.itemName == null)
+                                        ? 'Description Not Available' : orderItem.itemDtlsId.itemName }}</h4> -->
+                                    {{ orderItem.itemCode }} - {{ orderItem.dscription }}
+                                </ion-col>
+                            </ion-row>
+                            <!-- <ion-row>
+                                <ion-col col-12>
+                                    <h3 class="pj-label-level-2">Grade</h3>
+                                    <p class="pj-sub-title">{{ (orderItem.itemDtlsId.itemName == '' || orderItem.itemDtlsId.itemName == null) ? 'Description Not Available' : orderItem.itemDtlsId.itemName }}</p>
+                                </ion-col>
+                            </ion-row> -->
+
+                            <ion-row>
+                                <ion-col col-8>
+                                    <p>Required Qty</p>
+                                    <p>Delivered Qty</p>
+                                    <p>Pending Qty</p>
+                                </ion-col>
+                                <ion-col col-4>
+                                    <p>{{ orderItem.quantity }} Cum</p>
+                                    <p>{{ orderItem.delivrdQty }} Cum</p>
+                                    <p>{{ orderItem.openQty }} Cum</p>
+                                </ion-col>
+                            </ion-row>
+
+                            <!-- <ion-row>
+                                <ion-col col-6>
+                                    <h3 class="pj-label-level-2">Quantity</h3>
+                                </ion-col>
+                                <ion-col col-6>
+                                    <p class="pj-sub-title">{{ orderItem.quantity }} {{ orderItem.itemDtlsId.uom }}</p>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col col-12>
+                                    <h3 class="pj-sub-title">Rs. {{ orderItem.grandTotal }}</h3>
+                                </ion-col>
+                            </ion-row> -->
+                            <!-- <ion-icon name="ios-arrow-forward" color="primary" item-end></ion-icon> -->
+                        </button>
+
+                    </ion-list>
+
+                </ion-col>
+            </ion-row>
+            <!--<ion-card *ngFor="let orderItem of orderItems; let i of index">
+
+                <ion-card-header>
+
+                    <ion-row>
+                        <ion-col col-8>
+                            <h3 class="pj-title">
+                                {{ orderItem.itemDtlsId.itemNo }}
+                            </h3>
+                        </ion-col>
+                    </ion-row>
+
+                </ion-card-header>
+
+                <ion-card-content>
+
+                    <ion-row>
+                        <ion-col col-12>
+                            <p class="pj-title">Item Description</p>
+                            <p class="pj-sub-title">{{ orderItem.itemDtlsId.itemDesc }}</p>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col col-12>
+                            <p class="pj-title">Required Date - <span class="pj-sub-title">{{ orderItem.reqDate | date: 'dd MMM yyyy' }}</span></p>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col col-6>
+                            <p class="pj-title">Quantity - <span class="pj-sub-title">{{ orderItem.quantity }} {{ orderItem.itemDtlsId.uom }}</span></p>
+                        </ion-col>
+                        <ion-col col-6>
+                            <p class="pj-title">Unit Price - <span class="pj-sub-title">{{ orderItem.unitPrice }}</span></p>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col col-6>
+                            <p class="pj-title">Sub Total - <span class="pj-sub-title">{{ orderItem.subTotal }}</span></p>
+                        </ion-col>
+                        <ion-col col-6>
+                            <p class="pj-title">Tax (Rs.) - <span class="pj-sub-title">{{ orderItem.taxValue }}</span></p>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col col-6>
+                            <p class="pj-title">Discount - <span class="pj-sub-title">{{ orderItem.discount }}</span></p>
+                        </ion-col>
+                        <ion-col col-6>
+                            <p class="pj-title">Total (Rs.) - <span class="pj-sub-title">{{ orderItem.grandTotal }}</span></p>
+                        </ion-col>
+                    </ion-row>
+
+                </ion-card-content>
+            </ion-card>-->
+
+        </ion-card-content>
+    </ion-card>
+
+    <!--<ion-fab bottom right>
+        <button class="add-button" color="primary" ion-fab (click)="naviagteToOrderUpdatePage()">
+          <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-fab>-->
+
+</ion-content>

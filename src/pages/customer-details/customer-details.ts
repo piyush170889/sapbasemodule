@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
 import { CustomerAgingReportPage } from '../customer-aging-report/customer-aging-report';
 import { AgingReportFiltersPage } from '../aging-report-filters/aging-report-filters';
+import { OrderMgmtPage } from '../order-mgmt/order-mgmt';
 
 /**
  * Generated class for the CustomerDetailsPage page.
@@ -46,6 +47,9 @@ export class CustomerDetailsPage {
   showOrders() {
 
     console.log('showOrders CustomerDetailsPage');
-    this.commonUtility.presentToast('Not Yet Implemented', 5000);
+    // this.commonUtility.presentToast('Not Yet Implemented', 5000);
+    this.navCtrl.push(OrderMgmtPage, {
+      customer: this.customer
+    });
   }
 }

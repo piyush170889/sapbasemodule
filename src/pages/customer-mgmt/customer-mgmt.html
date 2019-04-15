@@ -42,17 +42,20 @@
           Contact No.
         </ion-col>
         <ion-col col-7>
-          {{customer.customerDetails.cellular == null || customer.customerDetails.cellular == '' ? 'Not Available' : customer.customerDetails.cellular }}
+          {{customer.customerDetails.cellular == null || customer.customerDetails.cellular == '' ? 'Not Available' :
+          customer.customerDetails.cellular }}
         </ion-col>
       </ion-row>
 
-      
+
       <ion-row>
         <ion-col col-5>
           Balance
         </ion-col>
         <ion-col col-7>
-          {{customer.customerDetails.balance == null || customer.customerDetails.balance == '' ? 'Not Available' : customer.customerDetails.balance }}
+          {{customer.customerDetails.balance == null || customer.customerDetails.balance == '' ? 'Not Available' :
+          customer.customerDetails.balance }}
+          <!-- <ion-icon item-end color="primary" name="ios-arrow-forward"></ion-icon> -->
         </ion-col>
       </ion-row>
 

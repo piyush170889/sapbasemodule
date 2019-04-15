@@ -28,7 +28,7 @@ export class AgingReportFiltersPage {
     this.customer = this.navParams.get('customer');
 
     this.agingReportFilterFormGroup = this.formBuilder.group({
-      noOfDays: ['', Validators.required],
+      // noOfDays: ['', Validators.required],
       fromDate: ['', Validators.required]
     });
   }
@@ -41,13 +41,13 @@ export class AgingReportFiltersPage {
 
     console.log('showReport AgingReportsFiltersPage');
 
-    console.log('FromDate = ' + this.agingReportFilterFormGroup.controls['fromDate'].value
-      + ', No Of Days = ' + this.agingReportFilterFormGroup.controls['noOfDays'].value);
+    console.log('FromDate = ' + this.agingReportFilterFormGroup.controls['fromDate'].value);
+      // + ', No Of Days = ' + this.agingReportFilterFormGroup.controls['noOfDays'].value);
 
     this.navCtrl.push(CustomerAgingReportPage, {
       customer: this.customer,
       fromDate: this.agingReportFilterFormGroup.controls['fromDate'].value,
-      noOfDays: this.agingReportFilterFormGroup.controls['noOfDays'].value
+      // noOfDays: this.agingReportFilterFormGroup.controls['noOfDays'].value
     });
   }
   
