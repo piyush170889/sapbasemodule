@@ -21,7 +21,9 @@
 
 <ion-content padding>
 
-  
+  <ion-searchbar [(ngModel)]="myInput" (ionChange)="onInput()" placeholder="Search By Customer Name, Order No.">
+  </ion-searchbar>
+
   <div *ngIf="orderDetailsList.length==0" class="pj-empty-page" style="margin-top: 40%;">
     <ion-icon name="ios-cart-outline"></ion-icon>
     <h4>No Orders To Show</h4>
@@ -57,7 +59,7 @@
           <!-- <h4 class="pj-card-label-light">
             {{ orderDetails.custDtl.userPrefix }}{{ orderDetails.custDtl.userCode }} - {{ orderDetails.custDtl.firstName }}{{ orderDetails.custDtl.lastName
             }}</h4> -->
-            <strong>{{ orderDetails.cardCode }} - {{ orderDetails.cardName }}</strong>
+          <strong>{{ orderDetails.cardCode }} - {{ orderDetails.cardName }}</strong>
         </ion-col>
       </ion-row>
 

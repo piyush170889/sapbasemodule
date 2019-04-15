@@ -1,3 +1,10 @@
 page-customer-mgmt {
 
+    .search-btn {
+        padding: 10px 12px;
+        background-color: color($colors, primary, base) !important;
+        margin-top: 16%;
+        color: #fff;
+        font-size: 26px;
+    }
 }

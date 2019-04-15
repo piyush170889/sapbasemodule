@@ -19,10 +19,12 @@ import { RestserviceProvider } from '../../providers/restservice/restservice';
 })
 export class OrderMgmtPage {
 
-  orderDetailsList: any = [];
+  orderDetailsList: any[] = [];
   limit: number = 10;
   pageNo: number = 1;
   customer: any = null;
+  myInput: string = '';
+  originalOrdersList: any[] = [];
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,13 +44,14 @@ export class OrderMgmtPage {
       ordersListApi = ConstantsProvider.API_BASE_URL + ConstantsProvider.API_ENDPOINT_CUST_DTLS
         + ConstantsProvider.URL_SEPARATOR + this.customer.customerDetails.cardCode
         + ConstantsProvider.URL_SEPARATOR + ConstantsProvider.API_ENDPOINT_ORDERS
-        // + "?" + ConstantsProvider.URL_PARAM_PAGE_NO + this.pageNo + ConstantsProvider.URL_PARAM_LIMIT + this.limit;
+    // + "?" + ConstantsProvider.URL_PARAM_PAGE_NO + this.pageNo + ConstantsProvider.URL_PARAM_LIMIT + this.limit;
 
     this.restService.getDetails(ordersListApi)
       .subscribe(
         (response) => {
           console.log('Response = ' + JSON.stringify(response));
           this.orderDetailsList = response.response;
+          this.originalOrdersList = this.orderDetailsList;
         }
       );
   }
@@ -78,4 +81,31 @@ export class OrderMgmtPage {
     }
   }
 
+
+  onInput() {
+
+    console.log('searchTerm = ' + this.myInput);
+
+    let searchVal = this.myInput;
+
+    // if the value is an empty string don't filter the items
+    if (searchVal && searchVal.trim() != '') {
+
+      this.orderDetailsList = this.originalOrdersList.filter((orderDetailsObj: any) => {
+
+        let searchValLowerCase = searchVal.toLowerCase();
+
+        console.log('Doc Num = ' + orderDetailsObj.docNum + ', Card name = ' + orderDetailsObj.cardName);
+        if (orderDetailsObj.cardName.toLowerCase().indexOf(searchValLowerCase) > -1
+          || orderDetailsObj.docNum == searchValLowerCase)
+          return true;
+        else
+          return false;
+      });
+
+      console.log('Customers List Length = ' + this.orderDetailsList.length);
+    } else {
+      this.orderDetailsList = this.originalOrdersList;
+    }
+  }
 }
