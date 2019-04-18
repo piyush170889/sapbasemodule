@@ -20,7 +20,7 @@ export class ConstantsProvider {
   // public static API_BASE_URL: string = "http://localhost:8080/sapbasemodule/v1/";
 
   // STAGING
-  public static API_BASE_URL: string = "http://67.211.220.180:8080/sapbaseapi/v1/";
+  public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapi/v1/";
 
   // PRODUCTION
   // public static API_BASE_URL: string = "http://67.211.220.180:8080/sapbaseapi/v1/";
@@ -53,6 +53,7 @@ export class ConstantsProvider {
   public static API_ENDPOINT_SEND_OTP = "send-otp";
   public static API_ENDPOINT_VERIFY_OTP = "verify-otp";
   public static API_ENDPOINT_AGING_REPORT = "aging-report";
+  public static API_ENDPOINT_LEDGER_REPORT = "ledger-report";
 
   //Master Data JSON key names
   public static MD_UOM = "uom";
