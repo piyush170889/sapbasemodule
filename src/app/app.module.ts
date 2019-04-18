@@ -33,6 +33,8 @@ import { InvoiceDetailsPage } from '../pages/invoice-details/invoice-details';
 import { OrderMgmtPage } from '../pages/order-mgmt/order-mgmt';
 import { OrderDetailsPage } from '../pages/order-details/order-details';
 // import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { InvoiceListingSettingsPopoverPage } from '../pages/invoice-listing-settings-popover/invoice-listing-settings-popover';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { OrderDetailsPage } from '../pages/order-details/order-details';
     InvoicesListingPage,
     InvoiceDetailsPage,
     OrderMgmtPage,
-    OrderDetailsPage
+    OrderDetailsPage,
+    InvoiceListingSettingsPopoverPage
   ],
   imports: [
     BrowserModule,
@@ -79,7 +82,8 @@ import { OrderDetailsPage } from '../pages/order-details/order-details';
     InvoicesListingPage,
     InvoiceDetailsPage,
     OrderMgmtPage,
-    OrderDetailsPage
+    OrderDetailsPage,
+    InvoiceListingSettingsPopoverPage
   ],
   providers: [
     StatusBar,
@@ -95,6 +99,7 @@ import { OrderDetailsPage } from '../pages/order-details/order-details';
     Geolocation,
     // BackgroundGeolocation,
     LocationTrackerProvider,
+    SocialSharing
   ]
 })
 export class AppModule { }

@@ -8,6 +8,19 @@
 
   <ion-navbar color="navbar" text-center>
     <ion-title>Invoice Listing</ion-title>
+
+    <ion-buttons end>
+
+      <!-- <button (click)="downloadAgingReport()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">
+        <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>
+      </button> -->
+
+      <button ion-button item-end (click)="presentPopover($event)" style="background-color: #1c2431; font-size: 20px;">
+        <ion-icon name="md-more"></ion-icon>
+      </button>
+
+    </ion-buttons>
+
   </ion-navbar>
 
 </ion-header>
@@ -23,29 +36,294 @@
 
   <ion-row padding>
     <ion-col col-12 text-center>
-      <strong><i class="fa fa-rupee"></i> {{customer.customerDetails.balance}}</strong>
-      <p style="color:#AFAFAF;font-size: 10px;">(Balance As Of {{fromDate | date: 'dd MMM yyyy'}})</p>
+      <strong><span style="font-size:4rem;"><i class="fa fa-rupee"></i> {{customer.customerDetails.balance}}</span></strong>
+      <!-- <p style="color:#AFAFAF;font-size: 10px;">(Balance As Of {{fromDate | date: 'dd MMM yyyy'}})</p> -->
+      <p style="color:#AFAFAF;font-size: 10px;" *ngIf="noOfDays == '-30'">(Balance As Of {{fromDate | date: 'dd MMM
+        yy'}} | >0 Days)</p>
+      <p style="color:#AFAFAF;font-size: 10px;" *ngIf="noOfDays == '-60'">(Balance As Of {{fromDate | date: 'dd MMM
+        yy'}} | >30 Days)</p>
+      <p style="color:#AFAFAF;font-size: 10px;" *ngIf="noOfDays == '-90'">(Balance As Of {{fromDate | date: 'dd MMM
+        yy'}} | >60 Days)</p>
+      <p style="color:#AFAFAF;font-size: 10px;" *ngIf="noOfDays == '-120'">(Balance As Of {{fromDate | date: 'dd MMM
+        yy'}} | >120 Days)</p>
+      <p style="color:#AFAFAF;font-size: 10px;" *ngIf="noOfDays == '-360'">(Balance As Of {{fromDate | date: 'dd MMM
+        yy'}} | 121+ Days)</p>
     </ion-col>
   </ion-row>
 
   <ion-row style="margin-bottom:2%;">
-    <ion-col col-12 class="pj-full-width-border" no-margin>
+    <ion-col col-10 class="pj-full-width-border" no-margin>
       <ion-label>Invoices</ion-label>
+    </ion-col>
+    <ion-col col-2 class="pj-full-width-border" no-margin>
+      <button (click)="downloadAgingReport()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">
+        <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>
+      </button>
     </ion-col>
   </ion-row>
 
   <ion-list>
-    <button color="bgcolor" ion-item *ngFor="let invoice of [1,2,3,4,5,6]" (click)="showInvoiceDetails(invoice)">
+    <button color="bgcolor" ion-item *ngFor="let invoice of invoicesListing" (click)="showInvoiceDetails(invoice)">
       <ion-row>
         <ion-col col-8>
-          <p color="light"><strong>JB1234</strong></p>
-          <span style="font-size:10px; color:#AFAFAF">01 Mar 19 | 12 Days | Due: 31 Mar 19</span>
+          <p color="light"><strong>{{invoice.invoiceNo}}</strong></p>
+          <span style="font-size:10px; color:#AFAFAF">{{invoice.invoiceDate | date: 'dd MMM'}} |
+            {{invoice.paymentDueDays}} Days | Due: {{invoice.dueDate | date: 'dd MMM'}}</span>
         </ion-col>
         <ion-col col-4>
-          <i class="fa fa-rupee"></i> 10,000
+          <i class="fa fa-rupee"></i> {{invoice.grossTotal}}
         </ion-col>
       </ion-row>
     </button>
   </ion-list>
+
+  <div id="pdfDivLedger" style="display:none">
+    <!-- <div class="pdfDiv"> -->
+    <div text-center>
+      <h4>JAGTAP BUILDING SOLUTIONS</h4>
+      <p>Asthavinayak Soc, Opp Bharat Jyoti Stop,</p>
+      <p>Bibwewadi , Pune - 411037</p>
+      <p>Tel No. : (O) 24216162, 9822610611</p>
+      <p>Phone no. : 02024216162</p>
+      <p>Pin code : 411037</p>
+      <p>GSTIN : 27AFJPJ8271L1ZV</p>
+      <p>E-Mail : jagtapbsolutions@gmail.com</p>
+    </div>
+
+    <div style="margin:5% 0;" text-center>
+      <p>{{customer.customerDetails.cardName}}</p>
+      <!-- <p>Manjri Khurd</p> -->
+      <p *ngIf="invoicesListing.length > 0">{{invoicesListing[0].invoiceItemsList[0].partyCity}}</p>
+    </div>
+
+    <div text-center>
+      <p>Ledger Report</p>
+      <p>01 Apr 19 - 31 Mar 20</p>
+      <p>Date {{currentDate | date: 'dd MMM yy'}}</p>
+    </div>
+
+    <div style="margin-top:5%">
+
+      <table style="border:1px solid #000;border-collapse: collapse; width:100%;">
+        <tr>
+          <td style="border:1px solid #000;">
+            Date
+          </td>
+          <td style="border:1px solid #000;">
+            Type
+          </td>
+          <td style="border:1px solid #000;">
+            Invoice No.
+          </td>
+          <td style="border:1px solid #000;">
+            Debit
+          </td>
+          <td style="border:1px solid #000;">
+            Credit
+          </td>
+          <td style="border:1px solid #000;">
+            Balance
+          </td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+            Opening Balance
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+            {{openingBalance}}
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+        </tr>
+        <tr *ngFor="let i of [1,2,3]">
+          <td style="border:1px solid #000;">
+            03 Apr 19
+          </td>
+          <td style="border:1px solid #000;">
+            AR IN
+          </td>
+          <td style="border:1px solid #000;">
+            {{i}}
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+            103000
+          </td>
+          <td style="border:1px solid #000;">
+            469260.9Cr
+          </td>
+        </tr>
+
+        <tr>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+            572260.9
+          </td>
+          <td style="border:1px solid #000;">
+            239500
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+        </tr>
+
+        <tr>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+            Closing Balance
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+            332760.9
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+        </tr>
+
+      </table>
+    </div>
+  </div>
+
+
+  <div id="pdfDivAging" style="display:none">
+    <!-- <div class="pdfDiv"> -->
+    <div text-center>
+      <h4>JAGTAP BUILDING SOLUTIONS</h4>
+      <p>Asthavinayak Soc, Opp Bharat Jyoti Stop,</p>
+      <p>Bibwewadi , Pune - 411037</p>
+      <p>Tel No. : (O) 24216162, 9822610611</p>
+      <p>Phone no. : 02024216162</p>
+      <p>Pin code : 411037</p>
+      <p>GSTIN : 27AFJPJ8271L1ZV</p>
+      <p>E-Mail : jagtapbsolutions@gmail.com</p>
+    </div>
+
+    <div style="margin:5% 0;" text-center>
+      <p>{{customer.customerDetails.cardName}}</p>
+      <!-- <p>Manjri Khurd</p> -->
+      <p *ngIf="invoicesListing.length > 0">{{invoicesListing[0].invoiceItemsList[0].partyCity}}</p>
+    </div>
+
+    <div text-center>
+      <p>Aging Report</p>
+      <p *ngIf="noOfDays == '-30'">{{fromDate | date: 'dd MMM yy'}} | >0 Days</p>
+      <p *ngIf="noOfDays == '-60'">{{fromDate | date: 'dd MMM yy'}} | >30 Days</p>
+      <p *ngIf="noOfDays == '-90'">{{fromDate | date: 'dd MMM yy'}} | >60 Days</p>
+      <p *ngIf="noOfDays == '-120'">{{fromDate | date: 'dd MMM yy'}} | >120 Days</p>
+      <p *ngIf="noOfDays == '-360'">{{fromDate | date: 'dd MMM yy'}} | 121+ Days</p>
+      <p>Date {{currentDate | date: 'dd MMM yy'}}</p>
+    </div>
+
+    <div style="margin-top:5%">
+
+      <table style="border:1px solid #000;border-collapse: collapse; width:100%;">
+        <tr>
+          <td style="border:1px solid #000;">
+            Date
+          </td>
+          <td style="border:1px solid #000;">
+            Type
+          </td>
+          <td style="border:1px solid #000;">
+            Invoice No.
+          </td>
+          <td style="border:1px solid #000;">
+            Debit
+          </td>
+          <td style="border:1px solid #000;">
+            Credit
+          </td>
+          <td style="border:1px solid #000;">
+            Balance
+          </td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+            Opening Balance
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+            572280.9
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+        </tr>
+        <tr *ngFor="let i of [1,2,3]">
+          <td style="border:1px solid #000;">
+            03 Apr 19
+          </td>
+          <td style="border:1px solid #000;">
+            AR IN
+          </td>
+          <td style="border:1px solid #000;">
+            {{i}}
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+            103000
+          </td>
+          <td style="border:1px solid #000;">
+            469260.9Cr
+          </td>
+        </tr>
+
+        <tr>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+            572260.9
+          </td>
+          <td style="border:1px solid #000;">
+            239500
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+        </tr>
+
+        <tr>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+            Closing Balance
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+            332760.9
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+          <td style="border:1px solid #000;">
+          </td>
+        </tr>
+
+      </table>
+    </div>
+  </div>
 
 </ion-content>

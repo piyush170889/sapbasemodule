@@ -8,8 +8,22 @@
 
   <ion-navbar color="navbar" text-center>
     <ion-title>Invoice Details</ion-title>
-  </ion-navbar>
 
+    <ion-buttons end>
+      <button (click)="downloadReport()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">
+        <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>
+      </button>
+
+      <button (click)="share()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">
+        <ion-icon name="share" color="primary"></ion-icon>
+      </button>
+
+      <button (click)="whatsappShare()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">
+        <ion-icon name="logo-whatsapp" color="primary"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
 </ion-header>
 
 <ion-content no-padding>
@@ -17,8 +31,9 @@
   <ion-row>
     <ion-col col-12 class="pj-full-width-border" no-margin>
       <p>{{customer.customerDetails.cardCode}} - {{customer.customerDetails.cardName}}</p>
-      <span class="pj-info-letters">01 Mar 19 | Sales GST</span><br />
-      <span class="pj-info-letters">Ref#: JB1234</span>
+      <span class="pj-info-letters">{{invoice.invoiceDate | date: 'dd MMM yy'}} | {{invoice.isPaid == 'O' ? 'Open' :
+        'Close'}}</span><br />
+      <span class="pj-info-letters">Ref#: {{invoice.invoiceNo}}</span>
     </ion-col>
   </ion-row>
 
@@ -28,38 +43,41 @@
     </ion-col>
   </ion-row>
 
-  <ion-row padding class="light-color-imp">
-    <ion-col col-8>
-      <span>Birla Super</span>
-    </ion-col>
-    <ion-col col-4>
-      <span><i class="fa fa-rupee"></i> 24,000</span>
-    </ion-col>
-  </ion-row>
+  <div *ngFor="let invoiceDetails of invoice.invoiceItemsList">
 
-  <ion-row padding class="semidark-color-imp">
-    <ion-col col-12 style="font-size:12px !important;">
-      <p> Qty: 100 bags(5.0 tons)</p>
-      <p> Rate: 257.81/bags</p>
-    </ion-col>
-  </ion-row>
+    <ion-row padding class="light-color-imp">
+      <ion-col col-8>
+        <span>{{invoiceDetails.itemName}}</span>
+      </ion-col>
+      <ion-col col-4>
+        <span><i class="fa fa-rupee"></i> {{invoiceDetails.total}}</span>
+      </ion-col>
+    </ion-row>
 
-  <ion-row class="semidark-color-imp" style="border-bottom:1px solid #AFAFAF;">
-    <ion-col col-12 style="font-size:12px !important; padding: 0 21px;">
-      <p> HSN/SAC: 25232910</p>
-      <p> CGST @ 14%: 14%</p>
-      <p> SGST @ 14%: 14%</p>
-    </ion-col>
-  </ion-row>
+    <ion-row padding class="semidark-color-imp">
+      <ion-col col-12 style="font-size:12px !important;">
+        <p> Qty: {{invoiceDetails.qty}}</p>
+        <p> Rate: {{invoiceDetails.ratePerBag}}</p>
+      </ion-col>
+    </ion-row>
 
-  <ion-row padding class="light-color-imp" style="margin-bottom: 5%;">
-    <ion-col col-8 no-margin>
-      Net Amount
-    </ion-col>
-    <ion-col col-4 no-margin>
-      <i class="fa fa-rupee"></i> 25,781.25
-    </ion-col>
-  </ion-row>
+    <ion-row class="semidark-color-imp" style="border-bottom:1px solid #AFAFAF;">
+      <ion-col col-12 style="font-size:12px !important; padding: 0 21px;">
+        <p> HSN/SAC: {{invoiceDetails.hsnSac}}</p>
+        <p *ngIf="invoiceDetails.cgst > 0"> CGST @ {{invoiceDetails.cgst}}%: {{invoiceDetails.cgst}}%</p>
+        <p *ngIf="invoiceDetails.cgst > 0"> SGST @ {{invoiceDetails.sgst}}%: {{invoiceDetails.sgst}}%</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row padding class="light-color-imp" style="margin-bottom: 5%;">
+      <ion-col col-8 no-margin>
+        Net Amount
+      </ion-col>
+      <ion-col col-4 no-margin>
+        <i class="fa fa-rupee"></i> {{invoiceDetails.total}}
+      </ion-col>
+    </ion-row>
+  </div>
 
   <ion-row>
     <ion-col col-12 no-margin class="pj-full-width-border">
@@ -69,19 +87,19 @@
 
   <ion-row padding class="light-color-imp">
     <ion-col col-8>
-      <span>CGST@14%</span>
+      <span>CGST@{{invoice.cgst}}%</span>
     </ion-col>
     <ion-col col-4>
-      <span><i class="fa fa-rupee"></i> 3,609.38</span>
+      <span><i class="fa fa-rupee"></i> {{invoice.cgstTax}}</span>
     </ion-col>
   </ion-row>
 
   <ion-row padding class="light-color-imp">
     <ion-col col-8>
-      <span>SGST@14%</span>
+      <span>SGST@{{invoice.sgst}}%</span>
     </ion-col>
     <ion-col col-4>
-      <span><i class="fa fa-rupee"></i> 3,609.38</span>
+      <span><i class="fa fa-rupee"></i> {{invoice.sgstTax}}</span>
     </ion-col>
   </ion-row>
 
@@ -90,7 +108,7 @@
       <span>Round Off</span>
     </ion-col>
     <ion-col col-4>
-      <span><i class="fa fa-rupee"></i> -0.01</span>
+      <span><i class="fa fa-rupee"></i> {{invoice.roundOff}}</span>
     </ion-col>
   </ion-row>
 
@@ -100,11 +118,11 @@
       <span><strong>Gross Total</strong></span>
     </ion-col>
     <ion-col col-4>
-      <span><strong><i class="fa fa-rupee"></i> 33,000</strong></span>
+      <span><strong><i class="fa fa-rupee"></i>{{invoice.total}}</strong></span>
     </ion-col>
   </ion-row>
 
-  <ion-row style="margin-top: 5%;">
+  <!-- <ion-row style="margin-top: 5%;">
     <ion-col col-12 no-margin class="pj-full-width-border">
       NARRATION
     </ion-col>
@@ -114,7 +132,7 @@
     <ion-col col-12>
       <span>Dispatch Report as on 28.2.19</span>
     </ion-col>
-  </ion-row>
+  </ion-row> -->
 
   <ion-row style="margin-top: 5%;">
     <ion-col col-12 no-margin class="pj-full-width-border">
@@ -124,8 +142,439 @@
 
   <ion-row padding class="light-color-imp">
     <ion-col col-12>
-      <span>Due Date: 30 Days</span>
+      <span>Due Date: {{invoice.dueDateInDays}} Days</span>
     </ion-col>
   </ion-row>
+
+  <div id="pdfDiv" style="display: none">
+    <div style="text-align:center;width:90%">
+      TAX INVOICE
+    </div>
+
+    <table style="border:1px solid #000;border-collapse: collapse; width:100%;">
+      <tr>
+        <td style="border:1px solid #000;">
+          <p style="margin:0">JAGTAP BUILDING SOLUTIONS</p>
+          <p style="margin:0">Asthavinayak Soc, Opp Bharat Jyoti Stop,</p>
+          <p style="margin:0">Bibwewadi , Pune - 411037</p>
+          <p style="margin:0">Tel No. : (O) 24216162, 9822610611</p>
+          <p style="margin:0">Phone no. : 02024216162</p>
+          <p style="margin:0">Pin code : 411037</p>
+          <p style="margin:0">GSTIN : 27AFJPJ8271L1ZV</p>
+          <p style="margin:0">E-Mail : jagtapbsolutions@gmail.com</p>
+        </td>
+        <td style="padding:0;">
+          <table style="border-collapse:collapse;width:100%;">
+            <tr>
+              <td style="border:1px solid #000;">
+                <p>Invoice No.</p>
+                <p>{{invoice.invoiceNo }}</p>
+              </td>
+              <td style="border:1px solid #000;">
+                <p>Dates</p>
+                <p>{{invoice.invoiceDate | date: 'dd MMM yyyy' }}</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="border:1px solid #000;">
+                <p>Delivery Note</p>
+                <p><br /></p>
+              </td>
+              <td style="border:1px solid #000;">
+                <p>Mode/Payment Terms</p>
+                <p>{{invoice.dueDateInDays}}</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="border:1px solid #000;">
+                <p>Supplier's Ref</p>
+                <p>{{invoice.invoiceNo }}</p>
+              </td>
+              <td style="border:1px solid #000;">
+                <p>Other Reference's</p>
+                <p><br /></p>
+              </td>
+            </tr>
+            <tr>
+              <td style="border:1px solid #000;">
+                <p>Buyer's Order No.</p>
+                <p><br /></p>
+              </td>
+              <td style="border:1px solid #000;">
+                <p>Dated</p>
+                <p><br /></p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p style="margin:0">Buyer</p>
+          <p style="margin:0">{{customer.customerDetails.cardName}}</p>
+          <p style="margin:0">{{invoice.invoiceItemsList[0].partyCity}}</p>
+          <p style="margin:0">GSTIN/UIN : {{invoice.invoiceItemsList[0].partyGstinNo}}</p>
+          <p style="margin:0">State Name: {{invoice.invoiceItemsList[0].stateName}}, Code:
+            {{invoice.invoiceItemsList[0].stateCode}}</p>
+          <p style="margin:0">Place of supply : {{invoice.invoiceItemsList[0].stateCode}}</p>
+          <p style="margin:0">Email : </p>
+          <p style="margin:0">Contact : </p>
+        </td>
+        <td style="padding:0;">
+          <table style="border-collapse:collapse;width:100%;">
+            <tr>
+              <td style="border:1px solid #000;">
+                <p>Despatch Doc No.</p>
+                <p><br /></p>
+              </td>
+              <td style="border:1px solid #000;">
+                <p>Delivery Note Date</p>
+                <p><br /></p>
+              </td>
+            </tr>
+            <tr>
+              <td style="border:1px solid #000;">
+                <p>Despatch Through</p>
+                <p><br /></p>
+              </td>
+              <td style="border:1px solid #000;">
+                <p>Destinations</p>
+                <p>30</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan=2 style="border:1px solid #000;">
+                <p>Terms Of Payment</p>
+                <p><br /></p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <table style="margin-top:3%;border:1px solid #000;border-collapse: collapse; width:100%;">
+      <tr>
+        <td style="border:1px solid #000;">
+          Sr No.
+        </td>
+        <td style="border:1px solid #000;">
+          Description Of Goods
+        </td>
+        <td style="border:1px solid #000;">
+          HSN/SAC
+        </td>
+        <td style="border:1px solid #000;">
+          Quantity
+        </td>
+        <td style="border:1px solid #000;">
+          Rate
+        </td>
+        <td style="border:1px solid #000;">
+          Per
+        </td>
+        <td style="border:1px solid #000;">
+          Disc%
+        </td>
+        <td style="border:1px solid #000;">
+          Amount
+        </td>
+      </tr>
+
+      <tr *ngFor="let invoiceItem of invoice.invoiceItemsList">
+        <td style="border:1px solid #000;">
+          1
+        </td>
+        <td style="border:1px solid #000;">
+          {{invoiceItem.itemName}}<br />
+          <!-- <span style="font-size:10px;color:#cecece;">895642130</span> -->
+        </td>
+        <td style="border:1px solid #000;">
+          {{invoiceItem.hsnSac}}
+        </td>
+        <td style="border:1px solid #000;">
+          {{invoiceItem.qty}} bags
+        </td>
+        <td style="border:1px solid #000;">
+          {{invoiceItem.ratePerBag}}
+        </td>
+        <td style="border:1px solid #000;">
+          bags
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+          {{invoiceItem.total}}
+        </td>
+      </tr>
+
+      <tr>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+          CGST@{{invoice.invoiceItemsList[0].cgst}}%
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+          %
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+          {{invoice.invoiceItemsList[0].cgstTax}}
+        </td>
+      </tr>
+
+
+      <tr>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+          SGST@{{invoice.invoiceItemsList[0].sgst}}%
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+          %
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+          {{invoice.invoiceItemsList[0].sgstTax}}
+        </td>
+      </tr>
+
+
+      <tr>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+          Round Off
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+          %
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+          {{invoice.invoiceItemsList[0].roundDif}}
+        </td>
+      </tr>
+
+
+      <tr>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+          Total
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+          {{invoice.invoiceItemsList[0].qty}}
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+
+        </td>
+        <td style="border:1px solid #000;">
+          {{invoice.invoiceItemsList[0].total}}
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan=8>
+          <p style="color:#cecece;"> Amount Chargable (In Words)</p>
+          <p></p>
+      </tr>
+    </table>
+
+    <table style="border:1px solid #000;border-collapse: collapse; width:100%;">
+      <tr>
+        <td style="border:1px solid #000;">
+          HSN/SAC
+        </td>
+        <td style="border:1px solid #000;">
+          Taxable Value
+        </td>
+        <td style="border:1px solid #000;">
+          <table style="width:100%;border-collapse:collapse">
+            <tr>
+              <td colspan=2 style="border:1px solid #000;">
+                Central tax
+              </td>
+            </tr>
+            <tr>
+              <td style="border:1px solid #000;">
+                Rate
+              </td>
+              <td style="border:1px solid #000;">
+                Amount
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td style="border:1px solid #000;">
+          <table style="width:100%;border-collapse:collapse">
+            <tr>
+              <td colspan=2 style="border:1px solid #000;">
+                State tax
+              </td>
+            </tr>
+            <tr>
+              <td style="border:1px solid #000;">
+                Rate
+              </td>
+              <td style="border:1px solid #000;">
+                Amount
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td style="border:1px solid #000;">
+          Total Tax Amount
+        </td>
+      </tr>
+
+      <tr>
+        <td style="border:1px solid #000;">
+          invoice.invoiceItemsList[0].hsnSac}}
+        </td>
+        <td style="border:1px solid #000;">
+          {{invoice.invoiceItemsList[0].total}}
+        </td>
+        <td style="border:1px solid #000;">
+          <table style="width:100%;border-collapse:collapse">
+            <tr>
+              <td style="border:1px solid #000;">
+                {{invoice.invoiceItemsList[0].cgst}}%
+              </td>
+              <td style="border:1px solid #000;">
+                {{invoice.invoiceItemsList[0].cgstTax}}
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td style="border:1px solid #000;">
+          <table style="width:100%;border-collapse:collapse">
+            <tr>
+              <td style="border:1px solid #000;">
+                {{invoice.invoiceItemsList[0].sgst}}%
+              </td>
+              <td style="border:1px solid #000;">
+                {{invoice.invoiceItemsList[0].sgstTax}}
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td style="border:1px solid #000;">
+          {{invoice.invoiceItemsList[0].cgstTax + invoice.invoiceItemsList[0].sgstTax}}
+        </td>
+      </tr>
+
+      <tr>
+        <td style="border:1px solid #000;">
+          Total
+        </td>
+        <td style="border:1px solid #000;">
+          {{invoice.invoiceItemsList[0].total}}
+        </td>
+        <td style="border:1px solid #000;">
+          <table style="width:100%;border-collapse:collapse">
+            <tr>
+              <td style="border:1px solid #000;">
+
+              </td>
+              <td style="border:1px solid #000;">
+                {{invoice.invoiceItemsList[0].cgstTax}}
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td style="border:1px solid #000;">
+          <table style="width:100%;border-collapse:collapse">
+            <tr>
+              <td style="border:1px solid #000;">
+
+              </td>
+              <td style="border:1px solid #000;">
+                {{invoice.invoiceItemsList[0].sgstTax}}
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td style="border:1px solid #000;">
+          {{invoice.invoiceItemsList[0].cgstTax + invoice.invoiceItemsList[0].sgstTax}}
+        </td>
+      </tr>
+
+    </table>
+
+    <table style="border:1px solid #000;border-collapse: collapse; width:100%;">
+      <tr>
+        <td>
+          <p style="color:#cecece;">Tax Amount (In Words)</p>
+          <p></p>
+        </td>
+    </table>
+
+    <table style="border:1px solid #000;border-collapse: collapse; width:100%;">
+      <tr>
+        <td>
+          <p> <span style="color:#cecece;">Company's PAN :</span> AFJPJ8271L</p>
+          <p style="color:#cecece;">Declaration</p>
+          <p>We declare that this invoice shows the actual price of the goods
+            described and that all particulars are true and correct</p>
+        </td>
+        <td>
+          <p style="color:#cecece;">Company's LBT No.</p>
+          <p style="border:1px solid #000;">
+            for JAGTAP BUILDING SOLUTIONS
+            <br /><br /><br />
+            Authorised Signatory
+          </p>
+        </td>
+      </tr>
+    </table>
+  </div>
 
 </ion-content>

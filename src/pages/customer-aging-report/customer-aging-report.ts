@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
-import { DatePipe } from '@angular/common';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
 import { ConstantsProvider } from '../../providers/constants/constants';
 import { InvoicesListingPage } from '../invoices-listing/invoices-listing';
@@ -69,13 +67,14 @@ export class CustomerAgingReportPage {
     cordova.plugins.printer.print(page, 'Aging_Report.pdf');
   }
 
-  viewBills() {
+  viewBills(noOfDays: number) {
 
     console.log('viewBills CustomerAgingReportPage');
 
     this.navCtrl.push(InvoicesListingPage, {
       customer: this.customer,
-      fromDate: this.fromDate
+      fromDate: this.fromDate,
+      noOfDays: noOfDays
     })
 
   }

@@ -28,6 +28,7 @@ export class CustomerMgmtPage {
   orginalCustomersList: any[] = [];
   orginalListDuplicate: any[] = [];
   myInput: string = '';
+  totalOutstanding: number = 0;
 
   customerMgmtApiEndpoint: string = ConstantsProvider.API_BASE_URL
     + ConstantsProvider.API_ENDPOINT_CUSTOMER_MGMT;
@@ -44,6 +45,13 @@ export class CustomerMgmtPage {
           this.customersList = response.response;
           this.orginalCustomersList = this.customersList;
           this.orginalListDuplicate = this.customersList;
+
+          this.customersList.forEach(
+            (customer) => {
+              this.totalOutstanding = this.totalOutstanding + customer.customerDetails.balance;
+            }
+          )
+          console.log('total outstanding: ' + this.totalOutstanding);
 
           //: Update Pagiination Details
           this.paginationDetails = response.paginationDetails;
@@ -136,7 +144,7 @@ export class CustomerMgmtPage {
   }
 
   searchCustomers() {
-    
+
     console.log('searchTerm = ' + this.myInput);
 
     let searchVal = this.myInput;
@@ -145,15 +153,15 @@ export class CustomerMgmtPage {
     if (searchVal && searchVal.trim() != '') {
 
       let searchCustomerApi = ConstantsProvider.API_BASE_URL + ConstantsProvider.API_ENDPOINT_CUST_DTLS
-       + ConstantsProvider.URL_SEPARATOR + "search-term?search-term=" + searchVal;
+        + ConstantsProvider.URL_SEPARATOR + "search-term?search-term=" + searchVal;
 
       this.restService.getDetails(searchCustomerApi)
-      .subscribe (
-        (response) => {
-          this.customersList = response.response;
-          this.orginalCustomersList = this.customersList;
-        }
-      )
+        .subscribe(
+          (response) => {
+            this.customersList = response.response;
+            this.orginalCustomersList = this.customersList;
+          }
+        )
       console.log('Customers List Length = ' + this.customersList.length);
     } else {
       this.customersList = this.orginalListDuplicate;

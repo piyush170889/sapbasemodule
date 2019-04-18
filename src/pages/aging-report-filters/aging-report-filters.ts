@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerAgingReportPage } from '../customer-aging-report/customer-aging-report';
+import { DatePipe } from '@angular/common';
 
 /**
  * Generated class for the AgingReportFiltersPage page.
@@ -29,7 +30,7 @@ export class AgingReportFiltersPage {
 
     this.agingReportFilterFormGroup = this.formBuilder.group({
       // noOfDays: ['', Validators.required],
-      fromDate: ['', Validators.required]
+      fromDate: ['2019-04-01', Validators.required]
     });
   }
 
