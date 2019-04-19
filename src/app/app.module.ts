@@ -33,8 +33,10 @@ import { InvoiceDetailsPage } from '../pages/invoice-details/invoice-details';
 import { OrderMgmtPage } from '../pages/order-mgmt/order-mgmt';
 import { OrderDetailsPage } from '../pages/order-details/order-details';
 // import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
-import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { InvoiceListingSettingsPopoverPage } from '../pages/invoice-listing-settings-popover/invoice-listing-settings-popover';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { FileOpener } from '@ionic-native/file-opener';
+import { File } from '@ionic-native/file';
 
 @NgModule({
   declarations: [
@@ -99,7 +101,9 @@ import { InvoiceListingSettingsPopoverPage } from '../pages/invoice-listing-sett
     Geolocation,
     // BackgroundGeolocation,
     LocationTrackerProvider,
-    SocialSharing
+    SocialSharing,
+    FileOpener,
+    File
   ]
 })
 export class AppModule { }

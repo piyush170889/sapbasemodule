@@ -67,14 +67,43 @@ export class CustomerAgingReportPage {
     cordova.plugins.printer.print(page, 'Aging_Report.pdf');
   }
 
-  viewBills(noOfDays: number) {
+  viewBills(noOfDays: string) {
 
     console.log('viewBills CustomerAgingReportPage');
+
+    let agingAmount: number = 0;
+    switch (noOfDays) {
+
+      case '-30':
+        console.log('Here in ' + noOfDays);
+        agingAmount = this.agingReportDetails.firstQ;
+        break;
+
+      case '-60':
+        agingAmount = this.agingReportDetails.secondQ
+        break;
+
+      case '-90':
+        agingAmount = this.agingReportDetails.thirdQ
+        break;
+
+      case '-120':
+        agingAmount = this.agingReportDetails.fourthQ
+        break;
+
+      case '-365':
+        agingAmount = this.agingReportDetails.otherQ
+        break;
+
+    }
+
+    console.log('fromDate = ' + this.fromDate + ', noOfDays = ' + noOfDays + ", agingAmount = " + agingAmount);
 
     this.navCtrl.push(InvoicesListingPage, {
       customer: this.customer,
       fromDate: this.fromDate,
-      noOfDays: noOfDays
+      noOfDays: noOfDays,
+      agingAmount: agingAmount
     })
 
   }

@@ -17,17 +17,17 @@ export class ConstantsProvider {
   //Common API Constants
 
   // LOCAL
-  // public static API_BASE_URL: string = "http://localhost:8080/sapbasemodule/v1/";
+  public static API_BASE_URL: string = "http://192.168.2.5:8080/sapbasemodule/v1/";
 
-  // STAGING
-  public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapi/v1/";
-
-  // PRODUCTION
+  //DEV
   // public static API_BASE_URL: string = "http://67.211.220.180:8080/sapbaseapi/v1/";
 
-  // SAP API
-  // public static API_BASE_URL_SAP = "http://67.211.220.180:8080/sapdbapi/v1/";
-  // public static SAP_API_ENDPOINT_ORDERS = "ext/orders";
+  // STAGING
+  // public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapi/v1/";
+
+  // PRODUCTION
+  // public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapi/v1/";
+
 
   //API Endpoints
   public static API_ENDPOINT_ACTIVATE_DEACTIVATE = "activate-deactivate";

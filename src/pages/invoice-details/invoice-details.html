@@ -10,17 +10,14 @@
     <ion-title>Invoice Details</ion-title>
 
     <ion-buttons end>
+      <button (click)="createPdfAndShare()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">
+        <ion-icon name="share" color="primary"></ion-icon>
+      </button>
+
       <button (click)="downloadReport()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">
         <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>
       </button>
 
-      <button (click)="share()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">
-        <ion-icon name="share" color="primary"></ion-icon>
-      </button>
-
-      <button (click)="whatsappShare()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">
-        <ion-icon name="logo-whatsapp" color="primary"></ion-icon>
-      </button>
     </ion-buttons>
 
   </ion-navbar>
