@@ -3,6 +3,7 @@ import { ToastController, AlertController, LoadingController, Events } from 'ion
 import { HttpHeaders } from '@angular/common/http';
 import { Network } from "@ionic-native/network";
 import { ConstantsProvider } from '../constants/constants';
+import { DatePipe } from '@angular/common';
 
 @Injectable()
 export class CommonUtilityProvider {
@@ -152,6 +153,53 @@ export class CommonUtilityProvider {
         }
 
         return isRolePresent;
+    }
+
+    public getDocDefination(reportyType, datePeriod, custCity, custName, body) {
+        let description = {
+            content: [
+                { text: 'JAGTAP BUILDING SOLUTIONS', style: 'header' },
+                { text: 'Asthavinayak Soc, Opp Bharat Jyoti Stop' },
+                { text: 'Bibwewadi , Pune - 411037' },
+                { text: 'Tel No. : (O) 24216162, 9822610611' },
+                { text: 'Phone no. : 02024216162' },
+                { text: 'Pin code : 411037' },
+                { text: 'GSTIN : 27AFJPJ8271L1ZV' },
+                { text: 'E-Mail : jagtapbsolutions@gmail.com' },
+                { text: custName, style: 'subheader' },
+                { text: custCity },
+                { text: reportyType, style: 'subheader' },
+                { text: datePeriod, style: 'story' },
+                { text: 'Report Date: ' + new DatePipe('en-US').transform(new Date().toISOString(), 'dd MMM yy'), style: 'story' },
+                {
+                    table: {
+                        body: body
+                    }
+                }
+            ],
+            styles: {
+                header: {
+                    fontSize: 18,
+                    bold: true,
+                },
+                cardname: {
+                    margin: [5, 0, 5, 0]
+                },
+                subheader: {
+                    fontSize: 14,
+                    bold: true,
+                    margin: [0, 15, 0, 0],
+                    alignment: 'center'
+                },
+                story: {
+                    italic: true,
+                    alignment: 'center',
+                    width: '50%',
+                }
+            }
+        }
+
+        return description;
     }
 
 }

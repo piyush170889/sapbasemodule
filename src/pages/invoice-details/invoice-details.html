@@ -179,7 +179,7 @@
               </td>
               <td style="border:1px solid #000;">
                 <p>Mode/Payment Terms</p>
-                <p>{{invoice.dueDateInDays}}</p>
+                <p>{{(invoice.dueDateInDays + '').replce('-','')}}</p>
               </td>
             </tr>
             <tr>
@@ -237,7 +237,7 @@
               </td>
               <td style="border:1px solid #000;">
                 <p>Destinations</p>
-                <p>30</p>
+                <p></p>
               </td>
             </tr>
             <tr>
@@ -504,7 +504,7 @@
           </table>
         </td>
         <td style="border:1px solid #000;">
-          {{invoice.invoiceItemsList[0].cgstTax + invoice.invoiceItemsList[0].sgstTax}}
+          {{Number.parseFloat(invoice.invoiceItemsList[0].cgstTax) + Number.parseFloat(invoice.invoiceItemsList[0].sgstTax)}}
         </td>
       </tr>
 
@@ -540,7 +540,7 @@
           </table>
         </td>
         <td style="border:1px solid #000;">
-          {{invoice.invoiceItemsList[0].cgstTax + invoice.invoiceItemsList[0].sgstTax}}
+          {{Number.parseFloat(invoice.invoiceItemsList[0].cgstTax) + Number.parseFloat(invoice.invoiceItemsList[0].sgstTax)}}
         </td>
       </tr>
 

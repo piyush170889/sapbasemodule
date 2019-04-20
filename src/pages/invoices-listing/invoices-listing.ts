@@ -5,6 +5,16 @@ import { InvoiceDetailsPage } from '../invoice-details/invoice-details';
 import { ConstantsProvider } from '../../providers/constants/constants';
 import { PopoverController } from 'ionic-angular';
 import { InvoiceListingSettingsPopoverPage } from '../invoice-listing-settings-popover/invoice-listing-settings-popover';
+import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { FileOpener } from '@ionic-native/file-opener';
+import { File } from '@ionic-native/file';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { DatePipe } from '@angular/common';
+
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 /**
  * Generated class for the InvoicesListingPage page.
@@ -35,12 +45,21 @@ export class InvoicesListingPage {
   ledgerInvoiceList: any[] = [];
   openingBalanceInvoice: any = null;
   agingAmount: any = 0;
+  pdfObj = null;
+  pdf: any;
+  shareMessage: string = '';
+  shareSubject: string = '';
+
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public restService: RestserviceProvider,
     private popOverController: PopoverController,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    private commonUtility: CommonUtilityProvider,
+    public file: File,
+    public fileOpener: FileOpener,
+    public socialSharing: SocialSharing) {
 
     this.customer = this.navParams.get('customer');
     this.fromDate = this.navParams.get('fromDate');
@@ -143,7 +162,7 @@ export class InvoicesListingPage {
                 if (indexToSpliceLedger != null)
                   this.ledgerInvoiceList.splice(indexToSpliceLedger, 1);
 
-                this.showLedgerPrintOptions();
+                this.showLedgerShareOptions();
               }
             )
         }
@@ -151,11 +170,11 @@ export class InvoicesListingPage {
     )
   }
 
-  showLedgerPrintOptions() {
+  showLedgerShareOptions() {
 
     const alert = this.alertCtrl.create({
       title: 'Show Ledger',
-      subTitle: 'Do you want to Print the ledger?',
+      subTitle: 'Do you want to Share the ledger?',
       buttons: [
         {
           text: 'Cancel',
@@ -164,11 +183,12 @@ export class InvoicesListingPage {
           }
         },
         {
-          text: 'Ok',
+          text: 'Yes',
           handler: () => {
             console.log('Ok clicked');
 
-            this.downloadLedgerReport();
+            // this.downloadLedgerReport();
+            this.createLedgerPdfAndShare();
           }
         }
       ]
@@ -191,7 +211,106 @@ export class InvoicesListingPage {
     cordova.plugins.printer.print(page, 'Aging_Report.pdf');
   }
 
-  shareAgingReport() {
-    
+  createAgingPDFAndShare() {
+
+
+    if (null != this.invoicesListing && this.invoicesListing.length > 0) {
+      console.log('shareAgingReport InvoiceListingPage');
+      // alert('Creating Aging PDF And Sharing');
+
+      let body: any[] = [];
+
+      body.push(['Date', 'Type', 'Invoice No.', 'Overdue By Days', 'Status', 'Amount']);
+
+      this.invoicesListing.forEach(
+        (invoice) => {
+          body.push([new DatePipe('en-US').transform(invoice.invoiceDate),
+          invoice.type, invoice.invoiceNo, (invoice.dueDateInDays + '').replace('-', ''),
+          invoice.isPaid == 'O' ? 'Open' : 'Close', invoice.grossTotal]);
+        }
+      );
+
+      body.push(['', '', '', '', 'Total', this.totalInvoiceBalance]);
+
+      // alert(JSON.stringify(body));
+
+      let agingPeriod = '';
+
+      if (this.noOfDays != '-360') {
+        agingPeriod = '>' + (Number.parseInt(this.noOfDays.replace('-', '')) - 30) + ' Days';
+      } else if (this.noOfDays == '-360') {
+        alert('Else');
+        agingPeriod = '121+ Days';
+      }
+
+      let datePeriod = new DatePipe('en-US').transform(this.fromDate, 'dd MMM yy') + ' | ' + agingPeriod;
+
+      let docDefinition = this.commonUtility.getDocDefination('Aging Report', datePeriod,
+        this.invoicesListing[0].invoiceItemsList[0].partyCity, this.customer.customerDetails.cardName, body);
+
+      this.pdfObj = pdfMake.createPdf(docDefinition);
+
+      this.downloadPdf('JBSAgingReport_' + this.customer.customerDetails.cardName + '.pdf');
+    } else {
+      this.commonUtility.presentToast('No Aging Records Found', 5000);
+    }
+  }
+
+  createLedgerPdfAndShare() {
+    alert('Creating Ledger PDF And Sharing');
+
+    let body: any[] = [];
+
+    body.push(['Date', 'Due Date', 'Type', 'Invoice No.', 'Status', 'Balance']);
+    body.push(['', '', 'Opening Balance', '', '', this.ledgerOpeningBalance]);
+
+    this.ledgerInvoiceList.forEach(
+      (ledgerInvoice) => {
+        body.push([new DatePipe('en-US').transform(ledgerInvoice.invoiceDate),
+        new DatePipe('en-US').transform(ledgerInvoice.dueDate), ledgerInvoice.type,
+        ledgerInvoice.invoiceNo, ledgerInvoice.isPaid == 'O' ? 'Open' : 'Close',
+        ledgerInvoice.grossTotal]);
+      }
+    );
+
+    body.push(['', '', '', '', 'Total', this.totalLedgerInvoiceBalance]);
+
+    alert(JSON.stringify(body));
+
+    let docDefinition = this.commonUtility.getDocDefination('Ledger Report', '01 Apr 19 - 31 Mar 20',
+      this.invoicesListing[0].invoiceItemsList[0].partyCity, this.customer.customerDetails.cardName, body);
+
+    this.pdfObj = pdfMake.createPdf(docDefinition);
+
+    this.downloadPdf('JBSLedgerReport_' + this.customer.customerDetails.cardName + '.pdf');
+  }
+
+
+  downloadPdf(fileName) {
+
+    this.pdfObj.getBuffer((buffer) => {
+
+      var blob = new Blob([buffer], { type: 'application/pdf' });
+
+      // Save the PDF to the data Directory of our App
+      this.file.writeFile(this.file.dataDirectory, fileName, blob, { replace: true }).then(fileEntry => {
+
+        // Open the PDf with the correct OS tools
+        // this.fileOpener.open(this.file.dataDirectory + 'myletter.pdf', 'application/pdf');
+        this.pdf = this.file.dataDirectory + fileName;
+
+        this.share();
+      })
+    });
+  }
+
+  share() {
+    //alert('Sharing Message');
+
+    this.socialSharing.share(this.shareMessage, this.shareSubject, this.pdf, null).then(() => {
+      // alert('Successfully Shared The File');
+    }).catch((e) => {
+      alert('Error : ' + JSON.stringify(e));
+    });
   }
 }
