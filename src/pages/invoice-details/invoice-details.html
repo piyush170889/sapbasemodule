@@ -422,7 +422,7 @@
       <tr>
         <td colspan=8>
           <p style="color:#cecece;"> Amount Chargable (In Words)</p>
-          <p></p>
+          <p>{{invoice.amountInWords}}</p>
       </tr>
     </table>
 
@@ -475,7 +475,7 @@
 
       <tr>
         <td style="border:1px solid #000;">
-          invoice.invoiceItemsList[0].hsnSac}}
+          {{invoice.invoiceItemsList[0].hsnSac}}
         </td>
         <td style="border:1px solid #000;">
           {{invoice.invoiceItemsList[0].total}}
@@ -552,7 +552,7 @@
       <tr>
         <td>
           <p style="color:#cecece;">Tax Amount (In Words)</p>
-          <p></p>
+          <p>{{invoice.taxAmountInWords}}</p>
         </td>
     </table>
 

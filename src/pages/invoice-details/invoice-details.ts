@@ -134,7 +134,7 @@ export class InvoiceDetailsPage {
                 }
               ],
               [
-                { colSpan: 2, text: 'Amount Chargable (In Words) \n ' }
+                { colSpan: 2, text: 'Amount Chargable (In Words) \n ' + this.invoice.amountInWords }
               ]
             ]
           }
@@ -197,7 +197,7 @@ export class InvoiceDetailsPage {
                   text: Number.parseFloat(this.invoice.invoiceItemsList[0].cgstTax) + Number.parseFloat(this.invoice.invoiceItemsList[0].sgstTax)
                 }
               ],
-              [{ colSpan: 5, text: 'Tax Amount (In Words) \n ' }]
+              [{ colSpan: 5, text: 'Tax Amount (In Words) \n ' + this.invoice.taxAmountInWords }]
             ]
           }
         },
