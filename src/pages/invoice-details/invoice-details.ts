@@ -28,9 +28,10 @@ export class InvoiceDetailsPage {
 
   customer: any;
   fromDate: string;
-  invoice: any;
+  invoice: any = {};
   pdfObj = null;
   pdf: any;
+  totalTax: number = 0;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -41,6 +42,10 @@ export class InvoiceDetailsPage {
     this.customer = this.navParams.get('customer');
     this.fromDate = this.navParams.get('fromDate');
     this.invoice = this.navParams.get('invoice');
+
+    this.totalTax = Number.parseFloat(this.invoice.invoiceItemsList[0].cgstTax)
+      + Number.parseFloat(this.invoice.invoiceItemsList[0].sgstTax);
+      console.log('total Tax: ' + this.totalTax);
   }
 
   ionViewDidLoad() {
@@ -88,7 +93,7 @@ export class InvoiceDetailsPage {
     bodyContent.push(['', 'CGST@' + this.invoice.invoiceItemsList[0].cgst + '%', '', '', '', '%', '', this.invoice.invoiceItemsList[0].cgstTax]);
     bodyContent.push(['', 'SGST@' + this.invoice.invoiceItemsList[0].sgst + '%', '', '', '', '%', '', this.invoice.invoiceItemsList[0].sgstTax]);
     bodyContent.push(['', 'Round Off', '', '', '', '%', '', this.invoice.invoiceItemsList[0].roundDif]);
-    bodyContent.push(['', 'Total', '', this.invoice.invoiceItemsList[0].qty, '', '', '', this.invoice.invoiceItemsList[0].total]);
+    bodyContent.push(['', 'Total', '', this.invoice.invoiceItemsList[0].qty, '', '', '', this.invoice.grossTotal]);
 
     // let bodyContent: any[] = getTestBodyContent();
 
