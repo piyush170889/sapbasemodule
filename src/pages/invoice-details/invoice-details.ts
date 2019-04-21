@@ -45,7 +45,7 @@ export class InvoiceDetailsPage {
 
     this.totalTax = Number.parseFloat(this.invoice.invoiceItemsList[0].cgstTax)
       + Number.parseFloat(this.invoice.invoiceItemsList[0].sgstTax);
-      console.log('total Tax: ' + this.totalTax);
+    console.log('total Tax: ' + this.totalTax);
   }
 
   ionViewDidLoad() {
@@ -66,7 +66,7 @@ export class InvoiceDetailsPage {
   }
 
   createPdfAndShare() {
-    alert('Creating PDF And Sharing');
+    // alert('Creating PDF And Sharing');
 
     let sellerAddress = 'JAGTAP BUILDING SOLUTIONS \n Asthavinayak Soc, Opp Bharat Jyoti Stop,'
       + '\n Bibwewadi , Pune - 411037 ' + '\n Tel No. : (O) 24216162, 9822610611 \n Phone no. : 02024216162 ' +
@@ -83,17 +83,39 @@ export class InvoiceDetailsPage {
     let bodyContent: any[] = [];
     let i: number = 1;
 
-    bodyContent.push(['Sr No.', 'Description Of Goods', 'HSN/SAC', 'Quantity', 'Rate', 'Per', 'Disc%', 'Amount']);
+    bodyContent.push([{ text: 'Sr No.', border: [false, false, true, true] },
+    { text: 'Description Of Goods', border: [false, false, true, true] },
+    { text: 'HSN/SAC', border: [false, false, true, true] },
+    { text: 'Quantity', border: [false, false, true, true] },
+    { text: 'Rate', border: [false, false, true, true] },
+    { text: 'Per', border: [false, false, true, true] },
+    { text: 'Disc%', border: [false, false, true, true] },
+    { text: 'Amount', border: [false, false, false, true] }]);
+
     this.invoice.invoiceItemsList.forEach(
       (invoiceItem) => {
-        bodyContent.push([i, this.isNull(invoiceItem.itemName), invoiceItem.hsnSac, invoiceItem.qty, invoiceItem.ratePerBag,
-          'bags', '', invoiceItem.total]);
+        bodyContent.push([
+          { text: i, border: [false, false, true, true] },
+          this.isNull(invoiceItem.itemName), invoiceItem.hsnSac,
+          invoiceItem.qty, invoiceItem.ratePerBag, 'bags', '',
+          { text: invoiceItem.total, border: [false, false, false, true] }
+        ]);
         ++i;
       });
-    bodyContent.push(['', 'CGST@' + this.invoice.invoiceItemsList[0].cgst + '%', '', '', '', '%', '', this.invoice.invoiceItemsList[0].cgstTax]);
-    bodyContent.push(['', 'SGST@' + this.invoice.invoiceItemsList[0].sgst + '%', '', '', '', '%', '', this.invoice.invoiceItemsList[0].sgstTax]);
-    bodyContent.push(['', 'Round Off', '', '', '', '%', '', this.invoice.invoiceItemsList[0].roundDif]);
-    bodyContent.push(['', 'Total', '', this.invoice.invoiceItemsList[0].qty, '', '', '', this.invoice.grossTotal]);
+
+    bodyContent.push([{ text: '', border: [false, false, true, true] }, 'CGST@' + this.invoice.invoiceItemsList[0].cgst + '%', '', '', '', '%', '', { text: this.invoice.invoiceItemsList[0].cgstTax, border: [false, false, false, true] }]);
+    bodyContent.push([{ text: '', border: [false, false, true, true] }, 'SGST@' + this.invoice.invoiceItemsList[0].sgst + '%', '', '', '', '%', '', { text: this.invoice.invoiceItemsList[0].sgstTax, border: [false, false, false, true] }]);
+    bodyContent.push([{ text: '', border: [false, false, true, true] }, 'Round Off', '', '', '', '%', '', { text: this.invoice.invoiceItemsList[0].roundDif, border: [false, false, false, true] }]);
+    bodyContent.push([
+      { text: '', border: [false, false, true, false] },
+      { text: 'Total', border: [false, false, true, false] },
+      { text: '', border: [false, false, true, false] },
+      { text: this.invoice.invoiceItemsList[0].qty, border: [false, false, true, false] },
+      { text: '', border: [false, false, true, false] },
+      { text: '', border: [false, false, true, false] },
+      { text: '', border: [false, false, true, false] },
+      { text: this.invoice.grossTotal, border: [false, false, false, false] }
+    ]);
 
     // let bodyContent: any[] = getTestBodyContent();
 
@@ -108,20 +130,24 @@ export class InvoiceDetailsPage {
               [sellerAddress,
                 {
                   table: {
+                    widths: [120, 120],
+                    margins: [0, 0, 0, 0],
                     body: [
-                      ['Invoice No. \n ' + this.invoice.invoiceNo, 'Dates \n ' + new DatePipe('en-US').transform(this.invoice.invoiceDate, 'dd MMM yy')],
-                      ['Delivery Note \n ', 'Mode/Payment Terms \n ' + (this.invoice.dueDateInDays + '').replace('-', '')],
-                      ['Suppliers Ref \n ' + this.invoice.invoiceNo, 'Other References \n '],
-                      ['Buyers Order No. \n ', 'Dated \n ']
+                      [{ text: 'Invoice No. \n ' + this.invoice.invoiceNo, border: [false, false, false, false] }, { text: 'Dates \n ' + new DatePipe('en-US').transform(this.invoice.invoiceDate, 'dd MMM yy'), border: [true, false, false, false] }],
+                      [{ text: 'Delivery Note \n ', border: [false, true, true, true] }, { text: 'Mode/Payment Terms \n ' + (this.invoice.dueDateInDays + '').replace('-', ''), border: [false, true, false, false] }],
+                      [{ text: 'Suppliers Ref \n ' + this.invoice.invoiceNo, border: [false, true, true, true] }, { text: 'Other References \n ', border: [false, true, false, false] }],
+                      [{ text: 'Buyers Order No. \n ', border: [false, true, true, false] }, { text: 'Dated \n ', border: [false, true, false, false] }]
                     ]
                   }
                 }],
               [buyerAddress, {
                 table: {
+                  widths: [120, 120],
+                  margins: [0, 0, 0, 0],
                   body: [
-                    ['Despatch Doc No. \n ', 'Delivery Note Date \n '],
-                    ['Despatch Through \n ', 'Destinations \n '],
-                    [{ text: 'Terms Of Payment \n ', colSpan: 2 }]
+                    [{ text: 'Despatch Doc No. \n ', border: [false, false, false, false] }, { text: 'Delivery Note Date \n ', border: [true, false, false, false] }],
+                    [{ text: 'Despatch Through \n ', border: [false, true, true, false] }, { text: 'Destinations \n ', border: [false, true, false, false] }],
+                    [{ text: 'Terms Of Payment \n ', colSpan: 2, border: [false, true, false, false] }]
                   ]
                 }
               }],
@@ -129,6 +155,7 @@ export class InvoiceDetailsPage {
                 {
                   colSpan: 2,
                   table: {
+                    widths: [20, 140, 50, 45, 40, 30, 30, 60],
                     body: bodyContent,
                   }
                 }
@@ -142,19 +169,22 @@ export class InvoiceDetailsPage {
         {
 
           table: {
+            widths: ['auto', 'auto', 120, 120, 86],
             body: [
               ['HSN/SAC', 'Taxable Value', {
                 table: {
+                  widths: [30, 50],
                   body: [
-                    [{ text: 'Central Tax', style: 'tableHeader', colSpan: 2, alignment: 'center' }, {}],
-                    [{ text: 'Rate', style: 'tableHeader', alignment: 'center' }, { text: 'Amount', style: 'tableHeader', alignment: 'center' }]
+                    [{ text: 'Central Tax', style: 'tableHeader', colSpan: 2, alignment: 'center', border: [false, false, false, true] }, {}],
+                    [{ text: 'Rate', style: 'tableHeader', alignment: 'center', border: [false, false, false, false] }, { text: 'Amount', style: 'tableHeader', alignment: 'center', border: [true, false, false, false] }]
                   ]
                 }
               }, {
                   table: {
+                    widths: [30, 50],
                     body: [
-                      [{ text: 'State Tax', style: 'tableHeader', colSpan: 2, alignment: 'center' }, {}],
-                      [{ text: 'Rate', style: 'tableHeader', alignment: 'center' }, { text: 'Amount', style: 'tableHeader', alignment: 'center' }]
+                      [{ text: 'State Tax', style: 'tableHeader', colSpan: 2, alignment: 'center', border: [false, false, false, true] }, {}],
+                      [{ text: 'Rate', style: 'tableHeader', alignment: 'center', border: [false, false, false, false] }, { text: 'Amount', style: 'tableHeader', alignment: 'center', border: [true, false, false, false] }]
                     ]
                   }
                 },
@@ -164,15 +194,17 @@ export class InvoiceDetailsPage {
               ],
               [this.invoice.invoiceItemsList[0].hsnSac, this.invoice.invoiceItemsList[0].total, {
                 table: {
+                  widths: [30, 50],
                   body: [
-                    [{ text: this.invoice.invoiceItemsList[0].cgst + '%', style: 'tableHeader', alignment: 'center' }, { text: this.invoice.invoiceItemsList[0].cgstTax, style: 'tableHeader', alignment: 'center' }]
+                    [{ text: this.invoice.invoiceItemsList[0].cgst + '%', style: 'tableHeader', alignment: 'center', border: [false, false, false, false] }, { text: this.invoice.invoiceItemsList[0].cgstTax, style: 'tableHeader', alignment: 'center', border: [true, false, false, false] }]
                   ]
                 }
               }, {
                 table: {
+                  widths: [30, 50],
                   body: [
-                    [{ text: this.invoice.invoiceItemsList[0].sgst + '%', style: 'tableHeader', alignment: 'center' },
-                    { text: this.invoice.invoiceItemsList[0].sgstTax, style: 'tableHeader', alignment: 'center' }]
+                    [{ text: this.invoice.invoiceItemsList[0].sgst + '%', style: 'tableHeader', alignment: 'center', border: [false, false, false, false] },
+                    { text: this.invoice.invoiceItemsList[0].sgstTax, style: 'tableHeader', alignment: 'center', border: [true, false, false, false] }]
                   ]
                 }
               },
@@ -182,14 +214,18 @@ export class InvoiceDetailsPage {
               ],
               ['Total', this.invoice.invoiceItemsList[0].total, {
                 table: {
+                  widths: [30, 50],
                   body: [
-                    [{ text: '', style: 'tableHeader', alignment: 'center' }, { text: this.invoice.invoiceItemsList[0].cgstTax, style: 'tableHeader', alignment: 'center' }]
+                    [{ text: '', style: 'tableHeader', alignment: 'center', border: [false, false, false, false] },
+                    { text: this.invoice.invoiceItemsList[0].cgstTax, style: 'tableHeader', alignment: 'center', border: [true, false, false, false] }]
                   ]
                 }
               }, {
                   table: {
+                    widths: [30, 50],
                     body: [
-                      [{ text: '', style: 'tableHeader', alignment: 'center' }, { text: this.invoice.invoiceItemsList[0].sgstTax, style: 'tableHeader', alignment: 'center' }]
+                      [{ text: '', style: 'tableHeader', alignment: 'center', border: [false, false, false, false] },
+                      { text: this.invoice.invoiceItemsList[0].sgstTax, style: 'tableHeader', alignment: 'center', border: [true, false, false, false] }]
                     ]
                   }
                 },
@@ -202,11 +238,11 @@ export class InvoiceDetailsPage {
           }
         },
         {
-
           table: {
+            widths: [200, 50, 178, 33],
             body: [
-              [{ text: 'Company PAN: AFJPJ8271L \n Declaration: \n We Declare That The Invoice shows the actual price of the goods described and that all particulars are true and correct', colSpan: 3 }, {}, {},
-              { text: 'Company LBT No. :  \n for JAGTAP BUILDING SOLUTIONS \n\n\n\n Auhtorised Signatory', colSpan: 2 }, {}]
+              [{ text: 'Company PAN: AFJPJ8271L \n Declaration: \n We Declare That The Invoice shows the actual price of the goods described and that all particulars are true and correct', colSpan: 2 }, {},
+              { text: 'Company LBT N. :  \n for JAGTAP BUILDING SOLUTIONS \n\n\n\n Auhtorised Signatory', colSpan: 2 }, {}]
             ]
           }
         }
@@ -229,7 +265,7 @@ export class InvoiceDetailsPage {
       }
     }
 
-    console.log('Creating PDF');
+    console.log('PDF Doc Defination: ' + JSON.stringify(docDefinition));
     this.pdfObj = pdfMake.createPdf(docDefinition);
 
     console.log('Created PDF');
@@ -256,7 +292,7 @@ export class InvoiceDetailsPage {
     //alert('Sharing Message');
 
     this.socialSharing.share("", "", this.pdf, null).then(() => {
-      alert('Successfully Shared The File');
+      // alert('Successfully Shared The File');
     }).catch((e) => {
       alert('Error : ' + JSON.stringify(e));
     });
