@@ -69,7 +69,7 @@
 
   <ion-card *ngIf="openingBalanceInvoice != null">
     <ion-card-content>
-      <ion-row padding>
+      <ion-row>
         <ion-col col-12 text-center color="primary">
           <strong>Opening Balance</strong>
           <p style="color:#AFAFAF;font-size: 15px;">{{openingBalanceInvoice.grossTotal}}</p>
@@ -81,13 +81,19 @@
   <ion-list>
     <button color="bgcolor" ion-item *ngFor="let invoice of invoicesListing" (click)="showInvoiceDetails(invoice)">
       <ion-row>
-        <ion-col col-8>
+        <ion-col col-9>
           <p color="light"><strong>{{invoice.invoiceNo}}</strong></p>
-          <span style="font-size:10px; color:#AFAFAF">{{invoice.invoiceDate | date: 'dd MMM'}} |
+          <span *ngIf="invoice.invoiceItemsList != null" style="font-size:10px; color:#AFAFAF">{{invoice.invoiceDate |
+            date: 'dd MMM'}} |
             {{invoice.dueDateInDays}} Days | Due: {{invoice.dueDate | date: 'dd MMM'}}</span>
+          <span *ngIf="invoice.invoiceItemsList == null" style="font-size:10px; color:#AFAFAF">{{invoice.invoiceDate |
+            date: 'dd MMM'}}</span>
         </ion-col>
-        <ion-col col-4>
-          <i class="fa fa-rupee"></i> {{invoice.grossTotal}}
+        <ion-col col-3>
+          <p *ngIf="invoice.isPaid != 'O' && invoice.type == 'A/R Inv'" class="pj-paid-inv"><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p>
+          <p *ngIf="invoice.isPaid == 'O' && invoice.type == 'A/R Inv'" class="pj-unpaid-inv"><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p>
+          <p *ngIf="invoice.type != 'A/R Inv'"><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p>
+          <span class="pj-bill-status">{{invoice.type}}</span>
         </ion-col>
       </ion-row>
     </button>

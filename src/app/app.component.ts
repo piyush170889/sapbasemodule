@@ -12,8 +12,8 @@ import { AuthorizatonSettingsPage } from '../pages/authorizaton-settings/authori
 import { SettingsPage } from '../pages/settings/settings';
 import { AdminUsersPage } from '../pages/admin-users/admin-users';
 import { CustomerMgmtPage } from '../pages/customer-mgmt/customer-mgmt';
-import { AgingReportFiltersPage } from '../pages/aging-report-filters/aging-report-filters';
 import { OrderMgmtPage } from '../pages/order-mgmt/order-mgmt';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 const config = {
   apiKey: 'AIzaSyAwE6RUI2st4uTM40fotjuPJVRJNfuayko',
@@ -40,7 +40,8 @@ export class MyApp {
     splashScreen: SplashScreen,
     private commonUtility: CommonUtilityProvider,
     private events: Events,
-    private geolocation: Geolocation) {
+    private geolocation: Geolocation,
+    public socialSharing: SocialSharing) {
 
     console.log('Refresh Token = ' + localStorage.getItem('refresh-token'));
     this.rootPage = localStorage.getItem('refresh-token') == null ? LoginPage : AuthorizatonSettingsPage;

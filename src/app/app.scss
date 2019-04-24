@@ -188,3 +188,12 @@ ion-card-header {
 .light-color-imp {
     color: color($colors, light, base);
 }
+
+.pj-bill-status {
+    font-size: 12px;
+    padding: 5% 21%;
+    background-color: color($colors, primary, base);
+    color: #000;
+    font-weight: bold;
+    border-radius: 8%;
+}

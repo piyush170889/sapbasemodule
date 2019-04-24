@@ -108,12 +108,24 @@ export class InvoicesListingPage {
   showInvoiceDetails(invoice) {
 
     console.log('showInvoiceDetails InvoiceListingPage');
+    console.log('invoice.invoiceItemsList = ' + invoice.invoiceItemsList);
 
-    this.navCtrl.push(InvoiceDetailsPage, {
-      customer: this.customer,
-      fromDate: this.fromDate,
-      invoice: invoice
-    });
+    if (null != invoice.invoiceItemsList) {
+      this.navCtrl.push(InvoiceDetailsPage, {
+        customer: this.customer,
+        fromDate: this.fromDate,
+        invoice: invoice
+      });
+    } else {
+      let mssgToDisplay = 'This is an ' + invoice.type + ' type Invoice and does not have any order items associated with it.';
+
+      const alert = this.alertCtrl.create({
+        title: 'Invoice Type',
+        subTitle: mssgToDisplay,
+        buttons: ['OK']
+      });
+      alert.present();
+    }
   }
 
   presentPopover(event: any) {
@@ -145,22 +157,42 @@ export class InvoicesListingPage {
                 //       this.ledgerOpeningBalance = ledgerInvoice.grossTotal
                 //   });
 
-                let indexToSpliceLedger = null;
+                let invoiceIdsToSpliceLedgerArr: any[] = [];
                 this.ledgerInvoiceList.forEach(
                   (ledgerInvoice) => {
 
+                    console.log('Ledger Invoice Type = ' + ledgerInvoice.type);
+
                     if (ledgerInvoice.type == 'OB') {
                       this.ledgerOpeningBalance = ledgerInvoice.grossTotal;
-                      indexToSpliceLedger = this.ledgerInvoiceList.indexOf(ledgerInvoice);
-                    } else {
+                      invoiceIdsToSpliceLedgerArr.push(ledgerInvoice.invoiceNo);
+                    } else if (ledgerInvoice.type == 'A/R Inv') {
                       this.totalLedgerInvoiceBalance = this.totalLedgerInvoiceBalance
                         + Number.parseFloat(ledgerInvoice.grossTotal);
+                    } else if (ledgerInvoice.type != 'A/R Inv') {
+                      invoiceIdsToSpliceLedgerArr.push(ledgerInvoice.invoiceNo);
                     }
                   }
                 );
 
-                if (indexToSpliceLedger != null)
-                  this.ledgerInvoiceList.splice(indexToSpliceLedger, 1);
+                console.log('invoiceIdsToSpliceLedger = ' + JSON.stringify(invoiceIdsToSpliceLedgerArr));
+                invoiceIdsToSpliceLedgerArr.forEach(
+                  (invoiceIdsToSpliceLedger) => {
+                    console.log('Splicing Invoice no = ' + invoiceIdsToSpliceLedger);
+                    if (invoiceIdsToSpliceLedger != null) {
+
+                      this.ledgerInvoiceList.forEach(
+                        (ledgerInvoiceInCheck) => {
+                          if (ledgerInvoiceInCheck.invoiceNo == invoiceIdsToSpliceLedger) {
+                            this.ledgerInvoiceList.splice(this.ledgerInvoiceList.indexOf(ledgerInvoiceInCheck), 1);
+                          }
+                        }
+                      );
+                    }
+                  }
+                );
+
+                console.log('Ledger Invoice Final List = ' + JSON.stringify(this.ledgerInvoiceList));
 
                 this.showLedgerShareOptions();
               }
@@ -213,7 +245,6 @@ export class InvoicesListingPage {
 
   createAgingPDFAndShare() {
 
-
     if (null != this.invoicesListing && this.invoicesListing.length > 0) {
       console.log('shareAgingReport InvoiceListingPage');
       // alert('Creating Aging PDF And Sharing');
@@ -257,7 +288,7 @@ export class InvoicesListingPage {
   }
 
   createLedgerPdfAndShare() {
-    alert('Creating Ledger PDF And Sharing');
+    // alert('Creating Ledger PDF And Sharing');
 
     let body: any[] = [];
 
@@ -275,7 +306,7 @@ export class InvoicesListingPage {
 
     body.push(['', '', '', '', 'Total', this.totalLedgerInvoiceBalance]);
 
-    alert(JSON.stringify(body));
+    // alert(JSON.stringify(body));
 
     let docDefinition = this.commonUtility.getDocDefination('Ledger Report', '01 Apr 19 - 31 Mar 20',
       this.invoicesListing[0].invoiceItemsList[0].partyCity, this.customer.customerDetails.cardName, body);
