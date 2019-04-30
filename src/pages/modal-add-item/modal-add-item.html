@@ -15,11 +15,14 @@
 <ion-content padding>
 
   <ion-row>
-    <ion-col col-12>
+    <ion-col col-12 color="bgcolor">
       <ion-item>
         <ion-label>Item</ion-label>
-        <ionic-selectable item-content [canSearch]="true" name="itemSelected" [(ngModel)]="itemSelected" [items]="itemsList"
+        <!-- <ionic-selectable item-content [canSearch]="true" name="itemSelected" [(ngModel)]="itemSelected" [items]="itemsList"
           itemValueField="itemCode" itemTextField="itemName" (onChange)="itemChange($event)" [ngModelOptions]="{standalone : true}">
+        </ionic-selectable> -->
+        <ionic-selectable item-content [canSearch]="true" name="itemSelected" [(ngModel)]="itemSelected" [items]="itemsList"
+          itemValueField="itemCode" itemTextField="itemName" [ngModelOptions]="{standalone : true}">
         </ionic-selectable>
       </ion-item>
     </ion-col>
@@ -31,6 +34,16 @@
         <ion-label floating>Quantity*</ion-label>
         <ion-input type="number" [(ngModel)]="qty"></ion-input>
       </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col col-6>
+      <button ion-button class="pj-button-danger" type="button" (click)="dismissModal()">CANCEL</button>
+    </ion-col>
+    <ion-col col-6>
+      <button ion-button class="pj-button" type="button" (click)="addItem()">SAVE</button>
     </ion-col>
   </ion-row>
 

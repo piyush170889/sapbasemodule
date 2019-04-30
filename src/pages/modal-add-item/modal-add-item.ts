@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
+import { IonicSelectableComponent } from "ionic-selectable";
 
 /**
  * Generated class for the ModalAddItemPage page.
@@ -56,12 +57,14 @@ export class ModalAddItemPage {
 
   addItem() {
 
-    if (this.itemSelected == null || this.qty <= 0) {
+    if (this.itemSelected == null || this.itemSelected.itemCode == '' || this.qty <= 0) {
       this.commonUtility.presentErrorToast('Please Fill Valid Details');
     } else {
+      this.intializeItemData();
+
       this.itemData.itemCode = this.itemSelected.itemCode;
       this.itemData.itemName = this.itemSelected.itemName;
-      this.itemData.qty = this.itemSelected.qty;
+      this.itemData.qty = this.qty;
 
       let addItemModalData = {
         itemData: this.itemData,
@@ -71,5 +74,24 @@ export class ModalAddItemPage {
 
       this.view.dismiss(addItemModalData);
     }
+  }
+
+  intializeItemData() {
+
+    if (null == this.itemData) {
+      this.itemData = {
+        itemCode: '',
+        itemName: '',
+        qty: 0
+      }
+    }
+  }
+
+  itemChange(event: {
+    component: IonicSelectableComponent,
+    value: any
+  }) {
+    let selectedItem: any = event.value;
+    console.log('selectedItem = ', selectedItem);
   }
 }

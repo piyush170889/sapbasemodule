@@ -38,6 +38,12 @@ p,ion-item,h1,h2,ion-title,ion-label,ion-title,b{
     //text-align: justify;
 }
 
+ion-item-group > button {
+    background-color: color($colors, bgcolor, base) !important;
+    color: color($colors, semidark, base) !important;
+}
+
+
 #map {
     height: 90%;
 }

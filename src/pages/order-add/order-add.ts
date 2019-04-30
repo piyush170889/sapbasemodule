@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, Modal, ModalController } from 'ion
 import { RestserviceProvider } from '../../providers/restservice/restservice';
 import { ConstantsProvider } from '../../providers/constants/constants';
 import { ModalAddItemPage } from '../modal-add-item/modal-add-item';
+import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
+import { OrderMgmtPage } from '../order-mgmt/order-mgmt';
 
 /**
  * Generated class for the OrderAddPage page.
@@ -26,41 +28,36 @@ export class OrderAddPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public restService: RestserviceProvider,
-    public modal: ModalController) {
+    public modal: ModalController,
+    public commonUtility: CommonUtilityProvider) {
 
     this.customer = this.navParams.get('customer');
 
     console.log('Customer = ' + JSON.stringify(this.customer));
 
-    // let itemsListApiEndpoint: string = ConstantsProvider.API_BASE_URL
-    //   + ConstantsProvider.API_ENDPOINT_ITEM_DTLS;
+    let itemsListApiEndpoint: string = ConstantsProvider.API_BASE_URL
+      + ConstantsProvider.API_ENDPOINT_ITEM_DTLS;
 
-    // this.restService.getDetails(itemsListApiEndpoint)
-    //   .subscribe(
-    //     (response) => {
-    //       console.log('Items List = ' + JSON.stringify(response.response));
-    //       this.itemsList = response.response;
-    //     }
-    //   );
+    this.restService.getDetails(itemsListApiEndpoint)
+      .subscribe(
+        (response) => {
+          console.log('Items List = ' + JSON.stringify(response.response));
+          this.itemsList = response.response;
+        }
+      );
 
-    this.populateDummyData();
+    // this.populateDummyData();
 
   }
 
   populateDummyData() {
 
-    this.orderItemsList.push({
-      itemCode: 'ITM001',
-      itemName: 'Itm Dscrption',
-      qty: 10
-    });
-
     this.itemsList.push({
       itemCode: 'ITM001',
-      itemName: 'Itm Dscrption'
+      itemName: 'Itm Dscrption One'
     }, {
         itemCode: 'ITM002',
-        itemName: 'Itm Dscrption'
+        itemName: 'Itm Dscrption Two'
       });
   }
 
@@ -92,19 +89,16 @@ export class OrderAddPage {
         if (addOrderItemModalData.isAdded) {
           console.log('isAdded = ' + addOrderItemModalData.isAdded + ' so going ahead');
 
-          let data = addOrderItemModalData.itemData;
-          let doAddItem = addOrderItemModalData.isAddOperation;
 
-          console.log('doAddItem = ' + doAddItem);
-          if (doAddItem) {
-            this.orderItemsList.push(data);
+          console.log('isAddOperation = ' + addOrderItemModalData.isAddOperation);
+          if (addOrderItemModalData.isAddOperation) {
+            this.orderItemsList.push(addOrderItemModalData.itemData);
             console.log('this.orderItemsList added = ' + JSON.stringify(this.orderItemsList));
           } else {
             let index = this.orderItemsList.indexOf(itemData);
 
-            if (index > -1) {
-              this.orderItemsList[index] = data;
-            }
+            if (index > -1)
+              this.orderItemsList[index] = addOrderItemModalData.itemData;
           }
 
         }
@@ -116,6 +110,41 @@ export class OrderAddPage {
 
     console.log('custAddress = ' + this.custAddress
       + ', Order Items = ' + JSON.stringify(this.orderItemsList));
+
+    if (this.custAddress == null || this.orderItemsList.length <= 0)
+      this.commonUtility.presentErrorToast('Please provide required details');
+    else {
+      let orderData = {
+        cardCode: this.customer.customerDetails.cardCode,
+        cardName: this.customer.customerDetails.cardName,
+        shipToCode: this.customer.customerAddressesList[this.custAddress].address,
+        items: this.orderItemsList
+      }
+
+      console.log('orderData = ' + JSON.stringify(orderData));
+
+      let orderApiEndpoint = ConstantsProvider.API_BASE_URL + ConstantsProvider.API_ENDPOINT_ORDERS;
+
+      if (this.commonUtility.isNetworkAvailable()) {
+        this.restService.postDetails(orderApiEndpoint, orderData)
+          .subscribe(
+            (response) => {
+
+              console.log('Response = ' + JSON.stringify(response.response));
+              this.navCtrl.setRoot(OrderMgmtPage);
+              this.commonUtility.presentToast('Successfully Placed Order', 5000);
+            }
+          );
+      }
+    }
+  }
+
+  removeOrderItem(orderItem) {
+
+    let index = this.orderItemsList.indexOf(orderItem);
+
+    if (index > -1)
+      this.orderItemsList.splice(index, 1);
   }
 
 }

@@ -39,6 +39,7 @@ import { FileOpener } from '@ionic-native/file-opener';
 import { File } from '@ionic-native/file';
 import { OrderAddPage } from '../pages/order-add/order-add';
 import { ModalAddItemPage } from '../pages/modal-add-item/modal-add-item';
+import { IonicSelectableModule } from 'ionic-selectable';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ModalAddItemPage } from '../pages/modal-add-item/modal-add-item';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    IonicSelectableModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
