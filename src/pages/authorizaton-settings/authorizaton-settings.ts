@@ -32,8 +32,8 @@ export class AuthorizatonSettingsPage extends BaseComponent {
     public navParams: NavParams,
     public commonUtility: CommonUtilityProvider,
     public http: HttpClient,
-    private events: Events,
-    private geolocation: Geolocation) {
+    private events: Events) {
+    // private geolocation: Geolocation) {
 
     super(ConstantsProvider.API_ENDPOINT_ROLES, commonUtility, http, null);
 

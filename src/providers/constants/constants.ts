@@ -54,6 +54,7 @@ export class ConstantsProvider {
   public static API_ENDPOINT_VERIFY_OTP = "verify-otp";
   public static API_ENDPOINT_AGING_REPORT = "aging-report";
   public static API_ENDPOINT_LEDGER_REPORT = "ledger-report";
+  public static API_ENDPOINT_ITEM_DTLS = "items";
 
   //Master Data JSON key names
   public static MD_UOM = "uom";

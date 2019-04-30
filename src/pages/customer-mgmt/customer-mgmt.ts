@@ -4,6 +4,8 @@ import { CommonUtilityProvider } from '../../providers/common-utility/common-uti
 import { RestserviceProvider } from '../../providers/restservice/restservice';
 import { ConstantsProvider } from '../../providers/constants/constants';
 import { CustomerDetailsPage } from '../customer-details/customer-details';
+import { OrderAddPage } from '../order-add/order-add';
+import { OrderMgmtPage } from '../order-mgmt/order-mgmt';
 
 /**
  * Generated class for the CustomerMgmtPage page.
@@ -29,6 +31,7 @@ export class CustomerMgmtPage {
   orginalListDuplicate: any[] = [];
   myInput: string = '';
   totalOutstanding: number = 0;
+  referrer: string = null;
 
   customerMgmtApiEndpoint: string = ConstantsProvider.API_BASE_URL
     + ConstantsProvider.API_ENDPOINT_CUSTOMER_MGMT;
@@ -37,6 +40,8 @@ export class CustomerMgmtPage {
     public navParams: NavParams,
     private commonUtility: CommonUtilityProvider,
     private restService: RestserviceProvider) {
+
+    this.referrer = this.navParams.get('referrer');
 
     this.restService.getDetails(this.getCustMgmtApiEndpoint(1))
       .subscribe(
@@ -174,9 +179,25 @@ export class CustomerMgmtPage {
     console.log('viewCustomerDetails CustomerMgmtPage');
 
     if (this.commonUtility.isNetworkAvailable()) {
-      this.navCtrl.push(CustomerDetailsPage, {
-        customer: customer
-      })
+      console.log('referrer = ' + this.referrer);
+
+      if (null != this.referrer && undefined != this.referrer && this.referrer != '') {
+        switch (this.referrer) {
+
+          case OrderMgmtPage.name:
+            this.navCtrl.push(OrderAddPage, {
+              customer: customer
+            });
+            break;
+
+          default:
+            this.commonUtility.presentErrorToast('Invalid Referrer Supplied');
+        }
+      } else {
+        this.navCtrl.push(CustomerDetailsPage, {
+          customer: customer
+        });
+      }
     }
   }
 }

@@ -4,6 +4,7 @@ import { CommonUtilityProvider } from "../../providers/common-utility/common-uti
 import { OrderDetailsPage } from "../order-details/order-details";
 import { ConstantsProvider } from "../../providers/constants/constants";
 import { RestserviceProvider } from '../../providers/restservice/restservice';
+import { CustomerMgmtPage } from '../customer-mgmt/customer-mgmt';
 
 /**
  * Generated class for the OrderMgmtPage page.
@@ -60,14 +61,14 @@ export class OrderMgmtPage {
     console.log('ionViewDidLoad OrderMgmtPage');
   }
 
-  // naviagteToOrderCreatePage() {
+  naviagteToOrderCreatePage() {
 
-  //   if (this.commonUtility.isNetworkAvailable()) {
-  //     this.navCtrl.push(ListCustomersPage, {
-  //       referrer: OrderMgmtPage.name
-  //     });
-  //   }
-  // }
+    if (this.commonUtility.isNetworkAvailable()) {
+      this.navCtrl.push(CustomerMgmtPage, {
+        referrer: OrderMgmtPage.name
+      });
+    }
+  }
 
 
   openOrderDetails(orderDtls) {
@@ -75,7 +76,7 @@ export class OrderMgmtPage {
     console.log('openOrderDetails()');
     if (this.commonUtility.isNetworkAvailable()) {
       this.navCtrl.push(OrderDetailsPage, {
-        orderDtlsId: orderDtls.docNum,
+        orderDtlsId: orderDtls.docEntry,
         orderDtls: orderDtls
       });
     }

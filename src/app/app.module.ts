@@ -37,6 +37,8 @@ import { InvoiceListingSettingsPopoverPage } from '../pages/invoice-listing-sett
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { FileOpener } from '@ionic-native/file-opener';
 import { File } from '@ionic-native/file';
+import { OrderAddPage } from '../pages/order-add/order-add';
+import { ModalAddItemPage } from '../pages/modal-add-item/modal-add-item';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { File } from '@ionic-native/file';
     InvoiceDetailsPage,
     OrderMgmtPage,
     OrderDetailsPage,
-    InvoiceListingSettingsPopoverPage
+    InvoiceListingSettingsPopoverPage,
+    OrderAddPage,
+    ModalAddItemPage
   ],
   imports: [
     BrowserModule,
@@ -85,7 +89,9 @@ import { File } from '@ionic-native/file';
     InvoiceDetailsPage,
     OrderMgmtPage,
     OrderDetailsPage,
-    InvoiceListingSettingsPopoverPage
+    InvoiceListingSettingsPopoverPage,
+    OrderAddPage,
+    ModalAddItemPage
   ],
   providers: [
     StatusBar,

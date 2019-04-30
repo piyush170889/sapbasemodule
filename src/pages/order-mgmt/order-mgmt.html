@@ -19,7 +19,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content no-padding>
 
   <ion-searchbar [(ngModel)]="myInput" (ionChange)="onInput()" placeholder="Search By Customer Name, Order No.">
   </ion-searchbar>
@@ -81,7 +81,7 @@
       <ion-row>
         <ion-col col-6>
           <!-- <h5 class="pj-sub-title" *ngIf="orderDetails.createdByName != undefined">Created By - {{ orderDetails.createdByName }}</h5> -->
-          Qty - {{orderDetails.quantity}} Cum
+          Qty - {{orderDetails.quantity}}
         </ion-col>
         <!-- <ion-col col-6>
           <button ion-button small color="primary" class="pj-date-and-status" *ngIf="orderDetails.orderStatus == 'PENDING'">
@@ -103,10 +103,10 @@
 
   </ion-card>
 
-  <!--<ion-fab bottom right>
+  <ion-fab bottom right>
     <button class="add-button" color="primary" ion-fab (click)="naviagteToOrderCreatePage()">
           <ion-icon name="add"></ion-icon>
       </button>
-  </ion-fab>-->
+  </ion-fab>
 
 </ion-content>
