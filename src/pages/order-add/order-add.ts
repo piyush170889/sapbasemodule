@@ -118,7 +118,7 @@ export class OrderAddPage {
         cardCode: this.customer.customerDetails.cardCode,
         cardName: this.customer.customerDetails.cardName,
         shipToCode: this.customer.customerAddressesList[this.custAddress].address,
-        items: this.orderItemsList
+        itemsList: this.orderItemsList
       }
 
       console.log('orderData = ' + JSON.stringify(orderData));
@@ -132,7 +132,7 @@ export class OrderAddPage {
 
               console.log('Response = ' + JSON.stringify(response.response));
               this.navCtrl.setRoot(OrderMgmtPage);
-              this.commonUtility.presentToast('Successfully Placed Order', 5000);
+              this.commonUtility.presentToast('Successfully Booked Order', 5000);
             }
           );
       }

@@ -37,49 +37,49 @@ export class CommonUtilityProvider {
 
     isNetworkAvailableFlag: boolean = true;
 
-    isNetworkAvailable() {
+    // isNetworkAvailable() {
 
-        if (!this.isNetworkAvailableFlag) {
-            let alert = this.alertCtrl.create({
-                subTitle: 'No Internet Connection',
-                enableBackdropDismiss: false,
-                buttons: [
-                    {
-                        text: 'OK',
-                        handler: () => {
-                            this.isNetworkAvailable();
-                        }
-                    }
-                ]
-            });
-            alert.present();
-        }
+    //     if (!this.isNetworkAvailableFlag) {
+    //         let alert = this.alertCtrl.create({
+    //             subTitle: 'No Internet Connection',
+    //             enableBackdropDismiss: false,
+    //             buttons: [
+    //                 {
+    //                     text: 'OK',
+    //                     handler: () => {
+    //                         this.isNetworkAvailable();
+    //                     }
+    //                 }
+    //             ]
+    //         });
+    //         alert.present();
+    //     }
 
-        return this.isNetworkAvailableFlag;
-    }
+    //     return this.isNetworkAvailableFlag;
+    // }
 
 
-    //    isNetworkAvailable() {
-    //     if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
-    //       let alert = this.alertCtrl.create({
-    //           subTitle: 'No Internet Connection',
-    //           enableBackdropDismiss: false ,
-    //           buttons: [
-    //                   {
-    //                       text: 'OK',
-    //                       handler: () => {
-    //                           this.isNetworkAvailable();
-    //                       }
-    //                   }
-    //               ]
-    //           });
-    //           alert.present();
-    //           return false;
-    //       } else {
-    //           return true;
-    //       }  
+       isNetworkAvailable() {
+        if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
+          let alert = this.alertCtrl.create({
+              subTitle: 'No Internet Connection',
+              enableBackdropDismiss: false ,
+              buttons: [
+                      {
+                          text: 'OK',
+                          handler: () => {
+                              this.isNetworkAvailable();
+                          }
+                      }
+                  ]
+              });
+              alert.present();
+              return false;
+          } else {
+              return true;
+          }  
 
-    //   }
+      }
 
     createLoader(message: string = "Please wait...") { // Optional Parameter
         return this.loadingCtrl.create({
