@@ -1,14 +1,14 @@
 webpackJsonp([7],{
 
-/***/ 835:
+/***/ 862:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ContactUpdatePageModule", function() { return ContactUpdatePageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalAuAdminUsersPageModule", function() { return ModalAuAdminUsersPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__contact_update__ = __webpack_require__(423);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modal_au_admin_users__ = __webpack_require__(225);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var ContactUpdatePageModule = /** @class */ (function () {
-    function ContactUpdatePageModule() {
+var ModalAuAdminUsersPageModule = /** @class */ (function () {
+    function ModalAuAdminUsersPageModule() {
     }
-    ContactUpdatePageModule = __decorate([
+    ModalAuAdminUsersPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__contact_update__["a" /* ContactUpdatePage */],
+                __WEBPACK_IMPORTED_MODULE_2__modal_au_admin_users__["a" /* ModalAuAdminUsersPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__contact_update__["a" /* ContactUpdatePage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__modal_au_admin_users__["a" /* ModalAuAdminUsersPage */]),
             ],
         })
-    ], ContactUpdatePageModule);
-    return ContactUpdatePageModule;
+    ], ModalAuAdminUsersPageModule);
+    return ModalAuAdminUsersPageModule;
 }());
 
-//# sourceMappingURL=contact-update.module.js.map
+//# sourceMappingURL=modal-au-admin-users.module.js.map
 
 /***/ })
 

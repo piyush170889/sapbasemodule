@@ -40,6 +40,7 @@ import { File } from '@ionic-native/file';
 import { OrderAddPage } from '../pages/order-add/order-add';
 import { ModalAddItemPage } from '../pages/modal-add-item/modal-add-item';
 import { IonicSelectableModule } from 'ionic-selectable';
+import { Diagnostic } from "@ionic-native/diagnostic";
 
 @NgModule({
   declarations: [
@@ -111,7 +112,9 @@ import { IonicSelectableModule } from 'ionic-selectable';
     LocationTrackerProvider,
     SocialSharing,
     FileOpener,
-    File
+    File,
+    LocationTrackerProvider,
+    Diagnostic
   ]
 })
 export class AppModule { }
