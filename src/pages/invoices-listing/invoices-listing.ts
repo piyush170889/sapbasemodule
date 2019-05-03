@@ -331,10 +331,8 @@ export class InvoicesListingPage {
       this.file.writeFile(this.file.dataDirectory, fileName, blob, { replace: true }).then(fileEntry => {
 
         // Open the PDf with the correct OS tools
-        // this.fileOpener.open(this.file.dataDirectory + 'myletter.pdf', 'application/pdf');
-        this.pdf = this.file.dataDirectory + fileName;
-
-        this.share();
+        this.fileOpener.open(this.file.dataDirectory + fileName, 'application/pdf');
+        // this.pdf = this.file.dataDirectory + fileName;
       })
     });
   }

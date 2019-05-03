@@ -55,10 +55,6 @@ export class OrderMgmtPage {
         (response) => {
           console.log('Response = ' + JSON.stringify(response));
 
-          // this.orderDetailsList = response.response;
-          // this.originalOrdersList = this.orderDetailsList;
-
-          // TODO: Uncomment Below Lines And Comment Above Ones
           this.orderDetailsList = response.response.orderDetailsList;
           this.bookedOrderCount = response.response.bookedOrderCount;
         }

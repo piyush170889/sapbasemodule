@@ -30,7 +30,7 @@
   </div>
 
 
-  <ion-card (click)="openBookedOrders()">
+  <ion-card (click)="openBookedOrders()" *ngIf="null == customer || customer == undefined">
 
     <ion-card-header>
       <ion-row>
