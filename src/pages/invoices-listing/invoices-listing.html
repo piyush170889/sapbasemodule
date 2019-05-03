@@ -34,6 +34,18 @@
     </ion-col>
   </ion-row>
 
+
+  <ion-row>
+    <ion-col col-4></ion-col>
+    <ion-col style="font-size:1.3em" col-2 (click)="callCust()" *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != ''">
+      <ion-icon name="md-call"></ion-icon>
+    </ion-col>
+    <ion-col style="font-size:1.3em" col-2 (click)="viewCustInfo()">
+      <ion-icon name="ios-information-circle-outline"></ion-icon>
+    </ion-col>
+    <ion-col col-4></ion-col>
+  </ion-row>
+
   <ion-row padding>
     <ion-col col-12 text-center>
       <strong><span style="font-size:4rem;"><i class="fa fa-rupee"></i> {{agingAmount}}</span></strong>
@@ -90,8 +102,10 @@
             date: 'dd MMM'}}</span>
         </ion-col>
         <ion-col col-3>
-          <p *ngIf="invoice.isPaid != 'O' && invoice.type == 'A/R Inv'" class="pj-paid-inv"><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p>
-          <p *ngIf="invoice.isPaid == 'O' && invoice.type == 'A/R Inv'" class="pj-unpaid-inv"><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p>
+          <p *ngIf="invoice.isPaid != 'O' && invoice.type == 'A/R Inv'" class="pj-paid-inv"><i class="fa fa-rupee"></i>
+            {{invoice.grossTotal}}</p>
+          <p *ngIf="invoice.isPaid == 'O' && invoice.type == 'A/R Inv'" class="pj-unpaid-inv"><i class="fa fa-rupee"></i>
+            {{invoice.grossTotal}}</p>
           <p *ngIf="invoice.type != 'A/R Inv'"><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p>
           <span class="pj-bill-status">{{invoice.type}}</span>
         </ion-col>

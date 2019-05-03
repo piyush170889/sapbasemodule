@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Modal, ModalController } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { FileOpener } from '@ionic-native/file-opener';
 import { File } from '@ionic-native/file';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { DatePipe } from '@angular/common';
+import { CustomerDetailsPage } from '../customer-details/customer-details';
+import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
 
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -37,7 +39,9 @@ export class InvoiceDetailsPage {
     public navParams: NavParams,
     public file: File,
     public fileOpener: FileOpener,
-    public socialSharing: SocialSharing) {
+    public socialSharing: SocialSharing,
+    private modal: ModalController,
+    private commonUtility: CommonUtilityProvider) {
 
     this.customer = this.navParams.get('customer');
     this.fromDate = this.navParams.get('fromDate');
@@ -309,5 +313,22 @@ export class InvoiceDetailsPage {
       ['', 'Round Off', '', '', '', '%', '', '-0.01'],
       ['', 'Total', '', '200', '', '', '', '56420'],
     ]
+  }
+
+
+  callCust() {
+
+    console.log('Calling Customer on : ' + this.customer.customerDetails.cellular);
+    this.commonUtility.callNumber(this.customer.customerDetails.cellular, true);
+  }
+
+  viewCustInfo() {
+
+    let customerDetailsModal: Modal = this.modal.create(CustomerDetailsPage, {
+      customer: this.customer,
+      isModalData: true
+    });
+
+    customerDetailsModal.present();
   }
 }

@@ -41,6 +41,8 @@ import { OrderAddPage } from '../pages/order-add/order-add';
 import { ModalAddItemPage } from '../pages/modal-add-item/modal-add-item';
 import { IonicSelectableModule } from 'ionic-selectable';
 import { Diagnostic } from "@ionic-native/diagnostic";
+import { CallNumber } from '@ionic-native/call-number';
+import { OrdersBookedPage } from '../pages/orders-booked/orders-booked';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,8 @@ import { Diagnostic } from "@ionic-native/diagnostic";
     OrderDetailsPage,
     InvoiceListingSettingsPopoverPage,
     OrderAddPage,
-    ModalAddItemPage
+    ModalAddItemPage,
+    OrdersBookedPage
   ],
   imports: [
     BrowserModule,
@@ -94,7 +97,8 @@ import { Diagnostic } from "@ionic-native/diagnostic";
     OrderDetailsPage,
     InvoiceListingSettingsPopoverPage,
     OrderAddPage,
-    ModalAddItemPage
+    ModalAddItemPage,
+    OrdersBookedPage
   ],
   providers: [
     StatusBar,
@@ -114,7 +118,8 @@ import { Diagnostic } from "@ionic-native/diagnostic";
     FileOpener,
     File,
     LocationTrackerProvider,
-    Diagnostic
+    Diagnostic,
+    CallNumber
   ]
 })
 export class AppModule { }

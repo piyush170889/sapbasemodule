@@ -57,6 +57,7 @@ export class ConstantsProvider {
   public static API_ENDPOINT_AGING_REPORT = "aging-report";
   public static API_ENDPOINT_LEDGER_REPORT = "ledger-report";
   public static API_ENDPOINT_ITEM_DTLS = "items";
+  public static API_ENDPOINT_BOOKED_ORDERS = "booked-orders";
 
   //Master Data JSON key names
   public static MD_UOM = "uom";

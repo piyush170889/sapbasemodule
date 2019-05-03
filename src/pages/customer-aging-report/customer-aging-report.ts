@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Modal, ModalController } from 'ionic-angular';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
 import { ConstantsProvider } from '../../providers/constants/constants';
 import { InvoicesListingPage } from '../invoices-listing/invoices-listing';
+import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
+import { CustomerDetailsPage } from '../customer-details/customer-details';
+import { CallNumber } from '@ionic-native/call-number';
 
 /**
  * Generated class for the CustomerAgingReportPage page.
@@ -29,7 +32,10 @@ export class CustomerAgingReportPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private restService: RestserviceProvider) {
+    private restService: RestserviceProvider,
+    private commonUtility: CommonUtilityProvider,
+    private modal: ModalController,
+    private callNumberNative: CallNumber) {
 
     this.customer = this.navParams.get('customer');
     this.fromDate = this.navParams.get('fromDate');
@@ -106,5 +112,22 @@ export class CustomerAgingReportPage {
       agingAmount: agingAmount
     })
 
+  }
+
+
+  callCust() {
+
+    console.log('Calling Customer on : ' + this.customer.customerDetails.cellular);
+    this.commonUtility.callNumber(this.customer.customerDetails.cellular, true);
+  }
+
+  viewCustInfo() {
+
+    let customerDetailsModal: Modal = this.modal.create(CustomerDetailsPage, {
+      customer: this.customer,
+      isModalData: true
+    });
+
+    customerDetailsModal.present();
   }
 }

@@ -195,9 +195,18 @@ export class CustomerMgmtPage {
         }
       } else {
         this.navCtrl.push(CustomerDetailsPage, {
-          customer: customer
+          customer: customer,
+          isModalData: false
         });
       }
     }
   }
+
+
+  callCust(customer) {
+
+    console.log('Calling Customer on : ' + customer.customerDetails.cellular);
+    this.commonUtility.callNumber(customer.customerDetails.cellular, true);
+  }
+
 }

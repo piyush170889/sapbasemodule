@@ -5,6 +5,7 @@ import { OrderDetailsPage } from "../order-details/order-details";
 import { ConstantsProvider } from "../../providers/constants/constants";
 import { RestserviceProvider } from '../../providers/restservice/restservice';
 import { CustomerMgmtPage } from '../customer-mgmt/customer-mgmt';
+import { OrdersBookedPage } from '../orders-booked/orders-booked';
 
 /**
  * Generated class for the OrderMgmtPage page.
@@ -26,6 +27,8 @@ export class OrderMgmtPage {
   customer: any = null;
   myInput: string = '';
   originalOrdersList: any[] = [];
+  bookedOrderCount: number = 10;
+
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -51,8 +54,13 @@ export class OrderMgmtPage {
       .subscribe(
         (response) => {
           console.log('Response = ' + JSON.stringify(response));
-          this.orderDetailsList = response.response;
-          this.originalOrdersList = this.orderDetailsList;
+
+          // this.orderDetailsList = response.response;
+          // this.originalOrdersList = this.orderDetailsList;
+
+          // TODO: Uncomment Below Lines And Comment Above Ones
+          this.orderDetailsList = response.response.orderDetailsList;
+          this.bookedOrderCount = response.response.bookedOrderCount;
         }
       );
   }
@@ -107,6 +115,18 @@ export class OrderMgmtPage {
       console.log('Customers List Length = ' + this.orderDetailsList.length);
     } else {
       this.orderDetailsList = this.originalOrdersList;
+    }
+  }
+
+  openBookedOrders() {
+
+    console.log('openBookedOrders OrderMgmtPage');
+    if (this.bookedOrderCount > 0) {
+      if (this.commonUtility.isNetworkAvailable()) {
+        this.navCtrl.push(OrdersBookedPage);
+      }
+    } else {
+      this.commonUtility.presentErrorToast('No Booked Orders To Show');
     }
   }
 }
