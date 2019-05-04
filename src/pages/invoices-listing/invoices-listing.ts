@@ -69,40 +69,47 @@ export class InvoicesListingPage {
     this.fromDate = this.navParams.get('fromDate');
     this.noOfDays = this.navParams.get('noOfDays');
     this.agingAmount = this.navParams.get('agingAmount');
+    
+    this.invoicesListing = this.navParams.get('invoicesListing');
+    this.updateInvoicesDetailsFromInvoiceListing();
 
-    let invoiceListingApiEndpoint: string = ConstantsProvider.API_BASE_URL + ConstantsProvider.API_ENDPOINT_CUST_DTLS
-      + ConstantsProvider.URL_SEPARATOR + this.customer.customerDetails.cardCode
-      + ConstantsProvider.URL_SEPARATOR + "invoices?due-date=" + this.fromDate + "&no-of-days=" + this.noOfDays;
+    // let invoiceListingApiEndpoint: string = ConstantsProvider.API_BASE_URL + ConstantsProvider.API_ENDPOINT_CUST_DTLS
+    //   + ConstantsProvider.URL_SEPARATOR + this.customer.customerDetails.cardCode
+    //   + ConstantsProvider.URL_SEPARATOR + "invoices?due-date=" + this.fromDate + "&no-of-days=" + this.noOfDays;
 
-    console.log('invoiceListingApiEndpoint = ' + invoiceListingApiEndpoint);
+    // console.log('invoiceListingApiEndpoint = ' + invoiceListingApiEndpoint);
 
-    this.restService.getDetails(invoiceListingApiEndpoint)
-      .subscribe(
-        (response) => {
-          this.invoicesListing = response.response;
-          console.log('Response = ' + JSON.stringify(this.invoicesListing));
+    // this.restService.getDetails(invoiceListingApiEndpoint)
+    //   .subscribe(
+    //     (response) => {
+    //       this.invoicesListing = response.response;
+    //       console.log('Response = ' + JSON.stringify(this.invoicesListing));
 
-          let indexToSplice: any = null;
+    //       this.updateInvoicesDetailsFromInvoiceListing();
+    //     }
+    //   );
+  }
 
-          this.invoicesListing.forEach(
-            (invoice) => {
-              console.log('Invoice Date = ' + JSON.stringify(invoice));
-              if (invoice.type != 'OB')
-                this.totalInvoiceBalance = this.totalInvoiceBalance + Number.parseFloat(invoice.grossTotal);
-              else {
-                this.openingBalanceInvoice = invoice;
-                indexToSplice = this.invoicesListing.indexOf(invoice);
-              }
-            }
-          );
+  updateInvoicesDetailsFromInvoiceListing() {
+    let indexToSplice: any = null;
 
-          console.log('indexToSplice = ' + indexToSplice + ', openingBalanceInvoice = '
-            + JSON.stringify(this.openingBalanceInvoice) + ', totalInvoiceBalance = ' + this.totalInvoiceBalance);
-
-          if (indexToSplice != null)
-            this.invoicesListing.splice(indexToSplice, 1);
+    this.invoicesListing.forEach(
+      (invoice) => {
+        console.log('Invoice Date = ' + JSON.stringify(invoice));
+        if (invoice.type != 'OB')
+          this.totalInvoiceBalance = this.totalInvoiceBalance + Number.parseFloat(invoice.grossTotal);
+        else {
+          this.openingBalanceInvoice = invoice;
+          indexToSplice = this.invoicesListing.indexOf(invoice);
         }
-      );
+      }
+    );
+
+    console.log('indexToSplice = ' + indexToSplice + ', openingBalanceInvoice = '
+      + JSON.stringify(this.openingBalanceInvoice) + ', totalInvoiceBalance = ' + this.totalInvoiceBalance);
+
+    if (indexToSplice != null)
+      this.invoicesListing.splice(indexToSplice, 1);
   }
 
   ionViewDidLoad() {

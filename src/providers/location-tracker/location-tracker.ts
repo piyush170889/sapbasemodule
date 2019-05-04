@@ -155,8 +155,11 @@ export class LocationTrackerProvider {
 
         this.lat = latitude;
         this.lng = longitude;
+        // let userDetails: any = JSON.parse(localStorage.getItem('userDetails') == undefined || localStorage.getItem('userDetails') == null ? '{}' : localStorage.getItem('userDetails'));
+        let userDetails: any = JSON.parse(localStorage.getItem('userDetails'));
+
         let body: any = {
-            "imei": "PiyushFront",
+            "imei": userDetails.userDtl.userDtlsId,
             "latitude": this.lat,
             "longitude": this.lng,
             "utcDt": new DatePipe('en-US').transform(new Date(), 'ddMMyy'),

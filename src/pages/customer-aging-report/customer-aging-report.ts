@@ -28,14 +28,18 @@ export class CustomerAgingReportPage {
   // agingReportList: any[] = [];
   agingReportDetails: any = {};
   fromDate: string;
-  // noOfDays: string;
+
+  firstQInvoicesList: any[] = [];
+  secondQInvoicesList: any[] = [];
+  thirdQInvoicesList: any[] = [];
+  fourthQInvoicesList: any[] = [];
+  otherQInvoicesList: any[] = [];
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private restService: RestserviceProvider,
     private commonUtility: CommonUtilityProvider,
-    private modal: ModalController,
-    private callNumberNative: CallNumber) {
+    private modal: ModalController) {
 
     this.customer = this.navParams.get('customer');
     this.fromDate = this.navParams.get('fromDate');
@@ -56,7 +60,13 @@ export class CustomerAgingReportPage {
 
           console.log('Response = ' + JSON.stringify(response.response));
           // this.agingReportList = response.response;
-          this.agingReportDetails = response.response;
+          this.agingReportDetails = response.response.agingDetails;
+
+          this.firstQInvoicesList = response.response.firstQInvoicesList;
+          this.secondQInvoicesList = response.response.secondQInvoicesList;
+          this.thirdQInvoicesList = response.response.thirdQInvoicesList;
+          this.fourthQInvoicesList = response.response.fourthQInvoicesList;
+          this.otherQInvoicesList = response.response.otherQInvoicesList;
         }
       )
   }
@@ -78,39 +88,52 @@ export class CustomerAgingReportPage {
     console.log('viewBills CustomerAgingReportPage');
 
     let agingAmount: number = 0;
+    let invoicesListToPass: any[] = [];
+
     switch (noOfDays) {
 
       case '-30':
         console.log('Here in ' + noOfDays);
         agingAmount = this.agingReportDetails.firstQ;
+        invoicesListToPass = this.firstQInvoicesList;
         break;
 
       case '-60':
-        agingAmount = this.agingReportDetails.secondQ
+        agingAmount = this.agingReportDetails.secondQ;
+        invoicesListToPass = this.secondQInvoicesList;
         break;
 
       case '-90':
-        agingAmount = this.agingReportDetails.thirdQ
+        agingAmount = this.agingReportDetails.thirdQ;
+        invoicesListToPass = this.thirdQInvoicesList;
         break;
 
       case '-120':
-        agingAmount = this.agingReportDetails.fourthQ
+        agingAmount = this.agingReportDetails.fourthQ;
+        invoicesListToPass = this.fourthQInvoicesList;
         break;
 
       case '-365':
-        agingAmount = this.agingReportDetails.otherQ
+        agingAmount = this.agingReportDetails.otherQ;
+        invoicesListToPass = this.otherQInvoicesList;
         break;
 
     }
 
-    console.log('fromDate = ' + this.fromDate + ', noOfDays = ' + noOfDays + ", agingAmount = " + agingAmount);
+    console.log('fromDate = ' + this.fromDate + ', noOfDays = ' + noOfDays + ", agingAmount = " + agingAmount 
+    + ', invoicesListToPass = ' + JSON.stringify(invoicesListToPass));
 
-    this.navCtrl.push(InvoicesListingPage, {
-      customer: this.customer,
-      fromDate: this.fromDate,
-      noOfDays: noOfDays,
-      agingAmount: agingAmount
-    })
+    if (invoicesListToPass.length > 0) {
+      this.navCtrl.push(InvoicesListingPage, {
+        customer: this.customer,
+        fromDate: this.fromDate,
+        noOfDays: noOfDays,
+        agingAmount: agingAmount,
+        invoicesListing: invoicesListToPass
+      });
+    } else {
+      this.commonUtility.presentErrorToast('No Aging Details Present To Show');
+    }
 
   }
 
