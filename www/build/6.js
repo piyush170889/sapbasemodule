@@ -1,14 +1,14 @@
 webpackJsonp([6],{
 
-/***/ 836:
+/***/ 863:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomerMgmtPageModule", function() { return CustomerMgmtPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderAddPageModule", function() { return OrderAddPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__customer_mgmt__ = __webpack_require__(127);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__order_add__ = __webpack_require__(223);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var CustomerMgmtPageModule = /** @class */ (function () {
-    function CustomerMgmtPageModule() {
+var OrderAddPageModule = /** @class */ (function () {
+    function OrderAddPageModule() {
     }
-    CustomerMgmtPageModule = __decorate([
+    OrderAddPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__customer_mgmt__["a" /* CustomerMgmtPage */],
+                __WEBPACK_IMPORTED_MODULE_2__order_add__["a" /* OrderAddPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__customer_mgmt__["a" /* CustomerMgmtPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__order_add__["a" /* OrderAddPage */]),
             ],
         })
-    ], CustomerMgmtPageModule);
-    return CustomerMgmtPageModule;
+    ], OrderAddPageModule);
+    return OrderAddPageModule;
 }());
 
-//# sourceMappingURL=customer-mgmt.module.js.map
+//# sourceMappingURL=order-add.module.js.map
 
 /***/ })
 

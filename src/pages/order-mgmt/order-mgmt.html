@@ -29,6 +29,28 @@
     <h4>No Orders To Show</h4>
   </div>
 
+
+  <ion-card (click)="openBookedOrders()" *ngIf="null == customer || customer == undefined">
+
+    <ion-card-header>
+      <ion-row>
+        <ion-col col-12 text-center>
+          <strong>Booked Orders</strong>
+        </ion-col>
+      </ion-row>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-row>
+        <ion-col col-12 text-center>
+          {{bookedOrderCount}}
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+
   <ion-card *ngFor="let orderDetails of orderDetailsList" (click)="openOrderDetails(orderDetails)">
 
     <ion-card-header>
@@ -105,8 +127,8 @@
 
   <ion-fab bottom right>
     <button class="add-button" color="primary" ion-fab (click)="naviagteToOrderCreatePage()">
-          <ion-icon name="add"></ion-icon>
-      </button>
+      <ion-icon name="add"></ion-icon>
+    </button>
   </ion-fab>
 
 </ion-content>

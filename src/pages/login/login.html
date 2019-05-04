@@ -7,51 +7,55 @@
 
 <ion-content padding>
 
-  <ion-grid>
+    <ion-grid>
 
-    <!-- Logo -->
-    <ion-row>
-      <ion-col col-12 padding class="logo">
-        <h4 text-center><span class="headline">DEMO APP</span></h4>
-      </ion-col>
-    </ion-row>
+        <!-- Logo -->
+        <ion-row>
+            <ion-col col-12 padding class="logo">
+                <h4 text-center><span class="headline">DEMO APP</span></h4>
+            </ion-col>
+        </ion-row>
 
-    <!-- Login Form -->
-    <form [formGroup]="credentials" style="margin-top:30%;">
+        <!-- Login Form -->
+        <form [formGroup]="credentials" style="margin-top:30%;">
 
-      <ion-row>
-        <ion-col col-12 padding>
-          <ion-item>
-            <!-- <ion-label floating class="pj-floating-label">Username</ion-label> -->
-            <button ion-button clear color="primary" style="font-size: 2rem;margin: 0;" type="button" item-right>
-                <ion-icon name="ios-person-outline"> </ion-icon>
-              </button>
-            <ion-input type="text" text-center placeholder="Username" formControlName="username"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
+            <ion-row>
+                <ion-col col-12 padding>
+                    <ion-item>
+                        <!-- <ion-label floating class="pj-floating-label">Username</ion-label> -->
+                        <button ion-button clear color="primary" style="font-size: 2rem;margin: 0;" type="button"
+                            item-right>
+                            <ion-icon name="ios-person-outline"> </ion-icon>
+                        </button>
+                        <ion-input type="text" text-center placeholder="Username" formControlName="username">
+                        </ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
 
-      <ion-row style="margin-bottom:8%;">
-        <ion-col col-12 padding>
-          <ion-item>
-            <!-- <ion-label floating class="pj-floating-label">Password</ion-label> -->
-            <ion-input type="password" text-center placeholder="Password" formControlName="password"></ion-input>
-            <button ion-button clear color="primary" style="font-size: 2rem;margin: 0;" type="button" item-right>
-              <ion-icon name="ios-lock-outline"> </ion-icon>
-            </button>
-          </ion-item>
-        </ion-col>
-      </ion-row>
+            <ion-row style="margin-bottom:8%;">
+                <ion-col col-12 padding>
+                    <ion-item>
+                        <!-- <ion-label floating class="pj-floating-label">Password</ion-label> -->
+                        <ion-input type="password" text-center placeholder="Password" formControlName="password">
+                        </ion-input>
+                        <button ion-button clear color="primary" style="font-size: 2rem;margin: 0;" type="button"
+                            item-right>
+                            <ion-icon name="ios-lock-outline"> </ion-icon>
+                        </button>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
 
-      <ion-row>
-        <ion-col col-12 padding>
-          <!-- <button ion-button class="pj-button" type="button" (click)="doLogin()" [disabled]="!credentials.valid">SIGN IN</button> -->
-          <button ion-button class="pj-button" type="button" (click)="doLogin()">SIGN IN</button>
-        </ion-col>
-      </ion-row>
+            <ion-row>
+                <ion-col col-12 padding>
+                    <!-- <button ion-button class="pj-button" type="button" (click)="doLogin()" [disabled]="!credentials.valid">SIGN IN</button> -->
+                    <button ion-button class="pj-button" type="button" (click)="doLogin()">SIGN IN</button>
+                </ion-col>
+            </ion-row>
 
-    </form>
+        </form>
 
-  </ion-grid>
+    </ion-grid>
 
 </ion-content>

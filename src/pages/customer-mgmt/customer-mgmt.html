@@ -32,8 +32,8 @@
     <h4>No Customers To Show</h4>
   </div>
 
-  <ion-card  *ngIf="customersList.length>0 && (null == this.referrer 
-    || undefined == this.referrer || this.referrer == '')" >
+  <ion-card *ngIf="customersList.length>0 && (null == this.referrer 
+    || undefined == this.referrer || this.referrer == '')">
 
     <ion-card-header>
       <ion-row>
@@ -54,17 +54,26 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card *ngFor="let customer of customersList" (click)="viewCustomerDetails(customer)">
+  <ion-card *ngFor="let customer of customersList">
 
     <ion-card-header>
       <ion-row>
+        <ion-col col-11>
+          <strong>{{customer.customerDetails.cardCode}}</strong>
+        </ion-col>
+        <ion-col col-1 *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != ''"
+          (click)="callCust(customer)">
+          <ion-icon name="md-call"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row>
         <ion-col col-12>
-          <strong>{{customer.customerDetails.cardCode}} - {{customer.customerDetails.cardName}}</strong>
+          <strong>{{customer.customerDetails.cardName}}</strong>
         </ion-col>
       </ion-row>
     </ion-card-header>
 
-    <ion-card-content>
+    <ion-card-content (click)="viewCustomerDetails(customer)">
 
       <ion-row>
         <ion-col col-5>

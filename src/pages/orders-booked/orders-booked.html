@@ -1,0 +1,68 @@
+<!--
+  Generated template for the OrdersBookedPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="navbar">
+
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title text-center>Booked Orders</ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-padding>
+
+  <!-- <ion-searchbar [(ngModel)]="myInput" (ionChange)="onInput()" placeholder="Search By Customer Name, Order No.">
+  </ion-searchbar> -->
+
+  <div *ngIf="bookedOrdersList.length==0" class="pj-empty-page" style="margin-top: 40%;">
+    <ion-icon name="ios-cart-outline"></ion-icon>
+    <h4>No Booked Orders To Show</h4>
+  </div>
+
+  <ion-card *ngFor="let orderDetails of bookedOrdersList">
+
+    <ion-card-header>
+      <ion-row>
+        <ion-col col-4>
+          <strong>{{ orderDetails.appOrdrId }} </strong>
+        </ion-col>
+        <ion-col col-8>
+          <p class="pj-date-and-status" style="color: #ccc;">
+            {{ orderDetails.createdTs | date: 'dd MMM yyyy hh:mm a' }}
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-row>
+        <ion-col col-12>
+          <strong>{{ orderDetails.cardCode }} - {{ orderDetails.cardName }}</strong>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="orderDetails.itemsList.length > 0">
+        <h4 class="order-items">Order Items</h4>
+        <ion-col col-12 *ngFor="let items of orderDetails.itemsList">
+          <!-- <p style="border-bottom: 1px solid #cececc; color: #fff;"> -->
+          <p class="pj-date-and-status" style="color: #ccc; float: left; 
+          border-bottom: 1px solid #555;width: 100%; padding-bottom: 6px;">
+            {{items.itemCode }} - {{items.itemName}} <br />Quantity - {{items.qty}}
+          </p>
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

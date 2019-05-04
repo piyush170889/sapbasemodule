@@ -28,6 +28,17 @@
     </ion-col>
   </ion-row>
 
+  <ion-row>
+    <ion-col col-4></ion-col>
+    <ion-col style="font-size:1.3em" col-2 (click)="callCust()" *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != ''">
+      <ion-icon name="md-call"></ion-icon>
+    </ion-col>
+    <ion-col style="font-size:1.3em" col-2 (click)="viewCustInfo()">
+        <ion-icon name="ios-information-circle-outline"></ion-icon>
+      </ion-col>
+    <ion-col col-4></ion-col>
+  </ion-row>
+
   <ion-row padding>
     <ion-col col-12 text-center>
       <span style="font-size:4rem;"><strong><i class="fa fa-rupee"></i> {{customer.customerDetails.balance}}</strong></span>

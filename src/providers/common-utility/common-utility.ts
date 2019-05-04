@@ -4,9 +4,34 @@ import { HttpHeaders } from '@angular/common/http';
 import { Network } from "@ionic-native/network";
 import { ConstantsProvider } from '../constants/constants';
 import { DatePipe } from '@angular/common';
+import { CallNumber } from '@ionic-native/call-number';
 
 @Injectable()
 export class CommonUtilityProvider {
+
+    constructor(
+        private toastCtrl: ToastController,
+        private alertCtrl: AlertController,
+        public events: Events,
+        private loadingCtrl: LoadingController,
+        private network: Network,
+        private callNumberNative: CallNumber
+    ) {
+        console.log('Hello CommonUtilityProvider Provider');
+    }
+
+    callNumber(numberToCall: any, bypassAppChooser: boolean) {
+        // this.callNumberNative.isCallSupported()
+        //     .then(function (response) {
+        //         if (response == true) {
+        //             this.callNumberNative.callNumber(numberToCall, bypassAppChooser);
+        //         }
+        //         else {
+        //             this.presentErrorToast('No Calling Service Available');
+        //         }
+        //     });
+        this.callNumberNative.callNumber(numberToCall, bypassAppChooser);
+    }
 
     hasRoleInArray(rolesArray: string[], role: string): any {
 
@@ -25,61 +50,51 @@ export class CommonUtilityProvider {
         return isRolePresent;
     }
 
-    constructor(
-        private toastCtrl: ToastController,
-        private alertCtrl: AlertController,
-        public events: Events,
-        private loadingCtrl: LoadingController,
-        private network: Network
-    ) {
-        console.log('Hello CommonUtilityProvider Provider');
-    }
-
     isNetworkAvailableFlag: boolean = true;
 
-    // isNetworkAvailable() {
+    isNetworkAvailable() {
 
-    //     if (!this.isNetworkAvailableFlag) {
-    //         let alert = this.alertCtrl.create({
-    //             subTitle: 'No Internet Connection',
-    //             enableBackdropDismiss: false,
-    //             buttons: [
-    //                 {
-    //                     text: 'OK',
-    //                     handler: () => {
-    //                         this.isNetworkAvailable();
-    //                     }
-    //                 }
-    //             ]
-    //         });
-    //         alert.present();
-    //     }
+        if (!this.isNetworkAvailableFlag) {
+            let alert = this.alertCtrl.create({
+                subTitle: 'No Internet Connection',
+                enableBackdropDismiss: false,
+                buttons: [
+                    {
+                        text: 'OK',
+                        handler: () => {
+                            this.isNetworkAvailable();
+                        }
+                    }
+                ]
+            });
+            alert.present();
+        }
 
-    //     return this.isNetworkAvailableFlag;
-    // }
+        return this.isNetworkAvailableFlag;
+    }
 
 
-       isNetworkAvailable() {
-        if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
-          let alert = this.alertCtrl.create({
-              subTitle: 'No Internet Connection',
-              enableBackdropDismiss: false ,
-              buttons: [
-                      {
-                          text: 'OK',
-                          handler: () => {
-                              this.isNetworkAvailable();
-                          }
-                      }
-                  ]
-              });
-              alert.present();
-              return false;
-          } else {
-              return true;
-          }  
+    //    isNetworkAvailable() {
+    //     if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
+    //       let alert = this.alertCtrl.create({
+    //           subTitle: 'No Internet Connection',
+    //           enableBackdropDismiss: false ,
+    //           buttons: [
+    //                   {
+    //                       text: 'OK',
+    //                       handler: () => {
+    //                           this.isNetworkAvailable();
+    //                       }
+    //                   }
+    //               ]
+    //           });
+    //           alert.present();
+    //           return false;
+    //       } else {
+    //           return true;
+    //       }  
 
-      }
+    //   }
 
     createLoader(message: string = "Please wait...") { // Optional Parameter
         return this.loadingCtrl.create({

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Popover, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Popover, AlertController, Modal, ModalController } from 'ionic-angular';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
 import { InvoiceDetailsPage } from '../invoice-details/invoice-details';
 import { ConstantsProvider } from '../../providers/constants/constants';
@@ -12,6 +12,8 @@ import { File } from '@ionic-native/file';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { DatePipe } from '@angular/common';
+import { CustomerDetailsPage } from '../customer-details/customer-details';
+import { CallNumber } from '@ionic-native/call-number';
 
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -59,7 +61,9 @@ export class InvoicesListingPage {
     private commonUtility: CommonUtilityProvider,
     public file: File,
     public fileOpener: FileOpener,
-    public socialSharing: SocialSharing) {
+    public socialSharing: SocialSharing,
+    public modal: ModalController,
+    private callNumberNative: CallNumber) {
 
     this.customer = this.navParams.get('customer');
     this.fromDate = this.navParams.get('fromDate');
@@ -327,10 +331,8 @@ export class InvoicesListingPage {
       this.file.writeFile(this.file.dataDirectory, fileName, blob, { replace: true }).then(fileEntry => {
 
         // Open the PDf with the correct OS tools
-        // this.fileOpener.open(this.file.dataDirectory + 'myletter.pdf', 'application/pdf');
-        this.pdf = this.file.dataDirectory + fileName;
-
-        this.share();
+        this.fileOpener.open(this.file.dataDirectory + fileName, 'application/pdf');
+        // this.pdf = this.file.dataDirectory + fileName;
       })
     });
   }
@@ -343,5 +345,22 @@ export class InvoicesListingPage {
     }).catch((e) => {
       alert('Error : ' + JSON.stringify(e));
     });
+  }
+
+
+  callCust() {
+
+    console.log('Calling Customer on : ' + this.customer.customerDetails.cellular);
+    this.commonUtility.callNumber(this.customer.customerDetails.cellular, true);
+  }
+
+  viewCustInfo() {
+
+    let customerDetailsModal: Modal = this.modal.create(CustomerDetailsPage, {
+      customer: this.customer,
+      isModalData: true
+    });
+
+    customerDetailsModal.present();
   }
 }

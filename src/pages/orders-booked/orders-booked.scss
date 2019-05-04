@@ -1,0 +1,10 @@
+page-orders-booked {
+
+    .order-items {
+        border-bottom: 1px solid color($colors, primary, base) !important;
+        color: color($colors, primary, base) !important;
+        width: 100%;
+        font-weight: bold;
+        padding: 5px;
+    }
+}
