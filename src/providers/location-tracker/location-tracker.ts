@@ -28,51 +28,59 @@ export class LocationTrackerProvider {
         BackgroundGeolocation.configure({
             locationProvider: BackgroundGeolocation.ACTIVITY_PROVIDER,
             desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
-            stationaryRadius: 50,
-            distanceFilter: 50,
-            notificationTitle: 'Background tracking',
-            notificationText: 'enabled',
+            stationaryRadius: 10,
+            distanceFilter: 10,
             debug: false,
             interval: 100,
-            fastestInterval: 500,
+            notificationsEnabled: false,
+            stopOnTerminate: false,
+            fastestInterval: 100,
             activitiesInterval: 100,
-            /*  url: 'http://192.168.81.15:3000/location',
-             httpHeaders: {
-                 'X-FOO': 'bar'
-             },
-             // customize post properties
-             postTemplate: {
-                 lat: '@latitude',
-                 lon: '@longitude',
-                 foo: 'bar' // you can also add your own properties
-             } */
+            url: ConstantsProvider.API_BASE_URL + ConstantsProvider.LOCATION_TRACKING_URL,
+            syncUrl: ConstantsProvider.API_BASE_URL + ConstantsProvider.LOCATION_TRACKING_URL,
+            httpHeaders: {
+                'Content-Type': 'application/json',
+            },
+            // customize post properties
+            postTemplate: {
+                "imei": "PiyushBack",
+                "latitude": this.lat,
+                "longitude": this.lng,
+                "utcDt": '030619',
+                "utcTm": '030619',
+            }
         });
 
-        BackgroundGeolocation.on('location', function (location) {
+        let container = this;
+        BackgroundGeolocation.on('location', function (location: any) {
             // handle your locations here
             console.log('BackgroundGeolocation:  ' + location.latitude + ',' + location.longitude);
+            // this.updateLocationToServerBackground(location.latitude, location.longitude);
             // Update inside of Angular's zone
-            this.zone.run(() => {
+            /* this.zone.run(() => {
                 this.lat = location.latitude;
                 this.lng = location.longitude;
-
                 this.updateLocationToServerBackground(this.lat, this.lng);
-            });
+            }); */
 
             // to perform long running operation on iOS
             // you need to create background task
-            BackgroundGeolocation.startTask(function (taskKey) {
+            BackgroundGeolocation.startTask(function (taskKey: any) {
                 // execute long running task
                 // eg. ajax post location
                 // IMPORTANT: task has to be ended by endTask
-                // BackgroundGeolocation.endTask(taskKey);
+                container.updateLocationToServerBackground(location.latitude, location.longitude);
+                setTimeout(() => {
+                    BackgroundGeolocation.endTask(taskKey);
+                }, 2000);
             });
         });
 
         BackgroundGeolocation.on('stationary', function (stationaryLocation) {
             // handle stationary locations here
             console.log('stationaryLocation BackgroundGeolocation:  ' + stationaryLocation.latitude + ',' + stationaryLocation.longitude);
-            this.updateLocationToServerBackground(stationaryLocation.latitude, stationaryLocation.longitude);
+            container.updateLocationToServerBackground(stationaryLocation.latitude, stationaryLocation.longitude);
+            // this.updateLocationToServerBackground(stationaryLocation.latitude, stationaryLocation.longitude);
         });
 
         BackgroundGeolocation.on('error', function (error) {
@@ -82,7 +90,7 @@ export class LocationTrackerProvider {
         BackgroundGeolocation.on('background', function () {
             console.log('[INFO] App is in background');
             // you can also reconfigure service (changes will be applied immediately)
-            BackgroundGeolocation.configure({ debug: true });
+            BackgroundGeolocation.configure({ debug: false });
         });
 
         BackgroundGeolocation.on('foreground', function () {
@@ -126,7 +134,6 @@ export class LocationTrackerProvider {
     }
 
     updateLocationToServerBackground(latitude, longitude) {
-
         this.lat = latitude;
         this.lng = longitude;
         let body: any = {
@@ -136,16 +143,13 @@ export class LocationTrackerProvider {
             "utcDt": '030619',
             "utcTm": '030619',
         };
-
         this.restService.putLocationDetails(ConstantsProvider.API_BASE_URL
             + ConstantsProvider.LOCATION_TRACKING_URL, body).subscribe((response: any) => {
-                console.log('After Location send to server : ', response);
-
+                console.log('After Location send to server in background mode : ', response);
                 // const toast = this.toastCtrl.create({
                 //     message: 'Updated Location',
                 //     duration: 2000
                 // });
-
                 // toast.present();
             });
     }

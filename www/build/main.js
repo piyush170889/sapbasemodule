@@ -1,21 +1,109 @@
-webpackJsonp([21],{
+webpackJsonp([22],{
 
-/***/ 129:
+/***/ 13:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConstantsProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/*
+Generated class for the ConstantsProvider provider.
+
+See https://angular.io/guide/dependency-injection for more info on providers
+and Angular DI.
+*/
+var ConstantsProvider = /** @class */ (function () {
+    function ConstantsProvider(http) {
+        this.http = http;
+        console.log('Hello ConstantsProvider Provider');
+    }
+    ConstantsProvider_1 = ConstantsProvider;
+    //Common API Constants
+    // LOCAL
+    // public static API_BASE_URL: string = "http://192.168.2.5:8080/sapbasemodule/v1/";
+    //DEV
+    // public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapitest/v1/";
+    ConstantsProvider.API_BASE_URL = "http://67.211.220.180:8080/sapbaseapi/v1/";
+    // STAGING
+    //public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapitest/v1/";
+    // PRODUCTION
+    // public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapi/v1/";
+    //API Endpoints
+    ConstantsProvider.API_ENDPOINT_ACTIVATE_DEACTIVATE = "activate-deactivate";
+    ConstantsProvider.API_ENDPOINT_USERS = "users";
+    ConstantsProvider.API_ENDPOINT_TAGS = "tags";
+    ConstantsProvider.URL_SEPARATOR = "/";
+    ConstantsProvider.URL_PARAM_PAGE_NO = "pageNo=";
+    ConstantsProvider.API_ENDPOINT_OAUTH = "oauth/token";
+    ConstantsProvider.URL_PARAM_LIMIT = "&limit=";
+    ConstantsProvider.LOCATION_TRACKING_URL = "ext/location";
+    //API Endpoints
+    ConstantsProvider.API_ENDPOINT_ROLES = ConstantsProvider_1.API_ENDPOINT_USERS
+        + ConstantsProvider_1.URL_SEPARATOR + "roles";
+    ConstantsProvider.API_ENDPOINT_VERIFY_PSSWD = ConstantsProvider_1.API_ENDPOINT_USERS
+        + ConstantsProvider_1.URL_SEPARATOR + "validate-password";
+    ConstantsProvider.API_ENDPOINT_ORDERS = "orders";
+    ConstantsProvider.API_ENDPOINT_CHANGE_PASS = "change-password";
+    ConstantsProvider.API_ENDPOINT_ADMIN_USERS = "admin-users";
+    ConstantsProvider.API_ENDPOINT_TRACKING_HISTORY = 'tracking-history?track-date=';
+    ConstantsProvider.API_ENDPOINT_USER_CHNG_PWD = "user-change-password";
+    ConstantsProvider.API_ENDPOINT_CUST_DTLS = "customers";
+    ConstantsProvider.API_ENDPOINT_CUSTOMER_MGMT = 'customers' + '?' + ConstantsProvider_1.URL_PARAM_PAGE_NO;
+    ConstantsProvider.API_ENDPOINT_SEND_OTP = "send-otp";
+    ConstantsProvider.API_ENDPOINT_VERIFY_OTP = "verify-otp";
+    ConstantsProvider.API_ENDPOINT_AGING_REPORT = "aging-report";
+    ConstantsProvider.API_ENDPOINT_LEDGER_REPORT = "ledger-report";
+    ConstantsProvider.API_ENDPOINT_ITEM_DTLS = "items";
+    ConstantsProvider.API_ENDPOINT_BOOKED_ORDERS = "booked-orders";
+    //Master Data JSON key names
+    ConstantsProvider.MD_UOM = "uom";
+    //ROLES Constants
+    ConstantsProvider.ROLE_ADMIN = 'ROLE_ADMIN';
+    ConstantsProvider.ROLE_USER = 'ROLE_USER';
+    ConstantsProvider.ROLE_SALES = 'ROLE_SALES';
+    //CONFIG Constants
+    ConstantsProvider.SW_VER = '1.0.0';
+    ConstantsProvider.BASIC_AUTH_TOKEN = 'c2FwYmFzZW1vZHVsZTpzYXBiYXNlbW9kdWxlLXNlY3JldA==';
+    ConstantsProvider = ConstantsProvider_1 = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]])
+    ], ConstantsProvider);
+    return ConstantsProvider;
+    var ConstantsProvider_1;
+}());
+
+//# sourceMappingURL=constants.js.map
+
+/***/ }),
+
+/***/ 131:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthorizatonSettingsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_constants_constants__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__custom_base_component__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_common_utility_common_utility__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__change_password_change_password__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__customer_mgmt_customer_mgmt__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__admin_users_admin_users__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_diagnostic__ = __webpack_require__(110);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_location_tracker_location_tracker__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__custom_base_component__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__change_password_change_password__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__customer_mgmt_customer_mgmt__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__admin_users_admin_users__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_diagnostic__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_location_tracker_location_tracker__ = __webpack_require__(196);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -140,17 +228,17 @@ var AuthorizatonSettingsPage = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ 130:
+/***/ 132:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChangePasswordPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_restservice_restservice__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login__ = __webpack_require__(131);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_common_utility_common_utility__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_restservice_restservice__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_common_utility_common_utility__ = __webpack_require__(16);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -216,7 +304,7 @@ var ChangePasswordPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 131:
+/***/ 133:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -224,10 +312,10 @@ var ChangePasswordPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_common_utility_common_utility__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_restservice_restservice__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__authorizaton_settings_authorizaton_settings__ = __webpack_require__(129);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_diagnostic__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_restservice_restservice__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__authorizaton_settings_authorizaton_settings__ = __webpack_require__(131);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_diagnostic__ = __webpack_require__(112);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -321,104 +409,18 @@ var LoginPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 15:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConstantsProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-/*
-Generated class for the ConstantsProvider provider.
-
-See https://angular.io/guide/dependency-injection for more info on providers
-and Angular DI.
-*/
-var ConstantsProvider = /** @class */ (function () {
-    function ConstantsProvider(http) {
-        this.http = http;
-        console.log('Hello ConstantsProvider Provider');
-    }
-    ConstantsProvider_1 = ConstantsProvider;
-    //Common API Constants
-    // LOCAL
-    // public static API_BASE_URL: string = "http://192.168.2.5:8080/sapbasemodule/v1/";
-    //DEV
-    // public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapitest/v1/";
-    ConstantsProvider.API_BASE_URL = "http://67.211.220.180:8080/sapbaseapi/v1/";
-    // STAGING
-    //public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapitest/v1/";
-    // PRODUCTION
-    // public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapi/v1/";
-    //API Endpoints
-    ConstantsProvider.API_ENDPOINT_ACTIVATE_DEACTIVATE = "activate-deactivate";
-    ConstantsProvider.API_ENDPOINT_USERS = "users";
-    ConstantsProvider.API_ENDPOINT_TAGS = "tags";
-    ConstantsProvider.URL_SEPARATOR = "/";
-    ConstantsProvider.URL_PARAM_PAGE_NO = "pageNo=";
-    ConstantsProvider.API_ENDPOINT_OAUTH = "oauth/token";
-    ConstantsProvider.URL_PARAM_LIMIT = "&limit=";
-    ConstantsProvider.LOCATION_TRACKING_URL = "ext/location";
-    //API Endpoints
-    ConstantsProvider.API_ENDPOINT_ROLES = ConstantsProvider_1.API_ENDPOINT_USERS
-        + ConstantsProvider_1.URL_SEPARATOR + "roles";
-    ConstantsProvider.API_ENDPOINT_VERIFY_PSSWD = ConstantsProvider_1.API_ENDPOINT_USERS
-        + ConstantsProvider_1.URL_SEPARATOR + "validate-password";
-    ConstantsProvider.API_ENDPOINT_ORDERS = "orders";
-    ConstantsProvider.API_ENDPOINT_CHANGE_PASS = "change-password";
-    ConstantsProvider.API_ENDPOINT_ADMIN_USERS = "admin-users";
-    ConstantsProvider.API_ENDPOINT_TRACKING_HISTORY = 'tracking-history?track-date=';
-    ConstantsProvider.API_ENDPOINT_USER_CHNG_PWD = "user-change-password";
-    ConstantsProvider.API_ENDPOINT_CUST_DTLS = "customers";
-    ConstantsProvider.API_ENDPOINT_CUSTOMER_MGMT = 'customers' + '?' + ConstantsProvider_1.URL_PARAM_PAGE_NO;
-    ConstantsProvider.API_ENDPOINT_SEND_OTP = "send-otp";
-    ConstantsProvider.API_ENDPOINT_VERIFY_OTP = "verify-otp";
-    ConstantsProvider.API_ENDPOINT_AGING_REPORT = "aging-report";
-    ConstantsProvider.API_ENDPOINT_LEDGER_REPORT = "ledger-report";
-    ConstantsProvider.API_ENDPOINT_ITEM_DTLS = "items";
-    //Master Data JSON key names
-    ConstantsProvider.MD_UOM = "uom";
-    //ROLES Constants
-    ConstantsProvider.ROLE_ADMIN = 'ROLE_ADMIN';
-    ConstantsProvider.ROLE_USER = 'ROLE_USER';
-    ConstantsProvider.ROLE_SALES = 'ROLE_SALES';
-    //CONFIG Constants
-    ConstantsProvider.SW_VER = '1.0.0';
-    ConstantsProvider.BASIC_AUTH_TOKEN = 'c2FwYmFzZW1vZHVsZTpzYXBiYXNlbW9kdWxlLXNlY3JldA==';
-    ConstantsProvider = ConstantsProvider_1 = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]])
-    ], ConstantsProvider);
-    return ConstantsProvider;
-    var ConstantsProvider_1;
-}());
-
-//# sourceMappingURL=constants.js.map
-
-/***/ }),
-
-/***/ 18:
+/***/ 16:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CommonUtilityProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_network__ = __webpack_require__(377);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_constants__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_network__ = __webpack_require__(379);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_call_number__ = __webpack_require__(85);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -428,6 +430,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -435,15 +438,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var CommonUtilityProvider = /** @class */ (function () {
-    function CommonUtilityProvider(toastCtrl, alertCtrl, events, loadingCtrl, network) {
+    function CommonUtilityProvider(toastCtrl, alertCtrl, events, loadingCtrl, network, callNumberNative) {
         this.toastCtrl = toastCtrl;
         this.alertCtrl = alertCtrl;
         this.events = events;
         this.loadingCtrl = loadingCtrl;
         this.network = network;
+        this.callNumberNative = callNumberNative;
         this.isNetworkAvailableFlag = true;
         console.log('Hello CommonUtilityProvider Provider');
     }
+    CommonUtilityProvider.prototype.callNumber = function (numberToCall, bypassAppChooser) {
+        // this.callNumberNative.isCallSupported()
+        //     .then(function (response) {
+        //         if (response == true) {
+        //             this.callNumberNative.callNumber(numberToCall, bypassAppChooser);
+        //         }
+        //         else {
+        //             this.presentErrorToast('No Calling Service Available');
+        //         }
+        //     });
+        this.callNumberNative.callNumber(numberToCall, bypassAppChooser);
+    };
     CommonUtilityProvider.prototype.hasRoleInArray = function (rolesArray, role) {
         // console.log('rolesArray = ' + JSON.stringify(rolesArray));
         var isRolePresent = false;
@@ -457,27 +473,9 @@ var CommonUtilityProvider = /** @class */ (function () {
         }
         return isRolePresent;
     };
-    // isNetworkAvailable() {
-    //     if (!this.isNetworkAvailableFlag) {
-    //         let alert = this.alertCtrl.create({
-    //             subTitle: 'No Internet Connection',
-    //             enableBackdropDismiss: false,
-    //             buttons: [
-    //                 {
-    //                     text: 'OK',
-    //                     handler: () => {
-    //                         this.isNetworkAvailable();
-    //                     }
-    //                 }
-    //             ]
-    //         });
-    //         alert.present();
-    //     }
-    //     return this.isNetworkAvailableFlag;
-    // }
     CommonUtilityProvider.prototype.isNetworkAvailable = function () {
         var _this = this;
-        if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
+        if (!this.isNetworkAvailableFlag) {
             var alert_1 = this.alertCtrl.create({
                 subTitle: 'No Internet Connection',
                 enableBackdropDismiss: false,
@@ -491,12 +489,29 @@ var CommonUtilityProvider = /** @class */ (function () {
                 ]
             });
             alert_1.present();
-            return false;
         }
-        else {
-            return true;
-        }
+        return this.isNetworkAvailableFlag;
     };
+    //    isNetworkAvailable() {
+    //     if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
+    //       let alert = this.alertCtrl.create({
+    //           subTitle: 'No Internet Connection',
+    //           enableBackdropDismiss: false ,
+    //           buttons: [
+    //                   {
+    //                       text: 'OK',
+    //                       handler: () => {
+    //                           this.isNetworkAvailable();
+    //                       }
+    //                   }
+    //               ]
+    //           });
+    //           alert.present();
+    //           return false;
+    //       } else {
+    //           return true;
+    //       }  
+    //   }
     CommonUtilityProvider.prototype.createLoader = function (message) {
         if (message === void 0) { message = "Please wait..."; }
         return this.loadingCtrl.create({
@@ -612,7 +627,8 @@ var CommonUtilityProvider = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* LoadingController */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_native_network__["a" /* Network */]])
+            __WEBPACK_IMPORTED_MODULE_3__ionic_native_network__["a" /* Network */],
+            __WEBPACK_IMPORTED_MODULE_6__ionic_native_call_number__["a" /* CallNumber */]])
     ], CommonUtilityProvider);
     return CommonUtilityProvider;
 }());
@@ -621,13 +637,13 @@ var CommonUtilityProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 180:
+/***/ 182:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_constants_constants__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__);
 
 
@@ -912,19 +928,21 @@ var BaseComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 194:
+/***/ 196:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LocationTrackerProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_geolocation__ = __webpack_require__(399);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_geolocation__ = __webpack_require__(401);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(173);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter__ = __webpack_require__(314);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter__ = __webpack_require__(316);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__restservice_restservice__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_constants__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__restservice_restservice__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_common__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ionic_angular__ = __webpack_require__(10);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -940,11 +958,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var LocationTrackerProvider = /** @class */ (function () {
-    function LocationTrackerProvider(zone, geolocation, restService) {
+    function LocationTrackerProvider(zone, geolocation, restService, toastCtrl) {
         this.zone = zone;
         this.geolocation = geolocation;
         this.restService = restService;
+        this.toastCtrl = toastCtrl;
         this.lat = 0;
         this.lng = 0;
     }
@@ -953,41 +974,56 @@ var LocationTrackerProvider = /** @class */ (function () {
         BackgroundGeolocation.configure({
             locationProvider: BackgroundGeolocation.ACTIVITY_PROVIDER,
             desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
-            stationaryRadius: 50,
-            distanceFilter: 50,
-            notificationTitle: 'Background tracking',
-            notificationText: 'enabled',
+            stationaryRadius: 10,
+            distanceFilter: 10,
             debug: false,
             interval: 100,
-            fastestInterval: 500,
+            notificationsEnabled: false,
+            stopOnTerminate: false,
+            fastestInterval: 100,
             activitiesInterval: 100,
+            url: __WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].API_BASE_URL + __WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].LOCATION_TRACKING_URL,
+            syncUrl: __WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].API_BASE_URL + __WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].LOCATION_TRACKING_URL,
+            httpHeaders: {
+                'Content-Type': 'application/json',
+            },
+            // customize post properties
+            postTemplate: {
+                "imei": "PiyushBack",
+                "latitude": this.lat,
+                "longitude": this.lng,
+                "utcDt": '030619',
+                "utcTm": '030619',
+            }
         });
+        var container = this;
         BackgroundGeolocation.on('location', function (location) {
-            var _this = this;
             // handle your locations here
             console.log('BackgroundGeolocation:  ' + location.latitude + ',' + location.longitude);
+            // this.updateLocationToServerBackground(location.latitude, location.longitude);
             // Update inside of Angular's zone
-            this.zone.run(function () {
-                _this.lat = location.latitude;
-                _this.lng = location.longitude;
-                var newLocation = {
-                    lat: location.latitude,
-                    lng: location.longitude
-                };
-                // this.locations.push(newLocation);
-            });
+            /* this.zone.run(() => {
+                this.lat = location.latitude;
+                this.lng = location.longitude;
+                this.updateLocationToServerBackground(this.lat, this.lng);
+            }); */
             // to perform long running operation on iOS
             // you need to create background task
             BackgroundGeolocation.startTask(function (taskKey) {
                 // execute long running task
                 // eg. ajax post location
                 // IMPORTANT: task has to be ended by endTask
-                BackgroundGeolocation.endTask(taskKey);
+                container.updateLocationToServerBackground(location.latitude, location.longitude);
+                setTimeout(function () {
+                    BackgroundGeolocation.endTask(taskKey);
+                }, 2000);
             });
         });
         BackgroundGeolocation.on('stationary', function (stationaryLocation) {
             // handle stationary locations here
             console.log('stationaryLocation BackgroundGeolocation:  ' + stationaryLocation.latitude + ',' + stationaryLocation.longitude);
+            container.updateLocationToServerBackground(stationaryLocation.latitude, stationaryLocation.longitude);
+            // this.updateLocationToServerBackground(stationaryLocation.latitude, stationaryLocation.longitude);
         });
         BackgroundGeolocation.on('error', function (error) {
             console.log('[ERROR] BackgroundGeolocation error:', error.code, error.message);
@@ -995,7 +1031,7 @@ var LocationTrackerProvider = /** @class */ (function () {
         BackgroundGeolocation.on('background', function () {
             console.log('[INFO] App is in background');
             // you can also reconfigure service (changes will be applied immediately)
-            BackgroundGeolocation.configure({ debug: true });
+            BackgroundGeolocation.configure({ debug: false });
         });
         BackgroundGeolocation.on('foreground', function () {
             console.log('[INFO] App is in foreground');
@@ -1018,41 +1054,72 @@ var LocationTrackerProvider = /** @class */ (function () {
         });
         // Background tracking
         var options = {
-            frequency: 3000,
+            frequency: 15000,
             enableHighAccuracy: false
         };
-        this.watch = this.geolocation.watchPosition(options).filter(function (p) { return p.code === undefined; }).subscribe(function (position) {
+        this.watch = this.geolocation.watchPosition(options).filter(function (p) { return p.code === undefined; })
+            .subscribe(function (position) {
             console.log(position);
-            var newLocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            // this.locations2.push(newLocation);
             _this.zone.run(function () {
-                _this.lat = position.coords.latitude;
-                _this.lng = position.coords.longitude;
-                var body = {
-                    "imei": "aa523afa-d270-4775-bdf7-07622c12b268",
-                    "latitude": position.coords.latitude,
-                    "longitude": position.coords.longitude,
-                    "utcDt": "080419",
-                    "utcTm": "155600"
-                };
-                _this.restService.putLocationDetails(__WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].API_BASE_URL + __WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].LOCATION_TRACKING_URL, body).subscribe(function (response) {
-                    console.log('After Location send to server : ', response);
-                });
+                _this.updateLocationToServerForeground(position.coords.latitude, position.coords.longitude);
             });
         });
     };
+    LocationTrackerProvider.prototype.updateLocationToServerBackground = function (latitude, longitude) {
+        this.lat = latitude;
+        this.lng = longitude;
+        var body = {
+            "imei": "PiyushBack",
+            "latitude": this.lat,
+            "longitude": this.lng,
+            "utcDt": '030619',
+            "utcTm": '030619',
+        };
+        this.restService.putLocationDetails(__WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].API_BASE_URL
+            + __WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].LOCATION_TRACKING_URL, body).subscribe(function (response) {
+            console.log('After Location send to server in background mode : ', response);
+            // const toast = this.toastCtrl.create({
+            //     message: 'Updated Location',
+            //     duration: 2000
+            // });
+            // toast.present();
+        });
+    };
+    LocationTrackerProvider.prototype.updateLocationToServerForeground = function (latitude, longitude) {
+        this.lat = latitude;
+        this.lng = longitude;
+        var body = {
+            "imei": "PiyushFront",
+            "latitude": this.lat,
+            "longitude": this.lng,
+            "utcDt": new __WEBPACK_IMPORTED_MODULE_6__angular_common__["d" /* DatePipe */]('en-US').transform(new Date(), 'ddMMyy'),
+            "utcTm": new __WEBPACK_IMPORTED_MODULE_6__angular_common__["d" /* DatePipe */]('en-US').transform(new Date(), 'HHmmss'),
+        };
+        // alert('Sending Location To Server From Foreground');
+        this.restService.putLocationDetails(__WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].API_BASE_URL
+            + __WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].LOCATION_TRACKING_URL, body).subscribe(function (response) {
+            console.log('After Location send to server : ', response);
+            // const toast = this.toastCtrl.create({
+            //     message: 'Updated Location',
+            //     duration: 2000
+            // });
+            // toast.present();
+        });
+    };
     LocationTrackerProvider.prototype.stopTracking = function () {
-        BackgroundGeolocation.stop(); //triggers start on start event
-        this.watch.unsubscribe();
+        console.log('Logging Background');
+        console.log(JSON.stringify(typeof BackgroundGeolocation));
+        if ("undefined" != typeof BackgroundGeolocation) {
+            BackgroundGeolocation.stop(); //triggers start on start event
+            this.watch.unsubscribe();
+        }
     };
     LocationTrackerProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgZone */],
             __WEBPACK_IMPORTED_MODULE_1__ionic_native_geolocation__["a" /* Geolocation */],
-            __WEBPACK_IMPORTED_MODULE_4__restservice_restservice__["a" /* RestserviceProvider */]])
+            __WEBPACK_IMPORTED_MODULE_4__restservice_restservice__["a" /* RestserviceProvider */],
+            __WEBPACK_IMPORTED_MODULE_7_ionic_angular__["r" /* ToastController */]])
     ], LocationTrackerProvider);
     return LocationTrackerProvider;
 }());
@@ -1061,7 +1128,7 @@ var LocationTrackerProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 216:
+/***/ 218:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1069,7 +1136,7 @@ var LocationTrackerProvider = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__customer_aging_report_customer_aging_report__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__customer_aging_report_customer_aging_report__ = __webpack_require__(219);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1128,16 +1195,19 @@ var AgingReportFiltersPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 217:
+/***/ 219:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CustomerAgingReportPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_restservice_restservice__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__invoices_listing_invoices_listing__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_restservice_restservice__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__invoices_listing_invoices_listing__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__customer_details_customer_details__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_call_number__ = __webpack_require__(85);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1152,13 +1222,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
+
 var CustomerAgingReportPage = /** @class */ (function () {
     // noOfDays: string;
-    function CustomerAgingReportPage(navCtrl, navParams, restService) {
+    function CustomerAgingReportPage(navCtrl, navParams, restService, commonUtility, modal, callNumberNative) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.restService = restService;
+        this.commonUtility = commonUtility;
+        this.modal = modal;
+        this.callNumberNative = callNumberNative;
         // agingReportList: any[] = [];
         this.agingReportDetails = {};
         this.customer = this.navParams.get('customer');
@@ -1214,13 +1290,27 @@ var CustomerAgingReportPage = /** @class */ (function () {
             agingAmount: agingAmount
         });
     };
+    CustomerAgingReportPage.prototype.callCust = function () {
+        console.log('Calling Customer on : ' + this.customer.customerDetails.cellular);
+        this.commonUtility.callNumber(this.customer.customerDetails.cellular, true);
+    };
+    CustomerAgingReportPage.prototype.viewCustInfo = function () {
+        var customerDetailsModal = this.modal.create(__WEBPACK_IMPORTED_MODULE_6__customer_details_customer_details__["a" /* CustomerDetailsPage */], {
+            customer: this.customer,
+            isModalData: true
+        });
+        customerDetailsModal.present();
+    };
     CustomerAgingReportPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-customer-aging-report',template:/*ion-inline-start:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/customer-aging-report/customer-aging-report.html"*/'<!--\n  Generated template for the CustomerAgingReportPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar color="navbar" text-center>\n\n    <ion-title>\n      Customer Aging Report\n    </ion-title>\n\n    <!-- <ion-buttons end>\n      <button (click)="downloadReport()" ion-button item-end style="background-color: #1c2431; font-size: 25px;">\n        <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>\n      </button>\n    </ion-buttons> -->\n\n  </ion-navbar>\n</ion-header>\n\n<ion-content no-padding>\n\n  <ion-row padding>\n    <ion-col col-12 text-center>\n      <strong>{{customer.customerDetails.cardCode}} - {{customer.customerDetails.cardName}}</strong>\n    </ion-col>\n  </ion-row>\n\n  <ion-row padding>\n    <ion-col col-12 text-center>\n      <span style="font-size:4rem;"><strong><i class="fa fa-rupee"></i> {{customer.customerDetails.balance}}</strong></span>\n      <p style="color:#AFAFAF;font-size:10px;">(Balance As Of {{fromDate | date : \'dd MMM yy\'}})</p>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-10 class="pj-full-width-border" no-margin>\n      <ion-label>0 - 30 Days</ion-label>\n    </ion-col>\n    <ion-col col-2 (click)="viewBills(\'-30\')" class="pj-full-width-border" no-margin style="padding-top: 5%;">\n      <ion-icon color="primary" name="arrow-forward"></ion-icon>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-12>\n      <p text-center style="color: #fff;font-size: 4rem;"><i class="fa fa-rupee"></i> {{agingReportDetails.firstQ}}</p>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-10 class="pj-full-width-border" no-margin>\n      <ion-label>31 - 60 Days</ion-label>\n    </ion-col>\n    <ion-col col-2 (click)="viewBills(\'-60\')" class="pj-full-width-border" no-margin style="padding-top: 5%;">\n      <ion-icon color="primary" name="arrow-forward"></ion-icon>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-12>\n      <p text-center style="color: #fff;font-size: 4rem;"><i class="fa fa-rupee"></i> {{agingReportDetails.secondQ}}</p>\n    </ion-col>\n  </ion-row>\n\n\n  <ion-row>\n    <ion-col col-10 class="pj-full-width-border" no-margin>\n      <ion-label>61 - 90 Days</ion-label>\n    </ion-col>\n    <ion-col col-2 (click)="viewBills(\'-90\')" class="pj-full-width-border" no-margin style="padding-top: 5%;">\n      <ion-icon color="primary" name="arrow-forward"></ion-icon>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-12>\n      <p text-center style="color: #fff;font-size: 4rem;"><i class="fa fa-rupee"></i> {{agingReportDetails.thirdQ}}</p>\n    </ion-col>\n  </ion-row>\n\n\n  <ion-row>\n    <ion-col col-10 class="pj-full-width-border" no-margin>\n      <ion-label>91 - 120 Days</ion-label>\n    </ion-col>\n    <ion-col col-2 (click)="viewBills(\'-120\')" class="pj-full-width-border" no-margin style="padding-top: 5%;">\n      <ion-icon color="primary" name="arrow-forward"></ion-icon>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-12>\n      <p text-center style="color: #fff;font-size: 4rem;"><i class="fa fa-rupee"></i> {{agingReportDetails.fourthQ}}</p>\n    </ion-col>\n  </ion-row>\n\n\n  <ion-row>\n    <ion-col col-10 class="pj-full-width-border" no-margin>\n      <ion-label>121+ Days</ion-label>\n    </ion-col>\n    <ion-col col-2 (click)="viewBills(\'-365\')" class="pj-full-width-border" no-margin style="padding-top: 5%;">\n      <ion-icon color="primary" name="arrow-forward"></ion-icon>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-12>\n      <p text-center style="color: #fff;font-size: 4rem;"><i class="fa fa-rupee"></i> {{agingReportDetails.otherQ}}</p>\n    </ion-col>\n  </ion-row>\n\n  <!-- <div class="scroll-table-div">\n    <table>\n      <tr>\n        <th class="headcol">Posting Date</th>\n        <td class="long bold-heading">Due Date</td>\n        <td class="long bold-heading">Blanket Agreement</td>\n        <td class="long bold-heading">Type</td>\n        <td class="long bold-heading">Doc. No.</td>\n        <td class="long bold-heading">Instal. No.</td>\n        <td class="long bold-heading">BP Ref. No.</td>\n        <td class="long bold-heading">Balance Due(INR)</td>\n        <td class="long bold-heading">Future Remit(INR)</td>\n        <td class="long bold-heading" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 30">0\n          - 30</td>\n        <td class="long bold-heading" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 60">30\n          - 60</td>\n        <td class="long bold-heading" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 30">60\n          - 90</td>\n        <td class="long bold-heading" *ngIf="agingReport == null || agingReport == undefined">0 - 30</td>\n        <td class="long bold-heading">Payment Method Code</td>\n      </tr>\n      <tr *ngFor="let agingReport of agingReportList">\n        <th class="headcol">{{agingReport.postingDate}}</th>\n        <td class="long">{{agingReport.dueDate}}</td>\n        <td class="long">{{agingReport.blanketAgreement}}</td>\n        <td class="long">{{agingReport.type}}</td>\n        <td class="long">{{agingReport.docNo}}</td>\n        <td class="long">{{agingReport.installationNo}}</td>\n        <td class="long">{{agingReport.bpRefNo}}</td>\n        <td class="long">Rs. {{agingReport.balanceDue}}</td>\n        <td class="long">Rs. {{agingReport.futureRemit}}</td>\n        <td class="long">{{agingReport.noOfDays}}</td>\n        <td class="long">{{agingReport.paymentMethodCode}}</td>\n      </tr>\n    </table>\n  </div>\n\n  <div id="pdfDiv" style="display: none">\n    <h4>Report Date - {{currentDate}}</h4>\n    <h4>Customer Code - {{customer.customerDetails.cardCode}}</h4>\n    <h4>Customer Name - {{customer.customerDetails.cardName}}</h4>\n    <table style="width:100%;border-collapse: collapse; margin-top: 5%;">\n      <tr>\n        <td style="border: 1px solid black;border-collapse: collapse;">Posting Date</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Due Date</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Blanket Agreement</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Type</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Doc. No.</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Instal. No.</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">BP Ref. No.</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Balance Due(INR)</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Future Remit(INR)</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Payment Method Code</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport == null || agingReport == undefined">0\n          - 30</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 30">0\n          - 30</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 60">30\n          - 60</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 30">60\n          - 90</td>\n      </tr>\n      <tr *ngFor="let agingReport of agingReportList">\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.postingDate}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.dueDate}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.blanketAgreement}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.type}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.docNo}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.installationNo}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.bpRefNo}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.balanceDue}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.futureRemit}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.paymentMethodCode}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 30">0\n          - 30</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 60">30\n          - 60</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 90">60\n          - 90</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport == null || agingReport == undefined"></td>\n      </tr>\n    </table>\n  </div> -->\n\n</ion-content>'/*ion-inline-end:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/customer-aging-report/customer-aging-report.html"*/,
+            selector: 'page-customer-aging-report',template:/*ion-inline-start:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/customer-aging-report/customer-aging-report.html"*/'<!--\n  Generated template for the CustomerAgingReportPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar color="navbar" text-center>\n\n    <ion-title>\n      Customer Aging Report\n    </ion-title>\n\n    <!-- <ion-buttons end>\n      <button (click)="downloadReport()" ion-button item-end style="background-color: #1c2431; font-size: 25px;">\n        <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>\n      </button>\n    </ion-buttons> -->\n\n  </ion-navbar>\n</ion-header>\n\n<ion-content no-padding>\n\n  <ion-row padding>\n    <ion-col col-12 text-center>\n      <strong>{{customer.customerDetails.cardCode}} - {{customer.customerDetails.cardName}}</strong>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-4></ion-col>\n    <ion-col style="font-size:1.3em" col-2 (click)="callCust()" *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != \'\'">\n      <ion-icon name="md-call"></ion-icon>\n    </ion-col>\n    <ion-col style="font-size:1.3em" col-2 (click)="viewCustInfo()">\n        <ion-icon name="ios-information-circle-outline"></ion-icon>\n      </ion-col>\n    <ion-col col-4></ion-col>\n  </ion-row>\n\n  <ion-row padding>\n    <ion-col col-12 text-center>\n      <span style="font-size:4rem;"><strong><i class="fa fa-rupee"></i> {{customer.customerDetails.balance}}</strong></span>\n      <p style="color:#AFAFAF;font-size:10px;">(Balance As Of {{fromDate | date : \'dd MMM yy\'}})</p>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-10 class="pj-full-width-border" no-margin>\n      <ion-label>0 - 30 Days</ion-label>\n    </ion-col>\n    <ion-col col-2 (click)="viewBills(\'-30\')" class="pj-full-width-border" no-margin style="padding-top: 5%;">\n      <ion-icon color="primary" name="arrow-forward"></ion-icon>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-12>\n      <p text-center style="color: #fff;font-size: 4rem;"><i class="fa fa-rupee"></i> {{agingReportDetails.firstQ}}</p>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-10 class="pj-full-width-border" no-margin>\n      <ion-label>31 - 60 Days</ion-label>\n    </ion-col>\n    <ion-col col-2 (click)="viewBills(\'-60\')" class="pj-full-width-border" no-margin style="padding-top: 5%;">\n      <ion-icon color="primary" name="arrow-forward"></ion-icon>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-12>\n      <p text-center style="color: #fff;font-size: 4rem;"><i class="fa fa-rupee"></i> {{agingReportDetails.secondQ}}</p>\n    </ion-col>\n  </ion-row>\n\n\n  <ion-row>\n    <ion-col col-10 class="pj-full-width-border" no-margin>\n      <ion-label>61 - 90 Days</ion-label>\n    </ion-col>\n    <ion-col col-2 (click)="viewBills(\'-90\')" class="pj-full-width-border" no-margin style="padding-top: 5%;">\n      <ion-icon color="primary" name="arrow-forward"></ion-icon>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-12>\n      <p text-center style="color: #fff;font-size: 4rem;"><i class="fa fa-rupee"></i> {{agingReportDetails.thirdQ}}</p>\n    </ion-col>\n  </ion-row>\n\n\n  <ion-row>\n    <ion-col col-10 class="pj-full-width-border" no-margin>\n      <ion-label>91 - 120 Days</ion-label>\n    </ion-col>\n    <ion-col col-2 (click)="viewBills(\'-120\')" class="pj-full-width-border" no-margin style="padding-top: 5%;">\n      <ion-icon color="primary" name="arrow-forward"></ion-icon>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-12>\n      <p text-center style="color: #fff;font-size: 4rem;"><i class="fa fa-rupee"></i> {{agingReportDetails.fourthQ}}</p>\n    </ion-col>\n  </ion-row>\n\n\n  <ion-row>\n    <ion-col col-10 class="pj-full-width-border" no-margin>\n      <ion-label>121+ Days</ion-label>\n    </ion-col>\n    <ion-col col-2 (click)="viewBills(\'-365\')" class="pj-full-width-border" no-margin style="padding-top: 5%;">\n      <ion-icon color="primary" name="arrow-forward"></ion-icon>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-12>\n      <p text-center style="color: #fff;font-size: 4rem;"><i class="fa fa-rupee"></i> {{agingReportDetails.otherQ}}</p>\n    </ion-col>\n  </ion-row>\n\n  <!-- <div class="scroll-table-div">\n    <table>\n      <tr>\n        <th class="headcol">Posting Date</th>\n        <td class="long bold-heading">Due Date</td>\n        <td class="long bold-heading">Blanket Agreement</td>\n        <td class="long bold-heading">Type</td>\n        <td class="long bold-heading">Doc. No.</td>\n        <td class="long bold-heading">Instal. No.</td>\n        <td class="long bold-heading">BP Ref. No.</td>\n        <td class="long bold-heading">Balance Due(INR)</td>\n        <td class="long bold-heading">Future Remit(INR)</td>\n        <td class="long bold-heading" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 30">0\n          - 30</td>\n        <td class="long bold-heading" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 60">30\n          - 60</td>\n        <td class="long bold-heading" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 30">60\n          - 90</td>\n        <td class="long bold-heading" *ngIf="agingReport == null || agingReport == undefined">0 - 30</td>\n        <td class="long bold-heading">Payment Method Code</td>\n      </tr>\n      <tr *ngFor="let agingReport of agingReportList">\n        <th class="headcol">{{agingReport.postingDate}}</th>\n        <td class="long">{{agingReport.dueDate}}</td>\n        <td class="long">{{agingReport.blanketAgreement}}</td>\n        <td class="long">{{agingReport.type}}</td>\n        <td class="long">{{agingReport.docNo}}</td>\n        <td class="long">{{agingReport.installationNo}}</td>\n        <td class="long">{{agingReport.bpRefNo}}</td>\n        <td class="long">Rs. {{agingReport.balanceDue}}</td>\n        <td class="long">Rs. {{agingReport.futureRemit}}</td>\n        <td class="long">{{agingReport.noOfDays}}</td>\n        <td class="long">{{agingReport.paymentMethodCode}}</td>\n      </tr>\n    </table>\n  </div>\n\n  <div id="pdfDiv" style="display: none">\n    <h4>Report Date - {{currentDate}}</h4>\n    <h4>Customer Code - {{customer.customerDetails.cardCode}}</h4>\n    <h4>Customer Name - {{customer.customerDetails.cardName}}</h4>\n    <table style="width:100%;border-collapse: collapse; margin-top: 5%;">\n      <tr>\n        <td style="border: 1px solid black;border-collapse: collapse;">Posting Date</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Due Date</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Blanket Agreement</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Type</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Doc. No.</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Instal. No.</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">BP Ref. No.</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Balance Due(INR)</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Future Remit(INR)</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">Payment Method Code</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport == null || agingReport == undefined">0\n          - 30</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 30">0\n          - 30</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 60">30\n          - 60</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 30">60\n          - 90</td>\n      </tr>\n      <tr *ngFor="let agingReport of agingReportList">\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.postingDate}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.dueDate}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.blanketAgreement}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.type}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.docNo}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.installationNo}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.bpRefNo}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.balanceDue}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.futureRemit}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;">{{agingReport.paymentMethodCode}}</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 30">0\n          - 30</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 60">30\n          - 60</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport != null && agingReport != undefined && agingReport.noOfDays == 90">60\n          - 90</td>\n        <td style="border: 1px solid black;border-collapse: collapse;" *ngIf="agingReport == null || agingReport == undefined"></td>\n      </tr>\n    </table>\n  </div> -->\n\n</ion-content>'/*ion-inline-end:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/customer-aging-report/customer-aging-report.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_2__providers_restservice_restservice__["a" /* RestserviceProvider */]])
+            __WEBPACK_IMPORTED_MODULE_2__providers_restservice_restservice__["a" /* RestserviceProvider */],
+            __WEBPACK_IMPORTED_MODULE_5__providers_common_utility_common_utility__["a" /* CommonUtilityProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ModalController */],
+            __WEBPACK_IMPORTED_MODULE_7__ionic_native_call_number__["a" /* CallNumber */]])
     ], CustomerAgingReportPage);
     return CustomerAgingReportPage;
 }());
@@ -1229,26 +1319,28 @@ var CustomerAgingReportPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 218:
+/***/ 220:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InvoicesListingPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_restservice_restservice__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__invoice_details_invoice_details__ = __webpack_require__(219);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_constants_constants__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__invoice_listing_settings_popover_invoice_listing_settings_popover__ = __webpack_require__(220);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_common_utility_common_utility__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_social_sharing__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_file_opener__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_file__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_pdfmake_build_pdfmake__ = __webpack_require__(379);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_restservice_restservice__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__invoice_details_invoice_details__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__invoice_listing_settings_popover_invoice_listing_settings_popover__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_social_sharing__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_file_opener__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_file__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_pdfmake_build_pdfmake__ = __webpack_require__(381);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_pdfmake_build_pdfmake___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_pdfmake_build_pdfmake__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_pdfmake_build_vfs_fonts__ = __webpack_require__(380);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_pdfmake_build_vfs_fonts__ = __webpack_require__(382);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_pdfmake_build_vfs_fonts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_pdfmake_build_vfs_fonts__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_common__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_common__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__customer_details_customer_details__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_call_number__ = __webpack_require__(85);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1272,9 +1364,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 __WEBPACK_IMPORTED_MODULE_10_pdfmake_build_pdfmake___default.a.vfs = __WEBPACK_IMPORTED_MODULE_11_pdfmake_build_vfs_fonts___default.a.pdfMake.vfs;
 var InvoicesListingPage = /** @class */ (function () {
-    function InvoicesListingPage(navCtrl, navParams, restService, popOverController, alertCtrl, commonUtility, file, fileOpener, socialSharing) {
+    function InvoicesListingPage(navCtrl, navParams, restService, popOverController, alertCtrl, commonUtility, file, fileOpener, socialSharing, modal, callNumberNative) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
@@ -1285,6 +1379,8 @@ var InvoicesListingPage = /** @class */ (function () {
         this.file = file;
         this.fileOpener = fileOpener;
         this.socialSharing = socialSharing;
+        this.modal = modal;
+        this.callNumberNative = callNumberNative;
         this.fromDate = '';
         this.customer = {};
         this.noOfDays = '0';
@@ -1493,9 +1589,8 @@ var InvoicesListingPage = /** @class */ (function () {
             // Save the PDF to the data Directory of our App
             _this.file.writeFile(_this.file.dataDirectory, fileName, blob, { replace: true }).then(function (fileEntry) {
                 // Open the PDf with the correct OS tools
-                // this.fileOpener.open(this.file.dataDirectory + 'myletter.pdf', 'application/pdf');
-                _this.pdf = _this.file.dataDirectory + fileName;
-                _this.share();
+                _this.fileOpener.open(_this.file.dataDirectory + fileName, 'application/pdf');
+                // this.pdf = this.file.dataDirectory + fileName;
             });
         });
     };
@@ -1507,9 +1602,20 @@ var InvoicesListingPage = /** @class */ (function () {
             alert('Error : ' + JSON.stringify(e));
         });
     };
+    InvoicesListingPage.prototype.callCust = function () {
+        console.log('Calling Customer on : ' + this.customer.customerDetails.cellular);
+        this.commonUtility.callNumber(this.customer.customerDetails.cellular, true);
+    };
+    InvoicesListingPage.prototype.viewCustInfo = function () {
+        var customerDetailsModal = this.modal.create(__WEBPACK_IMPORTED_MODULE_13__customer_details_customer_details__["a" /* CustomerDetailsPage */], {
+            customer: this.customer,
+            isModalData: true
+        });
+        customerDetailsModal.present();
+    };
     InvoicesListingPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-invoices-listing',template:/*ion-inline-start:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/invoices-listing/invoices-listing.html"*/'<!--\n  Generated template for the InvoicesListingPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="navbar" text-center>\n    <ion-title>Invoice Listing</ion-title>\n\n    <ion-buttons end>\n\n      <!-- <button (click)="downloadAgingReport()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">\n        <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>\n      </button> -->\n\n      <button ion-button item-end (click)="presentPopover($event)" style="background-color: #1c2431; font-size: 20px;">\n        <ion-icon name="md-more"></ion-icon>\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content no-padding>\n\n  <ion-row padding>\n    <ion-col col-12 text-center>\n      <strong>{{customer.customerDetails.cardCode}} - {{customer.customerDetails.cardName}}</strong>\n    </ion-col>\n  </ion-row>\n\n  <ion-row padding>\n    <ion-col col-12 text-center>\n      <strong><span style="font-size:4rem;"><i class="fa fa-rupee"></i> {{agingAmount}}</span></strong>\n      <!-- <p style="color:#AFAFAF;font-size: 10px;">(Balance As Of {{fromDate | date: \'dd MMM yyyy\'}})</p> -->\n      <p style="color:#AFAFAF;font-size: 10px;" *ngIf="noOfDays == \'-30\'">(Balance As Of {{fromDate | date: \'dd MMM\n        yy\'}} | >0 Days)</p>\n      <p style="color:#AFAFAF;font-size: 10px;" *ngIf="noOfDays == \'-60\'">(Balance As Of {{fromDate | date: \'dd MMM\n        yy\'}} | >30 Days)</p>\n      <p style="color:#AFAFAF;font-size: 10px;" *ngIf="noOfDays == \'-90\'">(Balance As Of {{fromDate | date: \'dd MMM\n        yy\'}} | >60 Days)</p>\n      <p style="color:#AFAFAF;font-size: 10px;" *ngIf="noOfDays == \'-120\'">(Balance As Of {{fromDate | date: \'dd MMM\n        yy\'}} | >90 Days)</p>\n      <p style="color:#AFAFAF;font-size: 10px;" *ngIf="noOfDays == \'-360\'">(Balance As Of {{fromDate | date: \'dd MMM\n        yy\'}} | 121+ Days)</p>\n    </ion-col>\n  </ion-row>\n\n  <ion-row style="margin-bottom:2%;">\n    <ion-col col-8 class="pj-full-width-border" no-margin>\n      <ion-label>Invoices</ion-label>\n    </ion-col>\n    <ion-col col-2 class="pj-full-width-border" no-margin>\n      <button (click)="createAgingPDFAndShare()" ion-button item-end style="background-color: #1c2431; font-size: 18px;">\n        <ion-icon name="share" color="primary"></ion-icon>\n      </button>\n    </ion-col>\n    <ion-col col-2 class="pj-full-width-border" no-margin>\n      <button (click)="downloadAgingReport()" ion-button item-end style="background-color: #1c2431; font-size: 18px;">\n        <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>\n      </button>\n    </ion-col>\n  </ion-row>\n\n  <ion-card *ngIf="openingBalanceInvoice != null">\n    <ion-card-content>\n      <ion-row>\n        <ion-col col-12 text-center color="primary">\n          <strong>Opening Balance</strong>\n          <p style="color:#AFAFAF;font-size: 15px;">{{openingBalanceInvoice.grossTotal}}</p>\n        </ion-col>\n      </ion-row>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-list>\n    <button color="bgcolor" ion-item *ngFor="let invoice of invoicesListing" (click)="showInvoiceDetails(invoice)">\n      <ion-row>\n        <ion-col col-9>\n          <p color="light"><strong>{{invoice.invoiceNo}}</strong></p>\n          <span *ngIf="invoice.invoiceItemsList != null" style="font-size:10px; color:#AFAFAF">{{invoice.invoiceDate |\n            date: \'dd MMM\'}} |\n            {{invoice.dueDateInDays}} Days | Due: {{invoice.dueDate | date: \'dd MMM\'}}</span>\n          <span *ngIf="invoice.invoiceItemsList == null" style="font-size:10px; color:#AFAFAF">{{invoice.invoiceDate |\n            date: \'dd MMM\'}}</span>\n        </ion-col>\n        <ion-col col-3>\n          <p *ngIf="invoice.isPaid != \'O\' && invoice.type == \'A/R Inv\'" class="pj-paid-inv"><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p>\n          <p *ngIf="invoice.isPaid == \'O\' && invoice.type == \'A/R Inv\'" class="pj-unpaid-inv"><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p>\n          <p *ngIf="invoice.type != \'A/R Inv\'"><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p>\n          <span class="pj-bill-status">{{invoice.type}}</span>\n        </ion-col>\n      </ion-row>\n    </button>\n  </ion-list>\n\n  <div id="pdfDivLedger" style="display:none">\n    <!-- <div class="pdfDiv"> -->\n    <div text-center>\n      <h4>JAGTAP BUILDING SOLUTIONS</h4>\n      <p>Asthavinayak Soc, Opp Bharat Jyoti Stop,</p>\n      <p>Bibwewadi , Pune - 411037</p>\n      <p>Tel No. : (O) 24216162, 9822610611</p>\n      <p>Phone no. : 02024216162</p>\n      <p>Pin code : 411037</p>\n      <p>GSTIN : 27AFJPJ8271L1ZV</p>\n      <p>E-Mail : jagtapbsolutions@gmail.com</p>\n    </div>\n\n    <div style="margin:5% 0;" text-center>\n      <p>{{customer.customerDetails.cardName}}</p>\n      <p *ngIf="null != invoicesListing && invoicesListing.length > 0">{{invoicesListing[0].invoiceItemsList[0].partyCity}}</p>\n    </div>\n\n    <div text-center>\n      <p>Ledger Report</p>\n      <p>01 Apr 19 - 31 Mar 20</p>\n      <p>Date {{currentDate | date: \'dd MMM yy\'}}</p>\n    </div>\n\n    <div style="margin-top:5%">\n\n      <table style="border:1px solid #000;border-collapse: collapse; width:100%;">\n        <tr>\n          <td style="border:1px solid #000;">\n            Date\n          </td>\n          <td style="border:1px solid #000;">\n            Due Date\n          </td>\n          <td style="border:1px solid #000;">\n            Type\n          </td>\n          <td style="border:1px solid #000;">\n            Invoice No.\n          </td>\n          <td style="border:1px solid #000;">\n            Status\n          </td>\n          <td style="border:1px solid #000;">\n            Balance\n          </td>\n        </tr>\n        <tr>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            Opening Balance\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            {{ledgerOpeningBalance}}\n          </td>\n        </tr>\n        <tr *ngFor="let ledgerInvoice of ledgerInvoiceList">\n          <td style="border:1px solid #000;">\n            {{ledgerInvoice.invoiceDate | date : \'dd MMM yy\'}}\n          </td>\n          <td style="border:1px solid #000;">\n            {{ledgerInvoice.dueDate | date : \'dd MMM yy\'}}\n          </td>\n          <td style="border:1px solid #000;">\n            {{ledgerInvoice.type}}\n          </td>\n          <td style="border:1px solid #000;">\n            {{ledgerInvoice.invoiceNo}}\n          </td>\n          <td style="border:1px solid #000;">\n            {{ledgerInvoice.isPaid == \'O\' ? \'Open\' : \'Close\' }}\n          </td>\n          <td style="border:1px solid #000;">\n            {{ledgerInvoice.grossTotal}}\n          </td>\n        </tr>\n\n        <tr>\n          <td colspan=5>\n            Total\n          </td>\n          <td>\n            {{totalLedgerInvoiceBalance}}\n          </td>\n        </tr>\n      </table>\n    </div>\n  </div>\n\n\n  <div id="pdfDivAging" style="display:none">\n    <!-- <div class="pdfDiv"> -->\n    <div text-center>\n      <h4>JAGTAP BUILDING SOLUTIONS</h4>\n      <p>Asthavinayak Soc, Opp Bharat Jyoti Stop,</p>\n      <p>Bibwewadi , Pune - 411037</p>\n      <p>Tel No. : (O) 24216162, 9822610611</p>\n      <p>Phone no. : 02024216162</p>\n      <p>Pin code : 411037</p>\n      <p>GSTIN : 27AFJPJ8271L1ZV</p>\n      <p>E-Mail : jagtapbsolutions@gmail.com</p>\n    </div>\n\n    <div style="margin:5% 0;" text-center>\n      <p>{{customer.customerDetails.cardName}}</p>\n      <p *ngIf="null != invoicesListing && invoicesListing.length > 0">{{invoicesListing[0].invoiceItemsList[0].partyCity}}</p>\n    </div>\n\n    <div text-center>\n      <p>Aging Report</p>\n      <p *ngIf="noOfDays == \'-30\'">{{fromDate | date: \'dd MMM yy\'}} | >0 Days</p>\n      <p *ngIf="noOfDays == \'-60\'">{{fromDate | date: \'dd MMM yy\'}} | >30 Days</p>\n      <p *ngIf="noOfDays == \'-90\'">{{fromDate | date: \'dd MMM yy\'}} | >60 Days</p>\n      <p *ngIf="noOfDays == \'-120\'">{{fromDate | date: \'dd MMM yy\'}} | >120 Days</p>\n      <p *ngIf="noOfDays == \'-360\'">{{fromDate | date: \'dd MMM yy\'}} | 121+ Days</p>\n      <p>Date {{currentDate | date: \'dd MMM yy\'}}</p>\n    </div>\n\n    <div style="margin-top:5%">\n\n      <table style="border:1px solid #000;border-collapse: collapse; width:100%;">\n        <tr>\n          <td style="border:1px solid #000;">\n            Date\n          </td>\n          <td style="border:1px solid #000;">\n            Type\n          </td>\n          <td style="border:1px solid #000;">\n            Invoice No.\n          </td>\n          <td style="border:1px solid #000;">\n            Overdue By Days\n          </td>\n          <td style="border:1px solid #000;">\n            Status\n          </td>\n          <td style="border:1px solid #000;">\n            Amount\n          </td>\n        </tr>\n        <tr *ngFor="let invoice of invoicesListing">\n          <td style="border:1px solid #000;">\n            {{invoice.invoiceDate | date: \'dd MMM yyyy\'}}\n          </td>\n          <td style="border:1px solid #000;">\n            {{invoice.type }}\n          </td>\n          <td style="border:1px solid #000;">\n            {{invoice.invoiceNo }}\n          </td>\n          <td style="border:1px solid #000;">\n            {{(invoice.dueDateInDays + \'\').replace(\'-\', \'\')}}\n          </td>\n          <td style="border:1px solid #000;">\n            {{invoice.isPaid == \'O\' ? \'Open\' : \'Close\' }}\n          </td>\n          <td style="border:1px solid #000;">\n            {{invoice.grossTotal}}\n          </td>\n        </tr>\n\n        <tr>\n          <td colspan=5 style="border:1px solid #000;">\n            Total\n          </td>\n          <td style="border:1px solid #000;">\n            {{totalInvoiceBalance}}\n          </td>\n        </tr>\n      </table>\n    </div>\n  </div>\n\n</ion-content>'/*ion-inline-end:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/invoices-listing/invoices-listing.html"*/,
+            selector: 'page-invoices-listing',template:/*ion-inline-start:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/invoices-listing/invoices-listing.html"*/'<!--\n  Generated template for the InvoicesListingPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="navbar" text-center>\n    <ion-title>Invoice Listing</ion-title>\n\n    <ion-buttons end>\n\n      <!-- <button (click)="downloadAgingReport()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">\n        <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>\n      </button> -->\n\n      <button ion-button item-end (click)="presentPopover($event)" style="background-color: #1c2431; font-size: 20px;">\n        <ion-icon name="md-more"></ion-icon>\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content no-padding>\n\n  <ion-row padding>\n    <ion-col col-12 text-center>\n      <strong>{{customer.customerDetails.cardCode}} - {{customer.customerDetails.cardName}}</strong>\n    </ion-col>\n  </ion-row>\n\n\n  <ion-row>\n    <ion-col col-4></ion-col>\n    <ion-col style="font-size:1.3em" col-2 (click)="callCust()" *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != \'\'">\n      <ion-icon name="md-call"></ion-icon>\n    </ion-col>\n    <ion-col style="font-size:1.3em" col-2 (click)="viewCustInfo()">\n      <ion-icon name="ios-information-circle-outline"></ion-icon>\n    </ion-col>\n    <ion-col col-4></ion-col>\n  </ion-row>\n\n  <ion-row padding>\n    <ion-col col-12 text-center>\n      <strong><span style="font-size:4rem;"><i class="fa fa-rupee"></i> {{agingAmount}}</span></strong>\n      <!-- <p style="color:#AFAFAF;font-size: 10px;">(Balance As Of {{fromDate | date: \'dd MMM yyyy\'}})</p> -->\n      <p style="color:#AFAFAF;font-size: 10px;" *ngIf="noOfDays == \'-30\'">(Balance As Of {{fromDate | date: \'dd MMM\n        yy\'}} | >0 Days)</p>\n      <p style="color:#AFAFAF;font-size: 10px;" *ngIf="noOfDays == \'-60\'">(Balance As Of {{fromDate | date: \'dd MMM\n        yy\'}} | >30 Days)</p>\n      <p style="color:#AFAFAF;font-size: 10px;" *ngIf="noOfDays == \'-90\'">(Balance As Of {{fromDate | date: \'dd MMM\n        yy\'}} | >60 Days)</p>\n      <p style="color:#AFAFAF;font-size: 10px;" *ngIf="noOfDays == \'-120\'">(Balance As Of {{fromDate | date: \'dd MMM\n        yy\'}} | >90 Days)</p>\n      <p style="color:#AFAFAF;font-size: 10px;" *ngIf="noOfDays == \'-360\'">(Balance As Of {{fromDate | date: \'dd MMM\n        yy\'}} | 121+ Days)</p>\n    </ion-col>\n  </ion-row>\n\n  <ion-row style="margin-bottom:2%;">\n    <ion-col col-8 class="pj-full-width-border" no-margin>\n      <ion-label>Invoices</ion-label>\n    </ion-col>\n    <ion-col col-2 class="pj-full-width-border" no-margin>\n      <button (click)="createAgingPDFAndShare()" ion-button item-end style="background-color: #1c2431; font-size: 18px;">\n        <ion-icon name="share" color="primary"></ion-icon>\n      </button>\n    </ion-col>\n    <ion-col col-2 class="pj-full-width-border" no-margin>\n      <button (click)="downloadAgingReport()" ion-button item-end style="background-color: #1c2431; font-size: 18px;">\n        <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>\n      </button>\n    </ion-col>\n  </ion-row>\n\n  <ion-card *ngIf="openingBalanceInvoice != null">\n    <ion-card-content>\n      <ion-row>\n        <ion-col col-12 text-center color="primary">\n          <strong>Opening Balance</strong>\n          <p style="color:#AFAFAF;font-size: 15px;">{{openingBalanceInvoice.grossTotal}}</p>\n        </ion-col>\n      </ion-row>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-list>\n    <button color="bgcolor" ion-item *ngFor="let invoice of invoicesListing" (click)="showInvoiceDetails(invoice)">\n      <ion-row>\n        <ion-col col-9>\n          <p color="light"><strong>{{invoice.invoiceNo}}</strong></p>\n          <span *ngIf="invoice.invoiceItemsList != null" style="font-size:10px; color:#AFAFAF">{{invoice.invoiceDate |\n            date: \'dd MMM\'}} |\n            {{invoice.dueDateInDays}} Days | Due: {{invoice.dueDate | date: \'dd MMM\'}}</span>\n          <span *ngIf="invoice.invoiceItemsList == null" style="font-size:10px; color:#AFAFAF">{{invoice.invoiceDate |\n            date: \'dd MMM\'}}</span>\n        </ion-col>\n        <ion-col col-3>\n          <p *ngIf="invoice.isPaid != \'O\' && invoice.type == \'A/R Inv\'" class="pj-paid-inv"><i class="fa fa-rupee"></i>\n            {{invoice.grossTotal}}</p>\n          <p *ngIf="invoice.isPaid == \'O\' && invoice.type == \'A/R Inv\'" class="pj-unpaid-inv"><i class="fa fa-rupee"></i>\n            {{invoice.grossTotal}}</p>\n          <p *ngIf="invoice.type != \'A/R Inv\'"><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p>\n          <span class="pj-bill-status">{{invoice.type}}</span>\n        </ion-col>\n      </ion-row>\n    </button>\n  </ion-list>\n\n  <div id="pdfDivLedger" style="display:none">\n    <!-- <div class="pdfDiv"> -->\n    <div text-center>\n      <h4>JAGTAP BUILDING SOLUTIONS</h4>\n      <p>Asthavinayak Soc, Opp Bharat Jyoti Stop,</p>\n      <p>Bibwewadi , Pune - 411037</p>\n      <p>Tel No. : (O) 24216162, 9822610611</p>\n      <p>Phone no. : 02024216162</p>\n      <p>Pin code : 411037</p>\n      <p>GSTIN : 27AFJPJ8271L1ZV</p>\n      <p>E-Mail : jagtapbsolutions@gmail.com</p>\n    </div>\n\n    <div style="margin:5% 0;" text-center>\n      <p>{{customer.customerDetails.cardName}}</p>\n      <p *ngIf="null != invoicesListing && invoicesListing.length > 0">{{invoicesListing[0].invoiceItemsList[0].partyCity}}</p>\n    </div>\n\n    <div text-center>\n      <p>Ledger Report</p>\n      <p>01 Apr 19 - 31 Mar 20</p>\n      <p>Date {{currentDate | date: \'dd MMM yy\'}}</p>\n    </div>\n\n    <div style="margin-top:5%">\n\n      <table style="border:1px solid #000;border-collapse: collapse; width:100%;">\n        <tr>\n          <td style="border:1px solid #000;">\n            Date\n          </td>\n          <td style="border:1px solid #000;">\n            Due Date\n          </td>\n          <td style="border:1px solid #000;">\n            Type\n          </td>\n          <td style="border:1px solid #000;">\n            Invoice No.\n          </td>\n          <td style="border:1px solid #000;">\n            Status\n          </td>\n          <td style="border:1px solid #000;">\n            Balance\n          </td>\n        </tr>\n        <tr>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            Opening Balance\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            {{ledgerOpeningBalance}}\n          </td>\n        </tr>\n        <tr *ngFor="let ledgerInvoice of ledgerInvoiceList">\n          <td style="border:1px solid #000;">\n            {{ledgerInvoice.invoiceDate | date : \'dd MMM yy\'}}\n          </td>\n          <td style="border:1px solid #000;">\n            {{ledgerInvoice.dueDate | date : \'dd MMM yy\'}}\n          </td>\n          <td style="border:1px solid #000;">\n            {{ledgerInvoice.type}}\n          </td>\n          <td style="border:1px solid #000;">\n            {{ledgerInvoice.invoiceNo}}\n          </td>\n          <td style="border:1px solid #000;">\n            {{ledgerInvoice.isPaid == \'O\' ? \'Open\' : \'Close\' }}\n          </td>\n          <td style="border:1px solid #000;">\n            {{ledgerInvoice.grossTotal}}\n          </td>\n        </tr>\n\n        <tr>\n          <td colspan=5>\n            Total\n          </td>\n          <td>\n            {{totalLedgerInvoiceBalance}}\n          </td>\n        </tr>\n      </table>\n    </div>\n  </div>\n\n\n  <div id="pdfDivAging" style="display:none">\n    <!-- <div class="pdfDiv"> -->\n    <div text-center>\n      <h4>JAGTAP BUILDING SOLUTIONS</h4>\n      <p>Asthavinayak Soc, Opp Bharat Jyoti Stop,</p>\n      <p>Bibwewadi , Pune - 411037</p>\n      <p>Tel No. : (O) 24216162, 9822610611</p>\n      <p>Phone no. : 02024216162</p>\n      <p>Pin code : 411037</p>\n      <p>GSTIN : 27AFJPJ8271L1ZV</p>\n      <p>E-Mail : jagtapbsolutions@gmail.com</p>\n    </div>\n\n    <div style="margin:5% 0;" text-center>\n      <p>{{customer.customerDetails.cardName}}</p>\n      <p *ngIf="null != invoicesListing && invoicesListing.length > 0">{{invoicesListing[0].invoiceItemsList[0].partyCity}}</p>\n    </div>\n\n    <div text-center>\n      <p>Aging Report</p>\n      <p *ngIf="noOfDays == \'-30\'">{{fromDate | date: \'dd MMM yy\'}} | >0 Days</p>\n      <p *ngIf="noOfDays == \'-60\'">{{fromDate | date: \'dd MMM yy\'}} | >30 Days</p>\n      <p *ngIf="noOfDays == \'-90\'">{{fromDate | date: \'dd MMM yy\'}} | >60 Days</p>\n      <p *ngIf="noOfDays == \'-120\'">{{fromDate | date: \'dd MMM yy\'}} | >120 Days</p>\n      <p *ngIf="noOfDays == \'-360\'">{{fromDate | date: \'dd MMM yy\'}} | 121+ Days</p>\n      <p>Date {{currentDate | date: \'dd MMM yy\'}}</p>\n    </div>\n\n    <div style="margin-top:5%">\n\n      <table style="border:1px solid #000;border-collapse: collapse; width:100%;">\n        <tr>\n          <td style="border:1px solid #000;">\n            Date\n          </td>\n          <td style="border:1px solid #000;">\n            Type\n          </td>\n          <td style="border:1px solid #000;">\n            Invoice No.\n          </td>\n          <td style="border:1px solid #000;">\n            Overdue By Days\n          </td>\n          <td style="border:1px solid #000;">\n            Status\n          </td>\n          <td style="border:1px solid #000;">\n            Amount\n          </td>\n        </tr>\n        <tr *ngFor="let invoice of invoicesListing">\n          <td style="border:1px solid #000;">\n            {{invoice.invoiceDate | date: \'dd MMM yyyy\'}}\n          </td>\n          <td style="border:1px solid #000;">\n            {{invoice.type }}\n          </td>\n          <td style="border:1px solid #000;">\n            {{invoice.invoiceNo }}\n          </td>\n          <td style="border:1px solid #000;">\n            {{(invoice.dueDateInDays + \'\').replace(\'-\', \'\')}}\n          </td>\n          <td style="border:1px solid #000;">\n            {{invoice.isPaid == \'O\' ? \'Open\' : \'Close\' }}\n          </td>\n          <td style="border:1px solid #000;">\n            {{invoice.grossTotal}}\n          </td>\n        </tr>\n\n        <tr>\n          <td colspan=5 style="border:1px solid #000;">\n            Total\n          </td>\n          <td style="border:1px solid #000;">\n            {{totalInvoiceBalance}}\n          </td>\n        </tr>\n      </table>\n    </div>\n  </div>\n\n</ion-content>'/*ion-inline-end:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/invoices-listing/invoices-listing.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavParams */],
@@ -1519,7 +1625,9 @@ var InvoicesListingPage = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_6__providers_common_utility_common_utility__["a" /* CommonUtilityProvider */],
             __WEBPACK_IMPORTED_MODULE_9__ionic_native_file__["a" /* File */],
             __WEBPACK_IMPORTED_MODULE_8__ionic_native_file_opener__["a" /* FileOpener */],
-            __WEBPACK_IMPORTED_MODULE_7__ionic_native_social_sharing__["a" /* SocialSharing */]])
+            __WEBPACK_IMPORTED_MODULE_7__ionic_native_social_sharing__["a" /* SocialSharing */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ModalController */],
+            __WEBPACK_IMPORTED_MODULE_14__ionic_native_call_number__["a" /* CallNumber */]])
     ], InvoicesListingPage);
     return InvoicesListingPage;
 }());
@@ -1528,21 +1636,23 @@ var InvoicesListingPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 219:
+/***/ 221:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InvoiceDetailsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_social_sharing__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_file_opener__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_file__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_pdfmake_build_pdfmake__ = __webpack_require__(379);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_social_sharing__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_file_opener__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_file__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_pdfmake_build_pdfmake__ = __webpack_require__(381);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_pdfmake_build_pdfmake___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_pdfmake_build_pdfmake__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_pdfmake_build_vfs_fonts__ = __webpack_require__(380);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_pdfmake_build_vfs_fonts__ = __webpack_require__(382);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_pdfmake_build_vfs_fonts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_pdfmake_build_vfs_fonts__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_common__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_common__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__customer_details_customer_details__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_common_utility_common_utility__ = __webpack_require__(16);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1560,14 +1670,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 __WEBPACK_IMPORTED_MODULE_5_pdfmake_build_pdfmake___default.a.vfs = __WEBPACK_IMPORTED_MODULE_6_pdfmake_build_vfs_fonts___default.a.pdfMake.vfs;
 var InvoiceDetailsPage = /** @class */ (function () {
-    function InvoiceDetailsPage(navCtrl, navParams, file, fileOpener, socialSharing) {
+    function InvoiceDetailsPage(navCtrl, navParams, file, fileOpener, socialSharing, modal, commonUtility) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.file = file;
         this.fileOpener = fileOpener;
         this.socialSharing = socialSharing;
+        this.modal = modal;
+        this.commonUtility = commonUtility;
         this.invoice = {};
         this.pdfObj = null;
         this.totalTax = 0;
@@ -1814,148 +1928,33 @@ var InvoiceDetailsPage = /** @class */ (function () {
             ['', 'Total', '', '200', '', '', '', '56420'],
         ];
     };
+    InvoiceDetailsPage.prototype.callCust = function () {
+        console.log('Calling Customer on : ' + this.customer.customerDetails.cellular);
+        this.commonUtility.callNumber(this.customer.customerDetails.cellular, true);
+    };
+    InvoiceDetailsPage.prototype.viewCustInfo = function () {
+        var customerDetailsModal = this.modal.create(__WEBPACK_IMPORTED_MODULE_8__customer_details_customer_details__["a" /* CustomerDetailsPage */], {
+            customer: this.customer,
+            isModalData: true
+        });
+        customerDetailsModal.present();
+    };
     InvoiceDetailsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-invoice-details',template:/*ion-inline-start:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/invoice-details/invoice-details.html"*/'<!--\n  Generated template for the InvoiceDetailsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="navbar" text-center>\n    <ion-title>Invoice Details</ion-title>\n\n    <ion-buttons end>\n      <button (click)="createPdfAndShare()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">\n        <ion-icon name="share" color="primary"></ion-icon>\n      </button>\n\n      <button (click)="downloadReport()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">\n        <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n</ion-header>\n\n<ion-content no-padding>\n\n  <ion-row>\n    <ion-col col-12 class="pj-full-width-border" no-margin>\n      <p>{{customer.customerDetails.cardCode}} - {{customer.customerDetails.cardName}}</p>\n      <span class="pj-info-letters">{{invoice.invoiceDate | date: \'dd MMM yy\'}} | {{invoice.isPaid == \'O\' ? \'Open\' :\n        \'Close\'}} | Due Date: {{invoice.dueDate | date: \'dd MMM yy\'}}</span><br />\n      <span class="pj-info-letters">Ref#: {{invoice.invoiceNo}}</span>\n    </ion-col>\n  </ion-row>\n\n  <ion-row style="margin-top: 5%;">\n    <ion-col col-12 no-margin class="pj-full-width-border">\n      ITEMS\n    </ion-col>\n  </ion-row>\n\n  <div *ngFor="let invoiceDetails of invoice.invoiceItemsList">\n\n    <ion-row padding class="light-color-imp">\n      <ion-col col-8>\n        <span>{{invoiceDetails.itemName}}</span>\n      </ion-col>\n      <ion-col col-4>\n        <span><i class="fa fa-rupee"></i> {{invoiceDetails.total}}</span>\n      </ion-col>\n    </ion-row>\n\n    <ion-row padding class="semidark-color-imp">\n      <ion-col col-12 style="font-size:12px !important;">\n        <p> Qty: {{invoiceDetails.qty}}</p>\n        <p> Rate: {{invoiceDetails.ratePerBag}} Per Bag</p>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class="semidark-color-imp" style="border-bottom:1px solid #AFAFAF;">\n      <ion-col col-12 style="font-size:12px !important; padding: 0 21px;">\n        <p> HSN/SAC: {{invoiceDetails.hsnSac}}</p>\n        <p *ngIf="invoiceDetails.cgst > 0"> CGST @ {{invoiceDetails.cgst}}%: <i class="fa fa-rupee"></i>{{invoiceDetails.cgstTax}}</p>\n        <p *ngIf="invoiceDetails.cgst > 0"> SGST @ {{invoiceDetails.sgst}}%: <i class="fa fa-rupee"></i>{{invoiceDetails.sgstTax}}</p>\n      </ion-col>\n    </ion-row>\n\n    <ion-row padding class="light-color-imp" style="margin-bottom: 5%;">\n      <ion-col col-8 no-margin>\n        Net Amount\n      </ion-col>\n      <ion-col col-4 no-margin>\n        <i class="fa fa-rupee"></i> {{invoiceDetails.total}}\n      </ion-col>\n    </ion-row>\n  </div>\n\n  <ion-row>\n    <ion-col col-12 no-margin class="pj-full-width-border">\n      SUMMARY\n    </ion-col>\n  </ion-row>\n\n  <ion-row padding class="light-color-imp">\n    <ion-col col-8>\n      <span>CGST@{{invoice.invoiceItemsList[0].cgst}}%</span>\n    </ion-col>\n    <ion-col col-4>\n      <span><i class="fa fa-rupee"></i> {{invoice.invoiceItemsList[0].cgstTax}}</span>\n    </ion-col>\n  </ion-row>\n\n  <ion-row padding class="light-color-imp">\n    <ion-col col-8>\n      <span>SGST@{{invoice.invoiceItemsList[0].sgst}}%</span>\n    </ion-col>\n    <ion-col col-4>\n      <span><i class="fa fa-rupee"></i> {{invoice.invoiceItemsList[0].sgstTax}}</span>\n    </ion-col>\n  </ion-row>\n\n  <ion-row padding class="light-color-imp">\n    <ion-col col-8>\n      <span>Round Off</span>\n    </ion-col>\n    <ion-col col-4>\n      <span><i class="fa fa-rupee"></i> {{invoice.invoiceItemsList[0].roundDif}}</span>\n    </ion-col>\n  </ion-row>\n\n\n  <ion-row padding>\n    <ion-col col-8>\n      <span><strong>Gross Total</strong></span>\n    </ion-col>\n    <ion-col col-4>\n      <span><strong><i class="fa fa-rupee"></i>{{invoice.grossTotal}}</strong></span>\n    </ion-col>\n  </ion-row>\n\n  <!-- <ion-row style="margin-top: 5%;">\n    <ion-col col-12 no-margin class="pj-full-width-border">\n      NARRATION\n    </ion-col>\n  </ion-row>\n\n  <ion-row padding class="light-color-imp">\n    <ion-col col-12>\n      <span>Dispatch Report as on 28.2.19</span>\n    </ion-col>\n  </ion-row> -->\n\n  <ion-row style="margin-top: 5%;">\n    <ion-col col-12 no-margin class="pj-full-width-border">\n      TERMS\n    </ion-col>\n  </ion-row>\n\n  <ion-row padding class="light-color-imp">\n    <ion-col col-12>\n      <span>Due Date: {{invoice.paymentDueDays}}</span>\n    </ion-col>\n  </ion-row>\n\n  <div id="pdfDiv" style="display: none">\n  <!-- <div id="pdfDiv"> -->\n    <div style="text-align:center;width:90%">\n      TAX INVOICE\n    </div>\n\n    <table style="border:1px solid #000;border-collapse: collapse; width:100%;">\n      <tr>\n        <td style="border:1px solid #000;">\n          <p style="margin:0">JAGTAP BUILDING SOLUTIONS</p>\n          <p style="margin:0">Asthavinayak Soc, Opp Bharat Jyoti Stop,</p>\n          <p style="margin:0">Bibwewadi , Pune - 411037</p>\n          <p style="margin:0">Tel No. : (O) 24216162, 9822610611</p>\n          <p style="margin:0">Phone no. : 02024216162</p>\n          <p style="margin:0">Pin code : 411037</p>\n          <p style="margin:0">GSTIN : 27AFJPJ8271L1ZV</p>\n          <p style="margin:0">E-Mail : jagtapbsolutions@gmail.com</p>\n        </td>\n        <td style="padding:0;">\n          <table style="border-collapse:collapse;width:100%;">\n            <tr>\n              <td style="border:1px solid #000;">\n                <p>Invoice No.</p>\n                <p>{{invoice.invoiceNo }}</p>\n              </td>\n              <td style="border:1px solid #000;">\n                <p>Dates</p>\n                <p>{{invoice.invoiceDate | date: \'dd MMM yyyy\' }}</p>\n              </td>\n            </tr>\n            <tr>\n              <td style="border:1px solid #000;">\n                <p>Delivery Note</p>\n                <p><br /></p>\n              </td>\n              <td style="border:1px solid #000;">\n                <p>Mode/Payment Terms</p>\n                <p>{{(invoice.dueDateInDays + \'\').replace(\'-\',\'\')}}</p>\n              </td>\n            </tr>\n            <tr>\n              <td style="border:1px solid #000;">\n                <p>Supplier\'s Ref</p>\n                <p>{{invoice.invoiceNo }}</p>\n              </td>\n              <td style="border:1px solid #000;">\n                <p>Other Reference\'s</p>\n                <p><br /></p>\n              </td>\n            </tr>\n            <tr>\n              <td style="border:1px solid #000;">\n                <p>Buyer\'s Order No.</p>\n                <p><br /></p>\n              </td>\n              <td style="border:1px solid #000;">\n                <p>Dated</p>\n                <p><br /></p>\n              </td>\n            </tr>\n          </table>\n        </td>\n      </tr>\n\n      <tr>\n        <td>\n          <p style="margin:0">Buyer</p>\n          <p style="margin:0">{{customer.customerDetails.cardName}}</p>\n          <p style="margin:0">{{invoice.invoiceItemsList[0].partyCity}}</p>\n          <p style="margin:0">GSTIN/UIN : {{invoice.invoiceItemsList[0].partyGstinNo}}</p>\n          <p style="margin:0">State Name: {{invoice.invoiceItemsList[0].stateName}}, Code:\n            {{invoice.invoiceItemsList[0].stateCode}}</p>\n          <p style="margin:0">Place of supply : {{invoice.invoiceItemsList[0].stateCode}}</p>\n          <p style="margin:0">Email : </p>\n          <p style="margin:0">Contact : </p>\n        </td>\n        <td style="padding:0;">\n          <table style="border-collapse:collapse;width:100%;">\n            <tr>\n              <td style="border:1px solid #000;">\n                <p>Despatch Doc No.</p>\n                <p><br /></p>\n              </td>\n              <td style="border:1px solid #000;">\n                <p>Delivery Note Date</p>\n                <p><br /></p>\n              </td>\n            </tr>\n            <tr>\n              <td style="border:1px solid #000;">\n                <p>Despatch Through</p>\n                <p><br /></p>\n              </td>\n              <td style="border:1px solid #000;">\n                <p>Destinations</p>\n                <p></p>\n              </td>\n            </tr>\n            <tr>\n              <td colspan=2 style="border:1px solid #000;">\n                <p>Terms Of Payment</p>\n                <p><br /></p>\n              </td>\n            </tr>\n          </table>\n        </td>\n      </tr>\n    </table>\n\n    <table style="margin-top:3%;border:1px solid #000;border-collapse: collapse; width:100%;">\n      <tr>\n        <td style="border:1px solid #000;">\n          Sr No.\n        </td>\n        <td style="border:1px solid #000;">\n          Description Of Goods\n        </td>\n        <td style="border:1px solid #000;">\n          HSN/SAC\n        </td>\n        <td style="border:1px solid #000;">\n          Quantity\n        </td>\n        <td style="border:1px solid #000;">\n          Rate\n        </td>\n        <td style="border:1px solid #000;">\n          Per\n        </td>\n        <td style="border:1px solid #000;">\n          Disc%\n        </td>\n        <td style="border:1px solid #000;">\n          Amount\n        </td>\n      </tr>\n\n      <tr *ngFor="let invoiceItem of invoice.invoiceItemsList">\n        <td style="border:1px solid #000;">\n          1\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoiceItem.itemName}}<br />\n          <!-- <span style="font-size:10px;color:#cecece;">895642130</span> -->\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoiceItem.hsnSac}}\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoiceItem.qty}} bags\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoiceItem.ratePerBag}}\n        </td>\n        <td style="border:1px solid #000;">\n          bags\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoiceItem.total}}\n        </td>\n      </tr>\n\n      <tr>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          CGST@{{invoice.invoiceItemsList[0].cgst}}%\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          %\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoice.invoiceItemsList[0].cgstTax}}\n        </td>\n      </tr>\n\n\n      <tr>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          SGST@{{invoice.invoiceItemsList[0].sgst}}%\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          %\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoice.invoiceItemsList[0].sgstTax}}\n        </td>\n      </tr>\n\n\n      <tr>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          Round Off\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          %\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoice.invoiceItemsList[0].roundDif}}\n        </td>\n      </tr>\n\n\n      <tr>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          Total\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoice.invoiceItemsList[0].qty}}\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoice.grossTotal}}\n        </td>\n      </tr>\n\n      <tr>\n        <td colspan=8>\n          <p style="color:#cecece;"> Amount Chargable (In Words)</p>\n          <p>{{invoice.amountInWords}}</p>\n      </tr>\n    </table>\n\n    <table style="border:1px solid #000;border-collapse: collapse; width:100%;">\n      <tr>\n        <td style="border:1px solid #000;">\n          HSN/SAC\n        </td>\n        <td style="border:1px solid #000;">\n          Taxable Value\n        </td>\n        <td style="border:1px solid #000;">\n          <table style="width:100%;border-collapse:collapse">\n            <tr>\n              <td colspan=2 style="border:1px solid #000;">\n                Central tax\n              </td>\n            </tr>\n            <tr>\n              <td style="border:1px solid #000;">\n                Rate\n              </td>\n              <td style="border:1px solid #000;">\n                Amount\n              </td>\n            </tr>\n          </table>\n        </td>\n        <td style="border:1px solid #000;">\n          <table style="width:100%;border-collapse:collapse">\n            <tr>\n              <td colspan=2 style="border:1px solid #000;">\n                State tax\n              </td>\n            </tr>\n            <tr>\n              <td style="border:1px solid #000;">\n                Rate\n              </td>\n              <td style="border:1px solid #000;">\n                Amount\n              </td>\n            </tr>\n          </table>\n        </td>\n        <td style="border:1px solid #000;">\n          Total Tax Amount\n        </td>\n      </tr>\n\n      <tr>\n        <td style="border:1px solid #000;">\n          {{invoice.invoiceItemsList[0].hsnSac}}\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoice.invoiceItemsList[0].total}}\n        </td>\n        <td style="border:1px solid #000;">\n          <table style="width:100%;border-collapse:collapse">\n            <tr>\n              <td style="border:1px solid #000;">\n                {{invoice.invoiceItemsList[0].cgst}}%\n              </td>\n              <td style="border:1px solid #000;">\n                {{invoice.invoiceItemsList[0].cgstTax}}\n              </td>\n            </tr>\n          </table>\n        </td>\n        <td style="border:1px solid #000;">\n          <table style="width:100%;border-collapse:collapse">\n            <tr>\n              <td style="border:1px solid #000;">\n                {{invoice.invoiceItemsList[0].sgst}}%\n              </td>\n              <td style="border:1px solid #000;">\n                {{invoice.invoiceItemsList[0].sgstTax}}\n              </td>\n            </tr>\n          </table>\n        </td>\n\n        <td style="border:1px solid #000;">\n          {{ totalTax}}\n        </td>\n      </tr>\n\n      <tr>\n        <td style="border:1px solid #000;">\n          Total\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoice.invoiceItemsList[0].total}}\n        </td>\n        <td style="border:1px solid #000;">\n          <table style="width:100%;border-collapse:collapse">\n            <tr>\n              <td style="border:1px solid #000;">\n\n              </td>\n              <td style="border:1px solid #000;">\n                {{invoice.invoiceItemsList[0].cgstTax}}\n              </td>\n            </tr>\n          </table>\n        </td>\n        <td style="border:1px solid #000;">\n          <table style="width:100%;border-collapse:collapse">\n            <tr>\n              <td style="border:1px solid #000;">\n\n              </td>\n              <td style="border:1px solid #000;">\n                {{invoice.invoiceItemsList[0].sgstTax}}\n              </td>\n            </tr>\n          </table>\n        </td>\n        <td style="border:1px solid #000;">\n          {{totalTax}}\n        </td>\n      </tr>\n\n    </table>\n\n    <table style="border:1px solid #000;border-collapse: collapse; width:100%;">\n      <tr>\n        <td>\n          <p style="color:#cecece;">Tax Amount (In Words)</p>\n          <p>{{invoice.taxAmountInWords}}</p>\n        </td>\n    </table>\n\n    <table style="border:1px solid #000;border-collapse: collapse; width:100%;">\n      <tr>\n        <td>\n          <p> <span style="color:#cecece;">Company\'s PAN :</span> AFJPJ8271L</p>\n          <p style="color:#cecece;">Declaration</p>\n          <p>We declare that this invoice shows the actual price of the goods\n            described and that all particulars are true and correct</p>\n        </td>\n        <td>\n          <p style="color:#cecece;">Company\'s LBT No.</p>\n          <p style="border:1px solid #000;">\n            for JAGTAP BUILDING SOLUTIONS\n            <br /><br /><br />\n            Authorised Signatory\n          </p>\n        </td>\n      </tr>\n    </table>\n  </div>\n\n</ion-content>'/*ion-inline-end:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/invoice-details/invoice-details.html"*/,
+            selector: 'page-invoice-details',template:/*ion-inline-start:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/invoice-details/invoice-details.html"*/'<!--\n  Generated template for the InvoiceDetailsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="navbar" text-center>\n    <ion-title>Invoice Details</ion-title>\n\n    <ion-buttons end>\n      <button (click)="createPdfAndShare()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">\n        <ion-icon name="share" color="primary"></ion-icon>\n      </button>\n\n      <button (click)="downloadReport()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">\n        <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n</ion-header>\n\n<ion-content no-padding>\n\n  <ion-row>\n    <ion-col col-12 class="pj-full-width-border" no-margin>\n      <p>{{customer.customerDetails.cardCode}} - {{customer.customerDetails.cardName}}</p>\n      <span class="pj-info-letters">{{invoice.invoiceDate | date: \'dd MMM yy\'}} | {{invoice.isPaid == \'O\' ? \'Open\' :\n        \'Close\'}} | Due Date: {{invoice.dueDate | date: \'dd MMM yy\'}}</span><br />\n      <span class="pj-info-letters">Ref#: {{invoice.invoiceNo}}</span>\n    </ion-col>\n  </ion-row>\n\n  <ion-row>\n    <ion-col col-4></ion-col>\n    <ion-col style="font-size:1.3em" col-2 (click)="callCust()" *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != \'\'">\n      <ion-icon name="md-call"></ion-icon>\n    </ion-col>\n    <ion-col style="font-size:1.3em" col-2 (click)="viewCustInfo()">\n      <ion-icon name="ios-information-circle-outline"></ion-icon>\n    </ion-col>\n    <ion-col col-4></ion-col>\n  </ion-row>\n\n\n  <ion-row style="margin-top: 5%;">\n    <ion-col col-12 no-margin class="pj-full-width-border">\n      ITEMS\n    </ion-col>\n  </ion-row>\n\n  <div *ngFor="let invoiceDetails of invoice.invoiceItemsList">\n\n    <ion-row padding class="light-color-imp">\n      <ion-col col-8>\n        <span>{{invoiceDetails.itemName}}</span>\n      </ion-col>\n      <ion-col col-4>\n        <span><i class="fa fa-rupee"></i> {{invoiceDetails.total}}</span>\n      </ion-col>\n    </ion-row>\n\n    <ion-row padding class="semidark-color-imp">\n      <ion-col col-12 style="font-size:12px !important;">\n        <p> Qty: {{invoiceDetails.qty}}</p>\n        <p> Rate: {{invoiceDetails.ratePerBag}} Per Bag</p>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class="semidark-color-imp" style="border-bottom:1px solid #AFAFAF;">\n      <ion-col col-12 style="font-size:12px !important; padding: 0 21px;">\n        <p> HSN/SAC: {{invoiceDetails.hsnSac}}</p>\n        <p *ngIf="invoiceDetails.cgst > 0"> CGST @ {{invoiceDetails.cgst}}%: <i class="fa fa-rupee"></i>{{invoiceDetails.cgstTax}}</p>\n        <p *ngIf="invoiceDetails.cgst > 0"> SGST @ {{invoiceDetails.sgst}}%: <i class="fa fa-rupee"></i>{{invoiceDetails.sgstTax}}</p>\n      </ion-col>\n    </ion-row>\n\n    <ion-row padding class="light-color-imp" style="margin-bottom: 5%;">\n      <ion-col col-8 no-margin>\n        Net Amount\n      </ion-col>\n      <ion-col col-4 no-margin>\n        <i class="fa fa-rupee"></i> {{invoiceDetails.total}}\n      </ion-col>\n    </ion-row>\n  </div>\n\n  <ion-row>\n    <ion-col col-12 no-margin class="pj-full-width-border">\n      SUMMARY\n    </ion-col>\n  </ion-row>\n\n  <ion-row padding class="light-color-imp">\n    <ion-col col-8>\n      <span>CGST@{{invoice.invoiceItemsList[0].cgst}}%</span>\n    </ion-col>\n    <ion-col col-4>\n      <span><i class="fa fa-rupee"></i> {{invoice.invoiceItemsList[0].cgstTax}}</span>\n    </ion-col>\n  </ion-row>\n\n  <ion-row padding class="light-color-imp">\n    <ion-col col-8>\n      <span>SGST@{{invoice.invoiceItemsList[0].sgst}}%</span>\n    </ion-col>\n    <ion-col col-4>\n      <span><i class="fa fa-rupee"></i> {{invoice.invoiceItemsList[0].sgstTax}}</span>\n    </ion-col>\n  </ion-row>\n\n  <ion-row padding class="light-color-imp">\n    <ion-col col-8>\n      <span>Round Off</span>\n    </ion-col>\n    <ion-col col-4>\n      <span><i class="fa fa-rupee"></i> {{invoice.invoiceItemsList[0].roundDif}}</span>\n    </ion-col>\n  </ion-row>\n\n\n  <ion-row padding>\n    <ion-col col-8>\n      <span><strong>Gross Total</strong></span>\n    </ion-col>\n    <ion-col col-4>\n      <span><strong><i class="fa fa-rupee"></i>{{invoice.grossTotal}}</strong></span>\n    </ion-col>\n  </ion-row>\n\n  <!-- <ion-row style="margin-top: 5%;">\n    <ion-col col-12 no-margin class="pj-full-width-border">\n      NARRATION\n    </ion-col>\n  </ion-row>\n\n  <ion-row padding class="light-color-imp">\n    <ion-col col-12>\n      <span>Dispatch Report as on 28.2.19</span>\n    </ion-col>\n  </ion-row> -->\n\n  <ion-row style="margin-top: 5%;">\n    <ion-col col-12 no-margin class="pj-full-width-border">\n      TERMS\n    </ion-col>\n  </ion-row>\n\n  <ion-row padding class="light-color-imp">\n    <ion-col col-12>\n      <span>Due Date: {{invoice.paymentDueDays}}</span>\n    </ion-col>\n  </ion-row>\n\n  <div id="pdfDiv" style="display: none">\n    <!-- <div id="pdfDiv"> -->\n    <div style="text-align:center;width:90%">\n      TAX INVOICE\n    </div>\n\n    <table style="border:1px solid #000;border-collapse: collapse; width:100%;">\n      <tr>\n        <td style="border:1px solid #000;">\n          <p style="margin:0">JAGTAP BUILDING SOLUTIONS</p>\n          <p style="margin:0">Asthavinayak Soc, Opp Bharat Jyoti Stop,</p>\n          <p style="margin:0">Bibwewadi , Pune - 411037</p>\n          <p style="margin:0">Tel No. : (O) 24216162, 9822610611</p>\n          <p style="margin:0">Phone no. : 02024216162</p>\n          <p style="margin:0">Pin code : 411037</p>\n          <p style="margin:0">GSTIN : 27AFJPJ8271L1ZV</p>\n          <p style="margin:0">E-Mail : jagtapbsolutions@gmail.com</p>\n        </td>\n        <td style="padding:0;">\n          <table style="border-collapse:collapse;width:100%;">\n            <tr>\n              <td style="border:1px solid #000;">\n                <p>Invoice No.</p>\n                <p>{{invoice.invoiceNo }}</p>\n              </td>\n              <td style="border:1px solid #000;">\n                <p>Dates</p>\n                <p>{{invoice.invoiceDate | date: \'dd MMM yyyy\' }}</p>\n              </td>\n            </tr>\n            <tr>\n              <td style="border:1px solid #000;">\n                <p>Delivery Note</p>\n                <p><br /></p>\n              </td>\n              <td style="border:1px solid #000;">\n                <p>Mode/Payment Terms</p>\n                <p>{{(invoice.dueDateInDays + \'\').replace(\'-\',\'\')}}</p>\n              </td>\n            </tr>\n            <tr>\n              <td style="border:1px solid #000;">\n                <p>Supplier\'s Ref</p>\n                <p>{{invoice.invoiceNo }}</p>\n              </td>\n              <td style="border:1px solid #000;">\n                <p>Other Reference\'s</p>\n                <p><br /></p>\n              </td>\n            </tr>\n            <tr>\n              <td style="border:1px solid #000;">\n                <p>Buyer\'s Order No.</p>\n                <p><br /></p>\n              </td>\n              <td style="border:1px solid #000;">\n                <p>Dated</p>\n                <p><br /></p>\n              </td>\n            </tr>\n          </table>\n        </td>\n      </tr>\n\n      <tr>\n        <td>\n          <p style="margin:0">Buyer</p>\n          <p style="margin:0">{{customer.customerDetails.cardName}}</p>\n          <p style="margin:0">{{invoice.invoiceItemsList[0].partyCity}}</p>\n          <p style="margin:0">GSTIN/UIN : {{invoice.invoiceItemsList[0].partyGstinNo}}</p>\n          <p style="margin:0">State Name: {{invoice.invoiceItemsList[0].stateName}}, Code:\n            {{invoice.invoiceItemsList[0].stateCode}}</p>\n          <p style="margin:0">Place of supply : {{invoice.invoiceItemsList[0].stateCode}}</p>\n          <p style="margin:0">Email : </p>\n          <p style="margin:0">Contact : </p>\n        </td>\n        <td style="padding:0;">\n          <table style="border-collapse:collapse;width:100%;">\n            <tr>\n              <td style="border:1px solid #000;">\n                <p>Despatch Doc No.</p>\n                <p><br /></p>\n              </td>\n              <td style="border:1px solid #000;">\n                <p>Delivery Note Date</p>\n                <p><br /></p>\n              </td>\n            </tr>\n            <tr>\n              <td style="border:1px solid #000;">\n                <p>Despatch Through</p>\n                <p><br /></p>\n              </td>\n              <td style="border:1px solid #000;">\n                <p>Destinations</p>\n                <p></p>\n              </td>\n            </tr>\n            <tr>\n              <td colspan=2 style="border:1px solid #000;">\n                <p>Terms Of Payment</p>\n                <p><br /></p>\n              </td>\n            </tr>\n          </table>\n        </td>\n      </tr>\n    </table>\n\n    <table style="margin-top:3%;border:1px solid #000;border-collapse: collapse; width:100%;">\n      <tr>\n        <td style="border:1px solid #000;">\n          Sr No.\n        </td>\n        <td style="border:1px solid #000;">\n          Description Of Goods\n        </td>\n        <td style="border:1px solid #000;">\n          HSN/SAC\n        </td>\n        <td style="border:1px solid #000;">\n          Quantity\n        </td>\n        <td style="border:1px solid #000;">\n          Rate\n        </td>\n        <td style="border:1px solid #000;">\n          Per\n        </td>\n        <td style="border:1px solid #000;">\n          Disc%\n        </td>\n        <td style="border:1px solid #000;">\n          Amount\n        </td>\n      </tr>\n\n      <tr *ngFor="let invoiceItem of invoice.invoiceItemsList">\n        <td style="border:1px solid #000;">\n          1\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoiceItem.itemName}}<br />\n          <!-- <span style="font-size:10px;color:#cecece;">895642130</span> -->\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoiceItem.hsnSac}}\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoiceItem.qty}} bags\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoiceItem.ratePerBag}}\n        </td>\n        <td style="border:1px solid #000;">\n          bags\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoiceItem.total}}\n        </td>\n      </tr>\n\n      <tr>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          CGST@{{invoice.invoiceItemsList[0].cgst}}%\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          %\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoice.invoiceItemsList[0].cgstTax}}\n        </td>\n      </tr>\n\n\n      <tr>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          SGST@{{invoice.invoiceItemsList[0].sgst}}%\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          %\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoice.invoiceItemsList[0].sgstTax}}\n        </td>\n      </tr>\n\n\n      <tr>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          Round Off\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          %\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoice.invoiceItemsList[0].roundDif}}\n        </td>\n      </tr>\n\n\n      <tr>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          Total\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoice.invoiceItemsList[0].qty}}\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoice.grossTotal}}\n        </td>\n      </tr>\n\n      <tr>\n        <td colspan=8>\n          <p style="color:#cecece;"> Amount Chargable (In Words)</p>\n          <p>{{invoice.amountInWords}}</p>\n      </tr>\n    </table>\n\n    <table style="border:1px solid #000;border-collapse: collapse; width:100%;">\n      <tr>\n        <td style="border:1px solid #000;">\n          HSN/SAC\n        </td>\n        <td style="border:1px solid #000;">\n          Taxable Value\n        </td>\n        <td style="border:1px solid #000;">\n          <table style="width:100%;border-collapse:collapse">\n            <tr>\n              <td colspan=2 style="border:1px solid #000;">\n                Central tax\n              </td>\n            </tr>\n            <tr>\n              <td style="border:1px solid #000;">\n                Rate\n              </td>\n              <td style="border:1px solid #000;">\n                Amount\n              </td>\n            </tr>\n          </table>\n        </td>\n        <td style="border:1px solid #000;">\n          <table style="width:100%;border-collapse:collapse">\n            <tr>\n              <td colspan=2 style="border:1px solid #000;">\n                State tax\n              </td>\n            </tr>\n            <tr>\n              <td style="border:1px solid #000;">\n                Rate\n              </td>\n              <td style="border:1px solid #000;">\n                Amount\n              </td>\n            </tr>\n          </table>\n        </td>\n        <td style="border:1px solid #000;">\n          Total Tax Amount\n        </td>\n      </tr>\n\n      <tr>\n        <td style="border:1px solid #000;">\n          {{invoice.invoiceItemsList[0].hsnSac}}\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoice.invoiceItemsList[0].total}}\n        </td>\n        <td style="border:1px solid #000;">\n          <table style="width:100%;border-collapse:collapse">\n            <tr>\n              <td style="border:1px solid #000;">\n                {{invoice.invoiceItemsList[0].cgst}}%\n              </td>\n              <td style="border:1px solid #000;">\n                {{invoice.invoiceItemsList[0].cgstTax}}\n              </td>\n            </tr>\n          </table>\n        </td>\n        <td style="border:1px solid #000;">\n          <table style="width:100%;border-collapse:collapse">\n            <tr>\n              <td style="border:1px solid #000;">\n                {{invoice.invoiceItemsList[0].sgst}}%\n              </td>\n              <td style="border:1px solid #000;">\n                {{invoice.invoiceItemsList[0].sgstTax}}\n              </td>\n            </tr>\n          </table>\n        </td>\n\n        <td style="border:1px solid #000;">\n          {{ totalTax}}\n        </td>\n      </tr>\n\n      <tr>\n        <td style="border:1px solid #000;">\n          Total\n        </td>\n        <td style="border:1px solid #000;">\n          {{invoice.invoiceItemsList[0].total}}\n        </td>\n        <td style="border:1px solid #000;">\n          <table style="width:100%;border-collapse:collapse">\n            <tr>\n              <td style="border:1px solid #000;">\n\n              </td>\n              <td style="border:1px solid #000;">\n                {{invoice.invoiceItemsList[0].cgstTax}}\n              </td>\n            </tr>\n          </table>\n        </td>\n        <td style="border:1px solid #000;">\n          <table style="width:100%;border-collapse:collapse">\n            <tr>\n              <td style="border:1px solid #000;">\n\n              </td>\n              <td style="border:1px solid #000;">\n                {{invoice.invoiceItemsList[0].sgstTax}}\n              </td>\n            </tr>\n          </table>\n        </td>\n        <td style="border:1px solid #000;">\n          {{totalTax}}\n        </td>\n      </tr>\n\n    </table>\n\n    <table style="border:1px solid #000;border-collapse: collapse; width:100%;">\n      <tr>\n        <td>\n          <p style="color:#cecece;">Tax Amount (In Words)</p>\n          <p>{{invoice.taxAmountInWords}}</p>\n        </td>\n    </table>\n\n    <table style="border:1px solid #000;border-collapse: collapse; width:100%;">\n      <tr>\n        <td>\n          <p> <span style="color:#cecece;">Company\'s PAN :</span> AFJPJ8271L</p>\n          <p style="color:#cecece;">Declaration</p>\n          <p>We declare that this invoice shows the actual price of the goods\n            described and that all particulars are true and correct</p>\n        </td>\n        <td>\n          <p style="color:#cecece;">Company\'s LBT No.</p>\n          <p style="border:1px solid #000;">\n            for JAGTAP BUILDING SOLUTIONS\n            <br /><br /><br />\n            Authorised Signatory\n          </p>\n        </td>\n      </tr>\n    </table>\n  </div>\n\n</ion-content>'/*ion-inline-end:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/invoice-details/invoice-details.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_4__ionic_native_file__["a" /* File */],
             __WEBPACK_IMPORTED_MODULE_3__ionic_native_file_opener__["a" /* FileOpener */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_native_social_sharing__["a" /* SocialSharing */]])
+            __WEBPACK_IMPORTED_MODULE_2__ionic_native_social_sharing__["a" /* SocialSharing */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ModalController */],
+            __WEBPACK_IMPORTED_MODULE_9__providers_common_utility_common_utility__["a" /* CommonUtilityProvider */]])
     ], InvoiceDetailsPage);
     return InvoiceDetailsPage;
 }());
 
 //# sourceMappingURL=invoice-details.js.map
-
-/***/ }),
-
-/***/ 220:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InvoiceListingSettingsPopoverPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-/**
- * Generated class for the InvoiceListingSettingsPopoverPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var InvoiceListingSettingsPopoverPage = /** @class */ (function () {
-    function InvoiceListingSettingsPopoverPage(navCtrl, navParams, viewController) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.viewController = viewController;
-    }
-    InvoiceListingSettingsPopoverPage.prototype.dismissPopOver = function (data) {
-        this.viewController.dismiss(data);
-    };
-    InvoiceListingSettingsPopoverPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad InvoiceListingSettingsPopoverPage');
-    };
-    InvoiceListingSettingsPopoverPage.prototype.showLedgerReport = function () {
-        console.log('showLedgerReport InvoiceListingSettingsPopoverPage');
-        this.dismissPopOver({
-            showLedger: true
-        });
-    };
-    InvoiceListingSettingsPopoverPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-invoice-listing-settings-popover',template:/*ion-inline-start:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/invoice-listing-settings-popover/invoice-listing-settings-popover.html"*/'<!--\n  Generated template for the InvoiceListingSettingsPopoverPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n\n\n<ion-content no-padding>\n\n  <ion-list text-center>\n    <button color="bgcolor" ion-item (click)="showLedgerReport()">\n      <p>Ledger Report</p>\n    </button>\n  </ion-list>\n\n  <!-- <div class="pdfDiv" style="display:none">\n    <div text-center>\n      <h4>JAGTAP BUILDING SOLUTIONS</h4>\n      <p>Asthavinayak Soc, Opp Bharat Jyoti Stop,</p>\n      <p>Bibwewadi , Pune - 411037</p>\n      <p>Tel No. : (O) 24216162, 9822610611</p>\n      <p>Phone no. : 02024216162</p>\n      <p>Pin code : 411037</p>\n      <p>GSTIN : 27AFJPJ8271L1ZV</p>\n      <p>E-Mail : jagtapbsolutions@gmail.com</p>\n    </div>\n\n    <div style="margin:5% 0;" text-center>\n      <p>{{customer.customerDetails.cardName}}</p>\n      <p *ngIf="invoicesListing.length > 0">{{invoicesListing[0].invoiceItemsList[0].partyCity}}</p>\n    </div>\n\n    <div text-center>\n      <p>Ledger Report</p>\n      <p>01 Apr 19 - 31 Mar 20</p>\n      <p>Date {{currentDate | date: \'dd MMM yy\'}}</p>\n    </div>\n\n    <div style="margin-top:5%">\n\n      <table style="border:1px solid #000;border-collapse: collapse; width:100%;">\n        <tr>\n          <td style="border:1px solid #000;">\n            Date\n          </td>\n          <td style="border:1px solid #000;">\n            Type\n          </td>\n          <td style="border:1px solid #000;">\n            Invoice No.\n          </td>\n          <td style="border:1px solid #000;">\n            Debit\n          </td>\n          <td style="border:1px solid #000;">\n            Credit\n          </td>\n          <td style="border:1px solid #000;">\n            Balance\n          </td>\n        </tr>\n        <tr>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            Opening Balance\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            572280.9\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n        </tr>\n        <tr *ngFor="let i of [1,2,3]">\n          <td style="border:1px solid #000;">\n            03 Apr 19\n          </td>\n          <td style="border:1px solid #000;">\n            AR IN\n          </td>\n          <td style="border:1px solid #000;">\n            {{i}}\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            103000\n          </td>\n          <td style="border:1px solid #000;">\n            469260.9Cr\n          </td>\n        </tr>\n\n        <tr>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            572260.9\n          </td>\n          <td style="border:1px solid #000;">\n            239500\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n        </tr>\n\n        <tr>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            Closing Balance\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            332760.9\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n        </tr>\n\n      </table>\n    </div>\n  </div> -->\n\n</ion-content>'/*ion-inline-end:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/invoice-listing-settings-popover/invoice-listing-settings-popover.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* ViewController */]])
-    ], InvoiceListingSettingsPopoverPage);
-    return InvoiceListingSettingsPopoverPage;
-}());
-
-//# sourceMappingURL=invoice-listing-settings-popover.js.map
-
-/***/ }),
-
-/***/ 221:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CustomerDetailsPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_common_utility_common_utility__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__aging_report_filters_aging_report_filters__ = __webpack_require__(216);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__order_mgmt_order_mgmt__ = __webpack_require__(66);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-/**
- * Generated class for the CustomerDetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var CustomerDetailsPage = /** @class */ (function () {
-    function CustomerDetailsPage(navCtrl, navParams, commonUtility) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.commonUtility = commonUtility;
-        this.customer = this.navParams.get('customer');
-        console.log('customer = ' + JSON.stringify(this.customer));
-    }
-    CustomerDetailsPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad CustomerDetailsPage');
-    };
-    CustomerDetailsPage.prototype.showAgingReport = function () {
-        console.log('showAgingReport CustomerDetailsPage');
-        if (this.commonUtility.isNetworkAvailable()) {
-            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__aging_report_filters_aging_report_filters__["a" /* AgingReportFiltersPage */], {
-                customer: this.customer
-            });
-        }
-    };
-    CustomerDetailsPage.prototype.showOrders = function () {
-        console.log('showOrders CustomerDetailsPage');
-        // this.commonUtility.presentToast('Not Yet Implemented', 5000);
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__order_mgmt_order_mgmt__["a" /* OrderMgmtPage */], {
-            customer: this.customer
-        });
-    };
-    CustomerDetailsPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-customer-details',template:/*ion-inline-start:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/customer-details/customer-details.html"*/'<!--\n  Generated template for the CustomerDetailsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="navbar" text-center>\n    <ion-title>Customer Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content no-padding>\n\n  <!-- Customer Basic Details -->\n  <ion-card>\n\n    <ion-card-header>\n      <ion-row>\n        <ion-col col-12>\n          <strong>{{customer.customerDetails.cardCode}} - {{customer.customerDetails.cardName}}</strong>\n        </ion-col>\n      </ion-row>\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <ion-row>\n        <ion-col col-5>\n          Contact No.\n        </ion-col>\n        <ion-col col-7>\n          {{customer.customerDetails.cellular == null || customer.customerDetails.cellular == \'\' ? \'Not Available\' :\n          customer.customerDetails.cellular }}\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col col-5>\n          Email\n        </ion-col>\n        <ion-col col-7>\n          {{customer.customerDetails.eMail == null || customer.customerDetails.eMail == \'\' ? \'Not Available\' :\n          customer.customerDetails.eMail }}\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col col-5>\n          Balance\n        </ion-col>\n        <ion-col col-7>\n          {{customer.customerDetails.balance == null || customer.customerDetails.balance == \'\' ? \'Not Available\' :\n          customer.customerDetails.balance }}\n        </ion-col>\n      </ion-row>\n\n    </ion-card-content>\n\n    <ion-row>\n      <ion-col col-12>\n        <ion-list>\n          <ion-item style="background-color: #1c2431 !important; margin: 0 !important; padding: 0 !important;">\n            <button color="dark" style="color: #FFCB08 !important; margin: 0 !important;" ion-item (click)="showAgingReport()">\n              Aging Report\n              <ion-icon item-end name="ios-arrow-forward"></ion-icon>\n            </button>\n          </ion-item>\n          <ion-item style="background-color: #1c2431 !important; margin: 0 !important; padding: 0 !important;">\n            <button color="dark" style="color: #FFCB08 !important; margin: 0 !important;" ion-item (click)="showOrders()">\n              Orders\n              <ion-icon item-end name="ios-arrow-forward"></ion-icon>\n            </button>\n          </ion-item>\n        </ion-list>\n      </ion-col>\n    </ion-row>\n\n  </ion-card>\n\n\n  <!-- Customer Contact Person Details Details -->\n  <ion-card>\n\n    <ion-card-header>\n      <ion-row>\n        <ion-col col-12 text-center style="border-bottom: 1px solid #FFCB08;">\n          Contact Person\n        </ion-col>\n      </ion-row>\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <ion-row *ngIf="customer.customerDetails.cntctPrsn != null">\n        <ion-col col-8>\n          {{customer.customerDetails.cntctPrsn == \'\' ? \'Not Available\' : customer.customerDetails.cntctPrsn }}\n        </ion-col>\n        <ion-col col-4>\n          {{customer.customerDetails.cntctPrsnNo == null ? \'\' : customer.customerDetails.cntctPrsnNo }}\n        </ion-col>\n      </ion-row>\n\n      <ion-row *ngIf="customer.customerDetails.cntctPrsn == null">\n        <ion-col col-12>\n          <div class="pj-empty-page">\n            <ion-icon name="ios-contact-outline"></ion-icon>\n            <h4>No Data Available</h4>\n          </div>\n        </ion-col>\n      </ion-row>\n\n    </ion-card-content>\n\n  </ion-card>\n\n  <!-- Customer Address Details -->\n  <ion-card>\n\n    <ion-card-header>\n      <ion-row>\n        <ion-col col-12 text-center style="border-bottom: 1px solid #FFCB08;">\n          Customer Address\n        </ion-col>\n      </ion-row>\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <ion-row *ngIf="customer.customerAddressesList.length > 0">\n        <ion-col col-12 *ngFor="let customerAddresses of customer.customerAddressesList">\n          <p style="border-bottom: 1px solid #cececc; color: #fff;">\n            {{customerAddresses.block == null ? \'\' : customerAddresses.block }},\n            {{customerAddresses.street == null ? \'\' : customerAddresses.street }},\n            {{customerAddresses.address2 }}, {{customerAddresses.address3 }}\n          </p>\n        </ion-col>\n      </ion-row>\n\n      <ion-row *ngIf="customer.customerAddressesList.length == 0">\n        <ion-col col-12>\n          <div class="pj-empty-page">\n            <ion-icon name="ios-pin-outline"></ion-icon>\n            <h4>No Address Available</h4>\n          </div>\n        </ion-col>\n      </ion-row>\n\n    </ion-card-content>\n\n  </ion-card>\n\n\n</ion-content>'/*ion-inline-end:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/customer-details/customer-details.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_2__providers_common_utility_common_utility__["a" /* CommonUtilityProvider */]])
-    ], CustomerDetailsPage);
-    return CustomerDetailsPage;
-}());
-
-//# sourceMappingURL=customer-details.js.map
 
 /***/ }),
 
@@ -1967,9 +1966,9 @@ var CustomerDetailsPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OrderDetailsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_common_utility_common_utility__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_restservice_restservice__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_restservice_restservice__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2168,11 +2167,11 @@ var OrderDetailsPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OrderAddPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_restservice_restservice__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_restservice_restservice__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modal_add_item_modal_add_item__ = __webpack_require__(224);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_common_utility_common_utility__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__order_mgmt_order_mgmt__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__order_mgmt_order_mgmt__ = __webpack_require__(67);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2313,7 +2312,7 @@ var OrderAddPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_common_utility_common_utility__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_common_utility_common_utility__ = __webpack_require__(16);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2416,15 +2415,166 @@ var ModalAddItemPage = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OrdersBookedPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_restservice_restservice__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__ = __webpack_require__(13);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+/**
+ * Generated class for the OrdersBookedPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var OrdersBookedPage = /** @class */ (function () {
+    function OrdersBookedPage(navCtrl, navParams, restService) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.restService = restService;
+        this.bookedOrdersList = [];
+        var bookedOrderApiEndPoint = __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__["a" /* ConstantsProvider */].API_BASE_URL + __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__["a" /* ConstantsProvider */].API_ENDPOINT_ORDERS
+            + __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__["a" /* ConstantsProvider */].URL_SEPARATOR + __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__["a" /* ConstantsProvider */].API_ENDPOINT_BOOKED_ORDERS;
+        this.restService.getDetails(bookedOrderApiEndPoint)
+            .subscribe(function (response) {
+            console.log('Response = ' + JSON.stringify(response.response));
+            _this.bookedOrdersList = response.response;
+        });
+        // this.bookedOrdersList.push({
+        //   appOrderId: 1,
+        //   cardCode: 'S001',
+        //   cardName: 'Piyush Jadhav',
+        //   shipToCode: 'Test Address',
+        //   createdTs: '152645012',
+        //   itemsList: [{
+        //     itemCode: 'ITM001',
+        //     itemName: 'RMC-001',
+        //     qty: 1
+        //   },
+        //   {
+        //     itemCode: 'ITM002',
+        //     itemName: 'RMC-002',
+        //     qty: 12
+        //   }]
+        // }, {
+        //     appOrderId: 2,
+        //     cardCode: 'NR005',
+        //     cardName: 'Sanket Jadhav',
+        //     shipToCode: 'Test Address 2',
+        //     createdTs: '152645012',
+        //     itemsList: [{
+        //       itemCode: 'ITM001',
+        //       itemName: 'RMC-001',
+        //       qty: 1
+        //     },
+        //     {
+        //       itemCode: 'ITM002',
+        //       itemName: 'RMC-002',
+        //       qty: 12
+        //     }]
+        //   });
+    }
+    OrdersBookedPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad OrdersBookedPage');
+    };
+    OrdersBookedPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-orders-booked',template:/*ion-inline-start:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/orders-booked/orders-booked.html"*/'<!--\n  Generated template for the OrdersBookedPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="navbar">\n\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title text-center>Booked Orders</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content no-padding>\n\n  <!-- <ion-searchbar [(ngModel)]="myInput" (ionChange)="onInput()" placeholder="Search By Customer Name, Order No.">\n  </ion-searchbar> -->\n\n  <div *ngIf="bookedOrdersList.length==0" class="pj-empty-page" style="margin-top: 40%;">\n    <ion-icon name="ios-cart-outline"></ion-icon>\n    <h4>No Booked Orders To Show</h4>\n  </div>\n\n  <ion-card *ngFor="let orderDetails of bookedOrdersList">\n\n    <ion-card-header>\n      <ion-row>\n        <ion-col col-4>\n          <strong>{{ orderDetails.appOrdrId }} </strong>\n        </ion-col>\n        <ion-col col-8>\n          <p class="pj-date-and-status" style="color: #ccc;">\n            {{ orderDetails.createdTs | date: \'dd MMM yyyy hh:mm a\' }}\n          </p>\n        </ion-col>\n      </ion-row>\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <ion-row>\n        <ion-col col-12>\n          <strong>{{ orderDetails.cardCode }} - {{ orderDetails.cardName }}</strong>\n        </ion-col>\n      </ion-row>\n\n      <ion-row *ngIf="orderDetails.itemsList.length > 0">\n        <h4 class="order-items">Order Items</h4>\n        <ion-col col-12 *ngFor="let items of orderDetails.itemsList">\n          <!-- <p style="border-bottom: 1px solid #cececc; color: #fff;"> -->\n          <p class="pj-date-and-status" style="color: #ccc; float: left; \n          border-bottom: 1px solid #555;width: 100%; padding-bottom: 6px;">\n            {{items.itemCode }} - {{items.itemName}} <br />Quantity - {{items.qty}}\n          </p>\n        </ion-col>\n      </ion-row>\n\n    </ion-card-content>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/orders-booked/orders-booked.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_restservice_restservice__["a" /* RestserviceProvider */]])
+    ], OrdersBookedPage);
+    return OrdersBookedPage;
+}());
+
+//# sourceMappingURL=orders-booked.js.map
+
+/***/ }),
+
+/***/ 226:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InvoiceListingSettingsPopoverPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/**
+ * Generated class for the InvoiceListingSettingsPopoverPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var InvoiceListingSettingsPopoverPage = /** @class */ (function () {
+    function InvoiceListingSettingsPopoverPage(navCtrl, navParams, viewController) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.viewController = viewController;
+    }
+    InvoiceListingSettingsPopoverPage.prototype.dismissPopOver = function (data) {
+        this.viewController.dismiss(data);
+    };
+    InvoiceListingSettingsPopoverPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad InvoiceListingSettingsPopoverPage');
+    };
+    InvoiceListingSettingsPopoverPage.prototype.showLedgerReport = function () {
+        console.log('showLedgerReport InvoiceListingSettingsPopoverPage');
+        this.dismissPopOver({
+            showLedger: true
+        });
+    };
+    InvoiceListingSettingsPopoverPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-invoice-listing-settings-popover',template:/*ion-inline-start:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/invoice-listing-settings-popover/invoice-listing-settings-popover.html"*/'<!--\n  Generated template for the InvoiceListingSettingsPopoverPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n\n\n<ion-content no-padding>\n\n  <ion-list text-center>\n    <button color="bgcolor" ion-item (click)="showLedgerReport()">\n      <p>Ledger Report</p>\n    </button>\n  </ion-list>\n\n  <!-- <div class="pdfDiv" style="display:none">\n    <div text-center>\n      <h4>JAGTAP BUILDING SOLUTIONS</h4>\n      <p>Asthavinayak Soc, Opp Bharat Jyoti Stop,</p>\n      <p>Bibwewadi , Pune - 411037</p>\n      <p>Tel No. : (O) 24216162, 9822610611</p>\n      <p>Phone no. : 02024216162</p>\n      <p>Pin code : 411037</p>\n      <p>GSTIN : 27AFJPJ8271L1ZV</p>\n      <p>E-Mail : jagtapbsolutions@gmail.com</p>\n    </div>\n\n    <div style="margin:5% 0;" text-center>\n      <p>{{customer.customerDetails.cardName}}</p>\n      <p *ngIf="invoicesListing.length > 0">{{invoicesListing[0].invoiceItemsList[0].partyCity}}</p>\n    </div>\n\n    <div text-center>\n      <p>Ledger Report</p>\n      <p>01 Apr 19 - 31 Mar 20</p>\n      <p>Date {{currentDate | date: \'dd MMM yy\'}}</p>\n    </div>\n\n    <div style="margin-top:5%">\n\n      <table style="border:1px solid #000;border-collapse: collapse; width:100%;">\n        <tr>\n          <td style="border:1px solid #000;">\n            Date\n          </td>\n          <td style="border:1px solid #000;">\n            Type\n          </td>\n          <td style="border:1px solid #000;">\n            Invoice No.\n          </td>\n          <td style="border:1px solid #000;">\n            Debit\n          </td>\n          <td style="border:1px solid #000;">\n            Credit\n          </td>\n          <td style="border:1px solid #000;">\n            Balance\n          </td>\n        </tr>\n        <tr>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            Opening Balance\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            572280.9\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n        </tr>\n        <tr *ngFor="let i of [1,2,3]">\n          <td style="border:1px solid #000;">\n            03 Apr 19\n          </td>\n          <td style="border:1px solid #000;">\n            AR IN\n          </td>\n          <td style="border:1px solid #000;">\n            {{i}}\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            103000\n          </td>\n          <td style="border:1px solid #000;">\n            469260.9Cr\n          </td>\n        </tr>\n\n        <tr>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            572260.9\n          </td>\n          <td style="border:1px solid #000;">\n            239500\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n        </tr>\n\n        <tr>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            Closing Balance\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n            332760.9\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n          <td style="border:1px solid #000;">\n          </td>\n        </tr>\n\n      </table>\n    </div>\n  </div> -->\n\n</ion-content>'/*ion-inline-end:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/invoice-listing-settings-popover/invoice-listing-settings-popover.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* ViewController */]])
+    ], InvoiceListingSettingsPopoverPage);
+    return InvoiceListingSettingsPopoverPage;
+}());
+
+//# sourceMappingURL=invoice-listing-settings-popover.js.map
+
+/***/ }),
+
+/***/ 227:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ModalAuAdminUsersPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__admin_users_admin_users__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__custom_base_component__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_constants_constants__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_common_utility_common_utility__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_common_http__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__admin_users_admin_users__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__custom_base_component__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_common_http__ = __webpack_require__(44);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -2556,18 +2706,18 @@ var ModalAuAdminUsersPage = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ 226:
+/***/ 228:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TrackingPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Firebase__ = __webpack_require__(381);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Firebase__ = __webpack_require__(383);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_Firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_Firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_marker_animate_unobtrusive__ = __webpack_require__(395);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_marker_animate_unobtrusive__ = __webpack_require__(397);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_marker_animate_unobtrusive___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_marker_animate_unobtrusive__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_geocoder_geocoder__ = __webpack_require__(397);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_geocoder_geocoder__ = __webpack_require__(399);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2698,17 +2848,17 @@ var TrackingPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 227:
+/***/ 229:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TrackingHistoryPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_marker_animate_unobtrusive__ = __webpack_require__(395);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_marker_animate_unobtrusive__ = __webpack_require__(397);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_marker_animate_unobtrusive___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_marker_animate_unobtrusive__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_restservice_restservice__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_restservice_restservice__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3196,17 +3346,17 @@ var TrackingHistoryPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 228:
+/***/ 230:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SettingsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__change_password_change_password__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_restservice_restservice__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_common_utility_common_utility__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__change_password_change_password__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_restservice_restservice__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_common_utility_common_utility__ = __webpack_require__(16);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3297,7 +3447,7 @@ var SettingsPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 239:
+/***/ 241:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -3310,21 +3460,21 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 239;
+webpackEmptyAsyncContext.id = 241;
 
 /***/ }),
 
-/***/ 28:
+/***/ 27:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RestserviceProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_utility_common_utility__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_constants__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_constants__ = __webpack_require__(13);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3478,92 +3628,96 @@ var RestserviceProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 283:
+/***/ 285:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
 	"../pages/admin-users/admin-users.module": [
-		868,
-		20
+		871,
+		21
 	],
 	"../pages/aging-report-filters/aging-report-filters.module": [
-		851,
-		19
+		853,
+		20
 	],
 	"../pages/authorizaton-settings/authorizaton-settings.module": [
-		852,
-		18
+		854,
+		19
 	],
 	"../pages/background-tracking/background-tracking.module": [
-		853,
+		855,
 		0
 	],
 	"../pages/change-password/change-password.module": [
-		854,
-		17
+		856,
+		18
 	],
 	"../pages/contact-update/contact-update.module": [
-		855,
-		16
+		857,
+		17
 	],
 	"../pages/customer-aging-report/customer-aging-report.module": [
-		856,
-		15
+		858,
+		16
 	],
 	"../pages/customer-details/customer-details.module": [
-		857,
-		14
+		859,
+		15
 	],
 	"../pages/customer-mgmt/customer-mgmt.module": [
-		858,
-		13
+		860,
+		14
 	],
 	"../pages/invoice-details/invoice-details.module": [
-		869,
-		12
+		872,
+		13
 	],
 	"../pages/invoice-listing-settings-popover/invoice-listing-settings-popover.module": [
-		859,
-		11
+		861,
+		12
 	],
 	"../pages/invoices-listing/invoices-listing.module": [
-		870,
-		10
+		873,
+		11
 	],
 	"../pages/login/login.module": [
-		860,
-		9
+		862,
+		10
 	],
 	"../pages/modal-add-item/modal-add-item.module": [
-		861,
-		8
+		863,
+		9
 	],
 	"../pages/modal-au-admin-users/modal-au-admin-users.module": [
-		862,
-		7
+		864,
+		8
 	],
 	"../pages/order-add/order-add.module": [
-		863,
-		6
+		865,
+		7
 	],
 	"../pages/order-details/order-details.module": [
-		864,
-		5
+		866,
+		6
 	],
 	"../pages/order-mgmt/order-mgmt.module": [
-		865,
+		867,
+		5
+	],
+	"../pages/orders-booked/orders-booked.module": [
+		868,
 		4
 	],
 	"../pages/settings/settings.module": [
-		866,
+		869,
 		3
 	],
 	"../pages/tracking-history/tracking-history.module": [
-		871,
+		874,
 		2
 	],
 	"../pages/tracking/tracking.module": [
-		867,
+		870,
 		1
 	]
 };
@@ -3578,22 +3732,22 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 283;
+webpackAsyncContext.id = 285;
 module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 397:
+/***/ 399:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GeocoderProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(173);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_native_geocoder__ = __webpack_require__(398);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_native_geocoder__ = __webpack_require__(400);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3660,7 +3814,7 @@ var GeocoderProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 441:
+/***/ 443:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3668,9 +3822,9 @@ var GeocoderProvider = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_restservice_restservice__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_common_utility_common_utility__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_constants_constants__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_restservice_restservice__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_constants_constants__ = __webpack_require__(13);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3803,13 +3957,13 @@ var ContactUpdatePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 442:
+/***/ 444:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(443);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(447);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(445);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(449);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -3817,7 +3971,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 447:
+/***/ 449:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3825,44 +3979,46 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(439);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(440);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_network__ = __webpack_require__(377);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_geolocation__ = __webpack_require__(399);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_component__ = __webpack_require__(848);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_login_login__ = __webpack_require__(131);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_common_utility_common_utility__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_interceptor_interceptor__ = __webpack_require__(849);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_restservice_restservice__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__providers_constants_constants__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_authorizaton_settings_authorizaton_settings__ = __webpack_require__(129);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_change_password_change_password__ = __webpack_require__(130);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_settings_settings__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_admin_users_admin_users__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_modal_au_admin_users_modal_au_admin_users__ = __webpack_require__(225);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_contact_update_contact_update__ = __webpack_require__(441);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_tracking_tracking__ = __webpack_require__(226);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_tracking_history_tracking_history__ = __webpack_require__(227);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__providers_geocoder_geocoder__ = __webpack_require__(397);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_native_geocoder__ = __webpack_require__(398);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_customer_mgmt_customer_mgmt__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__providers_location_tracker_location_tracker__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_customer_details_customer_details__ = __webpack_require__(221);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_customer_aging_report_customer_aging_report__ = __webpack_require__(217);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_aging_report_filters_aging_report_filters__ = __webpack_require__(216);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_invoices_listing_invoices_listing__ = __webpack_require__(218);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_invoice_details_invoice_details__ = __webpack_require__(219);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_order_mgmt_order_mgmt__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(441);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(442);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_network__ = __webpack_require__(379);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_geolocation__ = __webpack_require__(401);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_component__ = __webpack_require__(850);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_login_login__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_interceptor_interceptor__ = __webpack_require__(851);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_restservice_restservice__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__providers_constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_authorizaton_settings_authorizaton_settings__ = __webpack_require__(131);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_change_password_change_password__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_settings_settings__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_admin_users_admin_users__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_modal_au_admin_users_modal_au_admin_users__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_contact_update_contact_update__ = __webpack_require__(443);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_tracking_tracking__ = __webpack_require__(228);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_tracking_history_tracking_history__ = __webpack_require__(229);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__providers_geocoder_geocoder__ = __webpack_require__(399);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_native_geocoder__ = __webpack_require__(400);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_customer_mgmt_customer_mgmt__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__providers_location_tracker_location_tracker__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_customer_details_customer_details__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_customer_aging_report_customer_aging_report__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_aging_report_filters_aging_report_filters__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_invoices_listing_invoices_listing__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_invoice_details_invoice_details__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_order_mgmt_order_mgmt__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_order_details_order_details__ = __webpack_require__(222);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_invoice_listing_settings_popover_invoice_listing_settings_popover__ = __webpack_require__(220);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ionic_native_social_sharing__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__ionic_native_file_opener__ = __webpack_require__(178);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__ionic_native_file__ = __webpack_require__(179);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_invoice_listing_settings_popover_invoice_listing_settings_popover__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ionic_native_social_sharing__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__ionic_native_file_opener__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__ionic_native_file__ = __webpack_require__(181);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__pages_order_add_order_add__ = __webpack_require__(223);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__pages_modal_add_item_modal_add_item__ = __webpack_require__(224);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39_ionic_selectable__ = __webpack_require__(850);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__ionic_native_diagnostic__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39_ionic_selectable__ = __webpack_require__(852);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__ionic_native_diagnostic__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__ionic_native_call_number__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__pages_orders_booked_orders_booked__ = __webpack_require__(225);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3911,6 +4067,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -3937,7 +4095,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_32__pages_order_details_order_details__["a" /* OrderDetailsPage */],
                 __WEBPACK_IMPORTED_MODULE_33__pages_invoice_listing_settings_popover_invoice_listing_settings_popover__["a" /* InvoiceListingSettingsPopoverPage */],
                 __WEBPACK_IMPORTED_MODULE_37__pages_order_add_order_add__["a" /* OrderAddPage */],
-                __WEBPACK_IMPORTED_MODULE_38__pages_modal_add_item_modal_add_item__["a" /* ModalAddItemPage */]
+                __WEBPACK_IMPORTED_MODULE_38__pages_modal_add_item_modal_add_item__["a" /* ModalAddItemPage */],
+                __WEBPACK_IMPORTED_MODULE_42__pages_orders_booked_orders_booked__["a" /* OrdersBookedPage */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -3958,6 +4117,7 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/order-add/order-add.module#OrderAddPageModule', name: 'OrderAddPage', segment: 'order-add', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/order-details/order-details.module#OrderDetailsPageModule', name: 'OrderDetailsPage', segment: 'order-details', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/order-mgmt/order-mgmt.module#OrderMgmtPageModule', name: 'OrderMgmtPage', segment: 'order-mgmt', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/orders-booked/orders-booked.module#OrdersBookedPageModule', name: 'OrdersBookedPage', segment: 'orders-booked', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/settings/settings.module#SettingsPageModule', name: 'SettingsPage', segment: 'settings', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tracking/tracking.module#TrackingPageModule', name: 'TrackingPage', segment: 'tracking', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/admin-users/admin-users.module#AdminUsersPageModule', name: 'AdminUsersPage', segment: 'admin-users', priority: 'low', defaultHistory: [] },
@@ -3991,7 +4151,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_32__pages_order_details_order_details__["a" /* OrderDetailsPage */],
                 __WEBPACK_IMPORTED_MODULE_33__pages_invoice_listing_settings_popover_invoice_listing_settings_popover__["a" /* InvoiceListingSettingsPopoverPage */],
                 __WEBPACK_IMPORTED_MODULE_37__pages_order_add_order_add__["a" /* OrderAddPage */],
-                __WEBPACK_IMPORTED_MODULE_38__pages_modal_add_item_modal_add_item__["a" /* ModalAddItemPage */]
+                __WEBPACK_IMPORTED_MODULE_38__pages_modal_add_item_modal_add_item__["a" /* ModalAddItemPage */],
+                __WEBPACK_IMPORTED_MODULE_42__pages_orders_booked_orders_booked__["a" /* OrdersBookedPage */]
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */],
@@ -4011,7 +4172,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_35__ionic_native_file_opener__["a" /* FileOpener */],
                 __WEBPACK_IMPORTED_MODULE_36__ionic_native_file__["a" /* File */],
                 __WEBPACK_IMPORTED_MODULE_25__providers_location_tracker_location_tracker__["a" /* LocationTrackerProvider */],
-                __WEBPACK_IMPORTED_MODULE_40__ionic_native_diagnostic__["a" /* Diagnostic */]
+                __WEBPACK_IMPORTED_MODULE_40__ionic_native_diagnostic__["a" /* Diagnostic */],
+                __WEBPACK_IMPORTED_MODULE_41__ionic_native_call_number__["a" /* CallNumber */]
             ]
         })
     ], AppModule);
@@ -4026,14 +4188,14 @@ var AppModule = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OrderMgmtPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CustomerDetailsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_common_utility_common_utility__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__order_details_order_details__ = __webpack_require__(222);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_constants_constants__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_restservice_restservice__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__customer_mgmt_customer_mgmt__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__aging_report_filters_aging_report_filters__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__order_mgmt_order_mgmt__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_call_number__ = __webpack_require__(85);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4043,6 +4205,101 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
+
+
+
+
+
+
+/**
+ * Generated class for the CustomerDetailsPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var CustomerDetailsPage = /** @class */ (function () {
+    function CustomerDetailsPage(navCtrl, navParams, commonUtility, view, callNumberNative) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.commonUtility = commonUtility;
+        this.view = view;
+        this.callNumberNative = callNumberNative;
+        this.isModalData = false;
+        this.customer = this.navParams.get('customer');
+        this.isModalData = this.navParams.get('isModalData') == undefined || this.navParams.get('isModalData') == null || this.navParams.get('isModalData') == '' ? false : this.navParams.get('isModalData');
+        console.log('customer = ' + JSON.stringify(this.customer));
+        this.date = new __WEBPACK_IMPORTED_MODULE_5__angular_common__["d" /* DatePipe */]('en-US').transform(new Date(), 'ddMMyy');
+        this.time = new __WEBPACK_IMPORTED_MODULE_5__angular_common__["d" /* DatePipe */]('en-US').transform(new Date(), 'HHmmss');
+    }
+    CustomerDetailsPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad CustomerDetailsPage');
+    };
+    CustomerDetailsPage.prototype.dismissModal = function () {
+        var modalData = {
+            isAdded: false
+        };
+        this.view.dismiss(modalData);
+    };
+    CustomerDetailsPage.prototype.showAgingReport = function () {
+        console.log('showAgingReport CustomerDetailsPage');
+        if (this.commonUtility.isNetworkAvailable()) {
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__aging_report_filters_aging_report_filters__["a" /* AgingReportFiltersPage */], {
+                customer: this.customer
+            });
+        }
+    };
+    CustomerDetailsPage.prototype.showOrders = function () {
+        console.log('showOrders CustomerDetailsPage');
+        // this.commonUtility.presentToast('Not Yet Implemented', 5000);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__order_mgmt_order_mgmt__["a" /* OrderMgmtPage */], {
+            customer: this.customer
+        });
+    };
+    CustomerDetailsPage.prototype.callCust = function () {
+        console.log('Calling Customer on : ' + this.customer.customerDetails.cellular);
+        this.commonUtility.callNumber(this.customer.customerDetails.cellular, true);
+    };
+    CustomerDetailsPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-customer-details',template:/*ion-inline-start:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/customer-details/customer-details.html"*/'<!--\n  Generated template for the CustomerDetailsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="navbar" text-center>\n    <ion-title>Customer Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content no-padding>\n\n  <!-- Customer Basic Details -->\n  <ion-card>\n\n    <ion-card-header>\n      <ion-row>\n        <ion-col col-12>\n          <strong>{{customer.customerDetails.cardCode}} - {{customer.customerDetails.cardName}}</strong>\n        </ion-col>\n      </ion-row>\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <ion-row>\n        <ion-col col-5>\n          Contact No.\n        </ion-col>\n        <ion-col col-6>\n          {{customer.customerDetails.cellular == null || customer.customerDetails.cellular == \'\' ? \'Not Available\' :\n          customer.customerDetails.cellular }}\n        </ion-col>\n        <ion-col col-1 color="primary" (click)="callCust()" *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != \'\'">\n          <ion-icon name="md-call"></ion-icon>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col col-5>\n          Email\n        </ion-col>\n        <ion-col col-7>\n          {{customer.customerDetails.eMail == null || customer.customerDetails.eMail == \'\' ? \'Not Available\' :\n          customer.customerDetails.eMail }}\n        </ion-col>\n        <!-- <ion-col col-1 *ngIf="customer.customerDetails.cellular != null || customer.customerDetails.cellular != \'\'">\n          <ion-icon ios="ios-mail" md="md-mail"></ion-icon>\n        </ion-col> -->\n      </ion-row>\n\n      <ion-row>\n        <ion-col col-5>\n          Balance\n        </ion-col>\n        <ion-col col-7>\n          {{customer.customerDetails.balance == null || customer.customerDetails.balance == \'\' ? \'Not Available\' :\n          customer.customerDetails.balance }}\n        </ion-col>\n      </ion-row>\n\n    </ion-card-content>\n\n    <ion-row *ngIf="!isModalData">\n      <ion-col col-12>\n        <ion-list>\n          <ion-item style="background-color: #1c2431 !important; margin: 0 !important; padding: 0 !important;">\n            <button color="dark" style="color: #FFCB08 !important; margin: 0 !important;" ion-item (click)="showAgingReport()">\n              Aging Report\n              <ion-icon item-end name="ios-arrow-forward"></ion-icon>\n            </button>\n          </ion-item>\n          <ion-item style="background-color: #1c2431 !important; margin: 0 !important; padding: 0 !important;">\n            <button color="dark" style="color: #FFCB08 !important; margin: 0 !important;" ion-item (click)="showOrders()">\n              Orders\n              <ion-icon item-end name="ios-arrow-forward"></ion-icon>\n            </button>\n          </ion-item>\n        </ion-list>\n      </ion-col>\n    </ion-row>\n\n  </ion-card>\n\n\n  <!-- Customer Contact Person Details Details -->\n  <ion-card>\n\n    <ion-card-header>\n      <ion-row>\n        <ion-col col-12 text-center style="border-bottom: 1px solid #FFCB08;">\n          Contact Person\n        </ion-col>\n      </ion-row>\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <ion-row *ngIf="customer.customerDetails.cntctPrsn != null">\n        <ion-col col-8>\n          {{customer.customerDetails.cntctPrsn == \'\' ? \'Not Available\' : customer.customerDetails.cntctPrsn }}\n        </ion-col>\n        <ion-col col-4>\n          {{customer.customerDetails.cntctPrsnNo == null ? \'\' : customer.customerDetails.cntctPrsnNo }}\n        </ion-col>\n      </ion-row>\n\n      <ion-row *ngIf="customer.customerDetails.cntctPrsn == null">\n        <ion-col col-12>\n          <div class="pj-empty-page">\n            <ion-icon name="ios-contact-outline"></ion-icon>\n            <h4>No Data Available</h4>\n          </div>\n        </ion-col>\n      </ion-row>\n\n    </ion-card-content>\n\n  </ion-card>\n\n  <!-- Customer Address Details -->\n  <ion-card>\n\n    <ion-card-header>\n      <ion-row>\n        <ion-col col-12 text-center style="border-bottom: 1px solid #FFCB08;">\n          Customer Address\n        </ion-col>\n      </ion-row>\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <ion-row *ngIf="customer.customerAddressesList.length > 0">\n        <ion-col col-12 *ngFor="let customerAddresses of customer.customerAddressesList">\n          <p style="border-bottom: 1px solid #cececc; color: #fff;">\n            {{customerAddresses.block == null ? \'\' : customerAddresses.block }},\n            {{customerAddresses.street == null ? \'\' : customerAddresses.street }},\n            {{customerAddresses.address2 }}, {{customerAddresses.address3 }}\n          </p>\n        </ion-col>\n      </ion-row>\n\n      <ion-row *ngIf="customer.customerAddressesList.length == 0">\n        <ion-col col-12>\n          <div class="pj-empty-page">\n            <ion-icon name="ios-pin-outline"></ion-icon>\n            <h4>No Address Available</h4>\n          </div>\n        </ion-col>\n      </ion-row>\n\n    </ion-card-content>\n\n  </ion-card>\n\n\n  <ion-fab bottom center (click)="dismissModal()" *ngIf="isModalData">\n    <button color="primary" ion-fab>\n      <ion-icon name="ios-arrow-round-forward-outline"></ion-icon>\n    </button>\n  </ion-fab>\n\n</ion-content>'/*ion-inline-end:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/customer-details/customer-details.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_common_utility_common_utility__["a" /* CommonUtilityProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["s" /* ViewController */],
+            __WEBPACK_IMPORTED_MODULE_6__ionic_native_call_number__["a" /* CallNumber */]])
+    ], CustomerDetailsPage);
+    return CustomerDetailsPage;
+}());
+
+//# sourceMappingURL=customer-details.js.map
+
+/***/ }),
+
+/***/ 67:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OrderMgmtPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__order_details_order_details__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_restservice_restservice__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__customer_mgmt_customer_mgmt__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__orders_booked_orders_booked__ = __webpack_require__(225);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 
 
@@ -4070,6 +4327,7 @@ var OrderMgmtPage = /** @class */ (function () {
         this.customer = null;
         this.myInput = '';
         this.originalOrdersList = [];
+        this.bookedOrderCount = 10;
         console.log('Name - ' + OrderMgmtPage_1.name);
         this.customer = this.navParams.get('customer');
         var ordersListApi = '';
@@ -4084,8 +4342,8 @@ var OrderMgmtPage = /** @class */ (function () {
         this.restService.getDetails(ordersListApi)
             .subscribe(function (response) {
             console.log('Response = ' + JSON.stringify(response));
-            _this.orderDetailsList = response.response;
-            _this.originalOrdersList = _this.orderDetailsList;
+            _this.orderDetailsList = response.response.orderDetailsList;
+            _this.bookedOrderCount = response.response.bookedOrderCount;
         });
     }
     OrderMgmtPage_1 = OrderMgmtPage;
@@ -4128,9 +4386,20 @@ var OrderMgmtPage = /** @class */ (function () {
             this.orderDetailsList = this.originalOrdersList;
         }
     };
+    OrderMgmtPage.prototype.openBookedOrders = function () {
+        console.log('openBookedOrders OrderMgmtPage');
+        if (this.bookedOrderCount > 0) {
+            if (this.commonUtility.isNetworkAvailable()) {
+                this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_7__orders_booked_orders_booked__["a" /* OrdersBookedPage */]);
+            }
+        }
+        else {
+            this.commonUtility.presentErrorToast('No Booked Orders To Show');
+        }
+    };
     OrderMgmtPage = OrderMgmtPage_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-order-mgmt',template:/*ion-inline-start:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/order-mgmt/order-mgmt.html"*/'<!--\n  Generated template for the OrderMgmtPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="navbar">\n\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title text-center>Order Management</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content no-padding>\n\n  <ion-searchbar [(ngModel)]="myInput" (ionChange)="onInput()" placeholder="Search By Customer Name, Order No.">\n  </ion-searchbar>\n\n  <div *ngIf="orderDetailsList.length==0" class="pj-empty-page" style="margin-top: 40%;">\n    <ion-icon name="ios-cart-outline"></ion-icon>\n    <h4>No Orders To Show</h4>\n  </div>\n\n  <ion-card *ngFor="let orderDetails of orderDetailsList" (click)="openOrderDetails(orderDetails)">\n\n    <ion-card-header>\n      <ion-row>\n        <ion-col col-4>\n          <!-- <h2 class="pj-title">SO No. - {{ orderDetails.orderPrefix }}{{ orderDetails.orderNo }} </h2> -->\n          <strong>SO No. - {{ orderDetails.docNum }} </strong>\n        </ion-col>\n        <ion-col col-8>\n          <!-- //TODO: Display Order Created Ts -->\n          <!-- <p class="pj-date-and-status" style="color: #ccc;">\n            {{ orderDetails.createdTs | date: \'dd MMM yyyy hh:mm a\' }}\n          </p> -->\n        </ion-col>\n      </ion-row>\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <!-- <ion-row>\n        <ion-col col-12>\n          <h4 class="pj-title">Quotation No. - {{ orderDetails.quotationNo }}</h4>\n        </ion-col>\n      </ion-row> -->\n\n      <ion-row>\n        <ion-col col-12>\n          <!-- <h4 class="pj-card-label-light">\n            {{ orderDetails.custDtl.userPrefix }}{{ orderDetails.custDtl.userCode }} - {{ orderDetails.custDtl.firstName }}{{ orderDetails.custDtl.lastName\n            }}</h4> -->\n          <strong>{{ orderDetails.cardCode }} - {{ orderDetails.cardName }}</strong>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col col-12>\n          <!-- <h5 class="pj-sub-title"> {{ orderDetails.addrNm }}, {{ orderDetails.stAddr }} , {{ orderDetails.landmark }},\n            {{ orderDetails.areaNm }},\n            {{ orderDetails.cityNm }}, {{ orderDetails.stateNm }}</h5> -->\n\n        </ion-col>\n      </ion-row>\n\n      <!-- <ion-row>\n        <ion-col col-12>\n          <h5 class="pj-sub-title">Rs. {{ orderDetails.grandTotal }} </h5>\n        </ion-col>\n      </ion-row> -->\n\n      <ion-row>\n        <ion-col col-6>\n          <!-- <h5 class="pj-sub-title" *ngIf="orderDetails.createdByName != undefined">Created By - {{ orderDetails.createdByName }}</h5> -->\n          Qty - {{orderDetails.quantity}}\n        </ion-col>\n        <!-- <ion-col col-6>\n          <button ion-button small color="primary" class="pj-date-and-status" *ngIf="orderDetails.orderStatus == \'PENDING\'">\n            {{orderDetails.orderStatus}}\n          </button>\n          <button ion-button small color="secondary" class="pj-date-and-status" *ngIf="orderDetails.orderStatus == \'DELIVERED\'">\n            {{orderDetails.orderStatus}}\n          </button>\n          <button ion-button small color="primary" class="pj-date-and-status" *ngIf="orderDetails.orderStatus == \'ONGOING\'">\n            {{orderDetails.orderStatus}}\n          </button>\n          <button ion-button small color="danger" class="pj-date-and-status" *ngIf="orderDetails.orderStatus == \'CANCELLED\'">\n            {{orderDetails.orderStatus}}\n          </button>\n        </ion-col> -->\n      </ion-row>\n\n    </ion-card-content>\n\n  </ion-card>\n\n  <ion-fab bottom right>\n    <button class="add-button" color="primary" ion-fab (click)="naviagteToOrderCreatePage()">\n          <ion-icon name="add"></ion-icon>\n      </button>\n  </ion-fab>\n\n</ion-content>'/*ion-inline-end:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/order-mgmt/order-mgmt.html"*/,
+            selector: 'page-order-mgmt',template:/*ion-inline-start:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/order-mgmt/order-mgmt.html"*/'<!--\n  Generated template for the OrderMgmtPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="navbar">\n\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title text-center>Order Management</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content no-padding>\n\n  <ion-searchbar [(ngModel)]="myInput" (ionChange)="onInput()" placeholder="Search By Customer Name, Order No.">\n  </ion-searchbar>\n\n  <div *ngIf="orderDetailsList.length==0" class="pj-empty-page" style="margin-top: 40%;">\n    <ion-icon name="ios-cart-outline"></ion-icon>\n    <h4>No Orders To Show</h4>\n  </div>\n\n\n  <ion-card (click)="openBookedOrders()" *ngIf="null == customer || customer == undefined">\n\n    <ion-card-header>\n      <ion-row>\n        <ion-col col-12 text-center>\n          <strong>Booked Orders</strong>\n        </ion-col>\n      </ion-row>\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <ion-row>\n        <ion-col col-12 text-center>\n          {{bookedOrderCount}}\n        </ion-col>\n      </ion-row>\n\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card *ngFor="let orderDetails of orderDetailsList" (click)="openOrderDetails(orderDetails)">\n\n    <ion-card-header>\n      <ion-row>\n        <ion-col col-4>\n          <!-- <h2 class="pj-title">SO No. - {{ orderDetails.orderPrefix }}{{ orderDetails.orderNo }} </h2> -->\n          <strong>SO No. - {{ orderDetails.docNum }} </strong>\n        </ion-col>\n        <ion-col col-8>\n          <!-- //TODO: Display Order Created Ts -->\n          <!-- <p class="pj-date-and-status" style="color: #ccc;">\n            {{ orderDetails.createdTs | date: \'dd MMM yyyy hh:mm a\' }}\n          </p> -->\n        </ion-col>\n      </ion-row>\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <!-- <ion-row>\n        <ion-col col-12>\n          <h4 class="pj-title">Quotation No. - {{ orderDetails.quotationNo }}</h4>\n        </ion-col>\n      </ion-row> -->\n\n      <ion-row>\n        <ion-col col-12>\n          <!-- <h4 class="pj-card-label-light">\n            {{ orderDetails.custDtl.userPrefix }}{{ orderDetails.custDtl.userCode }} - {{ orderDetails.custDtl.firstName }}{{ orderDetails.custDtl.lastName\n            }}</h4> -->\n          <strong>{{ orderDetails.cardCode }} - {{ orderDetails.cardName }}</strong>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col col-12>\n          <!-- <h5 class="pj-sub-title"> {{ orderDetails.addrNm }}, {{ orderDetails.stAddr }} , {{ orderDetails.landmark }},\n            {{ orderDetails.areaNm }},\n            {{ orderDetails.cityNm }}, {{ orderDetails.stateNm }}</h5> -->\n\n        </ion-col>\n      </ion-row>\n\n      <!-- <ion-row>\n        <ion-col col-12>\n          <h5 class="pj-sub-title">Rs. {{ orderDetails.grandTotal }} </h5>\n        </ion-col>\n      </ion-row> -->\n\n      <ion-row>\n        <ion-col col-6>\n          <!-- <h5 class="pj-sub-title" *ngIf="orderDetails.createdByName != undefined">Created By - {{ orderDetails.createdByName }}</h5> -->\n          Qty - {{orderDetails.quantity}}\n        </ion-col>\n        <!-- <ion-col col-6>\n          <button ion-button small color="primary" class="pj-date-and-status" *ngIf="orderDetails.orderStatus == \'PENDING\'">\n            {{orderDetails.orderStatus}}\n          </button>\n          <button ion-button small color="secondary" class="pj-date-and-status" *ngIf="orderDetails.orderStatus == \'DELIVERED\'">\n            {{orderDetails.orderStatus}}\n          </button>\n          <button ion-button small color="primary" class="pj-date-and-status" *ngIf="orderDetails.orderStatus == \'ONGOING\'">\n            {{orderDetails.orderStatus}}\n          </button>\n          <button ion-button small color="danger" class="pj-date-and-status" *ngIf="orderDetails.orderStatus == \'CANCELLED\'">\n            {{orderDetails.orderStatus}}\n          </button>\n        </ion-col> -->\n      </ion-row>\n\n    </ion-card-content>\n\n  </ion-card>\n\n  <ion-fab bottom right>\n    <button class="add-button" color="primary" ion-fab (click)="naviagteToOrderCreatePage()">\n      <ion-icon name="add"></ion-icon>\n    </button>\n  </ion-fab>\n\n</ion-content>'/*ion-inline-end:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/order-mgmt/order-mgmt.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavParams */],
@@ -4146,28 +4415,28 @@ var OrderMgmtPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 848:
+/***/ 850:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(440);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(439);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Firebase__ = __webpack_require__(381);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(442);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(441);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Firebase__ = __webpack_require__(383);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_Firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_Firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_login_login__ = __webpack_require__(131);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_common_utility_common_utility__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_constants_constants__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_authorizaton_settings_authorizaton_settings__ = __webpack_require__(129);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_settings_settings__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_admin_users_admin_users__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_customer_mgmt_customer_mgmt__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_order_mgmt_order_mgmt__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_social_sharing__ = __webpack_require__(109);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_diagnostic__ = __webpack_require__(110);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_location_tracker_location_tracker__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_login_login__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_authorizaton_settings_authorizaton_settings__ = __webpack_require__(131);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_settings_settings__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_admin_users_admin_users__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_customer_mgmt_customer_mgmt__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_order_mgmt_order_mgmt__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_social_sharing__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_diagnostic__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_location_tracker_location_tracker__ = __webpack_require__(196);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4314,21 +4583,21 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 849:
+/***/ 851:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export HttpResponseError */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InterceptorProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_throw__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_throw__ = __webpack_require__(168);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_observable_throw___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_observable_throw__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_utility_common_utility__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__constants_constants__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__constants_constants__ = __webpack_require__(13);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4477,19 +4746,19 @@ var InterceptorProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 88:
+/***/ 90:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CustomerMgmtPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_common_utility_common_utility__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_restservice_restservice__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_constants_constants__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__customer_details_customer_details__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_restservice_restservice__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__customer_details_customer_details__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__order_add_order_add__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__order_mgmt_order_mgmt__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__order_mgmt_order_mgmt__ = __webpack_require__(67);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4647,14 +4916,19 @@ var CustomerMgmtPage = /** @class */ (function () {
             }
             else {
                 this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__customer_details_customer_details__["a" /* CustomerDetailsPage */], {
-                    customer: customer
+                    customer: customer,
+                    isModalData: false
                 });
             }
         }
     };
+    CustomerMgmtPage.prototype.callCust = function (customer) {
+        console.log('Calling Customer on : ' + customer.customerDetails.cellular);
+        this.commonUtility.callNumber(customer.customerDetails.cellular, true);
+    };
     CustomerMgmtPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-customer-mgmt',template:/*ion-inline-start:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/customer-mgmt/customer-mgmt.html"*/'<!--\n  Generated template for the CustomerMgmtPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar color="navbar" text-center>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>\n      Customer Management\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-row>\n    <ion-col col-10>\n      <ion-searchbar [(ngModel)]="myInput" (ionChange)="onInput()" placeholder="Search By Name, Phone No., Code">\n      </ion-searchbar>\n    </ion-col>\n    <ion-col col-2 (click)="searchCustomers()">\n      <ion-icon name="md-search" class="search-btn"></ion-icon>\n    </ion-col>\n  </ion-row>\n\n  <div *ngIf="customersList.length==0" class="pj-empty-page" style="margin-top: 40%;">\n    <ion-icon name="ios-contact-outline"></ion-icon>\n    <h4>No Customers To Show</h4>\n  </div>\n\n  <ion-card  *ngIf="customersList.length>0 && (null == this.referrer \n    || undefined == this.referrer || this.referrer == \'\')" >\n\n    <ion-card-header>\n      <ion-row>\n        <ion-col col-12 text-center>\n          <strong>Outstanding Recievables</strong>\n        </ion-col>\n      </ion-row>\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <ion-row>\n        <ion-col col-12 text-center>\n          {{totalOutstanding}}\n        </ion-col>\n      </ion-row>\n\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card *ngFor="let customer of customersList" (click)="viewCustomerDetails(customer)">\n\n    <ion-card-header>\n      <ion-row>\n        <ion-col col-12>\n          <strong>{{customer.customerDetails.cardCode}} - {{customer.customerDetails.cardName}}</strong>\n        </ion-col>\n      </ion-row>\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <ion-row>\n        <ion-col col-5>\n          Contact No.\n        </ion-col>\n        <ion-col col-7>\n          {{customer.customerDetails.cellular == null || customer.customerDetails.cellular == \'\' ? \'Not Available\' :\n          customer.customerDetails.cellular }}\n        </ion-col>\n      </ion-row>\n\n\n      <ion-row>\n        <ion-col col-5>\n          Balance\n        </ion-col>\n        <ion-col col-7>\n          {{customer.customerDetails.balance == null || customer.customerDetails.balance == \'\' ? \'Not Available\' :\n          customer.customerDetails.balance }}\n          <!-- <ion-icon item-end color="primary" name="ios-arrow-forward"></ion-icon> -->\n        </ion-col>\n      </ion-row>\n\n    </ion-card-content>\n\n\n  </ion-card>\n\n  <!-- Infinite Scroll Content -->\n  <ion-infinite-scroll (ionInfinite)="getRecordsPaginated($event)">\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading Customers...">\n    </ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n\n</ion-content>'/*ion-inline-end:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/customer-mgmt/customer-mgmt.html"*/,
+            selector: 'page-customer-mgmt',template:/*ion-inline-start:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/customer-mgmt/customer-mgmt.html"*/'<!--\n  Generated template for the CustomerMgmtPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-navbar color="navbar" text-center>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>\n      Customer Management\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n  <ion-row>\n    <ion-col col-10>\n      <ion-searchbar [(ngModel)]="myInput" (ionChange)="onInput()" placeholder="Search By Name, Phone No., Code">\n      </ion-searchbar>\n    </ion-col>\n    <ion-col col-2 (click)="searchCustomers()">\n      <ion-icon name="md-search" class="search-btn"></ion-icon>\n    </ion-col>\n  </ion-row>\n\n  <div *ngIf="customersList.length==0" class="pj-empty-page" style="margin-top: 40%;">\n    <ion-icon name="ios-contact-outline"></ion-icon>\n    <h4>No Customers To Show</h4>\n  </div>\n\n  <ion-card *ngIf="customersList.length>0 && (null == this.referrer \n    || undefined == this.referrer || this.referrer == \'\')">\n\n    <ion-card-header>\n      <ion-row>\n        <ion-col col-12 text-center>\n          <strong>Outstanding Recievables</strong>\n        </ion-col>\n      </ion-row>\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <ion-row>\n        <ion-col col-12 text-center>\n          {{totalOutstanding}}\n        </ion-col>\n      </ion-row>\n\n    </ion-card-content>\n  </ion-card>\n\n  <ion-card *ngFor="let customer of customersList">\n\n    <ion-card-header>\n      <ion-row>\n        <ion-col col-11>\n          <strong>{{customer.customerDetails.cardCode}}</strong>\n        </ion-col>\n        <ion-col col-1 *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != \'\'"\n          (click)="callCust(customer)">\n          <ion-icon name="md-call"></ion-icon>\n        </ion-col>\n      </ion-row>\n      <ion-row>\n        <ion-col col-12>\n          <strong>{{customer.customerDetails.cardName}}</strong>\n        </ion-col>\n      </ion-row>\n    </ion-card-header>\n\n    <ion-card-content (click)="viewCustomerDetails(customer)">\n\n      <ion-row>\n        <ion-col col-5>\n          Contact No.\n        </ion-col>\n        <ion-col col-7>\n          {{customer.customerDetails.cellular == null || customer.customerDetails.cellular == \'\' ? \'Not Available\' :\n          customer.customerDetails.cellular }}\n        </ion-col>\n      </ion-row>\n\n\n      <ion-row>\n        <ion-col col-5>\n          Balance\n        </ion-col>\n        <ion-col col-7>\n          {{customer.customerDetails.balance == null || customer.customerDetails.balance == \'\' ? \'Not Available\' :\n          customer.customerDetails.balance }}\n          <!-- <ion-icon item-end color="primary" name="ios-arrow-forward"></ion-icon> -->\n        </ion-col>\n      </ion-row>\n\n    </ion-card-content>\n\n\n  </ion-card>\n\n  <!-- Infinite Scroll Content -->\n  <ion-infinite-scroll (ionInfinite)="getRecordsPaginated($event)">\n    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading Customers...">\n    </ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n\n</ion-content>'/*ion-inline-end:"/Users/dipakjain/Ionic Projects/sapbasemodule/src/pages/customer-mgmt/customer-mgmt.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* NavParams */],
@@ -4668,22 +4942,22 @@ var CustomerMgmtPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 89:
+/***/ 91:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminUsersPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__custom_base_component__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_common_utility_common_utility__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_constants_constants__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modal_au_admin_users_modal_au_admin_users__ = __webpack_require__(225);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_restservice_restservice__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tracking_tracking__ = __webpack_require__(226);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common___ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__tracking_history_tracking_history__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__custom_base_component__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_common_utility_common_utility__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_constants_constants__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modal_au_admin_users_modal_au_admin_users__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_restservice_restservice__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tracking_tracking__ = __webpack_require__(228);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common___ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__tracking_history_tracking_history__ = __webpack_require__(229);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -4973,5 +5247,5 @@ var AdminUsersPage = /** @class */ (function (_super) {
 
 /***/ })
 
-},[442]);
+},[444]);
 //# sourceMappingURL=main.js.map

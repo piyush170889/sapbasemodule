@@ -36818,6 +36818,11 @@ ion-card-header {
   border-radius: 8%;
 }
 
+.pj-date-and-status {
+  font-size: 1rem !important;
+  float: right;
+}
+
 page-customer-aging-report table {
   border-collapse: separate;
   border-spacing: 0;
@@ -36909,6 +36914,14 @@ page-order-details .pj-underline-heading {
   color: #FFCB08;
   margin-top: 2%;
   border-bottom: 1px solid #FFCB08;
+}
+
+page-orders-booked .order-items {
+  border-bottom: 1px solid #FFCB08 !important;
+  color: #FFCB08 !important;
+  width: 100%;
+  font-weight: bold;
+  padding: 5px;
 }
 
 page-tracking-history .mapDisplay {

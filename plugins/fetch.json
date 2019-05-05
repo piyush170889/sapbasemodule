@@ -108,5 +108,13 @@
     "variables": {
       "ANDROID_SUPPORT_VERSION": "26.+"
     }
+  },
+  "mx.ferreyra.callnumber": {
+    "source": {
+      "type": "registry",
+      "id": "call-number"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

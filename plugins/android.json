@@ -55,6 +55,9 @@
     "cordova.plugins.diagnostic": {
       "ANDROID_SUPPORT_VERSION": "26.+",
       "PACKAGE_NAME": "com.infinitylounge"
+    },
+    "mx.ferreyra.callnumber": {
+      "PACKAGE_NAME": "com.infinitylounge"
     }
   },
   "dependent_plugins": {}

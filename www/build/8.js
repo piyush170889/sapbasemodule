@@ -1,14 +1,14 @@
 webpackJsonp([8],{
 
-/***/ 861:
+/***/ 864:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalAddItemPageModule", function() { return ModalAddItemPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalAuAdminUsersPageModule", function() { return ModalAuAdminUsersPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modal_add_item__ = __webpack_require__(224);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modal_au_admin_users__ = __webpack_require__(227);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var ModalAddItemPageModule = /** @class */ (function () {
-    function ModalAddItemPageModule() {
+var ModalAuAdminUsersPageModule = /** @class */ (function () {
+    function ModalAuAdminUsersPageModule() {
     }
-    ModalAddItemPageModule = __decorate([
+    ModalAuAdminUsersPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__modal_add_item__["a" /* ModalAddItemPage */],
+                __WEBPACK_IMPORTED_MODULE_2__modal_au_admin_users__["a" /* ModalAuAdminUsersPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__modal_add_item__["a" /* ModalAddItemPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__modal_au_admin_users__["a" /* ModalAuAdminUsersPage */]),
             ],
         })
-    ], ModalAddItemPageModule);
-    return ModalAddItemPageModule;
+    ], ModalAuAdminUsersPageModule);
+    return ModalAuAdminUsersPageModule;
 }());
 
-//# sourceMappingURL=modal-add-item.module.js.map
+//# sourceMappingURL=modal-au-admin-users.module.js.map
 
 /***/ })
 
