@@ -27,7 +27,7 @@ export class OrderMgmtPage {
   customer: any = null;
   myInput: string = '';
   originalOrdersList: any[] = [];
-  bookedOrderCount: number = 10;
+  bookedOrderCount: number = 0;
 
 
   constructor(public navCtrl: NavController,

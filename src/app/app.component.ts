@@ -111,9 +111,9 @@ export class MyApp {
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
         // this.nav.setRoot(page.component);
-        if (page.title === "Logout") {
-            this.locationTracker.stopTracking();
-        }
+        // if (page.title === "Logout" && this.commonUtility.hasRole(ConstantsProvider.ROLE_SALES)) {
+        //     this.locationTracker.stopTracking();
+        // }
         this.nav.setRoot(page.component);
     }
 

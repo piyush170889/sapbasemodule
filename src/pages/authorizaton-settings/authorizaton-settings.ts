@@ -45,23 +45,7 @@ export class AuthorizatonSettingsPage extends BaseComponent {
                     console.log('this.rolesArray = ' + JSON.stringify(this.rolesArray));
                     if (this.userDetails.isPasswordChanged == 0) {
                         if (this.rolesArray.indexOf(ConstantsProvider.ROLE_SALES) > -1) {
-                            this.trackUserLocation();
-                            // this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true })
-                            // .then((resp) => {
-                            //   alert('Latitude = ' + resp.coords.latitude + ', Longitude = ' + resp.coords.longitude);
-                            //   console.log('Latitude = ' + resp.coords.latitude + ', Longitude = ' + resp.coords.longitude);
-
-                            //   let mylocation = new google.maps.LatLng(resp.coords.latitude,resp.coords.longitude);
-                            // });
-
-                            // let watch = this.geolocation.watchPosition();
-                            // watch.subscribe((data) => {
-                            //   alert('Latitude = ' + data.coords.latitude + ', Longitude = ' + data.coords.longitude);
-                            //   console.log('Latitude = ' + data.coords.latitude + ', Longitude = ' + data.coords.longitude);
-
-                            //   let updatelocation = new google.maps.LatLng(data.coords.latitude,data.coords.longitude);
-                            // });
-
+                            // this.trackUserLocation();
                             this.navCtrl.setRoot(CustomerMgmtPage);
                         } else if (this.rolesArray.indexOf(ConstantsProvider.ROLE_ADMIN) > -1) {
                             this.navCtrl.setRoot(AdminUsersPage);
