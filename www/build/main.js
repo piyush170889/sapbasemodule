@@ -1012,7 +1012,9 @@ var LocationTrackerProvider = /** @class */ (function () {
             BackgroundGeolocation.startTask(function (taskKey) {
                 // execute long running task
                 // eg. ajax post location
-                // IMPORTANT: task has to be ended by endTask
+                // IMPORTANT: task has to be ended by endTask      
+                this.lat = location.latitude;
+                this.lng = location.longitude;
                 container.updateLocationToServerBackground(location.latitude, location.longitude);
                 setTimeout(function () {
                     BackgroundGeolocation.endTask(taskKey);
@@ -1022,6 +1024,8 @@ var LocationTrackerProvider = /** @class */ (function () {
         BackgroundGeolocation.on('stationary', function (stationaryLocation) {
             // handle stationary locations here
             console.log('stationaryLocation BackgroundGeolocation:  ' + stationaryLocation.latitude + ',' + stationaryLocation.longitude);
+            this.lat = stationaryLocation.latitude;
+            this.lng = stationaryLocation.longitude;
             container.updateLocationToServerBackground(stationaryLocation.latitude, stationaryLocation.longitude);
             // this.updateLocationToServerBackground(stationaryLocation.latitude, stationaryLocation.longitude);
         });
@@ -1031,7 +1035,31 @@ var LocationTrackerProvider = /** @class */ (function () {
         BackgroundGeolocation.on('background', function () {
             console.log('[INFO] App is in background');
             // you can also reconfigure service (changes will be applied immediately)
-            BackgroundGeolocation.configure({ debug: false });
+            BackgroundGeolocation.configure({
+                locationProvider: BackgroundGeolocation.ACTIVITY_PROVIDER,
+                desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
+                stationaryRadius: 10,
+                distanceFilter: 10,
+                debug: false,
+                interval: 100,
+                notificationsEnabled: false,
+                stopOnTerminate: false,
+                fastestInterval: 100,
+                activitiesInterval: 100,
+                url: __WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].API_BASE_URL + __WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].LOCATION_TRACKING_URL,
+                syncUrl: __WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].API_BASE_URL + __WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].LOCATION_TRACKING_URL,
+                httpHeaders: {
+                    'Content-Type': 'application/json',
+                },
+                // customize post properties
+                postTemplate: {
+                    "imei": "PiyushBackByIme",
+                    "latitude": this.lat,
+                    "longitude": this.lng,
+                    "utcDt": '030619',
+                    "utcTm": '030619',
+                }
+            });
         });
         BackgroundGeolocation.on('foreground', function () {
             console.log('[INFO] App is in foreground');

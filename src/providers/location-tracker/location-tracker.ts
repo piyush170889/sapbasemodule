@@ -32,8 +32,9 @@ export class LocationTrackerProvider {
             distanceFilter: 10,
             debug: false,
             interval: 100,
+            startOnBoot: true,
             notificationsEnabled: false,
-            stopOnTerminate: false,
+            stopOnTerminate: true,
             fastestInterval: 100,
             activitiesInterval: 100,
             url: ConstantsProvider.API_BASE_URL + ConstantsProvider.LOCATION_TRACKING_URL,
@@ -68,7 +69,9 @@ export class LocationTrackerProvider {
             BackgroundGeolocation.startTask(function (taskKey: any) {
                 // execute long running task
                 // eg. ajax post location
-                // IMPORTANT: task has to be ended by endTask
+                // IMPORTANT: task has to be ended by endTask      
+                this.lat = location.latitude;
+                this.lng = location.longitude;
                 container.updateLocationToServerBackground(location.latitude, location.longitude);
                 setTimeout(() => {
                     BackgroundGeolocation.endTask(taskKey);
@@ -79,6 +82,8 @@ export class LocationTrackerProvider {
         BackgroundGeolocation.on('stationary', function (stationaryLocation) {
             // handle stationary locations here
             console.log('stationaryLocation BackgroundGeolocation:  ' + stationaryLocation.latitude + ',' + stationaryLocation.longitude);
+            this.lat = stationaryLocation.latitude;
+            this.lng = stationaryLocation.longitude;
             container.updateLocationToServerBackground(stationaryLocation.latitude, stationaryLocation.longitude);
             // this.updateLocationToServerBackground(stationaryLocation.latitude, stationaryLocation.longitude);
         });
@@ -90,7 +95,33 @@ export class LocationTrackerProvider {
         BackgroundGeolocation.on('background', function () {
             console.log('[INFO] App is in background');
             // you can also reconfigure service (changes will be applied immediately)
-            BackgroundGeolocation.configure({ debug: false });
+            BackgroundGeolocation.configure({
+                locationProvider: BackgroundGeolocation.ACTIVITY_PROVIDER,
+                desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
+                stationaryRadius: 10,
+                distanceFilter: 10,
+                debug: false,
+                interval: 100,
+                notificationsEnabled: false,
+                stopOnTerminate: true,
+                batchSync: true,       // <-- Set true to sync locations to server in a single HTTP request.
+                autoSync: true,         // <-- Set true to sync each location to server as it arrives.
+                fastestInterval: 100,
+                activitiesInterval: 100,
+                url: ConstantsProvider.API_BASE_URL + ConstantsProvider.LOCATION_TRACKING_URL,
+                syncUrl: ConstantsProvider.API_BASE_URL + ConstantsProvider.LOCATION_TRACKING_URL,
+                httpHeaders: {
+                    'Content-Type': 'application/json',
+                },
+                // customize post properties
+                postTemplate: {
+                    "imei": "PiyushBackByIme",
+                    "latitude": this.lat,
+                    "longitude": this.lng,
+                    "utcDt": '030619',
+                    "utcTm": '030619',
+                }
+            });
         });
 
         BackgroundGeolocation.on('foreground', function () {
