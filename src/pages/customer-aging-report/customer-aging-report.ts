@@ -242,10 +242,10 @@ export class CustomerAgingReportPage {
 
                     if (ledgerInvoice.type == 'OB') {
                       this.ledgerOpeningBalance = ledgerInvoice.grossTotal;
-                    } else {
-                      this.totalLedgerInvoiceBalance = this.totalLedgerInvoiceBalance
-                        + Number.parseFloat(ledgerInvoice.grossTotal);
                     }
+
+                    this.totalLedgerInvoiceBalance = this.totalLedgerInvoiceBalance
+                      + Number.parseFloat(ledgerInvoice.grossTotal);
                   }
                 );
 

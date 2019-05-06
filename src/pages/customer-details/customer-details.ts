@@ -114,10 +114,10 @@ export class CustomerDetailsPage {
 
               if (ledgerInvoice.type == 'OB') {
                 this.ledgerOpeningBalance = ledgerInvoice.grossTotal;
-              } else {
-                this.totalLedgerInvoiceBalance = this.totalLedgerInvoiceBalance
-                  + Number.parseFloat(ledgerInvoice.grossTotal);
               }
+
+              this.totalLedgerInvoiceBalance = this.totalLedgerInvoiceBalance
+                + Number.parseFloat(ledgerInvoice.grossTotal);
             }
           );
 
@@ -193,7 +193,7 @@ export class CustomerDetailsPage {
     this.downloadPdf('JBSLedgerReport_' + this.customer.customerDetails.cardName + '.pdf');
   }
 
-  
+
   downloadPdf(fileName) {
 
     this.pdfObj.getBuffer((buffer) => {
