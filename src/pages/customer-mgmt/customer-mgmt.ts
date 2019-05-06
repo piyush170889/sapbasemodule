@@ -203,10 +203,18 @@ export class CustomerMgmtPage {
   }
 
 
-  callCust(customer) {
+  // callCust(customer) {
 
-    console.log('Calling Customer on : ' + customer.customerDetails.cellular);
-    this.commonUtility.callNumber(customer.customerDetails.cellular, true);
+  //   console.log('Calling Customer on : ' + customer.customerDetails.cellular);
+  //   this.commonUtility.callNumber(customer.customerDetails.cellular, true);
+  // }
+
+
+  callCust(custContactNumber: any) {
+
+    console.log('Calling Customer on : ' + custContactNumber);
+    this.commonUtility.callNumber(custContactNumber, true);
   }
+
 
 }

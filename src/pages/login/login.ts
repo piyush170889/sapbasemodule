@@ -43,7 +43,7 @@ export class LoginPage {
         console.log('ionViewDidLoad LoginPage');
     }
 
-    doLogin() {
+    /*doLogin() {
         this.platform.ready().then(() => {
             this.diagnostic.isLocationEnabled().then((available) => {
                 if (available) {
@@ -76,32 +76,32 @@ export class LoginPage {
                 }
             });
         });
+    }*/
+
+    doLogin() {
+        if (this.commonUtility.isNetworkAvailable()) {
+            this.loader = this.commonUtility.createLoader();
+            this.loader.present().then(
+                () => {
+                    let inputUsername = this.credentials.controls['username'].value;
+                    let inputPassword = this.credentials.controls['password'].value;
+
+                    console.log("Username From Ctrl - " + inputUsername + ", Password From Ctrl - " + inputPassword);
+
+                    this.restService.doLoginRequest(inputUsername, inputPassword)
+                        .subscribe((response) => {
+                            this.loader.dismiss();
+                            if (response) {
+                                this.navCtrl.setRoot(AuthorizatonSettingsPage);
+                            } else {
+                                console.log('An server error occurred.');
+                            }
+                        }, (err) => {
+                            this.loader.dismiss();
+                            console.log(err)
+                        });
+
+                });
+        }
     }
-
-    // doLogin() {
-    //     if (this.commonUtility.isNetworkAvailable()) {
-    //         this.loader = this.commonUtility.createLoader();
-    //         this.loader.present().then(
-    //             () => {
-    //                 let inputUsername = this.credentials.controls['username'].value;
-    //                 let inputPassword = this.credentials.controls['password'].value;
-
-    //                 console.log("Username From Ctrl - " + inputUsername + ", Password From Ctrl - " + inputPassword);
-
-    //                 this.restService.doLoginRequest(inputUsername, inputPassword)
-    //                     .subscribe((response) => {
-    //                         this.loader.dismiss();
-    //                         if (response) {
-    //                             this.navCtrl.setRoot(AuthorizatonSettingsPage);
-    //                         } else {
-    //                             console.log('An server error occurred.');
-    //                         }
-    //                     }, (err) => {
-    //                         this.loader.dismiss();
-    //                         console.log(err)
-    //                     });
-
-    //             });
-    //     }
-    // }
 }

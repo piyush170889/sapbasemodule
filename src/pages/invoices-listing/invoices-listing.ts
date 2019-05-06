@@ -13,7 +13,6 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { DatePipe } from '@angular/common';
 import { CustomerDetailsPage } from '../customer-details/customer-details';
-import { CallNumber } from '@ionic-native/call-number';
 
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -62,14 +61,13 @@ export class InvoicesListingPage {
     public file: File,
     public fileOpener: FileOpener,
     public socialSharing: SocialSharing,
-    public modal: ModalController,
-    private callNumberNative: CallNumber) {
+    public modal: ModalController) {
 
     this.customer = this.navParams.get('customer');
     this.fromDate = this.navParams.get('fromDate');
     this.noOfDays = this.navParams.get('noOfDays');
     this.agingAmount = this.navParams.get('agingAmount');
-    
+
     this.invoicesListing = this.navParams.get('invoicesListing');
     this.updateInvoicesDetailsFromInvoiceListing();
 
@@ -91,25 +89,30 @@ export class InvoicesListingPage {
   }
 
   updateInvoicesDetailsFromInvoiceListing() {
-    let indexToSplice: any = null;
+    // let indexToSplice: any = null;
+
+    // this.invoicesListing.forEach(
+    //   (invoice) => {
+    //     console.log('Invoice Date = ' + JSON.stringify(invoice));
+    //     if (invoice.type != 'OB')
+    //       this.totalInvoiceBalance = this.totalInvoiceBalance + Number.parseFloat(invoice.grossTotal);
+    //     else {
+    //       this.openingBalanceInvoice = invoice;
+    //       indexToSplice = this.invoicesListing.indexOf(invoice);
+    //     }
+    //   }
+    // );
+
+    // console.log('indexToSplice = ' + indexToSplice + ', openingBalanceInvoice = '
+    //   + JSON.stringify(this.openingBalanceInvoice) + ', totalInvoiceBalance = ' + this.totalInvoiceBalance);
+
+    // if (indexToSplice != null)
+    //   this.invoicesListing.splice(indexToSplice, 1);
 
     this.invoicesListing.forEach(
       (invoice) => {
-        console.log('Invoice Date = ' + JSON.stringify(invoice));
-        if (invoice.type != 'OB')
-          this.totalInvoiceBalance = this.totalInvoiceBalance + Number.parseFloat(invoice.grossTotal);
-        else {
-          this.openingBalanceInvoice = invoice;
-          indexToSplice = this.invoicesListing.indexOf(invoice);
-        }
-      }
-    );
-
-    console.log('indexToSplice = ' + indexToSplice + ', openingBalanceInvoice = '
-      + JSON.stringify(this.openingBalanceInvoice) + ', totalInvoiceBalance = ' + this.totalInvoiceBalance);
-
-    if (indexToSplice != null)
-      this.invoicesListing.splice(indexToSplice, 1);
+        this.totalInvoiceBalance = this.totalInvoiceBalance + Number.parseFloat(invoice.grossTotal);
+      });
   }
 
   ionViewDidLoad() {
@@ -161,14 +164,42 @@ export class InvoicesListingPage {
                 console.log('Response = ' + JSON.stringify(response.response));
 
                 this.ledgerInvoiceList = response.response;
+
+                // let invoiceIdsToSpliceLedgerArr: any[] = [];
                 // this.ledgerInvoiceList.forEach(
                 //   (ledgerInvoice) => {
 
-                //     if (ledgerInvoice.type == 'OB')
-                //       this.ledgerOpeningBalance = ledgerInvoice.grossTotal
-                //   });
+                //     console.log('Ledger Invoice Type = ' + ledgerInvoice.type);
 
-                let invoiceIdsToSpliceLedgerArr: any[] = [];
+                //     if (ledgerInvoice.type == 'OB') {
+                //       this.ledgerOpeningBalance = ledgerInvoice.grossTotal;
+                //       invoiceIdsToSpliceLedgerArr.push(ledgerInvoice.invoiceNo);
+                //     } else if (ledgerInvoice.type == 'A/R Inv') {
+                //       this.totalLedgerInvoiceBalance = this.totalLedgerInvoiceBalance
+                //         + Number.parseFloat(ledgerInvoice.grossTotal);
+                //     } else if (ledgerInvoice.type != 'A/R Inv') {
+                //       invoiceIdsToSpliceLedgerArr.push(ledgerInvoice.invoiceNo);
+                //     }
+                //   }
+                // );
+
+                // console.log('invoiceIdsToSpliceLedger = ' + JSON.stringify(invoiceIdsToSpliceLedgerArr));
+                // invoiceIdsToSpliceLedgerArr.forEach(
+                //   (invoiceIdsToSpliceLedger) => {
+                //     console.log('Splicing Invoice no = ' + invoiceIdsToSpliceLedger);
+                //     if (invoiceIdsToSpliceLedger != null) {
+
+                //       this.ledgerInvoiceList.forEach(
+                //         (ledgerInvoiceInCheck) => {
+                //           if (ledgerInvoiceInCheck.invoiceNo == invoiceIdsToSpliceLedger) {
+                //             this.ledgerInvoiceList.splice(this.ledgerInvoiceList.indexOf(ledgerInvoiceInCheck), 1);
+                //           }
+                //         }
+                //       );
+                //     }
+                //   }
+                // );
+
                 this.ledgerInvoiceList.forEach(
                   (ledgerInvoice) => {
 
@@ -176,29 +207,9 @@ export class InvoicesListingPage {
 
                     if (ledgerInvoice.type == 'OB') {
                       this.ledgerOpeningBalance = ledgerInvoice.grossTotal;
-                      invoiceIdsToSpliceLedgerArr.push(ledgerInvoice.invoiceNo);
-                    } else if (ledgerInvoice.type == 'A/R Inv') {
+                    } else {
                       this.totalLedgerInvoiceBalance = this.totalLedgerInvoiceBalance
                         + Number.parseFloat(ledgerInvoice.grossTotal);
-                    } else if (ledgerInvoice.type != 'A/R Inv') {
-                      invoiceIdsToSpliceLedgerArr.push(ledgerInvoice.invoiceNo);
-                    }
-                  }
-                );
-
-                console.log('invoiceIdsToSpliceLedger = ' + JSON.stringify(invoiceIdsToSpliceLedgerArr));
-                invoiceIdsToSpliceLedgerArr.forEach(
-                  (invoiceIdsToSpliceLedger) => {
-                    console.log('Splicing Invoice no = ' + invoiceIdsToSpliceLedger);
-                    if (invoiceIdsToSpliceLedger != null) {
-
-                      this.ledgerInvoiceList.forEach(
-                        (ledgerInvoiceInCheck) => {
-                          if (ledgerInvoiceInCheck.invoiceNo == invoiceIdsToSpliceLedger) {
-                            this.ledgerInvoiceList.splice(this.ledgerInvoiceList.indexOf(ledgerInvoiceInCheck), 1);
-                          }
-                        }
-                      );
                     }
                   }
                 );
@@ -207,7 +218,7 @@ export class InvoicesListingPage {
 
                 this.showLedgerShareOptions();
               }
-            )
+            );
         }
       }
     )
@@ -262,17 +273,20 @@ export class InvoicesListingPage {
 
       let body: any[] = [];
 
-      body.push(['Date', 'Type', 'Invoice No.', 'Overdue By Days', 'Status', 'Amount']);
+      // body.push(['Date', 'Type', 'Invoice No.', 'Overdue By Days', 'Status', 'Amount']);
+      body.push(['Date', 'Type', 'Invoice No.', 'Overdue By Days', 'Amount']);
 
       this.invoicesListing.forEach(
         (invoice) => {
           body.push([new DatePipe('en-US').transform(invoice.invoiceDate),
-          invoice.type, invoice.invoiceNo, (invoice.dueDateInDays + '').replace('-', ''),
-          invoice.isPaid == 'O' ? 'Open' : 'Close', invoice.grossTotal]);
+          invoice.type, invoice.invoiceNo,
+          (invoice.dueDateInDays + '').indexOf("-") > -1 ? (invoice.dueDateInDays + '').replace("-", "") : '-' + invoice.dueDateInDays,
+          invoice.grossTotal]);
+          // invoice.isPaid == 'O' ? 'Open' : 'Close', invoice.grossTotal]);
         }
       );
 
-      body.push(['', '', '', '', 'Total', this.totalInvoiceBalance]);
+      body.push(['', '', '', 'Total', this.totalInvoiceBalance]);
 
       // alert(JSON.stringify(body));
 
@@ -288,7 +302,7 @@ export class InvoicesListingPage {
       let datePeriod = new DatePipe('en-US').transform(this.fromDate, 'dd MMM yy') + ' | ' + agingPeriod;
 
       let docDefinition = this.commonUtility.getDocDefination('Aging Report', datePeriod,
-        this.invoicesListing[0].invoiceItemsList[0].partyCity, this.customer.customerDetails.cardName, body);
+        '', this.customer.customerDetails.cardName, body);
 
       this.pdfObj = pdfMake.createPdf(docDefinition);
 
@@ -303,24 +317,33 @@ export class InvoicesListingPage {
 
     let body: any[] = [];
 
-    body.push(['Date', 'Due Date', 'Type', 'Invoice No.', 'Status', 'Balance']);
-    body.push(['', '', 'Opening Balance', '', '', this.ledgerOpeningBalance]);
+    // body.push(['Date', 'Due Date', 'Type', 'Invoice No.', 'Status', 'Balance']);
+    // body.push(['', '', 'Opening Balance', '', '', this.ledgerOpeningBalance]);
+    body.push(['Date', 'Due Date', 'Type', 'Invoice No.', 'Balance']);
+    body.push(['', '', 'Opening Balance', '', this.ledgerOpeningBalance]);
 
     this.ledgerInvoiceList.forEach(
       (ledgerInvoice) => {
-        body.push([new DatePipe('en-US').transform(ledgerInvoice.invoiceDate),
-        new DatePipe('en-US').transform(ledgerInvoice.dueDate), ledgerInvoice.type,
-        ledgerInvoice.invoiceNo, ledgerInvoice.isPaid == 'O' ? 'Open' : 'Close',
-        ledgerInvoice.grossTotal]);
+        if (ledgerInvoice.type != 'OB') {
+          body.push([new DatePipe('en-US').transform(ledgerInvoice.invoiceDate),
+          new DatePipe('en-US').transform(ledgerInvoice.dueDate), ledgerInvoice.type,
+          ledgerInvoice.invoiceNo == '0' ? '' : ledgerInvoice.invoiceNo ,
+          // ledgerInvoice.invoiceNo == '0' ? '' : ledgerInvoice.invoiceNo , ledgerInvoice.isPaid == 'O' ? 'Open' : 'Close',
+          ledgerInvoice.grossTotal]);
+        }
       }
     );
 
-    body.push(['', '', '', '', 'Total', this.totalLedgerInvoiceBalance]);
+    // body.push(['', '', '', '', 'Total', this.totalLedgerInvoiceBalance]);
+    body.push(['', '', '', 'Total', this.totalLedgerInvoiceBalance]);
 
     // alert(JSON.stringify(body));
 
+    /*    let docDefinition = this.commonUtility.getDocDefination('Ledger Report', '01 Apr 19 - 31 Mar 20',
+          this.invoicesListing[0].invoiceItemsList[0].partyCity, this.customer.customerDetails.cardName, body);*/
+
     let docDefinition = this.commonUtility.getDocDefination('Ledger Report', '01 Apr 19 - 31 Mar 20',
-      this.invoicesListing[0].invoiceItemsList[0].partyCity, this.customer.customerDetails.cardName, body);
+      '', this.customer.customerDetails.cardName, body);
 
     this.pdfObj = pdfMake.createPdf(docDefinition);
 
@@ -338,8 +361,10 @@ export class InvoicesListingPage {
       this.file.writeFile(this.file.dataDirectory, fileName, blob, { replace: true }).then(fileEntry => {
 
         // Open the PDf with the correct OS tools
-        this.fileOpener.open(this.file.dataDirectory + fileName, 'application/pdf');
-        // this.pdf = this.file.dataDirectory + fileName;
+        // this.fileOpener.open(this.file.dataDirectory + fileName, 'application/pdf');
+        this.pdf = this.file.dataDirectory + fileName;
+
+        this.share();
       })
     });
   }

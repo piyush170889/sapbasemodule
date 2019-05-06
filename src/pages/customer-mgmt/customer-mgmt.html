@@ -56,15 +56,15 @@
 
   <ion-card *ngFor="let customer of customersList">
 
-    <ion-card-header>
+    <ion-card-header (click)="viewCustomerDetails(customer)">
       <ion-row>
-        <ion-col col-11>
+        <ion-col col-12>
           <strong>{{customer.customerDetails.cardCode}}</strong>
         </ion-col>
-        <ion-col col-1 *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != ''"
+        <!-- <ion-col col-1 *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != ''"
           (click)="callCust(customer)">
           <ion-icon name="md-call"></ion-icon>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
       <ion-row>
         <ion-col col-12>
@@ -72,20 +72,9 @@
         </ion-col>
       </ion-row>
     </ion-card-header>
-
-    <ion-card-content (click)="viewCustomerDetails(customer)">
-
-      <ion-row>
-        <ion-col col-5>
-          Contact No.
-        </ion-col>
-        <ion-col col-7>
-          {{customer.customerDetails.cellular == null || customer.customerDetails.cellular == '' ? 'Not Available' :
-          customer.customerDetails.cellular }}
-        </ion-col>
-      </ion-row>
-
-
+    
+    <ion-card-content>
+      
       <ion-row>
         <ion-col col-5>
           Balance
@@ -96,6 +85,39 @@
           <!-- <ion-icon item-end color="primary" name="ios-arrow-forward"></ion-icon> -->
         </ion-col>
       </ion-row>
+
+      <ion-row>
+        <ion-col col-12>
+          Contact No.
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != ''">
+        <ion-col col-11>
+          {{customer.customerDetails.cellular}}
+        </ion-col>
+        <ion-col col-1 color="primary" (click)="callCust(customer.customerDetails.cellular)">
+          <ion-icon name="md-call"></ion-icon>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="customer.customerDetails.phone1 != null && customer.customerDetails.phone1 != ''">
+        <ion-col col-11>
+          {{customer.customerDetails.phone1}}
+        </ion-col>
+        <ion-col col-1 color="primary" (click)="callCust(customer.customerDetails.phone1)">
+          <ion-icon name="md-call"></ion-icon>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="customer.customerDetails.phone2 != null && customer.customerDetails.phone2 != ''">
+        <ion-col col-11>
+          {{customer.customerDetails.phone2}}
+        </ion-col>
+        <ion-col col-1 color="primary" (click)="callCust(customer.customerDetails.phone2)">
+          <ion-icon name="md-call"></ion-icon>
+        </ion-col>
+      </ion-row>
+
 
     </ion-card-content>
 

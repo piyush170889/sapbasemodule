@@ -9,17 +9,17 @@
   <ion-navbar color="navbar" text-center>
     <ion-title>Invoice Listing</ion-title>
 
-    <ion-buttons end>
+    <!-- <ion-buttons end>
 
-      <!-- <button (click)="downloadAgingReport()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">
+      <button (click)="downloadAgingReport()" ion-button item-end style="background-color: #1c2431; font-size: 20px;">
         <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>
-      </button> -->
+      </button>
 
       <button ion-button item-end (click)="presentPopover($event)" style="background-color: #1c2431; font-size: 20px;">
         <ion-icon name="md-more"></ion-icon>
       </button>
 
-    </ion-buttons>
+    </ion-buttons> -->
 
   </ion-navbar>
 
@@ -79,7 +79,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-card *ngIf="openingBalanceInvoice != null">
+  <!-- <ion-card *ngIf="openingBalanceInvoice != null">
     <ion-card-content>
       <ion-row>
         <ion-col col-12 text-center color="primary">
@@ -88,7 +88,7 @@
         </ion-col>
       </ion-row>
     </ion-card-content>
-  </ion-card>
+  </ion-card> -->
 
   <ion-list>
     <button color="bgcolor" ion-item *ngFor="let invoice of invoicesListing" (click)="showInvoiceDetails(invoice)">
@@ -102,11 +102,12 @@
             date: 'dd MMM'}}</span>
         </ion-col>
         <ion-col col-3>
-          <p *ngIf="invoice.isPaid != 'O' && invoice.type == 'A/R Inv'" class="pj-paid-inv"><i class="fa fa-rupee"></i>
+          <p><i class="fa fa-rupee"></i>{{invoice.grossTotal}}</p>
+          <!-- <p *ngIf="invoice.isPaid != 'O' && invoice.type == 'A/R Inv'" class="pj-paid-inv"><i class="fa fa-rupee"></i>
             {{invoice.grossTotal}}</p>
           <p *ngIf="invoice.isPaid == 'O' && invoice.type == 'A/R Inv'" class="pj-unpaid-inv"><i class="fa fa-rupee"></i>
             {{invoice.grossTotal}}</p>
-          <p *ngIf="invoice.type != 'A/R Inv'"><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p>
+          <p *ngIf="invoice.type != 'A/R Inv'"><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p> -->
           <span class="pj-bill-status">{{invoice.type}}</span>
         </ion-col>
       </ion-row>
@@ -128,7 +129,7 @@
 
     <div style="margin:5% 0;" text-center>
       <p>{{customer.customerDetails.cardName}}</p>
-      <p *ngIf="null != invoicesListing && invoicesListing.length > 0">{{invoicesListing[0].invoiceItemsList[0].partyCity}}</p>
+      <!-- <p *ngIf="null != invoicesListing && invoicesListing.length > 0 && invoicesListing[0].invoiceItemsList.length != null">{{invoicesListing[0].invoiceItemsList[0].partyCity}}</p> -->
     </div>
 
     <div text-center>
@@ -153,9 +154,9 @@
           <td style="border:1px solid #000;">
             Invoice No.
           </td>
-          <td style="border:1px solid #000;">
+          <!-- <td style="border:1px solid #000;">
             Status
-          </td>
+          </td> -->
           <td style="border:1px solid #000;">
             Balance
           </td>
@@ -189,16 +190,16 @@
           <td style="border:1px solid #000;">
             {{ledgerInvoice.invoiceNo}}
           </td>
-          <td style="border:1px solid #000;">
+          <!-- <td style="border:1px solid #000;">
             {{ledgerInvoice.isPaid == 'O' ? 'Open' : 'Close' }}
-          </td>
+          </td> -->
           <td style="border:1px solid #000;">
             {{ledgerInvoice.grossTotal}}
           </td>
         </tr>
 
         <tr>
-          <td colspan=5>
+          <td colspan=4>
             Total
           </td>
           <td>
@@ -225,7 +226,7 @@
 
     <div style="margin:5% 0;" text-center>
       <p>{{customer.customerDetails.cardName}}</p>
-      <p *ngIf="null != invoicesListing && invoicesListing.length > 0">{{invoicesListing[0].invoiceItemsList[0].partyCity}}</p>
+      <!-- <p *ngIf="null != invoicesListing && invoicesListing.length > 0">{{invoicesListing[0].invoiceItemsList[0].partyCity}}</p> -->
     </div>
 
     <div text-center>
@@ -254,9 +255,9 @@
           <td style="border:1px solid #000;">
             Overdue By Days
           </td>
-          <td style="border:1px solid #000;">
+          <!-- <td style="border:1px solid #000;">
             Status
-          </td>
+          </td> -->
           <td style="border:1px solid #000;">
             Amount
           </td>
@@ -272,18 +273,20 @@
             {{invoice.invoiceNo }}
           </td>
           <td style="border:1px solid #000;">
-            {{(invoice.dueDateInDays + '').replace('-', '')}}
+            {{(invoice.dueDateInDays + '').indexOf("-") > -1 ?
+            (invoice.dueDateInDays + '').replace("-", "") : '-' + invoice.dueDateInDays}}
+            <!-- {{invoice.dueDateInDays}} -->
           </td>
-          <td style="border:1px solid #000;">
+          <!-- <td style="border:1px solid #000;">
             {{invoice.isPaid == 'O' ? 'Open' : 'Close' }}
-          </td>
+          </td> -->
           <td style="border:1px solid #000;">
             {{invoice.grossTotal}}
           </td>
         </tr>
 
         <tr>
-          <td colspan=5 style="border:1px solid #000;">
+          <td colspan=4 style="border:1px solid #000;">
             Total
           </td>
           <td style="border:1px solid #000;">

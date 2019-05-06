@@ -29,17 +29,37 @@
     <ion-card-content>
 
       <ion-row>
-        <ion-col col-5>
+        <ion-col col-12>
           Contact No.
         </ion-col>
-        <ion-col col-6>
-          {{customer.customerDetails.cellular == null || customer.customerDetails.cellular == '' ? 'Not Available' :
-          customer.customerDetails.cellular }}
+      </ion-row>
+      <ion-row *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != ''">
+        <ion-col col-11>
+          {{customer.customerDetails.cellular}}
         </ion-col>
-        <ion-col col-1 color="primary" (click)="callCust()" *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != ''">
+        <ion-col col-1 color="primary" (click)="callCust(customer.customerDetails.cellular)">
           <ion-icon name="md-call"></ion-icon>
         </ion-col>
       </ion-row>
+
+      <ion-row *ngIf="customer.customerDetails.phone1 != null && customer.customerDetails.phone1 != ''">
+        <ion-col col-11>
+          {{customer.customerDetails.phone1}}
+        </ion-col>
+        <ion-col col-1 color="primary" (click)="callCust(customer.customerDetails.phone1)">
+          <ion-icon name="md-call"></ion-icon>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="customer.customerDetails.phone2 != null && customer.customerDetails.phone2 != ''">
+        <ion-col col-11>
+          {{customer.customerDetails.phone2}}
+        </ion-col>
+        <ion-col col-1 color="primary" (click)="callCust(customer.customerDetails.phone2)">
+          <ion-icon name="md-call"></ion-icon>
+        </ion-col>
+      </ion-row>
+
 
       <ion-row>
         <ion-col col-5>
@@ -66,7 +86,17 @@
 
     </ion-card-content>
 
-    <ion-row *ngIf="!isModalData">
+    <ion-row (click)="shareLedger()" *ngIf="!isModalData" color="dark" style="color: #FFCB08 !important; margin: 2% !important;">
+      <ion-col col-2></ion-col>
+      <ion-col col-2 text-center>
+        <ion-icon name="share" color="primary"></ion-icon>
+      </ion-col>
+      <ion-col col-6 text-left>
+        Share Ledger Report
+      </ion-col>
+      <ion-col col-2></ion-col>
+    </ion-row>
+    <!-- <ion-row *ngIf="!isModalData">
       <ion-col col-12>
         <ion-list>
           <ion-item style="background-color: #1c2431 !important; margin: 0 !important; padding: 0 !important;">
@@ -83,10 +113,40 @@
           </ion-item>
         </ion-list>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
   </ion-card>
 
+  <!-- Customer Actions  -->
+  <ion-card *ngIf="!isModalData">
+    <ion-row>
+      <ion-col col-12>
+        <ion-list>
+          <ion-item style="background-color: #1c2431 !important; margin: 0 !important; padding: 0 !important;">
+            <button color="dark" style="color: #FFCB08 !important; margin: 0 !important;" ion-item (click)="showAgingReport()">
+              Aging Report
+              <ion-icon item-end name="ios-arrow-forward"></ion-icon>
+            </button>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+  <ion-card *ngIf="!isModalData">
+    <ion-row>
+      <ion-col col-12>
+        <ion-list>
+          <ion-item style="background-color: #1c2431 !important; margin: 0 !important; padding: 0 !important;">
+            <button color="dark" style="color: #FFCB08 !important; margin: 0 !important;" ion-item (click)="showOrders()">
+              Orders
+              <ion-icon item-end name="ios-arrow-forward"></ion-icon>
+            </button>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 
   <!-- Customer Contact Person Details Details -->
   <ion-card>

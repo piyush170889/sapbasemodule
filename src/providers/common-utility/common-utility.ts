@@ -5,6 +5,7 @@ import { Network } from "@ionic-native/network";
 import { ConstantsProvider } from '../constants/constants';
 import { DatePipe } from '@angular/common';
 import { CallNumber } from '@ionic-native/call-number';
+import { stringify } from '@angular/core/src/util';
 
 @Injectable()
 export class CommonUtilityProvider {
@@ -52,49 +53,49 @@ export class CommonUtilityProvider {
 
     isNetworkAvailableFlag: boolean = true;
 
-    // isNetworkAvailable() {
+    isNetworkAvailable() {
 
-    //     if (!this.isNetworkAvailableFlag) {
-    //         let alert = this.alertCtrl.create({
-    //             subTitle: 'No Internet Connection',
-    //             enableBackdropDismiss: false,
-    //             buttons: [
-    //                 {
-    //                     text: 'OK',
-    //                     handler: () => {
-    //                         this.isNetworkAvailable();
-    //                     }
-    //                 }
-    //             ]
-    //         });
-    //         alert.present();
-    //     }
+        if (!this.isNetworkAvailableFlag) {
+            let alert = this.alertCtrl.create({
+                subTitle: 'No Internet Connection',
+                enableBackdropDismiss: false,
+                buttons: [
+                    {
+                        text: 'OK',
+                        handler: () => {
+                            this.isNetworkAvailable();
+                        }
+                    }
+                ]
+            });
+            alert.present();
+        }
 
-    //     return this.isNetworkAvailableFlag;
-    // }
+        return this.isNetworkAvailableFlag;
+    }
 
 
-       isNetworkAvailable() {
-        if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
-          let alert = this.alertCtrl.create({
-              subTitle: 'No Internet Connection',
-              enableBackdropDismiss: false ,
-              buttons: [
-                      {
-                          text: 'OK',
-                          handler: () => {
-                              this.isNetworkAvailable();
-                          }
-                      }
-                  ]
-              });
-              alert.present();
-              return false;
-          } else {
-              return true;
-          }  
+    //    isNetworkAvailable() {
+    //     if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
+    //       let alert = this.alertCtrl.create({
+    //           subTitle: 'No Internet Connection',
+    //           enableBackdropDismiss: false ,
+    //           buttons: [
+    //                   {
+    //                       text: 'OK',
+    //                       handler: () => {
+    //                           this.isNetworkAvailable();
+    //                       }
+    //                   }
+    //               ]
+    //           });
+    //           alert.present();
+    //           return false;
+    //       } else {
+    //           return true;
+    //       }  
 
-      }
+    //   }
 
     createLoader(message: string = "Please wait...") { // Optional Parameter
         return this.loadingCtrl.create({
@@ -217,4 +218,12 @@ export class CommonUtilityProvider {
         return description;
     }
 
+    getCurrentDate(format: string) {
+
+        console.log('format = ' + format);
+        let transformedDate: string = new DatePipe('en-US').transform(new Date().toISOString(), format);
+        console.log('transformedDate = ' + transformedDate);
+
+        return transformedDate;
+    }
 }

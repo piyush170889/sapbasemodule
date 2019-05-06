@@ -48,7 +48,8 @@ export class AuthorizatonSettingsPage extends BaseComponent {
                             // this.trackUserLocation();
                             this.navCtrl.setRoot(CustomerMgmtPage);
                         } else if (this.rolesArray.indexOf(ConstantsProvider.ROLE_ADMIN) > -1) {
-                            this.navCtrl.setRoot(AdminUsersPage);
+                            this.navCtrl.setRoot(CustomerMgmtPage);
+                            // this.navCtrl.setRoot(AdminUsersPage);
                         }
                     } else {
                         this.navCtrl.setRoot(ChangePasswordPage, {
