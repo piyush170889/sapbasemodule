@@ -978,8 +978,9 @@ var LocationTrackerProvider = /** @class */ (function () {
             distanceFilter: 10,
             debug: false,
             interval: 100,
+            startOnBoot: true,
             notificationsEnabled: false,
-            stopOnTerminate: false,
+            stopOnTerminate: true,
             fastestInterval: 100,
             activitiesInterval: 100,
             url: __WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].API_BASE_URL + __WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].LOCATION_TRACKING_URL,
@@ -1043,7 +1044,9 @@ var LocationTrackerProvider = /** @class */ (function () {
                 debug: false,
                 interval: 100,
                 notificationsEnabled: false,
-                stopOnTerminate: false,
+                stopOnTerminate: true,
+                batchSync: true,
+                autoSync: true,
                 fastestInterval: 100,
                 activitiesInterval: 100,
                 url: __WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].API_BASE_URL + __WEBPACK_IMPORTED_MODULE_5__constants_constants__["a" /* ConstantsProvider */].LOCATION_TRACKING_URL,
@@ -3721,15 +3724,15 @@ var map = {
 		8
 	],
 	"../pages/order-add/order-add.module": [
-		865,
+		866,
 		7
 	],
 	"../pages/order-details/order-details.module": [
-		866,
+		867,
 		6
 	],
 	"../pages/order-mgmt/order-mgmt.module": [
-		867,
+		865,
 		5
 	],
 	"../pages/orders-booked/orders-booked.module": [
@@ -4142,9 +4145,9 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/modal-add-item/modal-add-item.module#ModalAddItemPageModule', name: 'ModalAddItemPage', segment: 'modal-add-item', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/modal-au-admin-users/modal-au-admin-users.module#ModalAuAdminUsersPageModule', name: 'ModalAuAdminUsersPage', segment: 'modal-au-admin-users', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/order-mgmt/order-mgmt.module#OrderMgmtPageModule', name: 'OrderMgmtPage', segment: 'order-mgmt', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/order-add/order-add.module#OrderAddPageModule', name: 'OrderAddPage', segment: 'order-add', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/order-details/order-details.module#OrderDetailsPageModule', name: 'OrderDetailsPage', segment: 'order-details', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/order-mgmt/order-mgmt.module#OrderMgmtPageModule', name: 'OrderMgmtPage', segment: 'order-mgmt', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/orders-booked/orders-booked.module#OrdersBookedPageModule', name: 'OrdersBookedPage', segment: 'orders-booked', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/settings/settings.module#SettingsPageModule', name: 'SettingsPage', segment: 'settings', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tracking/tracking.module#TrackingPageModule', name: 'TrackingPage', segment: 'tracking', priority: 'low', defaultHistory: [] },
