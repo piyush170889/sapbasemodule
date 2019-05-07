@@ -69,6 +69,6 @@ export class ConstantsProvider {
   public static ROLE_SALES = 'ROLE_SALES';
 
   //CONFIG Constants
-  public static SW_VER = '1.2.2';
+  public static SW_VER = '1.3.3';
   public static BASIC_AUTH_TOKEN = 'c2FwYmFzZW1vZHVsZTpzYXBiYXNlbW9kdWxlLXNlY3JldA==';
 }

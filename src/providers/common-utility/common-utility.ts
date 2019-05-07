@@ -5,7 +5,6 @@ import { Network } from "@ionic-native/network";
 import { ConstantsProvider } from '../constants/constants';
 import { DatePipe } from '@angular/common';
 import { CallNumber } from '@ionic-native/call-number';
-import { stringify } from '@angular/core/src/util';
 
 @Injectable()
 export class CommonUtilityProvider {
@@ -53,7 +52,7 @@ export class CommonUtilityProvider {
 
     isNetworkAvailableFlag: boolean = true;
 
-    /*isNetworkAvailable() {
+    isNetworkAvailable() {
 
         if (!this.isNetworkAvailableFlag) {
             let alert = this.alertCtrl.create({
@@ -72,10 +71,10 @@ export class CommonUtilityProvider {
         }
 
         return this.isNetworkAvailableFlag;
-    }*/
+    }
 
 
-       isNetworkAvailable() {
+     /*  isNetworkAvailable() {
         if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
           let alert = this.alertCtrl.create({
               subTitle: 'No Internet Connection',
@@ -95,7 +94,7 @@ export class CommonUtilityProvider {
               return true;
           }  
 
-      }
+       }*/
 
     createLoader(message: string = "Please wait...") { // Optional Parameter
         return this.loadingCtrl.create({

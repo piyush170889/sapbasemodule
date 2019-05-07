@@ -3,7 +3,6 @@ import { Platform, Nav, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import * as firebase from 'Firebase';
-import { Geolocation } from '@ionic-native/geolocation';
 
 import { LoginPage } from '../pages/login/login';
 import { CommonUtilityProvider } from '../providers/common-utility/common-utility';
