@@ -52,49 +52,49 @@ export class CommonUtilityProvider {
 
     isNetworkAvailableFlag: boolean = true;
 
-    // isNetworkAvailable() {
+    isNetworkAvailable() {
 
-    //     if (!this.isNetworkAvailableFlag) {
-    //         let alert = this.alertCtrl.create({
-    //             subTitle: 'No Internet Connection',
-    //             enableBackdropDismiss: false,
-    //             buttons: [
-    //                 {
-    //                     text: 'OK',
-    //                     handler: () => {
-    //                         this.isNetworkAvailable();
-    //                     }
-    //                 }
-    //             ]
-    //         });
-    //         alert.present();
-    //     }
+        if (!this.isNetworkAvailableFlag) {
+            let alert = this.alertCtrl.create({
+                subTitle: 'No Internet Connection',
+                enableBackdropDismiss: false,
+                buttons: [
+                    {
+                        text: 'OK',
+                        handler: () => {
+                            this.isNetworkAvailable();
+                        }
+                    }
+                ]
+            });
+            alert.present();
+        }
 
-    //     return this.isNetworkAvailableFlag;
-    // }
+        return this.isNetworkAvailableFlag;
+    }
 
 
-     isNetworkAvailable() {
-        if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
-          let alert = this.alertCtrl.create({
-              subTitle: 'No Internet Connection',
-              enableBackdropDismiss: false ,
-              buttons: [
-                      {
-                          text: 'OK',
-                          handler: () => {
-                              this.isNetworkAvailable();
-                          }
-                      }
-                  ]
-              });
-              alert.present();
-              return false;
-          } else {
-              return true;
-          }  
+    //  isNetworkAvailable() {
+    //     if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
+    //       let alert = this.alertCtrl.create({
+    //           subTitle: 'No Internet Connection',
+    //           enableBackdropDismiss: false ,
+    //           buttons: [
+    //                   {
+    //                       text: 'OK',
+    //                       handler: () => {
+    //                           this.isNetworkAvailable();
+    //                       }
+    //                   }
+    //               ]
+    //           });
+    //           alert.present();
+    //           return false;
+    //       } else {
+    //           return true;
+    //       }  
 
-       }
+    //    }
 
     createLoader(message: string = "Please wait...") { // Optional Parameter
         return this.loadingCtrl.create({
@@ -216,7 +216,59 @@ export class CommonUtilityProvider {
 
         return description;
     }
-
+    
+    public getDocDefinationPendingInvoices(reportyType, datePeriod, custCity, custName, body, totalPendingAmount) {
+        let description = {
+            content: [
+                { text: 'Hello,' },
+                { text: 'This is a reminder that your account balance of ' + totalPendingAmount + ' was overdue as of ' + datePeriod + '.'
+                 + ' Please find the Receivable for your reference. If you have any queries regarding this account, please contact ' + 
+                 'our office as soon as possible.' },
+                { text: custName, style: 'subheader' },
+                { text: custCity },
+                { text: reportyType, style: 'subheader' },
+                { text: datePeriod, style: 'story' },
+                { text: 'Report Date: ' + new DatePipe('en-US').transform(new Date().toISOString(), 'dd MMM yy'), style: 'story' },
+                {
+                    table: {
+                        body: body
+                    }
+                },
+                { text: 'Regards', style: 'subheader' },
+                { text: 'JAGTAP BUILDING SOLUTIONS', style: 'header' },
+                { text: 'Asthavinayak Soc, Opp Bharat Jyoti Stop' },
+                { text: 'Bibwewadi , Pune - 411037' },
+                { text: 'Tel No. : (O) 24216162, 9822610611' },
+                { text: 'Phone no. : 02024216162' },
+                { text: 'Pin code : 411037' },
+                { text: 'GSTIN : 27AFJPJ8271L1ZV' },
+                { text: 'E-Mail : jagtapbsolutions@gmail.com' },
+            ],
+            styles: {
+                header: {
+                    fontSize: 18,
+                    bold: true,
+                },
+                cardname: {
+                    margin: [5, 0, 5, 0]
+                },
+                subheader: {
+                    fontSize: 14,
+                    bold: true,
+                    margin: [0, 15, 0, 0],
+                    alignment: 'center'
+                },
+                story: {
+                    italic: true,
+                    alignment: 'center',
+                    width: '50%',
+                }
+            }
+        }
+        
+        return description;
+    }
+    
     getCurrentDate(format: string) {
 
         console.log('format = ' + format);

@@ -132,7 +132,7 @@ export class CustomerMgmtPage {
 
         let searchValLowerCase = searchVal.toLowerCase();
 
-        if (customerDetailsObj.customerDetails.cardName.toLowerCase().indexOf(searchValLowerCase) > -1
+        if ((null != customerDetailsObj.customerDetails.cardName && customerDetailsObj.customerDetails.cardName.toLowerCase().indexOf(searchValLowerCase) > -1) 
           || (customerDetailsObj.customerDetails.phone1 != null
             && customerDetailsObj.customerDetails.phone1.toLowerCase().indexOf(searchValLowerCase) > -1)
           || customerDetailsObj.customerDetails.cardCode.toLowerCase().indexOf(searchValLowerCase) > -1)

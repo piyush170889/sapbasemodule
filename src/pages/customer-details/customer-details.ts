@@ -11,6 +11,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { FileOpener } from '@ionic-native/file-opener';
 import { File } from '@ionic-native/file';
+import { PendingInvoicesFilterPage } from '../pending-invoices-filter/pending-invoices-filter';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -219,6 +220,15 @@ export class CustomerDetailsPage {
       // alert('Successfully Shared The File');
     }).catch((e) => {
       alert('Error : ' + JSON.stringify(e));
+    });
+  }
+
+  showPendingInvoicesFilter() {
+
+    console.log('showPendingInvoicesFilter CustomerDetails');
+
+    this.navCtrl.push(PendingInvoicesFilterPage, {
+      customer : this.customer
     });
   }
 }

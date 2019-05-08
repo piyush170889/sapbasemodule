@@ -148,6 +148,24 @@
     </ion-row>
   </ion-card>
 
+  <!-- Pending Invoices -->
+
+  <ion-card *ngIf="!isModalData">
+    <ion-row>
+      <ion-col col-12>
+        <ion-list>
+          <ion-item style="background-color: #1c2431 !important; margin: 0 !important; padding: 0 !important;">
+            <button color="dark" style="color: #FFCB08 !important; margin: 0 !important;" ion-item (click)="showPendingInvoicesFilter()">
+              Pending Invoices
+              <ion-icon item-end name="ios-arrow-forward"></ion-icon>
+            </button>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+
   <!-- Customer Contact Person Details Details -->
   <ion-card>
 

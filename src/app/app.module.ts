@@ -43,6 +43,8 @@ import { IonicSelectableModule } from 'ionic-selectable';
 import { Diagnostic } from "@ionic-native/diagnostic";
 import { CallNumber } from '@ionic-native/call-number';
 import { OrdersBookedPage } from '../pages/orders-booked/orders-booked';
+import { PendingInvoicesPage } from '../pages/pending-invoices/pending-invoices';
+import { PendingInvoicesFilterPage } from '../pages/pending-invoices-filter/pending-invoices-filter';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,9 @@ import { OrdersBookedPage } from '../pages/orders-booked/orders-booked';
     InvoiceListingSettingsPopoverPage,
     OrderAddPage,
     ModalAddItemPage,
-    OrdersBookedPage
+    OrdersBookedPage,
+    PendingInvoicesFilterPage,
+    PendingInvoicesPage
   ],
   imports: [
     BrowserModule,
@@ -98,7 +102,9 @@ import { OrdersBookedPage } from '../pages/orders-booked/orders-booked';
     InvoiceListingSettingsPopoverPage,
     OrderAddPage,
     ModalAddItemPage,
-    OrdersBookedPage
+    OrdersBookedPage,
+    PendingInvoicesFilterPage,
+    PendingInvoicesPage
   ],
   providers: [
     StatusBar,

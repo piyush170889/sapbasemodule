@@ -1,0 +1,42 @@
+<!--
+  Generated template for the PendingInvoicesFilterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="navbar" text-center>
+    <ion-title>Pending Invoices Filter</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-row>
+    <ion-col col-12>
+      <ion-item class="pj-card-floating-label">
+        <ion-label floating>From Date*</ion-label>
+        <ion-datetime [(ngModel)]="fromDate" [max]="currentDate" displayFormat="DD-MMM-YYYY"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col col-12>
+      <ion-item class="pj-card-floating-label">
+        <ion-label floating>To Date*</ion-label>
+        <ion-datetime [(ngModel)]="toDate" [max]="currentDate" displayFormat="DD-MMM-YYYY"></ion-datetime>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col col-12 padding>
+      <button ion-button class="pj-button" type="submit" (click)="showPendingInvoices()">APPLY FILTERS</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

@@ -9,7 +9,7 @@ and Angular DI.
 */
 @Injectable()
 export class ConstantsProvider {
-
+  
   constructor(public http: HttpClient) {
     console.log('Hello ConstantsProvider Provider');
   }
@@ -17,7 +17,7 @@ export class ConstantsProvider {
   //Common API Constants
 
   // LOCAL
-  // public static API_BASE_URL: string = "http://192.168.2.4:8080/sapbasemodule/v1/";
+  public static API_BASE_URL: string = "http://192.168.2.4:8080/sapbasemodule/v1/";
 
   //DEV
   // public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapitest/v1/";
@@ -27,7 +27,7 @@ export class ConstantsProvider {
   //public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapitest/v1/";
 
   // PRODUCTION
-  public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapi/v1/";
+  // public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapi/v1/";
 
 
   //API Endpoints
@@ -58,6 +58,8 @@ export class ConstantsProvider {
   public static API_ENDPOINT_LEDGER_REPORT = "ledger-report";
   public static API_ENDPOINT_ITEM_DTLS = "items";
   public static API_ENDPOINT_BOOKED_ORDERS = "booked-orders";
+  public static API_ENDPOINT_PENDING_INVOICES: string = 'pending-invoices';
+
 
   //Master Data JSON key names
   public static MD_UOM = "uom";
