@@ -216,14 +216,16 @@ export class CommonUtilityProvider {
 
         return description;
     }
-    
+
     public getDocDefinationPendingInvoices(reportyType, datePeriod, custCity, custName, body, totalPendingAmount) {
         let description = {
             content: [
                 { text: 'Hello,' },
-                { text: 'This is a reminder that your account balance of ' + totalPendingAmount + ' was overdue as of ' + datePeriod + '.'
-                 + ' Please find the Receivable for your reference. If you have any queries regarding this account, please contact ' + 
-                 'our office as soon as possible.' },
+                {
+                    text: 'This is a reminder that your account balance of ' + totalPendingAmount + ' was overdue as of ' + datePeriod + '.'
+                        + ' Please find the Receivable for your reference. If you have any queries regarding this account, please contact ' +
+                        'our office as soon as possible.'
+                },
                 { text: custName, style: 'subheader' },
                 { text: custCity },
                 { text: reportyType, style: 'subheader' },
@@ -234,7 +236,7 @@ export class CommonUtilityProvider {
                         body: body
                     }
                 },
-                { text: 'Regards', style: 'subheader' },
+                { text: 'Regards,', style: 'greetings' },
                 { text: 'JAGTAP BUILDING SOLUTIONS', style: 'header' },
                 { text: 'Asthavinayak Soc, Opp Bharat Jyoti Stop' },
                 { text: 'Bibwewadi , Pune - 411037' },
@@ -258,6 +260,11 @@ export class CommonUtilityProvider {
                     margin: [0, 15, 0, 0],
                     alignment: 'center'
                 },
+                greetings: {
+                    fontSize: 14,
+                    bold: true,
+                    margin: [0, 15, 0, 15]
+                },
                 story: {
                     italic: true,
                     alignment: 'center',
@@ -265,10 +272,10 @@ export class CommonUtilityProvider {
                 }
             }
         }
-        
+
         return description;
     }
-    
+
     getCurrentDate(format: string) {
 
         console.log('format = ' + format);

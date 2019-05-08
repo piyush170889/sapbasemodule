@@ -103,7 +103,7 @@ export class PendingInvoicesPage {
           this.invoicesListing[0].invoiceItemsList[0].partyCity, this.customer.customerDetails.cardName, body);*/
 
     let docDefinition = this.commonUtility.getDocDefinationPendingInvoices('Pending Invoices Report',
-      new DatePipe('en-US').transform(this.fromDate, 'dd-MMM-yyyy') + ' - '
+      new DatePipe('en-US').transform(this.fromDate, 'dd-MMM-yyyy') + ' To '
       + new DatePipe('en-US').transform(this.toDate, 'dd-MMM-yyyy'), '',
       this.customer.customerDetails.cardName, body, pendingAmountTotal);
 
