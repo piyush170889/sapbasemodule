@@ -167,7 +167,7 @@
 
 
   <!-- Customer Contact Person Details Details -->
-  <ion-card>
+  <!-- <ion-card>
 
     <ion-card-header>
       <ion-row>
@@ -199,10 +199,10 @@
 
     </ion-card-content>
 
-  </ion-card>
+  </ion-card> -->
 
   <!-- Customer Address Details -->
-  <ion-card>
+  <!-- <ion-card>
 
     <ion-card-header>
       <ion-row>
@@ -235,7 +235,59 @@
 
     </ion-card-content>
 
-  </ion-card>
+  </ion-card> -->
+
+  <!-- Customer All Invoices List-->
+  <ion-row style="margin-bottom:2%;">
+    <ion-col col-12 class="pj-full-width-border" no-margin>
+      <ion-label>Invoices</ion-label>
+    </ion-col>
+    <!-- <ion-col col-2 class="pj-full-width-border" no-margin>
+      <button (click)="createAgingPDFAndShare()" ion-button item-end style="background-color: #1c2431; font-size: 18px;">
+        <ion-icon name="share" color="primary"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col col-2 class="pj-full-width-border" no-margin>
+      <button (click)="downloadAgingReport()" ion-button item-end style="background-color: #1c2431; font-size: 18px;">
+        <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>
+      </button>
+    </ion-col> -->
+  </ion-row>
+
+  <!-- <ion-card *ngIf="openingBalanceInvoice != null">
+    <ion-card-content>
+      <ion-row>
+        <ion-col col-12 text-center color="primary">
+          <strong>Opening Balance</strong>
+          <p style="color:#AFAFAF;font-size: 15px;">{{openingBalanceInvoice.grossTotal}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card> -->
+
+  <ion-list>
+    <button color="bgcolor" ion-item *ngFor="let invoice of customerAllInvoicesList">
+      <ion-row *ngIf="invoice.origin == 'OB' || invoice.origin == 'IN'" >
+        <ion-col col-9>
+          <p color="light"><strong>{{invoice.invoiceNo}}</strong></p>
+          <span *ngIf="invoice.invoiceItemsList != null" style="font-size:10px; color:#AFAFAF">{{invoice.invoiceDate |
+            date: 'dd MMM'}} |
+            {{invoice.dueDateInDays}} Days | Due: {{invoice.dueDate | date: 'dd MMM'}}</span>
+          <span *ngIf="invoice.invoiceItemsList == null" style="font-size:10px; color:#AFAFAF">{{invoice.postingDate |
+            date: 'dd MMM'}} | Due: {{invoice.dueDate | date: 'dd MMM'}}</span>
+        </ion-col>
+        <ion-col col-3>
+          <p *ngIf="invoice.origin == 'OB'" ><i class="fa fa-rupee"></i>{{invoice.debit}}</p>
+          <p *ngIf="invoice.debit != 0 && invoice.origin != 'OB'" class="pj-unpaid-inv"><i class="fa fa-rupee"></i>
+            {{invoice.debit.replace('-','')}}</p>
+            <p *ngIf="invoice.credit != 0 && invoice.origin != 'OB'" class="pj-paid-inv"><i class="fa fa-rupee"></i>
+              {{invoice.credit}}</p>
+          <span class="pj-bill-status">{{invoice.origin}}</span>
+        </ion-col>
+      </ion-row>
+    </button>
+  </ion-list>
+  <!-- Customer All Invoices List-->
 
 
   <ion-fab bottom center (click)="dismissModal()" *ngIf="isModalData">

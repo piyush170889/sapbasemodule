@@ -45,6 +45,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { OrdersBookedPage } from '../pages/orders-booked/orders-booked';
 import { PendingInvoicesPage } from '../pages/pending-invoices/pending-invoices';
 import { PendingInvoicesFilterPage } from '../pages/pending-invoices-filter/pending-invoices-filter';
+import { TestPage } from '../pages/test/test';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { PendingInvoicesFilterPage } from '../pages/pending-invoices-filter/pend
     ModalAddItemPage,
     OrdersBookedPage,
     PendingInvoicesFilterPage,
-    PendingInvoicesPage
+    PendingInvoicesPage,
+    TestPage
   ],
   imports: [
     BrowserModule,
@@ -104,7 +106,8 @@ import { PendingInvoicesFilterPage } from '../pages/pending-invoices-filter/pend
     ModalAddItemPage,
     OrdersBookedPage,
     PendingInvoicesFilterPage,
-    PendingInvoicesPage
+    PendingInvoicesPage,
+    TestPage
   ],
   providers: [
     StatusBar,

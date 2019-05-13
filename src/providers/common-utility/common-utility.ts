@@ -9,6 +9,8 @@ import { CallNumber } from '@ionic-native/call-number';
 @Injectable()
 export class CommonUtilityProvider {
 
+    isNetworkAvailableFlag: boolean = true;
+
     constructor(
         private toastCtrl: ToastController,
         private alertCtrl: AlertController,
@@ -19,38 +21,6 @@ export class CommonUtilityProvider {
     ) {
         console.log('Hello CommonUtilityProvider Provider');
     }
-
-    callNumber(numberToCall: any, bypassAppChooser: boolean) {
-        // this.callNumberNative.isCallSupported()
-        //     .then(function (response) {
-        //         if (response == true) {
-        //             this.callNumberNative.callNumber(numberToCall, bypassAppChooser);
-        //         }
-        //         else {
-        //             this.presentErrorToast('No Calling Service Available');
-        //         }
-        //     });
-        this.callNumberNative.callNumber(numberToCall, bypassAppChooser);
-    }
-
-    hasRoleInArray(rolesArray: string[], role: string): any {
-
-        // console.log('rolesArray = ' + JSON.stringify(rolesArray));
-        let isRolePresent: boolean = false;
-
-        if (null != rolesArray && rolesArray.length != 0) {
-            let rolesArrayLength = rolesArray.length;
-            for (let j = 0; j < rolesArrayLength; j++) {
-                if (role == rolesArray[j]) {
-                    isRolePresent = true;
-                }
-            }
-        }
-
-        return isRolePresent;
-    }
-
-    isNetworkAvailableFlag: boolean = true;
 
     isNetworkAvailable() {
 
@@ -95,6 +65,36 @@ export class CommonUtilityProvider {
     //       }  
 
     //    }
+
+    callNumber(numberToCall: any, bypassAppChooser: boolean) {
+        // this.callNumberNative.isCallSupported()
+        //     .then(function (response) {
+        //         if (response == true) {
+        //             this.callNumberNative.callNumber(numberToCall, bypassAppChooser);
+        //         }
+        //         else {
+        //             this.presentErrorToast('No Calling Service Available');
+        //         }
+        //     });
+        this.callNumberNative.callNumber(numberToCall, bypassAppChooser);
+    }
+
+    hasRoleInArray(rolesArray: string[], role: string): any {
+
+        // console.log('rolesArray = ' + JSON.stringify(rolesArray));
+        let isRolePresent: boolean = false;
+
+        if (null != rolesArray && rolesArray.length != 0) {
+            let rolesArrayLength = rolesArray.length;
+            for (let j = 0; j < rolesArrayLength; j++) {
+                if (role == rolesArray[j]) {
+                    isRolePresent = true;
+                }
+            }
+        }
+
+        return isRolePresent;
+    }
 
     createLoader(message: string = "Please wait...") { // Optional Parameter
         return this.loadingCtrl.create({

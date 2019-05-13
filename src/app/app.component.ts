@@ -15,6 +15,7 @@ import { OrderMgmtPage } from '../pages/order-mgmt/order-mgmt';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
+import { TestPage } from '../pages/test/test';
 
 const config = {
     apiKey: 'AIzaSyAwE6RUI2st4uTM40fotjuPJVRJNfuayko',
@@ -47,6 +48,10 @@ export class MyApp {
     ) {
         console.log('Refresh Token = ' + localStorage.getItem('refresh-token'));
         this.rootPage = localStorage.getItem('refresh-token') == null ? LoginPage : AuthorizatonSettingsPage;
+
+        this.pages.push(
+            { title: 'TestPage', component: TestPage }
+        );
         platform.ready().then(() => {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.

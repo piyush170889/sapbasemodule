@@ -38,6 +38,8 @@ export class CustomerDetailsPage {
   totalLedgerInvoiceBalance: number = 0;
   pdfObj = null;
   pdf: any;
+  customerAllInvoicesList: any[] = [];
+  originalCustomerAllInvoicesList: any[] = [];
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -55,6 +57,21 @@ export class CustomerDetailsPage {
     console.log('customer = ' + JSON.stringify(this.customer));
     this.date = new DatePipe('en-US').transform(new Date(), 'ddMMyy');
     this.time = new DatePipe('en-US').transform(new Date(), 'HHmmss');
+
+    let customerAllInvoicesApiEndpoint = ConstantsProvider.API_BASE_URL + ConstantsProvider.API_ENDPOINT_CUST_DTLS
+      + ConstantsProvider.URL_SEPARATOR + this.customer.customerDetails.cardCode
+      + ConstantsProvider.URL_SEPARATOR + ConstantsProvider.API_ENDPOINT_CUST_ALL_INVOICES
+      + '?till-date=' + new DatePipe(ConstantsProvider.LOCALE_US).transform(new Date().toISOString(), 'yyyy-MM-dd');
+
+    this.restService.getDetails(customerAllInvoicesApiEndpoint)
+      .subscribe(
+        (response) => {
+          console.log('Customer ALl Invoices = ' + JSON.stringify(response.response));
+
+          this.customerAllInvoicesList = response.response;
+          this.originalCustomerAllInvoicesList = response.response;
+        }
+      );
   }
 
   ionViewDidLoad() {
@@ -97,7 +114,7 @@ export class CustomerDetailsPage {
   shareLedger() {
     let ledgerBalanceApiEndpoint = ConstantsProvider.API_BASE_URL + ConstantsProvider.API_ENDPOINT_CUST_DTLS
       + ConstantsProvider.URL_SEPARATOR + this.customer.customerDetails.cardCode
-      + ConstantsProvider.URL_SEPARATOR + ConstantsProvider.API_ENDPOINT_LEDGER_REPORT
+      + ConstantsProvider.URL_SEPARATOR + ConstantsProvider.API_ENDPOINT_LEDGER_REPORT_NEW;
 
     console.log('ledgerBalanceApiEndpoint = ' + ledgerBalanceApiEndpoint);
 
@@ -111,14 +128,16 @@ export class CustomerDetailsPage {
           this.ledgerInvoiceList.forEach(
             (ledgerInvoice) => {
 
-              console.log('Ledger Invoice Type = ' + ledgerInvoice.type);
+              // console.log('Ledger Invoice Type = ' + ledgerInvoice.type);
 
-              if (ledgerInvoice.type == 'OB') {
-                this.ledgerOpeningBalance = ledgerInvoice.grossTotal;
-              }
+              // if (ledgerInvoice.type == 'OB') {
+              //   this.ledgerOpeningBalance = ledgerInvoice.grossTotal;
+              // }
 
+              // this.totalLedgerInvoiceBalance = this.totalLedgerInvoiceBalance
+              //   + Number.parseFloat(ledgerInvoice.grossTotal);
               this.totalLedgerInvoiceBalance = this.totalLedgerInvoiceBalance
-                + Number.parseFloat(ledgerInvoice.grossTotal);
+                + Number.parseFloat(ledgerInvoice.balance);
             }
           );
 
@@ -163,23 +182,29 @@ export class CustomerDetailsPage {
 
     // body.push(['Date', 'Due Date', 'Type', 'Invoice No.', 'Status', 'Balance']);
     // body.push(['', '', 'Opening Balance', '', '', this.ledgerOpeningBalance]);
-    body.push(['Date', 'Due Date', 'Type', 'Invoice No.', 'Balance']);
-    body.push(['', '', 'Opening Balance', '', this.ledgerOpeningBalance]);
+    body.push(['Post. Date', 'Trans.', 'Source', 'Credit.', 'Debit', 'Cumulative Balance', 'Balance']);
+    // body.push(['', '', 'Opening Balance', '', this.ledgerOpeningBalance]);
 
     this.ledgerInvoiceList.forEach(
       (ledgerInvoice) => {
-        if (ledgerInvoice.type != 'OB') {
-          body.push([new DatePipe('en-US').transform(ledgerInvoice.invoiceDate),
-          new DatePipe('en-US').transform(ledgerInvoice.dueDate), ledgerInvoice.type,
-          ledgerInvoice.invoiceNo == '0' ? '' : ledgerInvoice.invoiceNo,
-          // ledgerInvoice.invoiceNo == '0' ? '' : ledgerInvoice.invoiceNo , ledgerInvoice.isPaid == 'O' ? 'Open' : 'Close',
-          ledgerInvoice.grossTotal]);
-        }
+        // if (ledgerInvoice.type != 'OB') {
+        //   body.push([new DatePipe('en-US').transform(ledgerInvoice.invoiceDate),
+        //   new DatePipe('en-US').transform(ledgerInvoice.dueDate), ledgerInvoice.type,
+        //   ledgerInvoice.invoiceNo == '0' ? '' : ledgerInvoice.invoiceNo,
+        //   // ledgerInvoice.invoiceNo == '0' ? '' : ledgerInvoice.invoiceNo , ledgerInvoice.isPaid == 'O' ? 'Open' : 'Close',
+        //   ledgerInvoice.grossTotal]);
+        // }
+        body.push([
+          new DatePipe(ConstantsProvider.LOCALE_US).transform(ledgerInvoice.postingDate, 'dd MMM yyyy'),
+          ledgerInvoice.transId, ledgerInvoice.origin,
+          ledgerInvoice.credit == 0 ? '' : ledgerInvoice.credit,
+          ledgerInvoice.debit == 0 ? '' : ledgerInvoice.debit,
+          ledgerInvoice.cumulativeBalance, ledgerInvoice.balance]);
       }
     );
 
     // body.push(['', '', '', '', 'Total', this.totalLedgerInvoiceBalance]);
-    body.push(['', '', '', 'Total', this.totalLedgerInvoiceBalance]);
+    body.push(['', '', '', '', '', 'Total', this.totalLedgerInvoiceBalance]);
 
     // alert(JSON.stringify(body));
 
@@ -228,7 +253,7 @@ export class CustomerDetailsPage {
     console.log('showPendingInvoicesFilter CustomerDetails');
 
     this.navCtrl.push(PendingInvoicesFilterPage, {
-      customer : this.customer
+      customer: this.customer
     });
   }
 }

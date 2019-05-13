@@ -269,37 +269,35 @@ export class InvoicesListingPage {
 
     if (null != this.invoicesListing && this.invoicesListing.length > 0) {
       console.log('shareAgingReport InvoiceListingPage');
-      // alert('Creating Aging PDF And Sharing');
 
       let body: any[] = [];
 
       // body.push(['Date', 'Type', 'Invoice No.', 'Overdue By Days', 'Status', 'Amount']);
-      body.push(['Date', 'Type', 'Invoice No.', 'Overdue By Days', 'Amount']);
+      body.push(['Date', 'Type', 'Due Date', 'Invoice No.', 'Overdue By Days', 'Amount']);
 
       this.invoicesListing.forEach(
         (invoice) => {
-          body.push([new DatePipe('en-US').transform(invoice.invoiceDate),
-          invoice.type, invoice.invoiceNo,
-          (invoice.dueDateInDays + '').indexOf("-") > -1 ? (invoice.dueDateInDays + '').replace("-", "") : '-' + invoice.dueDateInDays,
-          invoice.grossTotal]);
+          body.push([
+            new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.invoiceDate, ConstantsProvider.REPORTS_DATE_FORMAT),
+            invoice.type, invoice.dueDate, invoice.invoiceNo,
+            (invoice.dueDateInDays + '').indexOf("-") > -1 ? (invoice.dueDateInDays + '').replace("-", "") : '-' + invoice.dueDateInDays,
+            invoice.grossTotal]);
           // invoice.isPaid == 'O' ? 'Open' : 'Close', invoice.grossTotal]);
         }
       );
 
-      body.push(['', '', '', 'Total', this.totalInvoiceBalance]);
-
-      // alert(JSON.stringify(body));
+      body.push(['', '', '', '', 'Total', this.totalInvoiceBalance]);
 
       let agingPeriod = '';
 
       if (this.noOfDays != '-360') {
         agingPeriod = '>' + (Number.parseInt(this.noOfDays.replace('-', '')) - 30) + ' Days';
       } else if (this.noOfDays == '-360') {
-        alert('Else');
         agingPeriod = '121+ Days';
       }
 
-      let datePeriod = new DatePipe('en-US').transform(this.fromDate, 'dd MMM yy') + ' | ' + agingPeriod;
+      let datePeriod = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(this.fromDate, ConstantsProvider.REPORTS_DATE_FORMAT)
+        + ' | ' + agingPeriod;
 
       let docDefinition = this.commonUtility.getDocDefination('Aging Report', datePeriod,
         '', this.customer.customerDetails.cardName, body);
@@ -327,7 +325,7 @@ export class InvoicesListingPage {
         if (ledgerInvoice.type != 'OB') {
           body.push([new DatePipe('en-US').transform(ledgerInvoice.invoiceDate),
           new DatePipe('en-US').transform(ledgerInvoice.dueDate), ledgerInvoice.type,
-          ledgerInvoice.invoiceNo == '0' ? '' : ledgerInvoice.invoiceNo ,
+          ledgerInvoice.invoiceNo == '0' ? '' : ledgerInvoice.invoiceNo,
           // ledgerInvoice.invoiceNo == '0' ? '' : ledgerInvoice.invoiceNo , ledgerInvoice.isPaid == 'O' ? 'Open' : 'Close',
           ledgerInvoice.grossTotal]);
         }
@@ -349,7 +347,6 @@ export class InvoicesListingPage {
 
     this.downloadPdf('JBSLedgerReport_' + this.customer.customerDetails.cardName + '.pdf');
   }
-
 
   downloadPdf(fileName) {
 

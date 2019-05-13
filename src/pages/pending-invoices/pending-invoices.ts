@@ -33,7 +33,7 @@ export class PendingInvoicesPage {
   pendingInvoicesList: any[] = [];
   pdfObj = null;
   pdf: any;
-
+  openingBalance: number = 0;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -58,6 +58,20 @@ export class PendingInvoicesPage {
           console.log('Pending Invoices = ' + JSON.stringify(response.response));
 
           this.pendingInvoicesList = response.response;
+
+          let indexToSplice = null;
+
+          this.pendingInvoicesList.forEach(
+            (pendingInvoice) => {
+              if (undefined != pendingInvoice.ob && pendingInvoice.ob != null && pendingInvoice.ob > 0) {
+                this.openingBalance = Number.parseFloat(pendingInvoice.ob);
+                indexToSplice = this.pendingInvoicesList.indexOf(pendingInvoice);
+              }
+            });
+
+          console.log('indexToSplice = ' + indexToSplice);
+          if (null != indexToSplice)
+            this.pendingInvoicesList.splice(indexToSplice, 1);
         }
       );
   }
@@ -82,6 +96,7 @@ export class PendingInvoicesPage {
     let openingAmountTotal: number = 0;
     let pendingAmountTotal: number = 0;
 
+    body.push(['', '', '', 'Opening Balance', this.openingBalance, '', '', '']);
     this.pendingInvoicesList.forEach(
       (pendingInvoice) => {
         body.push([new DatePipe('en-US').transform(pendingInvoice.invDate, 'dd-MMM-yyyy'),
@@ -97,10 +112,6 @@ export class PendingInvoicesPage {
     body.push(['', '', '', '', openingAmountTotal, pendingAmountTotal,
       '', '']);
 
-    // alert(JSON.stringify(body));
-
-    /*    let docDefinition = this.commonUtility.getDocDefination('Ledger Report', '01 Apr 19 - 31 Mar 20',
-          this.invoicesListing[0].invoiceItemsList[0].partyCity, this.customer.customerDetails.cardName, body);*/
 
     let docDefinition = this.commonUtility.getDocDefinationPendingInvoices('Pending Invoices Report',
       new DatePipe('en-US').transform(this.fromDate, 'dd-MMM-yyyy') + ' To '

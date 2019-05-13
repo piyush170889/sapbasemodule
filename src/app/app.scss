@@ -208,3 +208,12 @@ ion-card-header {
     font-size: 1rem !important;
     float: right;
 }
+
+
+.pj-unpaid-inv {
+    color: color($colors, danger, base) !important;
+}
+
+.pj-paid-inv {
+    color: color($colors, secondary, base) !important;
+}
