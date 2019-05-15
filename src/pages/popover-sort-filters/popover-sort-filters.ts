@@ -16,14 +16,16 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 export class PopoverSortFiltersPage {
 
   sortOrder: number = 0;
-
+  isCustMgmt: boolean = false;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private viewController: ViewController) {
 
     this.sortOrder = Number.parseInt(this.navParams.get('sortOrder'));
-    console.log('Sort Order = ' + this.sortOrder);
+    this.isCustMgmt = this.navParams.get('isCustMgmt') == null || this.navParams.get('isCustMgmt') == undefined ? false : this.navParams.get('isCustMgmt');
+
+    console.log('Sort Order = ' + this.sortOrder + ', isCustMgmt : ' + this.isCustMgmt);
   }
 
   ionViewDidLoad() {

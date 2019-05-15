@@ -355,9 +355,13 @@ export class CustomerDetailsPage {
               (invoice: any) => {
 
                 if (invoice.invoiceDate < dateToCompareFormatted) {
-                  console.log("Pass: " + JSON.stringify('Invoice no = ' + invoice.invoiceNo));
                   sortedList.push(invoice);
-                  customerBalance = customerBalance + Number.parseFloat(invoice.grossTotal);
+
+                  if (invoice.type == 'IN' || invoice.type == 'OB')
+                    customerBalance = customerBalance + Number.parseFloat(invoice.grossTotal);
+
+                  console.log("Pass: " + 'Invoice no = ' + invoice.invoiceNo +
+                    ', Amount = ' + invoice.grossTotal);
                 }
               });
 
@@ -442,7 +446,7 @@ export class CustomerDetailsPage {
       this.totalInvoiceBalance = 0;
       this.customerAllInvoicesList.forEach(
         (invoice) => {
-          if (invoice.grossTotal != 0) {
+          if (invoice.type == 'IN' || invoice.type == 'OB') {
             body.push([
               new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.invoiceDate, ConstantsProvider.REPORTS_DATE_FORMAT),
               invoice.type,

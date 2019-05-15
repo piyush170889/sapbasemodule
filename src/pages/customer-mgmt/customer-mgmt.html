@@ -9,12 +9,16 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+    <ion-buttons end>
+      <button ion-button item-end (click)="presentPopoverDataSorting($event)" style="background-color: #1c2431; font-size: 20px; color:#E4EBED;">
+        <ion-icon name="md-more"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>
       Customer Management
     </ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content>
 
   <ion-row>
@@ -72,9 +76,9 @@
         </ion-col>
       </ion-row>
     </ion-card-header>
-    
+
     <ion-card-content>
-      
+
       <ion-row>
         <ion-col col-5>
           Balance

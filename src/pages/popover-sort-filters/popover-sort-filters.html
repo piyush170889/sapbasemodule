@@ -14,10 +14,10 @@
     <button text-center color="bgcolor" ion-item (click)="sortData(1)">
       <p [class.activesortingfilter]="sortOrder == 1">Amount (Low - High)</p>
     </button>
-    <button text-center color="bgcolor" ion-item (click)="sortData(4)">
+    <button *ngIf="!isCustMgmt" text-center color="bgcolor" ion-item (click)="sortData(4)">
       <p [class.activesortingfilter]="sortOrder == 4">Due Days (High - Low)</p>
     </button>
-    <button text-center color="bgcolor" ion-item (click)="sortData(3)">
+    <button *ngIf="!isCustMgmt" text-center color="bgcolor" ion-item (click)="sortData(3)">
       <p [class.activesortingfilter]="sortOrder == 3">Due Days (Low - High)</p>
     </button>
   </ion-list>

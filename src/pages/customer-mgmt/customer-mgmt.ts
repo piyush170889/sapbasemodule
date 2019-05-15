@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
 import { ConstantsProvider } from '../../providers/constants/constants';
 import { CustomerDetailsPage } from '../customer-details/customer-details';
 import { OrderAddPage } from '../order-add/order-add';
 import { OrderMgmtPage } from '../order-mgmt/order-mgmt';
+import { PopoverSortFiltersPage } from '../popover-sort-filters/popover-sort-filters';
 
 /**
  * Generated class for the CustomerMgmtPage page.
@@ -32,6 +33,7 @@ export class CustomerMgmtPage {
   myInput: string = '';
   totalOutstanding: number = 0;
   referrer: string = null;
+  currentSortOrder: number = 0;
 
   customerMgmtApiEndpoint: string = ConstantsProvider.API_BASE_URL
     + ConstantsProvider.API_ENDPOINT_CUSTOMER_MGMT;
@@ -39,6 +41,7 @@ export class CustomerMgmtPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private commonUtility: CommonUtilityProvider,
+    private popOverController: PopoverController,
     private restService: RestserviceProvider) {
 
     this.referrer = this.navParams.get('referrer');
@@ -132,7 +135,7 @@ export class CustomerMgmtPage {
 
         let searchValLowerCase = searchVal.toLowerCase();
 
-        if ((null != customerDetailsObj.customerDetails.cardName && customerDetailsObj.customerDetails.cardName.toLowerCase().indexOf(searchValLowerCase) > -1) 
+        if ((null != customerDetailsObj.customerDetails.cardName && customerDetailsObj.customerDetails.cardName.toLowerCase().indexOf(searchValLowerCase) > -1)
           || (customerDetailsObj.customerDetails.phone1 != null
             && customerDetailsObj.customerDetails.phone1.toLowerCase().indexOf(searchValLowerCase) > -1)
           || customerDetailsObj.customerDetails.cardCode.toLowerCase().indexOf(searchValLowerCase) > -1)
@@ -216,5 +219,62 @@ export class CustomerMgmtPage {
     this.commonUtility.callNumber(custContactNumber, true);
   }
 
+  presentPopoverDataSorting(event: any) {
+
+    const popOver = this.popOverController.create(PopoverSortFiltersPage, {
+      sortOrder: this.currentSortOrder,
+      isCustMgmt: true
+    });
+
+    popOver.present({
+      ev: event
+    });
+
+    popOver.onDidDismiss(
+      (data) => {
+        if (data && data.sortData) {
+          let selectedSortOrder: number = Number.parseInt(data.sortOrder);
+          console.log('selectedSortOrder = ' + selectedSortOrder);
+
+          switch (selectedSortOrder) {
+
+            // 1 = Amount (Low - High)
+            case 1:
+              this.customersList.sort(
+                (a, b) => a.customerDetails.balance <= b.customerDetails.balance ? -1 : 1
+              );
+              this.currentSortOrder = selectedSortOrder;
+              break;
+
+            // 2 = Amount (High - Low) 
+            case 2:
+              this.customersList.sort(
+                (a, b) => a.customerDetails.balance >= b.customerDetails.balance ? -1 : 1
+              );
+              this.currentSortOrder = selectedSortOrder;
+              break;
+
+            // 3 = Due Days (Low - High)
+            case 3:
+              this.customersList.sort(
+                (a, b) => a.dueDateInDays <= b.dueDateInDays ? -1 : 1
+              );
+              this.currentSortOrder = selectedSortOrder;
+              break;
+
+            // 4 = Due Days (High - Low)
+            case 4:
+              this.customersList.sort(
+                (a, b) => a.dueDateInDays >= b.dueDateInDays ? -1 : 1
+              );
+              this.currentSortOrder = selectedSortOrder;
+              break;
+
+            default:
+              break;
+          }
+        }
+      });
+  }
 
 }

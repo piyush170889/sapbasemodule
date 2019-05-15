@@ -290,7 +290,7 @@
   <ion-list>
     <div *ngFor="let invoice of customerAllInvoicesList">
 
-      <button *ngIf="invoice.type != 'IN' && invoice.grossTotal != 0" color="bgcolor" ion-item (click)="showInvoiceDetails(invoice)">
+      <!-- <button *ngIf="invoice.type == 'OB'" color="bgcolor" ion-item (click)="showInvoiceDetails(invoice)">
         <ion-row>
           <ion-col col-9>
             <p color="light"><strong>{{invoice.invoiceNo}}</strong></p>
@@ -301,9 +301,9 @@
             <span class="pj-bill-status">{{invoice.type}}</span>
           </ion-col>
         </ion-row>
-      </button>
+      </button> -->
 
-      <button *ngIf="invoice.type == 'IN' && invoice.isPaid == 'O'" color="bgcolor" ion-item (click)="showInvoiceDetails(invoice)">
+      <button *ngIf="invoice.type == 'OB' || (invoice.type == 'IN' && invoice.isPaid == 'O')" color="bgcolor" ion-item (click)="showInvoiceDetails(invoice)">
         <ion-row>
           <ion-col col-9>
             <p color="light"><strong>{{invoice.invoiceNo}}</strong></p>
@@ -314,11 +314,6 @@
           </ion-col>
           <ion-col col-3>
             <p><i class="fa fa-rupee"></i>{{invoice.grossTotal}}</p>
-            <!-- <p *ngIf="invoice.isPaid != 'O' && invoice.type == 'A/R Inv'" class="pj-paid-inv"><i class="fa fa-rupee"></i>
-            {{invoice.grossTotal}}</p>
-          <p *ngIf="invoice.isPaid == 'O' && invoice.type == 'A/R Inv'" class="pj-unpaid-inv"><i class="fa fa-rupee"></i>
-            {{invoice.grossTotal}}</p>
-          <p *ngIf="invoice.type != 'A/R Inv'"><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p> -->
             <span class="pj-bill-status">{{invoice.type}}</span>
           </ion-col>
         </ion-row>
