@@ -40,8 +40,7 @@
               customer.customerDetails.balance }}
             </strong>
           </span>
-          <p style="color:#E4EBED;font-size:10px;">( Balance As Of {{tillDate | date : 'dd MMM yy'}} |
-            > {{displayCriteria}} )</p>
+          <p style="color:#E4EBED;font-size:10px;">Total Due Balance</p>
         </ion-col>
       </ion-row>
 
@@ -257,32 +256,27 @@
         <ion-icon name="md-more"></ion-icon>
       </button>
     </ion-col>
-    <!-- <ion-col col-2 class="pj-full-width-border" no-margin>
-      <button (click)="createAgingPDFAndShare()" ion-button item-end style="background-color: #1c2431; font-size: 18px;">
-        <ion-icon name="share" color="primary"></ion-icon>
-      </button>
-    </ion-col>
-    <ion-col col-2 class="pj-full-width-border" no-margin>
-      <button (click)="downloadAgingReport()" ion-button item-end style="background-color: #1c2431; font-size: 18px;">
-        <ion-icon name="ios-cloud-download-outline" color="primary"></ion-icon>
-      </button>
-    </ion-col> -->
   </ion-row>
 
-  <!-- <ion-card *ngIf="openingBalanceInvoice != null">
+  <ion-card *ngIf="customerBalance != null">
     <ion-card-content>
       <ion-row>
         <ion-col col-12 text-center color="primary">
-          <strong>Opening Balance</strong>
-          <p style="color:#AFAFAF;font-size: 15px;">{{openingBalanceInvoice.grossTotal}}</p>
+          <span style="font-size:4rem;">
+            <strong>
+              <i class="fa fa-rupee"></i>{{customerBalance}}
+            </strong>
+          </span>
+          <p style="color:#E4EBED;font-size:10px;">( Pending Invoice Balance As Of {{tillDate | date : 'dd MMM yy'}} |
+            > {{displayCriteria}} )</p>
         </ion-col>
       </ion-row>
     </ion-card-content>
-  </ion-card> -->
+  </ion-card>
 
   <!-- Customer All Invoices List-->
 
-  <div *ngIf="customerAllInvoicesList.length == 0" class="pj-empty-page" style="margin-top: 40%;">
+  <div *ngIf="customerAllInvoicesList.length == 0" class="pj-empty-page" style="margin-top: 20%;">
     <ion-icon name="ios-document-outline"></ion-icon>
     <h4>No Invoices To Show</h4>
   </div>
@@ -303,7 +297,8 @@
         </ion-row>
       </button> -->
 
-      <button *ngIf="invoice.type == 'OB' || (invoice.type == 'IN' && invoice.isPaid == 'O')" color="bgcolor" ion-item (click)="showInvoiceDetails(invoice)">
+      <button *ngIf="invoice.type == 'JE' || invoice.type == 'OB' || (invoice.type == 'IN' && invoice.isPaid == 'O')" color="bgcolor" ion-item
+        (click)="showInvoiceDetails(invoice)">
         <ion-row>
           <ion-col col-9>
             <p color="light"><strong>{{invoice.invoiceNo}}</strong></p>

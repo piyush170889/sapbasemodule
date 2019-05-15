@@ -47,6 +47,8 @@ export class CustomerDetailsPage {
   totalInvoiceBalance: number = 0;
   originalCustomerBalance: number = 0;
   currentSortOrder: number = 0;
+  customerBalance: number = 0;
+
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -80,8 +82,25 @@ export class CustomerDetailsPage {
 
           this.customerAllInvoicesList = response.response;
           this.originalCustomerAllInvoicesList = response.response;
+
+          this.setCustomerBalanceAndDueDateInDays();
         }
       );
+  }
+
+  setCustomerBalanceAndDueDateInDays() {
+
+    this.customerBalance = 0;
+    // let todaysDate: Date = new Date();
+
+    this.customerAllInvoicesList.forEach(
+      (invoice: any) => {
+
+        if (invoice.type == 'IN' || invoice.type == 'OB')
+          this.customerBalance = this.customerBalance + Number.parseFloat(invoice.grossTotal);
+
+        // this.commonUtility.calculateDiff(new Date(invoice.invoiceDate), todaysDate)
+      });
   }
 
   ionViewDidLoad() {
@@ -202,32 +221,29 @@ export class CustomerDetailsPage {
 
     let body: any[] = [];
 
-    // body.push(['Date', 'Due Date', 'Type', 'Invoice No.', 'Status', 'Balance']);
-    // body.push(['', '', 'Opening Balance', '', '', this.ledgerOpeningBalance]);
-    body.push(['Post. Date', 'Trans.', 'Source', 'Credit.', 'Debit', 'Cumulative Balance', 'Balance']);
-    // body.push(['', '', 'Opening Balance', '', this.ledgerOpeningBalance]);
+    // body.push(['Post. Date', 'Trans.', 'Source', 'Debit', 'Credit.', 'Cumulative Balance', 'Balance']);
+    body.push(['Post. Date', 'Trans.', 'Source', 'Debit', 'Credit.']);
+
+    let totalDebitBalance: number = 0;
+    let totalCreditBalance: number = 0;
 
     this.ledgerInvoiceList.forEach(
       (ledgerInvoice) => {
-        // if (ledgerInvoice.type != 'OB') {
-        //   body.push([new DatePipe('en-US').transform(ledgerInvoice.invoiceDate),
-        //   new DatePipe('en-US').transform(ledgerInvoice.dueDate), ledgerInvoice.type,
-        //   ledgerInvoice.invoiceNo == '0' ? '' : ledgerInvoice.invoiceNo,
-        //   // ledgerInvoice.invoiceNo == '0' ? '' : ledgerInvoice.invoiceNo , ledgerInvoice.isPaid == 'O' ? 'Open' : 'Close',
-        //   ledgerInvoice.grossTotal]);
-        // }
+        totalDebitBalance = totalDebitBalance + Number.parseFloat(ledgerInvoice.debit);
+        totalCreditBalance = totalCreditBalance + Number.parseFloat(ledgerInvoice.credit);
+
         body.push([
           new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(ledgerInvoice.invoiceDate, 'dd MMM yyyy'),
           ledgerInvoice.transId, ledgerInvoice.type,
-          ledgerInvoice.credit == 0 ? '' : ledgerInvoice.credit,
           ledgerInvoice.debit == 0 ? '' : ledgerInvoice.debit,
-          ledgerInvoice.cumulativeBalance, ledgerInvoice.grossTotal]);
+          ledgerInvoice.credit == 0 ? '' : ledgerInvoice.credit]);
+        // ledgerInvoice.cumulativeBalance, ledgerInvoice.grossTotal]);
       }
     );
 
     // body.push(['', '', '', '', 'Total', this.totalLedgerInvoiceBalance]);
-    body.push(['', '', '', '', '', 'Total', this.totalLedgerInvoiceBalance]);
-
+    body.push(['', '', 'Total', totalDebitBalance, totalCreditBalance]);
+    body.push(['', '', 'Total Balance', { text: (totalDebitBalance - totalCreditBalance) , colSpan: 2}]);
     // alert(JSON.stringify(body));
 
     /*    let docDefinition = this.commonUtility.getDocDefination('Ledger Report', '01 Apr 19 - 31 Mar 20',
@@ -334,21 +350,20 @@ export class CustomerDetailsPage {
       (data) => {
         if (data && data.showAging) {
           let selectedAgingPeriod: number = Number.parseInt(data.agingPeriod);
-          let customerBalance: number = 0;
-
-          let dateToCompare: Date = new Date(this.tillDate);
-          console.log('Active Date = ' + dateToCompare.toISOString() + ', selectedAgingPeriod = ' + selectedAgingPeriod);
-          dateToCompare.setDate(dateToCompare.getDate() - selectedAgingPeriod);
-          console.log('Date Back by selectedAGingPeriod Days = ' + dateToCompare.toISOString());
-
-          let dateToCompareFormatted: any = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(dateToCompare.toISOString(), 'yyyy-MM-dd');
-          console.log('dateToCompareFormatted = ' + dateToCompareFormatted);
 
           if (selectedAgingPeriod == 0) {
             this.customerAllInvoicesList = this.originalCustomerAllInvoicesList;
-            console.log('Original Cust balance = ' + this.originalCustomerBalance);
-            customerBalance = this.originalCustomerBalance;
           } else {
+
+            let dateToCompare: Date = new Date(this.tillDate);
+            console.log('Active Date = ' + dateToCompare.toISOString() + ', selectedAgingPeriod = ' + selectedAgingPeriod);
+
+            dateToCompare.setDate(dateToCompare.getDate() - selectedAgingPeriod);
+            console.log('Date Back by selectedAGingPeriod Days = ' + dateToCompare.toISOString());
+
+            let dateToCompareFormatted: any = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(dateToCompare.toISOString(), 'yyyy-MM-dd');
+            console.log('dateToCompareFormatted = ' + dateToCompareFormatted);
+
             let sortedList: any[] = [];
 
             this.originalCustomerAllInvoicesList.forEach(
@@ -357,20 +372,21 @@ export class CustomerDetailsPage {
                 if (invoice.invoiceDate < dateToCompareFormatted) {
                   sortedList.push(invoice);
 
-                  if (invoice.type == 'IN' || invoice.type == 'OB')
-                    customerBalance = customerBalance + Number.parseFloat(invoice.grossTotal);
+                  // if (invoice.type == 'IN' || invoice.type == 'OB')
+                  //   customerBalance = customerBalance + Number.parseFloat(invoice.grossTotal);
 
-                  console.log("Pass: " + 'Invoice no = ' + invoice.invoiceNo +
-                    ', Amount = ' + invoice.grossTotal);
+                  // console.log("Pass: " + 'Invoice no = ' + invoice.invoiceNo +
+                  //   ', Amount = ' + invoice.grossTotal);
                 }
               });
 
             this.customerAllInvoicesList = sortedList;
           }
 
-          this.customer.customerDetails.balance = customerBalance;
-          console.log('Customer Updated balance = ' + customerBalance);
+          // this.customer.customerDetails.balance = customerBalance;
+          // console.log('Customer Updated balance = ' + customerBalance);
 
+          this.setCustomerBalanceAndDueDateInDays();
           this.displayCriteria = selectedAgingPeriod;
         }
       }
@@ -441,37 +457,49 @@ export class CustomerDetailsPage {
 
       let body: any[] = [];
 
-      body.push(['Date', 'Type', 'Due Date', 'Invoice No.', 'Overdue By Days', 'Amount']);
+      body.push(['Date', 'Type', 'Invoice No.', 'Amount', 'Due Date', 'Overdue By Days']);
 
       this.totalInvoiceBalance = 0;
+      let todaysDate: Date = new Date();
+
       this.customerAllInvoicesList.forEach(
         (invoice) => {
-          if (invoice.type == 'IN' || invoice.type == 'OB') {
-            body.push([
-              new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.invoiceDate, ConstantsProvider.REPORTS_DATE_FORMAT),
-              invoice.type,
-              new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.dueDate, ConstantsProvider.REPORTS_DATE_FORMAT),
-              invoice.invoiceNo,
-              (invoice.dueDateInDays + '').indexOf("-") > -1 ? (invoice.dueDateInDays + '').replace("-", "") : '-' + invoice.dueDateInDays,
-              invoice.grossTotal]);
+          if ((invoice.type == 'JE' || invoice.type == 'IN' || invoice.type == 'OB')) {
+
+            let goAhead: boolean = true;
+
+            if (invoice.type == 'IN' && invoice.isPaid != 'O')
+              goAhead = false;
+
+            if (goAhead) {
+              body.push([
+                new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.invoiceDate, ConstantsProvider.REPORTS_DATE_FORMAT),
+                invoice.type,
+                invoice.invoiceNo,
+                invoice.grossTotal,
+                new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.dueDate, ConstantsProvider.REPORTS_DATE_FORMAT),
+                // (invoice.dueDateInDays + '').indexOf("-") > -1 ? (invoice.dueDateInDays + '').replace("-", "") : '-' + invoice.dueDateInDays,
+                this.commonUtility.calculateDiff(new Date(invoice.invoiceDate), todaysDate)
+              ]);
+            }
 
             this.totalInvoiceBalance = this.totalInvoiceBalance + Number.parseFloat(invoice.grossTotal);
           }
         }
       );
 
-      body.push(['', '', '', '', 'Total', this.totalInvoiceBalance]);
+      body.push(['', '', 'Total', this.totalInvoiceBalance, '', '']);
 
       let agingPeriod = '>' + this.displayCriteria;
       let datePeriod = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(this.tillDate, ConstantsProvider.REPORTS_DATE_FORMAT)
         + ' | ' + agingPeriod;
 
-      let docDefinition = this.commonUtility.getDocDefination('Aging Report', datePeriod,
+      let docDefinition = this.commonUtility.getDocDefination('Overdue Report', datePeriod,
         '', this.customer.customerDetails.cardName, body);
 
       this.pdfObj = pdfMake.createPdf(docDefinition);
 
-      this.downloadPdf('JBSAgingReport_' + this.customer.customerDetails.cardName + '.pdf');
+      this.downloadPdf('JBSOverdueReport_' + this.customer.customerDetails.cardName + '.pdf');
     } else {
       this.commonUtility.presentToast('No Aging Records Found', 5000);
     }

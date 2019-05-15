@@ -203,8 +203,8 @@ export class CommonUtilityProvider {
                 subheader: {
                     fontSize: 14,
                     bold: true,
-                    margin: [0, 15, 0, 0],
-                    alignment: 'center'
+                    margin: [0, 15, 0, 0]
+                    // alignment: 'center'
                 },
                 story: {
                     italic: true,
@@ -283,5 +283,24 @@ export class CommonUtilityProvider {
         console.log('transformedDate = ' + transformedDate);
 
         return transformedDate;
+    }
+
+
+    calculateDiff(startDate: Date, endDate: Date) {
+        //Get 1 day in milliseconds
+        var one_day = 1000 * 60 * 60 * 24;
+
+        // Convert both dates to milliseconds
+        var date1_ms = startDate.getTime();
+        var date2_ms = endDate.getTime();
+
+        // Calculate the difference in milliseconds
+        var difference_ms = date2_ms - date1_ms;
+
+        // Convert back to days and return
+        let diff = Math.round(difference_ms / one_day);
+
+        console.log('diff = ' + diff);
+        return diff;
     }
 }

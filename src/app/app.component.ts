@@ -49,9 +49,9 @@ export class MyApp {
         console.log('Refresh Token = ' + localStorage.getItem('refresh-token'));
         this.rootPage = localStorage.getItem('refresh-token') == null ? LoginPage : AuthorizatonSettingsPage;
 
-        this.pages.push(
-            { title: 'TestPage', component: TestPage }
-        );
+        // this.pages.push(
+            // { title: 'TestPage', component: TestPage }
+        // );
         platform.ready().then(() => {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
@@ -146,7 +146,7 @@ export class MyApp {
 
         this.pages.push(
             { title: 'Logout', component: LoginPage },
-            { title: 'TestPage', component: TestPage }
+            // { title: 'TestPage', component: TestPage }
         );
     }
 }
