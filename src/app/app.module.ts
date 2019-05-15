@@ -46,6 +46,8 @@ import { OrdersBookedPage } from '../pages/orders-booked/orders-booked';
 import { PendingInvoicesPage } from '../pages/pending-invoices/pending-invoices';
 import { PendingInvoicesFilterPage } from '../pages/pending-invoices-filter/pending-invoices-filter';
 import { TestPage } from '../pages/test/test';
+import { AgingFilterPopoverPage } from '../pages/aging-filter-popover/aging-filter-popover';
+import { PopoverSortFiltersPage } from '../pages/popover-sort-filters/popover-sort-filters';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ import { TestPage } from '../pages/test/test';
     OrdersBookedPage,
     PendingInvoicesFilterPage,
     PendingInvoicesPage,
-    TestPage
+    TestPage,
+    AgingFilterPopoverPage,
+    PopoverSortFiltersPage
   ],
   imports: [
     BrowserModule,
@@ -107,7 +111,9 @@ import { TestPage } from '../pages/test/test';
     OrdersBookedPage,
     PendingInvoicesFilterPage,
     PendingInvoicesPage,
-    TestPage
+    TestPage,
+    AgingFilterPopoverPage,
+    PopoverSortFiltersPage
   ],
   providers: [
     StatusBar,

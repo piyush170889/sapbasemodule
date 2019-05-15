@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController, PopoverController } from 'ionic-angular';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
 import { AgingReportFiltersPage } from '../aging-report-filters/aging-report-filters';
 import { OrderMgmtPage } from '../order-mgmt/order-mgmt';
@@ -12,6 +12,10 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { FileOpener } from '@ionic-native/file-opener';
 import { File } from '@ionic-native/file';
 import { PendingInvoicesFilterPage } from '../pending-invoices-filter/pending-invoices-filter';
+import { InvoiceDetailsPage } from '../invoice-details/invoice-details';
+import { InvoiceListingSettingsPopoverPage } from '../invoice-listing-settings-popover/invoice-listing-settings-popover';
+import { AgingFilterPopoverPage } from '../aging-filter-popover/aging-filter-popover';
+import { PopoverSortFiltersPage } from '../popover-sort-filters/popover-sort-filters';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -30,8 +34,6 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class CustomerDetailsPage {
 
   customer: any;
-  date: any;
-  time: any;
   isModalData: boolean = false;
   ledgerInvoiceList: any[] = [];
   ledgerOpeningBalance: number = 0;
@@ -40,12 +42,18 @@ export class CustomerDetailsPage {
   pdf: any;
   customerAllInvoicesList: any[] = [];
   originalCustomerAllInvoicesList: any[] = [];
+  tillDate: any = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(new Date().toISOString(), 'yyyy-MM-dd');
+  displayCriteria: any = '0';
+  totalInvoiceBalance: number = 0;
+  originalCustomerBalance: number = 0;
+  currentSortOrder: number = 0;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private commonUtility: CommonUtilityProvider,
     private view: ViewController,
     private restService: RestserviceProvider,
+    private popOverController: PopoverController,
     private alertCtrl: AlertController,
     public file: File,
     public fileOpener: FileOpener,
@@ -54,14 +62,16 @@ export class CustomerDetailsPage {
     this.customer = this.navParams.get('customer');
     this.isModalData = this.navParams.get('isModalData') == undefined || this.navParams.get('isModalData') == null || this.navParams.get('isModalData') == '' ? false : this.navParams.get('isModalData');
 
-    console.log('customer = ' + JSON.stringify(this.customer));
-    this.date = new DatePipe('en-US').transform(new Date(), 'ddMMyy');
-    this.time = new DatePipe('en-US').transform(new Date(), 'HHmmss');
+    console.log('customer = ' + JSON.stringify(this.customer) + '\n Till Date = ' + this.tillDate);
+
+    this.originalCustomerBalance = Number.parseFloat(this.customer.customerDetails.balance);
+    console.log('Original Customer Balance = ' + this.originalCustomerBalance);
+
 
     let customerAllInvoicesApiEndpoint = ConstantsProvider.API_BASE_URL + ConstantsProvider.API_ENDPOINT_CUST_DTLS
       + ConstantsProvider.URL_SEPARATOR + this.customer.customerDetails.cardCode
       + ConstantsProvider.URL_SEPARATOR + ConstantsProvider.API_ENDPOINT_CUST_ALL_INVOICES
-      + '?till-date=' + new DatePipe(ConstantsProvider.LOCALE_US).transform(new Date().toISOString(), 'yyyy-MM-dd');
+      + '?till-date=' + this.tillDate;
 
     this.restService.getDetails(customerAllInvoicesApiEndpoint)
       .subscribe(
@@ -112,40 +122,52 @@ export class CustomerDetailsPage {
   }
 
   shareLedger() {
-    let ledgerBalanceApiEndpoint = ConstantsProvider.API_BASE_URL + ConstantsProvider.API_ENDPOINT_CUST_DTLS
-      + ConstantsProvider.URL_SEPARATOR + this.customer.customerDetails.cardCode
-      + ConstantsProvider.URL_SEPARATOR + ConstantsProvider.API_ENDPOINT_LEDGER_REPORT_NEW;
+    // let ledgerBalanceApiEndpoint = ConstantsProvider.API_BASE_URL + ConstantsProvider.API_ENDPOINT_CUST_DTLS
+    //   + ConstantsProvider.URL_SEPARATOR + this.customer.customerDetails.cardCode
+    //   + ConstantsProvider.URL_SEPARATOR + ConstantsProvider.API_ENDPOINT_LEDGER_REPORT_NEW;
 
-    console.log('ledgerBalanceApiEndpoint = ' + ledgerBalanceApiEndpoint);
+    // console.log('ledgerBalanceApiEndpoint = ' + ledgerBalanceApiEndpoint);
 
-    this.restService.getDetails(ledgerBalanceApiEndpoint)
-      .subscribe(
-        (response) => {
-          console.log('Response = ' + JSON.stringify(response.response));
+    // this.restService.getDetails(ledgerBalanceApiEndpoint)
+    //   .subscribe(
+    //     (response) => {
+    //       console.log('Response = ' + JSON.stringify(response.response));
 
-          this.ledgerInvoiceList = response.response;
+    //       this.ledgerInvoiceList = response.response;
 
-          this.ledgerInvoiceList.forEach(
-            (ledgerInvoice) => {
+    //       this.ledgerInvoiceList.forEach(
+    //         (ledgerInvoice) => {
+    //           this.totalLedgerInvoiceBalance = this.totalLedgerInvoiceBalance
+    //             + Number.parseFloat(ledgerInvoice.balance);
+    //         }
+    //       );
 
-              // console.log('Ledger Invoice Type = ' + ledgerInvoice.type);
+    //       console.log('Ledger Invoice Final List = ' + JSON.stringify(this.ledgerInvoiceList));
 
-              // if (ledgerInvoice.type == 'OB') {
-              //   this.ledgerOpeningBalance = ledgerInvoice.grossTotal;
-              // }
+    //       this.showLedgerShareOptions();
+    //     }
+    //   );
 
-              // this.totalLedgerInvoiceBalance = this.totalLedgerInvoiceBalance
-              //   + Number.parseFloat(ledgerInvoice.grossTotal);
-              this.totalLedgerInvoiceBalance = this.totalLedgerInvoiceBalance
-                + Number.parseFloat(ledgerInvoice.balance);
-            }
-          );
+    let sortedList: any[] = [];
+    this.totalLedgerInvoiceBalance = 0;
 
-          console.log('Ledger Invoice Final List = ' + JSON.stringify(this.ledgerInvoiceList));
+    this.originalCustomerAllInvoicesList.forEach(
+      (invoice: any) => {
 
-          this.showLedgerShareOptions();
+        if (invoice.invoiceDate >= '2019-04-01') {
+          console.log("Pass: " + JSON.stringify('Invoice no = ' + invoice.invoiceNo));
+          sortedList.push(invoice);
+          this.totalLedgerInvoiceBalance = this.totalLedgerInvoiceBalance
+            + Number.parseFloat(invoice.grossTotal);
         }
-      );
+      });
+
+    this.ledgerInvoiceList = [];
+    this.ledgerInvoiceList = sortedList;
+
+    console.log('Ledger Invoice Final List = ' + JSON.stringify(this.ledgerInvoiceList));
+
+    this.createLedgerPdfAndShare();
   }
 
   showLedgerShareOptions() {
@@ -195,11 +217,11 @@ export class CustomerDetailsPage {
         //   ledgerInvoice.grossTotal]);
         // }
         body.push([
-          new DatePipe(ConstantsProvider.LOCALE_US).transform(ledgerInvoice.postingDate, 'dd MMM yyyy'),
-          ledgerInvoice.transId, ledgerInvoice.origin,
+          new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(ledgerInvoice.invoiceDate, 'dd MMM yyyy'),
+          ledgerInvoice.transId, ledgerInvoice.type,
           ledgerInvoice.credit == 0 ? '' : ledgerInvoice.credit,
           ledgerInvoice.debit == 0 ? '' : ledgerInvoice.debit,
-          ledgerInvoice.cumulativeBalance, ledgerInvoice.balance]);
+          ledgerInvoice.cumulativeBalance, ledgerInvoice.grossTotal]);
       }
     );
 
@@ -255,5 +277,199 @@ export class CustomerDetailsPage {
     this.navCtrl.push(PendingInvoicesFilterPage, {
       customer: this.customer
     });
+  }
+
+
+  showInvoiceDetails(invoice) {
+
+    console.log('showInvoiceDetails InvoiceListingPage');
+    console.log('invoice.invoiceItemsList = ' + invoice.invoiceItemsList);
+
+    if (invoice.type == 'IN') {
+      this.navCtrl.push(InvoiceDetailsPage, {
+        customer: this.customer,
+        fromDate: this.tillDate,
+        invoice: invoice
+      });
+    } else {
+      let mssgToDisplay = 'This is an ' + invoice.type + ' type Entry and does not have any order items associated with it.';
+
+      const alert = this.alertCtrl.create({
+        title: 'General Entry',
+        subTitle: mssgToDisplay,
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+  }
+
+  presentPopover(event: any) {
+
+    const popOver = this.popOverController.create(InvoiceListingSettingsPopoverPage, {
+      customer: this.customer
+    });
+    popOver.present({
+      ev: event
+    });
+
+    popOver.onDidDismiss(
+      (data) => {
+        if (data && data.showLedger) {
+          this.shareLedger();
+        }
+      }
+    );
+  }
+
+  presentPopoverAging(event: any) {
+
+    const popOver = this.popOverController.create(AgingFilterPopoverPage, {
+      agingperiod: this.displayCriteria
+    });
+    popOver.present({
+      ev: event
+    });
+
+    popOver.onDidDismiss(
+      (data) => {
+        if (data && data.showAging) {
+          let selectedAgingPeriod: number = Number.parseInt(data.agingPeriod);
+          let customerBalance: number = 0;
+
+          let dateToCompare: Date = new Date(this.tillDate);
+          console.log('Active Date = ' + dateToCompare.toISOString() + ', selectedAgingPeriod = ' + selectedAgingPeriod);
+          dateToCompare.setDate(dateToCompare.getDate() - selectedAgingPeriod);
+          console.log('Date Back by selectedAGingPeriod Days = ' + dateToCompare.toISOString());
+
+          let dateToCompareFormatted: any = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(dateToCompare.toISOString(), 'yyyy-MM-dd');
+          console.log('dateToCompareFormatted = ' + dateToCompareFormatted);
+
+          if (selectedAgingPeriod == 0) {
+            this.customerAllInvoicesList = this.originalCustomerAllInvoicesList;
+            console.log('Original Cust balance = ' + this.originalCustomerBalance);
+            customerBalance = this.originalCustomerBalance;
+          } else {
+            let sortedList: any[] = [];
+
+            this.originalCustomerAllInvoicesList.forEach(
+              (invoice: any) => {
+
+                if (invoice.invoiceDate < dateToCompareFormatted) {
+                  console.log("Pass: " + JSON.stringify('Invoice no = ' + invoice.invoiceNo));
+                  sortedList.push(invoice);
+                  customerBalance = customerBalance + Number.parseFloat(invoice.grossTotal);
+                }
+              });
+
+            this.customerAllInvoicesList = sortedList;
+          }
+
+          this.customer.customerDetails.balance = customerBalance;
+          console.log('Customer Updated balance = ' + customerBalance);
+
+          this.displayCriteria = selectedAgingPeriod;
+        }
+      }
+    );
+  }
+
+  presentPopoverDataSorting(event: any) {
+
+    const popOver = this.popOverController.create(PopoverSortFiltersPage, {
+      sortOrder: this.currentSortOrder
+    });
+
+    popOver.present({
+      ev: event
+    });
+
+    popOver.onDidDismiss(
+      (data) => {
+        if (data && data.sortData) {
+          let selectedSortOrder: number = Number.parseInt(data.sortOrder);
+          console.log('selectedSortOrder = ' + selectedSortOrder);
+
+          switch (selectedSortOrder) {
+
+            // 1 = Amount (Low - High)
+            case 1:
+              this.customerAllInvoicesList.sort(
+                (a, b) => a.grossTotal <= b.grossTotal ? -1 : 1
+              );
+              this.currentSortOrder = selectedSortOrder;
+              break;
+
+            // 2 = Amount (High - Low) 
+            case 2:
+              this.customerAllInvoicesList.sort(
+                (a, b) => a.grossTotal >= b.grossTotal ? -1 : 1
+              );
+              this.currentSortOrder = selectedSortOrder;
+              break;
+
+            // 3 = Due Days (Low - High)
+            case 3:
+              this.customerAllInvoicesList.sort(
+                (a, b) => a.dueDateInDays <= b.dueDateInDays ? -1 : 1
+              );
+              this.currentSortOrder = selectedSortOrder;
+              break;
+
+            // 4 = Due Days (High - Low)
+            case 4:
+              this.customerAllInvoicesList.sort(
+                (a, b) => a.dueDateInDays >= b.dueDateInDays ? -1 : 1
+              );
+              this.currentSortOrder = selectedSortOrder;
+              break;
+
+            default:
+              break;
+          }
+        }
+      });
+  }
+
+  createAgingPDFAndShare() {
+
+    if (null != this.customerAllInvoicesList && this.customerAllInvoicesList.length > 0) {
+      console.log('shareAgingReport InvoiceListingPage');
+
+      let body: any[] = [];
+
+      body.push(['Date', 'Type', 'Due Date', 'Invoice No.', 'Overdue By Days', 'Amount']);
+
+      this.totalInvoiceBalance = 0;
+      this.customerAllInvoicesList.forEach(
+        (invoice) => {
+          if (invoice.grossTotal != 0) {
+            body.push([
+              new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.invoiceDate, ConstantsProvider.REPORTS_DATE_FORMAT),
+              invoice.type,
+              new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.dueDate, ConstantsProvider.REPORTS_DATE_FORMAT),
+              invoice.invoiceNo,
+              (invoice.dueDateInDays + '').indexOf("-") > -1 ? (invoice.dueDateInDays + '').replace("-", "") : '-' + invoice.dueDateInDays,
+              invoice.grossTotal]);
+
+            this.totalInvoiceBalance = this.totalInvoiceBalance + Number.parseFloat(invoice.grossTotal);
+          }
+        }
+      );
+
+      body.push(['', '', '', '', 'Total', this.totalInvoiceBalance]);
+
+      let agingPeriod = '>' + this.displayCriteria;
+      let datePeriod = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(this.tillDate, ConstantsProvider.REPORTS_DATE_FORMAT)
+        + ' | ' + agingPeriod;
+
+      let docDefinition = this.commonUtility.getDocDefination('Aging Report', datePeriod,
+        '', this.customer.customerDetails.cardName, body);
+
+      this.pdfObj = pdfMake.createPdf(docDefinition);
+
+      this.downloadPdf('JBSAgingReport_' + this.customer.customerDetails.cardName + '.pdf');
+    } else {
+      this.commonUtility.presentToast('No Aging Records Found', 5000);
+    }
   }
 }

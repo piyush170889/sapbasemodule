@@ -124,17 +124,17 @@ export class InvoicesListingPage {
     console.log('showInvoiceDetails InvoiceListingPage');
     console.log('invoice.invoiceItemsList = ' + invoice.invoiceItemsList);
 
-    if (null != invoice.invoiceItemsList) {
+    if (invoice.type == 'A/R Inv') {
       this.navCtrl.push(InvoiceDetailsPage, {
         customer: this.customer,
         fromDate: this.fromDate,
         invoice: invoice
       });
     } else {
-      let mssgToDisplay = 'This is an ' + invoice.type + ' type Invoice and does not have any order items associated with it.';
+      let mssgToDisplay = 'This is an ' + invoice.type + ' type Entry and does not have any order items associated with it.';
 
       const alert = this.alertCtrl.create({
-        title: 'Invoice Type',
+        title: 'General Entry',
         subTitle: mssgToDisplay,
         buttons: ['OK']
       });

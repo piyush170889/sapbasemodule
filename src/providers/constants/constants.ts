@@ -24,10 +24,10 @@ export class ConstantsProvider {
   // public static API_BASE_URL: string = "http://67.211.220.180:8080/sapbaseapi/v1/";
 
   // STAGING
-  //public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapitest/v1/";
+  public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapitest/v1/";
 
   // PRODUCTION
-  public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapi/v1/";
+  // public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapi/v1/";
 
 
   //API Endpoints
@@ -73,6 +73,6 @@ export class ConstantsProvider {
   public static ROLE_SALES = 'ROLE_SALES';
 
   //CONFIG Constants
-  public static SW_VER = '1.5.4';
+  public static SW_VER = '1.6.5';
   public static BASIC_AUTH_TOKEN = 'c2FwYmFzZW1vZHVsZTpzYXBiYXNlbW9kdWxlLXNlY3JldA==';
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
- * Generated class for the InvoiceListingSettingsPopoverPage page.
+ * Generated class for the AgingFilterPopoverPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,33 +10,37 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 
 @IonicPage()
 @Component({
-  selector: 'page-invoice-listing-settings-popover',
-  templateUrl: 'invoice-listing-settings-popover.html',
+  selector: 'page-aging-filter-popover',
+  templateUrl: 'aging-filter-popover.html',
 })
-export class InvoiceListingSettingsPopoverPage {
+export class AgingFilterPopoverPage {
+
+  agingperiod: any = 0;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private viewController: ViewController) {
+
+      this.agingperiod = this.navParams.get('agingperiod');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad InvoiceListingSettingsPopoverPage');
+    console.log('ionViewDidLoad AgingFilterPopoverPage');
   }
-  
+
   dismissPopOver(data: any) {
 
     this.viewController.dismiss(data);
   }
 
-  showLedgerReport() {
+  showAgingReport(agingPeriod: any) {
 
-    console.log('showLedgerReport InvoiceListingSettingsPopoverPage');
+    console.log('showAgingReport AgingFilterPopoverPage');
 
     this.dismissPopOver({
-      showLedger: true
-    })
-
+      showAging: true,
+      agingPeriod: agingPeriod
+    });
   }
 
 }

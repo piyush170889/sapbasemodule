@@ -145,7 +145,8 @@ export class MyApp {
         }
 
         this.pages.push(
-            { title: 'Logout', component: LoginPage }
+            { title: 'Logout', component: LoginPage },
+            { title: 'TestPage', component: TestPage }
         );
     }
 }
