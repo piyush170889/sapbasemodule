@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController, PopoverController, Modal, ModalController } from 'ionic-angular';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
 import { AgingReportFiltersPage } from '../aging-report-filters/aging-report-filters';
 import { OrderMgmtPage } from '../order-mgmt/order-mgmt';
@@ -16,6 +16,7 @@ import { InvoiceDetailsPage } from '../invoice-details/invoice-details';
 import { InvoiceListingSettingsPopoverPage } from '../invoice-listing-settings-popover/invoice-listing-settings-popover';
 import { AgingFilterPopoverPage } from '../aging-filter-popover/aging-filter-popover';
 import { PopoverSortFiltersPage } from '../popover-sort-filters/popover-sort-filters';
+import { ModalLedgerOptionsPage } from '../modal-ledger-options/modal-ledger-options';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -25,6 +26,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+
+declare var cordova: any;
 
 @IonicPage()
 @Component({
@@ -48,6 +51,9 @@ export class CustomerDetailsPage {
   originalCustomerBalance: number = 0;
   currentSortOrder: number = 0;
   customerBalance: number = 0;
+  totalDebitBalance: number = 0;
+  totalCreditBalance: number = 0;
+  currDate: any = new Date().toISOString();
 
 
   constructor(public navCtrl: NavController,
@@ -59,7 +65,9 @@ export class CustomerDetailsPage {
     private alertCtrl: AlertController,
     public file: File,
     public fileOpener: FileOpener,
-    public socialSharing: SocialSharing) {
+    private socialSharing: SocialSharing,
+    private modalController: ModalController) {
+
 
     this.customer = this.navParams.get('customer');
     this.isModalData = this.navParams.get('isModalData') == undefined || this.navParams.get('isModalData') == null || this.navParams.get('isModalData') == '' ? false : this.navParams.get('isModalData');
@@ -84,6 +92,7 @@ export class CustomerDetailsPage {
           this.originalCustomerAllInvoicesList = response.response;
 
           this.setCustomerBalanceAndDueDateInDays();
+          this.updateLedgerList();
         }
       );
   }
@@ -167,6 +176,17 @@ export class CustomerDetailsPage {
     //     }
     //   );
 
+    // this.updateLedgerList();
+    console.log('Ledger Invoice Final List = ' + JSON.stringify(this.ledgerInvoiceList));
+
+    this.createLedgerPdfAndShare();
+  }
+
+  updateLedgerList() {
+  
+    this.totalCreditBalance = 0;
+    this.totalDebitBalance = 0;
+
     let sortedList: any[] = [];
     this.totalLedgerInvoiceBalance = 0;
 
@@ -176,17 +196,13 @@ export class CustomerDetailsPage {
         if (invoice.invoiceDate >= '2019-04-01') {
           console.log("Pass: " + JSON.stringify('Invoice no = ' + invoice.invoiceNo));
           sortedList.push(invoice);
-          this.totalLedgerInvoiceBalance = this.totalLedgerInvoiceBalance
-            + Number.parseFloat(invoice.grossTotal);
+          this.totalDebitBalance = this.totalDebitBalance + Number.parseFloat(invoice.debit);
+          this.totalCreditBalance = this.totalCreditBalance + Number.parseFloat(invoice.credit);
         }
       });
 
     this.ledgerInvoiceList = [];
     this.ledgerInvoiceList = sortedList;
-
-    console.log('Ledger Invoice Final List = ' + JSON.stringify(this.ledgerInvoiceList));
-
-    this.createLedgerPdfAndShare();
   }
 
   showLedgerShareOptions() {
@@ -222,32 +238,22 @@ export class CustomerDetailsPage {
     let body: any[] = [];
 
     // body.push(['Post. Date', 'Trans.', 'Source', 'Debit', 'Credit.', 'Cumulative Balance', 'Balance']);
-    body.push(['Post. Date', 'Trans.', 'Source', 'Debit', 'Credit.']);
-
-    let totalDebitBalance: number = 0;
-    let totalCreditBalance: number = 0;
+    body.push(['Post. Date', 'Trans.', 'Ref2', 'Source', 'Debit', 'Credit']);
 
     this.ledgerInvoiceList.forEach(
       (ledgerInvoice) => {
-        totalDebitBalance = totalDebitBalance + Number.parseFloat(ledgerInvoice.debit);
-        totalCreditBalance = totalCreditBalance + Number.parseFloat(ledgerInvoice.credit);
 
         body.push([
           new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(ledgerInvoice.invoiceDate, 'dd MMM yyyy'),
-          ledgerInvoice.transId, ledgerInvoice.type,
+          ledgerInvoice.transId, ledgerInvoice.ref2, ledgerInvoice.type,
           ledgerInvoice.debit == 0 ? '' : ledgerInvoice.debit,
           ledgerInvoice.credit == 0 ? '' : ledgerInvoice.credit]);
         // ledgerInvoice.cumulativeBalance, ledgerInvoice.grossTotal]);
       }
     );
 
-    // body.push(['', '', '', '', 'Total', this.totalLedgerInvoiceBalance]);
-    body.push(['', '', 'Total', totalDebitBalance, totalCreditBalance]);
-    body.push(['', '', 'Total Balance', { text: (totalDebitBalance - totalCreditBalance) , colSpan: 2}]);
-    // alert(JSON.stringify(body));
-
-    /*    let docDefinition = this.commonUtility.getDocDefination('Ledger Report', '01 Apr 19 - 31 Mar 20',
-          this.invoicesListing[0].invoiceItemsList[0].partyCity, this.customer.customerDetails.cardName, body);*/
+    body.push(['', '', '', {text: 'Total', bold: true}, { text: this.totalDebitBalance, bold: true}, { text: this.totalCreditBalance, bold: true}]);
+    body.push(['', '', '', {text: 'Total Due Balance', bold: true}, { text: (this.totalDebitBalance - this.totalCreditBalance), colSpan: 2, bold: true} ]);
 
     let docDefinition = this.commonUtility.getDocDefination('Ledger Report', '01 Apr 19 - 31 Mar 20',
       '', this.customer.customerDetails.cardName, body);
@@ -331,7 +337,26 @@ export class CustomerDetailsPage {
     popOver.onDidDismiss(
       (data) => {
         if (data && data.showLedger) {
-          this.shareLedger();
+          // this.shareLedger();
+
+          let modal: Modal = this.modalController.create(ModalLedgerOptionsPage);
+          modal.present();
+
+          modal.onDidDismiss(
+            (data) => {
+              if (data.isAdded) {
+                console.log('selected option = ' + data.optionSelected);
+                this.updateLedgerList();
+
+                if (data.optionSelected == 'Share') {
+                  this.shareLedger();
+                } else if (data.optionSelected == 'Print') {
+                  this.downloadLedgerReport();
+                }
+              } else
+                console.log('Nothing Selected');
+            }
+          )
         }
       }
     );
@@ -503,5 +528,14 @@ export class CustomerDetailsPage {
     } else {
       this.commonUtility.presentToast('No Aging Records Found', 5000);
     }
+  }
+
+  downloadLedgerReport() {
+
+    console.log('downloadReport InvoiceListingPage');
+    // this.updateLedgerList();
+
+    var page = document.getElementById('pdfDivLedger');
+    cordova.plugins.printer.print(page, 'Ledger_Report.pdf');
   }
 }

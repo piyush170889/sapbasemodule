@@ -12,7 +12,6 @@ import { SettingsPage } from '../pages/settings/settings';
 import { AdminUsersPage } from '../pages/admin-users/admin-users';
 import { CustomerMgmtPage } from '../pages/customer-mgmt/customer-mgmt';
 import { OrderMgmtPage } from '../pages/order-mgmt/order-mgmt';
-import { SocialSharing } from '@ionic-native/social-sharing';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
 import { TestPage } from '../pages/test/test';
@@ -42,7 +41,6 @@ export class MyApp {
         splashScreen: SplashScreen,
         private commonUtility: CommonUtilityProvider,
         private events: Events,
-        public socialSharing: SocialSharing,
         private diagnostic: Diagnostic,
         private locationTracker: LocationTrackerProvider
     ) {

@@ -1,0 +1,26 @@
+<!--
+  Generated template for the ModalLedgerOptionsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content no-padding style="background: rgba(0,0,0,0.7) !important">
+
+  <ion-row style="    background: #1c2431; padding: 6% 0; margin: 88% 5% 0 5%; font-weight: bold;">
+    <ion-col col-6 (click)="sendSelection('Share')" style="border-right: 1px solid #f9c60a85;" text-center>
+      <ion-icon name="share" style="font-size: 5em;"></ion-icon><br />
+      Share Ledger
+    </ion-col>
+    <ion-col col-6 (click)="sendSelection('Print')" text-center>
+      <ion-icon name="ios-document-outline" style="font-size: 5em"></ion-icon><br />
+      Print Ledger
+    </ion-col>
+  </ion-row>
+
+
+  <ion-fab bottom center (click)="dismissModal()">
+    <button color="primary" ion-fab>
+      <ion-icon name="ios-arrow-round-forward-outline"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

@@ -48,6 +48,7 @@ import { PendingInvoicesFilterPage } from '../pages/pending-invoices-filter/pend
 import { TestPage } from '../pages/test/test';
 import { AgingFilterPopoverPage } from '../pages/aging-filter-popover/aging-filter-popover';
 import { PopoverSortFiltersPage } from '../pages/popover-sort-filters/popover-sort-filters';
+import { ModalLedgerOptionsPage } from '../pages/modal-ledger-options/modal-ledger-options';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { PopoverSortFiltersPage } from '../pages/popover-sort-filters/popover-so
     PendingInvoicesPage,
     TestPage,
     AgingFilterPopoverPage,
-    PopoverSortFiltersPage
+    PopoverSortFiltersPage,
+    ModalLedgerOptionsPage
   ],
   imports: [
     BrowserModule,
@@ -113,7 +115,8 @@ import { PopoverSortFiltersPage } from '../pages/popover-sort-filters/popover-so
     PendingInvoicesPage,
     TestPage,
     AgingFilterPopoverPage,
-    PopoverSortFiltersPage
+    PopoverSortFiltersPage,
+    ModalLedgerOptionsPage
   ],
   providers: [
     StatusBar,

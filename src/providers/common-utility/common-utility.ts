@@ -44,27 +44,27 @@ export class CommonUtilityProvider {
     // }
 
 
-     isNetworkAvailable() {
+    isNetworkAvailable() {
         if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
-          let alert = this.alertCtrl.create({
-              subTitle: 'No Internet Connection',
-              enableBackdropDismiss: false ,
-              buttons: [
-                      {
-                          text: 'OK',
-                          handler: () => {
-                              this.isNetworkAvailable();
-                          }
-                      }
-                  ]
-              });
-              alert.present();
-              return false;
-          } else {
-              return true;
-          }  
+            let alert = this.alertCtrl.create({
+                subTitle: 'No Internet Connection',
+                enableBackdropDismiss: false,
+                buttons: [
+                    {
+                        text: 'OK',
+                        handler: () => {
+                            this.isNetworkAvailable();
+                        }
+                    }
+                ]
+            });
+            alert.present();
+            return false;
+        } else {
+            return true;
+        }
 
-       }
+    }
 
     callNumber(numberToCall: any, bypassAppChooser: boolean) {
         // this.callNumberNative.isCallSupported()
@@ -174,20 +174,23 @@ export class CommonUtilityProvider {
         let description = {
             content: [
                 { text: 'JAGTAP BUILDING SOLUTIONS', style: 'header' },
-                { text: 'Asthavinayak Soc, Opp Bharat Jyoti Stop' },
-                { text: 'Bibwewadi , Pune - 411037' },
-                { text: 'Tel No. : (O) 24216162, 9822610611' },
-                { text: 'Phone no. : 02024216162' },
-                { text: 'Pin code : 411037' },
-                { text: 'GSTIN : 27AFJPJ8271L1ZV' },
-                { text: 'E-Mail : jagtapbsolutions@gmail.com' },
+                { text: 'Asthavinayak Soc, Opp Bharat Jyoti Stop', alignment: 'center' },
+                { text: 'Bibwewadi , Pune - 411037', alignment: 'center' },
+                { text: 'Tel No. : (O) 24216162, 9822610611', alignment: 'center' },
+                { text: 'Phone no. : 02024216162', alignment: 'center' },
+                { text: 'Pin code : 411037', alignment: 'center' },
+                { text: 'GSTIN : 27AFJPJ8271L1ZV', alignment: 'center' },
+                { text: 'E-Mail : jagtapbsolutions@gmail.com', alignment: 'center' },
                 { text: custName, style: 'subheader' },
-                { text: custCity },
+                // { text: custCity },
                 { text: reportyType, style: 'subheader' },
+                { text: '' },
                 { text: datePeriod, style: 'story' },
                 { text: 'Report Date: ' + new DatePipe('en-US').transform(new Date().toISOString(), 'dd MMM yy'), style: 'story' },
+                { text: '' },
                 {
                     table: {
+                        widths: '*',
                         body: body
                     }
                 }
@@ -196,6 +199,7 @@ export class CommonUtilityProvider {
                 header: {
                     fontSize: 18,
                     bold: true,
+                    alignment: 'center'
                 },
                 cardname: {
                     margin: [5, 0, 5, 0]
@@ -203,8 +207,8 @@ export class CommonUtilityProvider {
                 subheader: {
                     fontSize: 14,
                     bold: true,
-                    margin: [0, 15, 0, 0]
-                    // alignment: 'center'
+                    margin: [0, 15, 0, 0],
+                    alignment: 'center'
                 },
                 story: {
                     italic: true,

@@ -297,8 +297,8 @@
         </ion-row>
       </button> -->
 
-      <button *ngIf="invoice.type == 'JE' || invoice.type == 'OB' || (invoice.type == 'IN' && invoice.isPaid == 'O')" color="bgcolor" ion-item
-        (click)="showInvoiceDetails(invoice)">
+      <button *ngIf="invoice.type == 'JE' || invoice.type == 'OB' || (invoice.type == 'IN' && invoice.isPaid == 'O')"
+        color="bgcolor" ion-item (click)="showInvoiceDetails(invoice)">
         <ion-row>
           <ion-col col-9>
             <p color="light"><strong>{{invoice.invoiceNo}}</strong></p>
@@ -324,4 +324,94 @@
     </button>
   </ion-fab>
 
+  <div id="pdfDivLedger" style="display:none">
+  <!-- <div id="pdfDivLedger"> -->
+    <div style="text-align: center;">
+      <h4>JAGTAP BUILDING SOLUTIONS</h4>
+      <p>Asthavinayak Soc, Opp Bharat Jyoti Stop,</p>
+      <p>Bibwewadi , Pune - 411037</p>
+      <p>Tel No. : (O) 24216162, 9822610611</p>
+      <p>Phone no. : 02024216162</p>
+      <p>Pin code : 411037</p>
+      <p>GSTIN : 27AFJPJ8271L1ZV</p>
+      <p>E-Mail : jagtapbsolutions@gmail.com</p>
+    </div>
+
+    <div style="margin:5% 0;text-align: center; font-weight: bold">
+      <h4>{{customer.customerDetails.cardName}}</h4>
+    </div>
+
+    <div style="text-align: center;">
+      <h4>Ledger Report</h4>
+      <p>01 Apr 19 - 31 Mar 20</p>
+      <p>Date {{ currDate | date: 'dd MMM yy' }}</p>
+    </div>
+
+    <div style="margin-top:5%">
+
+      <table style="border:1px solid #000;border-collapse: collapse; width:100%;">
+        <tr>
+          <td style="border:1px solid #000;">
+            Post. Date
+          </td>
+          <td style="border:1px solid #000;">
+            Trans.
+          </td>
+          <td style="border:1px solid #000;">
+            Ref2
+          </td>
+          <td style="border:1px solid #000;">
+            Source
+          </td>
+          <td style="border:1px solid #000;">
+            Debit
+          </td>
+          <td style="border:1px solid #000;">
+            Credit
+          </td>
+        </tr>
+        <tr *ngFor="let ledgerInvoice of ledgerInvoiceList">
+          <td style="border:1px solid #000;">
+            {{ledgerInvoice.invoiceDate | date : 'dd MMM yy'}}
+          </td>
+          <td style="border:1px solid #000;">
+            {{ ledgerInvoice.transId }}
+          </td>
+          <td style="border:1px solid #000;">
+            {{ledgerInvoice.ref2}}
+          </td>
+          <td style="border:1px solid #000;">
+            {{ ledgerInvoice.type }}
+          </td>
+          <td style="border:1px solid #000;">
+            {{ledgerInvoice.debit == 0 ? '' : ledgerInvoice.debit }}
+          </td>
+          <td style="border:1px solid #000;">
+            {{ledgerInvoice.credit == 0 ? '' : ledgerInvoice.credit}}
+          </td>
+        </tr>
+
+        <tr style="font-weight: bold;">
+          <td colspan=4 style="border:1px solid #000;">
+            Total
+          </td>
+          <td style="border:1px solid #000;">
+            {{totalDebitBalance}}
+          </td>
+          <td style="border:1px solid #000;">
+            {{totalCreditBalance}}
+          </td>
+        </tr>
+
+        <tr style="font-weight: bold;">
+          <td colspan=4 style="border:1px solid #000;">
+            Total Due Balance
+          </td>
+          <td colspan=2 style="border:1px solid #000;">
+            {{ totalDebitBalance - totalCreditBalance }}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </ion-content>

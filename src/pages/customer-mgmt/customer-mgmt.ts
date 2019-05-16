@@ -53,13 +53,14 @@ export class CustomerMgmtPage {
           this.customersList = response.response;
           this.orginalCustomersList = this.customersList;
           this.orginalListDuplicate = this.customersList;
+          this.totalOutstanding = response.metaData;
 
-          this.customersList.forEach(
-            (customer) => {
-              this.totalOutstanding = this.totalOutstanding + customer.customerDetails.balance;
-            }
-          )
-          console.log('total outstanding: ' + this.totalOutstanding);
+          // this.customersList.forEach(
+          //   (customer) => {
+          //     this.totalOutstanding = this.totalOutstanding + customer.customerDetails.balance;
+          //   }
+          // )
+          // console.log('total outstanding: ' + this.totalOutstanding);
 
           //: Update Pagiination Details
           this.paginationDetails = response.paginationDetails;
