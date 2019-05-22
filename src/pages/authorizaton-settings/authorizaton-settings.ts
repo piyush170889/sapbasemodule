@@ -9,6 +9,7 @@ import { CustomerMgmtPage } from '../customer-mgmt/customer-mgmt';
 import { AdminUsersPage } from '../admin-users/admin-users';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
+import { DatabaseProvider } from '../../providers/database/database';
 
 // declare var google: any;
 
@@ -17,7 +18,8 @@ import { LocationTrackerProvider } from '../../providers/location-tracker/locati
     selector: 'page-authorizaton-settings',
     templateUrl: 'authorizaton-settings.html',
 })
-export class AuthorizatonSettingsPage extends BaseComponent {
+export class AuthorizatonSettingsPage {
+    // export class AuthorizatonSettingsPage extends BaseComponent {
 
     rolesArray: any = [];
     userDetails: any;
@@ -28,37 +30,62 @@ export class AuthorizatonSettingsPage extends BaseComponent {
         public http: HttpClient,
         private events: Events,
         public diagnostic: Diagnostic,
-        public platform:Platform,
+        public platform: Platform,
         public locationTracker: LocationTrackerProvider,
+        private databaseProvider: DatabaseProvider
     ) {
         // private geolocation: Geolocation) {
-        super(ConstantsProvider.API_ENDPOINT_ROLES, commonUtility, http, null);
-        this.getAll()
-            .subscribe(
-                (response) => {
-                    console.log(JSON.stringify(response));
-                    this.rolesArray = response.response.roles;
-                    this.userDetails = response.response.userDetails
-                    localStorage.setItem('roles', JSON.stringify(this.rolesArray));
-                    localStorage.setItem('isRolesUpdated', '1');
-                    localStorage.setItem('userDetails', JSON.stringify(this.userDetails));
-                    console.log('this.rolesArray = ' + JSON.stringify(this.rolesArray));
-                    if (this.userDetails.isPasswordChanged == 0) {
-                        if (this.rolesArray.indexOf(ConstantsProvider.ROLE_SALES) > -1) {
-                            // this.trackUserLocation();
-                            this.navCtrl.setRoot(CustomerMgmtPage);
-                        } else if (this.rolesArray.indexOf(ConstantsProvider.ROLE_ADMIN) > -1) {
-                            this.navCtrl.setRoot(CustomerMgmtPage);
-                            // this.navCtrl.setRoot(AdminUsersPage);
-                        }
-                    } else {
-                        this.navCtrl.setRoot(ChangePasswordPage, {
-                            isForceChange: true
-                        });
-                    }
-                    this.events.publish("rolesUpdated");
-                }
-            );
+
+        // super(ConstantsProvider.API_ENDPOINT_ROLES, commonUtility, http, null);
+        // this.getAll()
+        //     .subscribe(
+        //         (response) => {
+        //             console.log(JSON.stringify(response));
+        //             this.rolesArray = response.response.roles;
+        //             this.userDetails = response.response.userDetails
+        //             localStorage.setItem('roles', JSON.stringify(this.rolesArray));
+        //             localStorage.setItem('isRolesUpdated', '1');
+        //             localStorage.setItem('userDetails', JSON.stringify(this.userDetails));
+        //             console.log('this.rolesArray = ' + JSON.stringify(this.rolesArray));
+        //             if (this.userDetails.isPasswordChanged == 0) {
+        //                 if (this.rolesArray.indexOf(ConstantsProvider.ROLE_SALES) > -1) {
+        //                     // this.trackUserLocation();
+        //                     // this.navCtrl.setRoot(CustomerMgmtPage);
+        //                     this.databaseProvider.syncCustomerDataInBackground();
+        //                     this.navCtrl.setRoot(CustomerMgmtPage);
+        //                 } else if (this.rolesArray.indexOf(ConstantsProvider.ROLE_ADMIN) > -1) {
+        //                     // this.navCtrl.setRoot(CustomerMgmtPage);
+        //                     this.databaseProvider.syncCustomerDataInBackground();
+        //                     this.navCtrl.setRoot(CustomerMgmtPage);
+        //                 }
+        //             } else {
+        //                 this.navCtrl.setRoot(ChangePasswordPage, {
+        //                     isForceChange: true
+        //                 });
+        //             }
+        //             this.events.publish("rolesUpdated");
+        //         }
+        //     );
+
+        this.rolesArray = JSON.parse(localStorage.getItem('roles'));
+        this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
+        console.log('this.rolesArray = ' + JSON.stringify(this.rolesArray));
+
+        if (this.userDetails.isPasswordChanged == 0) {
+            if (this.rolesArray.indexOf(ConstantsProvider.ROLE_SALES) > -1) {
+                // this.trackUserLocation();
+                this.navCtrl.setRoot(CustomerMgmtPage);
+            } else if (this.rolesArray.indexOf(ConstantsProvider.ROLE_ADMIN) > -1) {
+                this.navCtrl.setRoot(CustomerMgmtPage);
+            }
+        } else {
+            this.navCtrl.setRoot(ChangePasswordPage, {
+                isForceChange: true
+            });
+        }
+
+        this.events.publish("rolesUpdated");
     }
 
     public trackUserLocation(): void {

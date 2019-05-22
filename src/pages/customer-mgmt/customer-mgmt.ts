@@ -7,6 +7,7 @@ import { CustomerDetailsPage } from '../customer-details/customer-details';
 import { OrderAddPage } from '../order-add/order-add';
 import { OrderMgmtPage } from '../order-mgmt/order-mgmt';
 import { PopoverSortFiltersPage } from '../popover-sort-filters/popover-sort-filters';
+import { DatabaseProvider } from '../../providers/database/database';
 
 /**
  * Generated class for the CustomerMgmtPage page.
@@ -42,86 +43,110 @@ export class CustomerMgmtPage {
     public navParams: NavParams,
     private commonUtility: CommonUtilityProvider,
     private popOverController: PopoverController,
-    private restService: RestserviceProvider) {
+    private restService: RestserviceProvider,
+    private databaseProvider: DatabaseProvider) {
 
     this.referrer = this.navParams.get('referrer');
 
-    this.restService.getDetails(this.getCustMgmtApiEndpoint(1))
+    this.databaseProvider.getCustomerData()
       .subscribe(
-        (response) => {
-          console.log('Response = ' + JSON.stringify(response.response));
-          this.customersList = response.response;
+        res => {
+          if (res.rows.length > 0) {
+            console.log('CustData = ' + res.rows.item(0).data);
+            this.customersList = JSON.parse(res.rows.item(0).data);
+          }
+
           this.orginalCustomersList = this.customersList;
           this.orginalListDuplicate = this.customersList;
-          this.totalOutstanding = response.metaData;
 
-          // this.customersList.forEach(
-          //   (customer) => {
-          //     this.totalOutstanding = this.totalOutstanding + customer.customerDetails.balance;
-          //   }
-          // )
-          // console.log('total outstanding: ' + this.totalOutstanding);
-
-          //: Update Pagiination Details
-          this.paginationDetails = response.paginationDetails;
-          console.log('this.paginationDetails = ' + JSON.stringify(this.paginationDetails));
+          let i = 0;
+          this.customersList.forEach(
+            (customer) => {
+              let custBal = customer.customerDetails.balance;
+              
+              // let keyToAdd = 'calculatedBalance';
+              // this.customersList[i].customerDetails[keyToAdd] = custBal;
+              // console.log('Added Balance = ' + this.customersList[i].customerDetails.keyToAdd); 
+              this.totalOutstanding = this.totalOutstanding + custBal;
+            }
+          )
+          console.log('total outstanding: ' + this.totalOutstanding);
         }
-      );
+        , (e) => {
+          console.log(JSON.stringify(e));
+        });
+
+
+    // this.restService.getDetails(this.getCustMgmtApiEndpoint(1))
+    //   .subscribe(
+    //     (response) => {
+    //       console.log('Response = ' + JSON.stringify(response.response));
+    //       this.customersList = response.response;
+    //       this.orginalCustomersList = this.customersList;
+    //       this.orginalListDuplicate = this.customersList;
+    //       this.totalOutstanding = response.metaData;
+
+    //       //: Update Pagiination Details
+    //       this.paginationDetails = response.paginationDetails;
+    //       console.log('this.paginationDetails = ' + JSON.stringify(this.paginationDetails));
+    //     }
+    //   );
   }
 
   getCustMgmtApiEndpoint(pageNo: number) {
 
-    return this.customerMgmtApiEndpoint + pageNo;
+    // return this.customerMgmtApiEndpoint + pageNo;
+    return this.customerMgmtApiEndpoint;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CustomerMgmtPage');
   }
 
-  getRecordsPaginated(infiniteScrollEvent: any) {
+  // getRecordsPaginated(infiniteScrollEvent: any) {
 
-    console.log('getRecordsPaginated CustMgmtPage');
+  //   console.log('getRecordsPaginated CustMgmtPage');
 
-    let currentPageNo: number = this.paginationDetails.currentPageNo;
-    let totalPages: number = this.paginationDetails.totalPages;
+  //   let currentPageNo: number = this.paginationDetails.currentPageNo;
+  //   let totalPages: number = this.paginationDetails.totalPages;
 
-    if (this.isPaginatedResultsFetched) {
+  //   if (this.isPaginatedResultsFetched) {
 
-      if (this.commonUtility.isNetworkAvailable()) {
+  //     if (this.commonUtility.isNetworkAvailable()) {
 
-        if (currentPageNo < totalPages) {
-          currentPageNo = currentPageNo + 1;
-          console.log('currentPageNo = ' + currentPageNo);
-          setTimeout(() => {
+  //       if (currentPageNo < totalPages) {
+  //         currentPageNo = currentPageNo + 1;
+  //         console.log('currentPageNo = ' + currentPageNo);
+  //         setTimeout(() => {
 
-            this.isPaginatedResultsFetched = false;
+  //           this.isPaginatedResultsFetched = false;
 
-            this.restService.getDetails(this.getCustMgmtApiEndpoint(currentPageNo))
-              .subscribe(
-                (response) => {
-                  this.isPaginatedResultsFetched = true;
-                  console.log('isPaginatedResultsFetched = ' + this.isPaginatedResultsFetched);
+  //           this.restService.getDetails(this.getCustMgmtApiEndpoint(currentPageNo))
+  //             .subscribe(
+  //               (response) => {
+  //                 this.isPaginatedResultsFetched = true;
+  //                 console.log('isPaginatedResultsFetched = ' + this.isPaginatedResultsFetched);
 
-                  this.customersList = this.customersList.concat(response.response);
-                  this.orginalCustomersList = this.customersList;
+  //                 this.customersList = this.customersList.concat(response.response);
+  //                 this.orginalCustomersList = this.customersList;
 
-                  this.paginationDetails = response.paginationDetails;
+  //                 this.paginationDetails = response.paginationDetails;
 
-                  infiniteScrollEvent.complete();
-                },
-                () => {
-                  this.isPaginatedResultsFetched = true;
-                  infiniteScrollEvent.complete();
-                  console.log('isPaginatedResultsFetched = ' + this.isPaginatedResultsFetched);
-                }
-              );
-          }, 500);
-        } else {
-          infiniteScrollEvent.enable(false);
-        }
-      }
-    }
-  }
+  //                 infiniteScrollEvent.complete();
+  //               },
+  //               () => {
+  //                 this.isPaginatedResultsFetched = true;
+  //                 infiniteScrollEvent.complete();
+  //                 console.log('isPaginatedResultsFetched = ' + this.isPaginatedResultsFetched);
+  //               }
+  //             );
+  //         }, 500);
+  //       } else {
+  //         infiniteScrollEvent.enable(false);
+  //       }
+  //     }
+  //   }
+  // }
 
   onInput() {
 
@@ -182,28 +207,48 @@ export class CustomerMgmtPage {
 
     console.log('viewCustomerDetails CustomerMgmtPage');
 
-    if (this.commonUtility.isNetworkAvailable()) {
-      console.log('referrer = ' + this.referrer);
+    if (null != this.referrer && undefined != this.referrer && this.referrer != '') {
+      switch (this.referrer) {
 
-      if (null != this.referrer && undefined != this.referrer && this.referrer != '') {
-        switch (this.referrer) {
+        case OrderMgmtPage.name:
+          this.navCtrl.push(OrderAddPage, {
+            customer: customer
+          });
+          break;
 
-          case OrderMgmtPage.name:
-            this.navCtrl.push(OrderAddPage, {
-              customer: customer
-            });
-            break;
-
-          default:
-            this.commonUtility.presentErrorToast('Invalid Referrer Supplied');
-        }
-      } else {
-        this.navCtrl.push(CustomerDetailsPage, {
-          customer: customer,
-          isModalData: false
-        });
+        default:
+          this.commonUtility.presentErrorToast('Invalid Referrer Supplied');
       }
+    } else {
+
+      this.navCtrl.push(CustomerDetailsPage, {
+        customer: customer,
+        isModalData: false
+      });
     }
+
+    // if (this.commonUtility.isNetworkAvailable()) {
+    //   console.log('referrer = ' + this.referrer);
+
+    //   if (null != this.referrer && undefined != this.referrer && this.referrer != '') {
+    //     switch (this.referrer) {
+
+    //       case OrderMgmtPage.name:
+    //         this.navCtrl.push(OrderAddPage, {
+    //           customer: customer
+    //         });
+    //         break;
+
+    //       default:
+    //         this.commonUtility.presentErrorToast('Invalid Referrer Supplied');
+    //     }
+    //   } else {
+    //     this.navCtrl.push(CustomerDetailsPage, {
+    //       customer: customer,
+    //       isModalData: false
+    //     });
+    //   }
+    // }
   }
 
 

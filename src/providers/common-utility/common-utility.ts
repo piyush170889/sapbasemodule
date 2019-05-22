@@ -22,30 +22,9 @@ export class CommonUtilityProvider {
         console.log('Hello CommonUtilityProvider Provider');
     }
 
-    // isNetworkAvailable() {
-
-    //     if (!this.isNetworkAvailableFlag) {
-    //         let alert = this.alertCtrl.create({
-    //             subTitle: 'No Internet Connection',
-    //             enableBackdropDismiss: false,
-    //             buttons: [
-    //                 {
-    //                     text: 'OK',
-    //                     handler: () => {
-    //                         this.isNetworkAvailable();
-    //                     }
-    //                 }
-    //             ]
-    //         });
-    //         alert.present();
-    //     }
-
-    //     return this.isNetworkAvailableFlag;
-    // }
-
-
     isNetworkAvailable() {
-        if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
+
+        if (!this.isNetworkAvailableFlag) {
             let alert = this.alertCtrl.create({
                 subTitle: 'No Internet Connection',
                 enableBackdropDismiss: false,
@@ -59,12 +38,33 @@ export class CommonUtilityProvider {
                 ]
             });
             alert.present();
-            return false;
-        } else {
-            return true;
         }
 
+        return this.isNetworkAvailableFlag;
     }
+
+
+    // isNetworkAvailable() {
+    //     if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
+    //         let alert = this.alertCtrl.create({
+    //             subTitle: 'No Internet Connection',
+    //             enableBackdropDismiss: false,
+    //             buttons: [
+    //                 {
+    //                     text: 'OK',
+    //                     handler: () => {
+    //                         this.isNetworkAvailable();
+    //                     }
+    //                 }
+    //             ]
+    //         });
+    //         alert.present();
+    //         return false;
+    //     } else {
+    //         return true;
+    //     }
+
+    // }
 
     callNumber(numberToCall: any, bypassAppChooser: boolean) {
         // this.callNumberNative.isCallSupported()
@@ -290,7 +290,7 @@ export class CommonUtilityProvider {
     }
 
 
-    calculateDiff(startDate: Date, endDate: Date) {
+    calculateDiffInDays(startDate: Date, endDate: Date) {
         //Get 1 day in milliseconds
         var one_day = 1000 * 60 * 60 * 24;
 
@@ -305,6 +305,24 @@ export class CommonUtilityProvider {
         let diff = Math.round(difference_ms / one_day);
 
         console.log('diff = ' + diff);
+        return diff;
+    }
+
+    calculateDiffInMins(startDate: Date, endDate: Date) {
+        //Get 1 day in milliseconds
+        var one_day = 1000 * 60;
+
+        // Convert both dates to milliseconds
+        var date1_ms = startDate.getTime();
+        var date2_ms = endDate.getTime();
+
+        // Calculate the difference in milliseconds
+        var difference_ms = date2_ms - date1_ms;
+
+        // Convert back to days and return
+        let diff = Math.round(difference_ms / one_day);
+
+        console.log('diff In Mins = ' + diff);
         return diff;
     }
 }

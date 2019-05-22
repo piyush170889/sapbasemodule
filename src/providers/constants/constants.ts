@@ -17,14 +17,14 @@ export class ConstantsProvider {
   //Common API Constants
 
   // LOCAL
-  // public static API_BASE_URL: string = "http://192.168.2.4:8080/sapbasemodule/v1/";
+  public static API_BASE_URL: string = "http://192.168.2.6:8080/sapbasemodule/v1/";
 
   //DEV
   // public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapitest/v1/";
   // public static API_BASE_URL: string = "http://67.211.220.180:8080/sapbaseapi/v1/";
 
   // STAGING
-  public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapitest/v1/";
+  // public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapitest/v1/";
 
   // PRODUCTION
   // public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapi/v1/";
@@ -61,11 +61,16 @@ export class ConstantsProvider {
   public static API_ENDPOINT_BOOKED_ORDERS = "booked-orders";
   public static API_ENDPOINT_PENDING_INVOICES: string = 'pending-invoices';
   public static API_ENDPOINT_CUST_ALL_INVOICES = "all-invoices";
+  public static API_ENDPOINT_SYNC = "sync";
 
   //Master Data JSON key names
   public static MD_UOM = "uom";
   public static APP_DATE_LOCALE = 'en-US';
   public static REPORTS_DATE_FORMAT = 'dd MMM yyyy';
+
+  // DB Constants
+  public static JBS_APP_DB_NM = 'jbs_app_db.db';
+  public static JBS_APP_DB_LOC = 'default';
 
   //ROLES Constants
   public static ROLE_ADMIN = 'ROLE_ADMIN';
@@ -75,4 +80,6 @@ export class ConstantsProvider {
   //CONFIG Constants
   public static SW_VER = '1.9.9';
   public static BASIC_AUTH_TOKEN = 'c2FwYmFzZW1vZHVsZTpzYXBiYXNlbW9kdWxlLXNlY3JldA==';
+  public static CONFIG_NM_CUST_DATA = 'customer_data';
+  public static CONFIG_NM_LAST_UPDATED_TS = "last_updated_ts";
 }

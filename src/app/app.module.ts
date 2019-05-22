@@ -45,10 +45,11 @@ import { CallNumber } from '@ionic-native/call-number';
 import { OrdersBookedPage } from '../pages/orders-booked/orders-booked';
 import { PendingInvoicesPage } from '../pages/pending-invoices/pending-invoices';
 import { PendingInvoicesFilterPage } from '../pages/pending-invoices-filter/pending-invoices-filter';
-import { TestPage } from '../pages/test/test';
 import { AgingFilterPopoverPage } from '../pages/aging-filter-popover/aging-filter-popover';
 import { PopoverSortFiltersPage } from '../pages/popover-sort-filters/popover-sort-filters';
 import { ModalLedgerOptionsPage } from '../pages/modal-ledger-options/modal-ledger-options';
+import { SQLite } from '@ionic-native/sqlite';
+import { DatabaseProvider } from '../providers/database/database';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,7 @@ import { ModalLedgerOptionsPage } from '../pages/modal-ledger-options/modal-ledg
     OrdersBookedPage,
     PendingInvoicesFilterPage,
     PendingInvoicesPage,
-    TestPage,
+    // TestPage,
     AgingFilterPopoverPage,
     PopoverSortFiltersPage,
     ModalLedgerOptionsPage
@@ -113,7 +114,6 @@ import { ModalLedgerOptionsPage } from '../pages/modal-ledger-options/modal-ledg
     OrdersBookedPage,
     PendingInvoicesFilterPage,
     PendingInvoicesPage,
-    TestPage,
     AgingFilterPopoverPage,
     PopoverSortFiltersPage,
     ModalLedgerOptionsPage
@@ -137,7 +137,9 @@ import { ModalLedgerOptionsPage } from '../pages/modal-ledger-options/modal-ledg
     File,
     LocationTrackerProvider,
     Diagnostic,
-    CallNumber
+    CallNumber,
+    SQLite,
+    DatabaseProvider
   ]
 })
 export class AppModule { }

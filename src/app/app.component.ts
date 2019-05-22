@@ -14,7 +14,7 @@ import { CustomerMgmtPage } from '../pages/customer-mgmt/customer-mgmt';
 import { OrderMgmtPage } from '../pages/order-mgmt/order-mgmt';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
-import { TestPage } from '../pages/test/test';
+import { DatabaseProvider } from '../providers/database/database';
 
 const config = {
     apiKey: 'AIzaSyAwE6RUI2st4uTM40fotjuPJVRJNfuayko',
@@ -42,19 +42,25 @@ export class MyApp {
         private commonUtility: CommonUtilityProvider,
         private events: Events,
         private diagnostic: Diagnostic,
-        private locationTracker: LocationTrackerProvider
+        private locationTracker: LocationTrackerProvider,
+        private databaseProvider: DatabaseProvider
     ) {
         console.log('Refresh Token = ' + localStorage.getItem('refresh-token'));
         this.rootPage = localStorage.getItem('refresh-token') == null ? LoginPage : AuthorizatonSettingsPage;
 
         // this.pages.push(
-            // { title: 'TestPage', component: TestPage }
+        // { title: 'TestPage', component: TestPage }
         // );
         platform.ready().then(() => {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
             statusBar.backgroundColorByHexString('#457492');
             splashScreen.hide();
+
+            // Intialize Database
+            console.log('Intializing DB');
+            this.databaseProvider.intializeDatabase();
+
             /* let getUserData = localStorage.getItem('roles');
             if (getUserData) {
                 console.log('User Data : ', getUserData);

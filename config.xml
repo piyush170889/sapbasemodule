@@ -109,5 +109,7 @@
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="24.1.1+" />
     </plugin>
     <plugin name="cordova-plugin-printer" spec="^0.7.3" />
+    <plugin name="cordova-sqlite-storage" spec="^3.2.0" />
+    <plugin name="com.outsystems.mobile.stetho" spec="~0.0.1" />
     <engine name="android" spec="^7.0.0" />
 </widget>

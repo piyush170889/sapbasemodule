@@ -77,24 +77,30 @@ export class CustomerDetailsPage {
     this.originalCustomerBalance = Number.parseFloat(this.customer.customerDetails.balance);
     console.log('Original Customer Balance = ' + this.originalCustomerBalance);
 
+    this.customerAllInvoicesList = this.customer.customerInvoicesList;
+    this.originalCustomerAllInvoicesList = this.customer.customerInvoicesList;
 
-    let customerAllInvoicesApiEndpoint = ConstantsProvider.API_BASE_URL + ConstantsProvider.API_ENDPOINT_CUST_DTLS
-      + ConstantsProvider.URL_SEPARATOR + this.customer.customerDetails.cardCode
-      + ConstantsProvider.URL_SEPARATOR + ConstantsProvider.API_ENDPOINT_CUST_ALL_INVOICES
-      + '?till-date=' + this.tillDate;
+    this.setCustomerBalanceAndDueDateInDays();
+    this.updateLedgerList();
 
-    this.restService.getDetails(customerAllInvoicesApiEndpoint)
-      .subscribe(
-        (response) => {
-          console.log('Customer ALl Invoices = ' + JSON.stringify(response.response));
+    // let customerAllInvoicesApiEndpoint = ConstantsProvider.API_BASE_URL + ConstantsProvider.API_ENDPOINT_CUST_DTLS
+    //   + ConstantsProvider.URL_SEPARATOR + this.customer.customerDetails.cardCode
+    //   + ConstantsProvider.URL_SEPARATOR + ConstantsProvider.API_ENDPOINT_CUST_ALL_INVOICES
+    //   + '?till-date=' + this.tillDate;
 
-          this.customerAllInvoicesList = response.response;
-          this.originalCustomerAllInvoicesList = response.response;
+    // this.restService.getDetails(customerAllInvoicesApiEndpoint)
+    //   .subscribe(
+    //     (response) => {
+    //       console.log('Customer ALl Invoices = ' + JSON.stringify(response.response));
 
-          this.setCustomerBalanceAndDueDateInDays();
-          this.updateLedgerList();
-        }
-      );
+    //       this.customerAllInvoicesList = response.response;
+    //       this.originalCustomerAllInvoicesList = response.response;
+
+    //       this.setCustomerBalanceAndDueDateInDays();
+    //       this.updateLedgerList();
+    //     }
+    //   );
+
   }
 
   setCustomerBalanceAndDueDateInDays() {
@@ -105,9 +111,10 @@ export class CustomerDetailsPage {
     this.customerAllInvoicesList.forEach(
       (invoice: any) => {
 
-        if (invoice.type == 'IN' || invoice.type == 'OB')
+        if (invoice.type == 'IN' || invoice.type == 'OB') {
+          console.log('invoice.grossTotal = ' + invoice.grossTotal);
           this.customerBalance = this.customerBalance + Number.parseFloat(invoice.grossTotal);
-
+        }
         // this.commonUtility.calculateDiff(new Date(invoice.invoiceDate), todaysDate)
       });
   }
@@ -183,7 +190,7 @@ export class CustomerDetailsPage {
   }
 
   updateLedgerList() {
-  
+
     this.totalCreditBalance = 0;
     this.totalDebitBalance = 0;
 
@@ -252,8 +259,8 @@ export class CustomerDetailsPage {
       }
     );
 
-    body.push(['', '', '', {text: 'Total', bold: true}, { text: this.totalDebitBalance, bold: true}, { text: this.totalCreditBalance, bold: true}]);
-    body.push(['', '', '', {text: 'Total Due Balance', bold: true}, { text: (this.totalDebitBalance - this.totalCreditBalance), colSpan: 2, bold: true} ]);
+    body.push(['', '', '', { text: 'Total', bold: true }, { text: this.totalDebitBalance, bold: true }, { text: this.totalCreditBalance, bold: true }]);
+    body.push(['', '', '', { text: 'Total Due Balance', bold: true }, { text: (this.totalDebitBalance - this.totalCreditBalance), colSpan: 2, bold: true }]);
 
     let docDefinition = this.commonUtility.getDocDefination('Ledger Report', '01 Apr 19 - 31 Mar 20',
       '', this.customer.customerDetails.cardName, body);
@@ -266,26 +273,33 @@ export class CustomerDetailsPage {
 
   downloadPdf(fileName) {
 
+    console.log('Getting Buffer');
     this.pdfObj.getBuffer((buffer) => {
 
       var blob = new Blob([buffer], { type: 'application/pdf' });
 
       // Save the PDF to the data Directory of our App
+      console.log('Saving PDF, Data Directory = ' + this.file.dataDirectory + ', fileName = ' + fileName);
       this.file.writeFile(this.file.dataDirectory, fileName, blob, { replace: true }).then(fileEntry => {
 
         // Open the PDf with the correct OS tools
         // this.fileOpener.open(this.file.dataDirectory + fileName, 'application/pdf');
+        console.log('PDF Assigning');
         this.pdf = this.file.dataDirectory + fileName;
 
+        console.log('Sharing PDF');
         this.share();
+      })
+      .catch(e => {
+        console.log('Error = ' + JSON.stringify(e));
       })
     });
   }
 
   share() {
     //alert('Sharing Message');
-
     this.socialSharing.share("", "", this.pdf, null).then(() => {
+      console.log('Shared PDF');
       // alert('Successfully Shared The File');
     }).catch((e) => {
       alert('Error : ' + JSON.stringify(e));
@@ -504,7 +518,7 @@ export class CustomerDetailsPage {
                 invoice.grossTotal,
                 new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.dueDate, ConstantsProvider.REPORTS_DATE_FORMAT),
                 // (invoice.dueDateInDays + '').indexOf("-") > -1 ? (invoice.dueDateInDays + '').replace("-", "") : '-' + invoice.dueDateInDays,
-                this.commonUtility.calculateDiff(new Date(invoice.invoiceDate), todaysDate)
+                this.commonUtility.calculateDiffInDays(new Date(invoice.invoiceDate), todaysDate)
               ]);
             }
 
@@ -522,9 +536,13 @@ export class CustomerDetailsPage {
       let docDefinition = this.commonUtility.getDocDefination('Overdue Report', datePeriod,
         '', this.customer.customerDetails.cardName, body);
 
+        console.log('Creating PDF');
       this.pdfObj = pdfMake.createPdf(docDefinition);
+      console.log('Created PDF');
 
+      console.log('Downloading PDF');
       this.downloadPdf('JBSOverdueReport_' + this.customer.customerDetails.cardName + '.pdf');
+      console.log('Downloaded PDF');
     } else {
       this.commonUtility.presentToast('No Aging Records Found', 5000);
     }
