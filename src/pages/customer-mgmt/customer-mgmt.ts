@@ -8,6 +8,8 @@ import { OrderAddPage } from '../order-add/order-add';
 import { OrderMgmtPage } from '../order-mgmt/order-mgmt';
 import { PopoverSortFiltersPage } from '../popover-sort-filters/popover-sort-filters';
 import { DatabaseProvider } from '../../providers/database/database';
+import { AgingFilterPopoverPage } from '../aging-filter-popover/aging-filter-popover';
+import { DatePipe } from '@angular/common';
 
 /**
  * Generated class for the CustomerMgmtPage page.
@@ -35,6 +37,9 @@ export class CustomerMgmtPage {
   totalOutstanding: number = 0;
   referrer: string = null;
   currentSortOrder: number = 0;
+  displayCriteria: any = '0';
+  tillDate: any = '';
+
 
   customerMgmtApiEndpoint: string = ConstantsProvider.API_BASE_URL
     + ConstantsProvider.API_ENDPOINT_CUSTOMER_MGMT;
@@ -45,6 +50,13 @@ export class CustomerMgmtPage {
     private popOverController: PopoverController,
     private restService: RestserviceProvider,
     private databaseProvider: DatabaseProvider) {
+
+    this.databaseProvider.getLastUpdatedTs()
+      .subscribe(response => {
+        this.tillDate = response.rows.item(0).data;
+        console.log('tillDate = ' + this.tillDate + ', Response = ' + JSON.stringify(response));
+      }
+      );
 
     this.referrer = this.navParams.get('referrer');
 
@@ -59,17 +71,20 @@ export class CustomerMgmtPage {
           this.orginalCustomersList = this.customersList;
           this.orginalListDuplicate = this.customersList;
 
-          let i = 0;
+          let sortedList: any[] = [];
+          this.totalOutstanding = 0;
           this.customersList.forEach(
             (customer) => {
               let custBal = customer.customerDetails.balance;
-              
-              // let keyToAdd = 'calculatedBalance';
-              // this.customersList[i].customerDetails[keyToAdd] = custBal;
-              // console.log('Added Balance = ' + this.customersList[i].customerDetails.keyToAdd); 
               this.totalOutstanding = this.totalOutstanding + custBal;
+
+              customer.calculatedBal = custBal;
+
+              sortedList.push(customer);
             }
-          )
+          );
+
+          this.customersList = sortedList;
           console.log('total outstanding: ' + this.totalOutstanding);
         }
         , (e) => {
@@ -321,6 +336,74 @@ export class CustomerMgmtPage {
           }
         }
       });
+  }
+
+  presentPopoverAging(event: any) {
+
+    const popOver = this.popOverController.create(AgingFilterPopoverPage, {
+      agingperiod: this.displayCriteria
+    });
+    popOver.present({
+      ev: event
+    });
+
+    popOver.onDidDismiss(
+      (data) => {
+        if (data && data.showAging) {
+          let selectedAgingPeriod: number = Number.parseInt(data.agingPeriod);
+          console.log('selectedAgingPeriod = ' + selectedAgingPeriod);
+
+          // if (selectedAgingPeriod == 0) {
+
+          // } else {
+          console.log('tillDate = ' + this.tillDate);
+          let dateToCompare: Date = new Date(this.tillDate);
+
+          console.log('Active Date = ' + dateToCompare.toISOString()
+            + ', selectedAgingPeriod = ' + selectedAgingPeriod);
+
+          dateToCompare.setDate(dateToCompare.getDate() - selectedAgingPeriod);
+          console.log('Date Back by selectedAgingPeriod Days = ' + dateToCompare.toISOString());
+
+          let dateToCompareFormatted: any = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(dateToCompare.toISOString(), 'yyyy-MM-dd');
+          console.log('dateToCompareFormatted = ' + dateToCompareFormatted);
+
+          let sortedList: any[] = [];
+          this.totalOutstanding = 0;
+
+          this.orginalCustomersList.forEach((customer: any) => {
+
+            let custDebit: number = 0;
+            let custCredit: number = 0;
+
+            customer.customerInvoicesList.forEach(
+              (invoice: any) => {
+                if (invoice.invoiceDate < dateToCompareFormatted) {
+                  // if (invoice.invoiceDate < dateToCompareFormatted && invoice.isPaid == 'O'
+                  // && invoice.grossTotal > 0) {
+                  custDebit = custDebit + Number.parseFloat(invoice.debit);
+                  custCredit = custCredit + Number.parseFloat(invoice.credit);
+                }
+              }
+            );
+
+            let custBalance: number = custDebit - custCredit;
+            
+            this.totalOutstanding = this.totalOutstanding + custBalance;
+
+            customer.calculatedBal = custBalance;
+            console.log('calculatedBal = ' + customer.calculatedBal);
+
+            sortedList.push(customer);
+          });
+
+          this.customersList = sortedList;
+          // }
+
+          this.displayCriteria = selectedAgingPeriod;
+        }
+      }
+    );
   }
 
 }

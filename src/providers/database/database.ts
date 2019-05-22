@@ -59,6 +59,19 @@ export class DatabaseProvider {
     );
   }
 
+  getLastUpdatedTs() {
+
+    return Observable.fromPromise(
+      this.initializeSqlLiteDb().then((db: SQLiteObject) => {
+        return db.executeSql('SELECT data FROM metadata WHERE configname=?',
+          [ConstantsProvider.CONFIG_NM_LAST_UPDATED_TS])
+      })
+        .catch(e => {
+          console.log(JSON.stringify(e))
+        })
+    );
+  }
+
   syncCustomerData() {
 
     if (this.network.type != "unknown" && this.network.type != "none" && this.network.type != undefined) {

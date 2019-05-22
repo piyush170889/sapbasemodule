@@ -10,12 +10,15 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-buttons end>
-      <button ion-button item-end (click)="presentPopoverDataSorting($event)" style="background-color: #1c2431; font-size: 20px; color:#E4EBED;">
+      <button ion-button (click)="presentPopoverAging($event)" style="background-color: #1c2431; font-size: 20px; color:#E4EBED;margin-right: 25%;">
+        <ion-icon name="ios-list"></ion-icon>
+      </button>
+      <button ion-button (click)="presentPopoverDataSorting($event)" style="background-color: #1c2431; font-size: 20px; color:#E4EBED;margin-right: 15%;">
         <ion-icon name="md-more"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>
-      Customer Management
+      Customers
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -39,19 +42,25 @@
   <ion-card *ngIf="customersList.length>0 && (null == this.referrer 
     || undefined == this.referrer || this.referrer == '')">
 
-    <ion-card-header>
+    <!-- <ion-card-header>
       <ion-row>
         <ion-col col-12 text-center>
           <strong>Outstanding Recievables</strong><br />
         </ion-col>
       </ion-row>
-    </ion-card-header>
+    </ion-card-header> -->
 
     <ion-card-content>
 
       <ion-row>
         <ion-col col-12 text-center>
-          {{totalOutstanding}}
+          <span style="font-size:3rem;">
+            <strong>
+              <i class="fa fa-rupee"></i> {{totalOutstanding}}
+            </strong>
+          </span>
+          <p style="color:#E4EBED;font-size:12px;">( Outstanding Recievables As Of {{tillDate | date : 'dd MMM yy'}} |
+            > {{displayCriteria}} )</p>
         </ion-col>
       </ion-row>
 
@@ -85,9 +94,9 @@
         </ion-col>
         <ion-col col-7>
           {{customer.customerDetails.balance == null || customer.customerDetails.balance == '' ? 'Not Available' :
-          customer.customerDetails.balance }}
-          <!-- {{customer.customerDetails.calculatedBalance == null || customer.customerDetails.calculatedBalance == '' ?
-          'Not Available' : customer.customerDetails.calculatedBalance }} -->
+          customer.customerDetails.balance }} And
+          {{customer.calculatedBal == null || customer.calculatedBal == '' ? 'Not Available' :
+          customer.calculatedBal }}
         </ion-col>
       </ion-row>
 
@@ -130,9 +139,9 @@
   </ion-card>
 
   <!-- Infinite Scroll Content -->
-  <ion-infinite-scroll (ionInfinite)="getRecordsPaginated($event)">
+  <!-- <ion-infinite-scroll (ionInfinite)="getRecordsPaginated($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading Customers...">
     </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  </ion-infinite-scroll> -->
 
 </ion-content>

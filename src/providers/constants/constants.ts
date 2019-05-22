@@ -67,6 +67,7 @@ export class ConstantsProvider {
   public static MD_UOM = "uom";
   public static APP_DATE_LOCALE = 'en-US';
   public static REPORTS_DATE_FORMAT = 'dd MMM yyyy';
+  public static APP_DATETIME_DISPLAY_FORMAT = 'dd MMM yy hh:mm A';
 
   // DB Constants
   public static JBS_APP_DB_NM = 'jbs_app_db.db';
