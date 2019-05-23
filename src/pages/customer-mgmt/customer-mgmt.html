@@ -10,10 +10,10 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-buttons end>
-      <button ion-button (click)="presentPopoverAging($event)" style="background-color: #1c2431; font-size: 20px; color:#E4EBED;margin-right: 25%;">
+      <button ion-button (click)="presentPopoverAging($event)" style="background-color: #1c2431; font-size: 20px; color:#E4EBED;">
         <ion-icon name="ios-list"></ion-icon>
       </button>
-      <button ion-button (click)="presentPopoverDataSorting($event)" style="background-color: #1c2431; font-size: 20px; color:#E4EBED;margin-right: 15%;">
+      <button ion-button item-end (click)="presentPopoverDataSorting($event)" style="background-color: #1c2431; font-size: 20px; color:#E4EBED;">
         <ion-icon name="md-more"></ion-icon>
       </button>
     </ion-buttons>
@@ -21,7 +21,18 @@
       Customers
     </ion-title>
   </ion-navbar>
+  <ion-row style="background-color: #2F3C51 !important; color: #FFCB08 !important">
+    <ion-col col-10 text-center>
+      Last Synced: {{tillDate | date : 'dd MMM yy hh:mm a'}}
+    </ion-col>
+    <ion-col col-2 text-center>
+      <ion-icon ios="ios-refresh" (click)="syncCustomerData()" md="md-refresh" *ngIf="!isDataSynching"></ion-icon>
+      <ion-spinner name="crescent" *ngIf="isDataSynching" color="plain"></ion-spinner>
+    </ion-col>
+  </ion-row>
 </ion-header>
+
+
 <ion-content>
 
   <ion-row>
@@ -93,8 +104,8 @@
           Balance
         </ion-col>
         <ion-col col-7>
-          {{customer.customerDetails.balance == null || customer.customerDetails.balance == '' ? 'Not Available' :
-          customer.customerDetails.balance }} And
+          <!-- {{customer.customerDetails.balance == null || customer.customerDetails.balance == '' ? 'Not Available' :
+          customer.customerDetails.balance }} And -->
           {{customer.calculatedBal == null || customer.calculatedBal == '' ? 'Not Available' :
           customer.calculatedBal }}
         </ion-col>

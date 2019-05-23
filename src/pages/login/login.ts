@@ -131,6 +131,7 @@ export class LoginPage {
         }
     }
 
+    
     syncCustomerData(componentToNavigate: Page) {
 
         let customersDetailsApiEndpoint = ConstantsProvider.API_BASE_URL

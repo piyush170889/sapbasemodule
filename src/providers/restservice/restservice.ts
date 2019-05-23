@@ -62,6 +62,21 @@ export class RestserviceProvider {
         }
     }
 
+    getDetailsWithoutLoader(url: string) {
+        console.log('Get URL -> ' + url);
+        if (this.commonUtility.isNetworkAvailable()) {
+            return this.http.get(url)
+                .map(response => {
+                    return response;
+                })
+                .catch((err: Response) => {
+                    console.log("Error - " + JSON.stringify(err));
+                    this.commonUtility.presentErrorToast(err);
+                    return Observable.throw(err);
+                });
+        }
+    }
+
     postDetails(url: string, data: any) {
 
         console.log('Post URL -> ' + url);

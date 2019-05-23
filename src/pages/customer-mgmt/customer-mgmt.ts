@@ -10,6 +10,7 @@ import { PopoverSortFiltersPage } from '../popover-sort-filters/popover-sort-fil
 import { DatabaseProvider } from '../../providers/database/database';
 import { AgingFilterPopoverPage } from '../aging-filter-popover/aging-filter-popover';
 import { DatePipe } from '@angular/common';
+import { SQLiteObject } from '@ionic-native/sqlite';
 
 /**
  * Generated class for the CustomerMgmtPage page.
@@ -39,6 +40,7 @@ export class CustomerMgmtPage {
   currentSortOrder: number = 0;
   displayCriteria: any = '0';
   tillDate: any = '';
+  isDataSynching: boolean = false;
 
 
   customerMgmtApiEndpoint: string = ConstantsProvider.API_BASE_URL
@@ -55,41 +57,22 @@ export class CustomerMgmtPage {
       .subscribe(response => {
         this.tillDate = response.rows.item(0).data;
         console.log('tillDate = ' + this.tillDate + ', Response = ' + JSON.stringify(response));
+
+        this.updateCustomerDataFromDB();
+    
+        let timeSinceLastSync: number = this.commonUtility.calculateDiffInMins(new Date(this.tillDate), new Date());
+          console.log('Till Date : ' + this.tillDate + ', Current Date = ' + new Date() + ', timeSinceLastSync = ' + timeSinceLastSync);
+    
+        if (timeSinceLastSync >= 30) {
+          console.log('Synching Data');
+          this.syncCustomerData();
+        } else {
+          console.log('Not Synching Data');
+        }
       }
       );
 
     this.referrer = this.navParams.get('referrer');
-
-    this.databaseProvider.getCustomerData()
-      .subscribe(
-        res => {
-          if (res.rows.length > 0) {
-            console.log('CustData = ' + res.rows.item(0).data);
-            this.customersList = JSON.parse(res.rows.item(0).data);
-          }
-
-          this.orginalCustomersList = this.customersList;
-          this.orginalListDuplicate = this.customersList;
-
-          let sortedList: any[] = [];
-          this.totalOutstanding = 0;
-          this.customersList.forEach(
-            (customer) => {
-              let custBal = customer.customerDetails.balance;
-              this.totalOutstanding = this.totalOutstanding + custBal;
-
-              customer.calculatedBal = custBal;
-
-              sortedList.push(customer);
-            }
-          );
-
-          this.customersList = sortedList;
-          console.log('total outstanding: ' + this.totalOutstanding);
-        }
-        , (e) => {
-          console.log(JSON.stringify(e));
-        });
 
 
     // this.restService.getDetails(this.getCustMgmtApiEndpoint(1))
@@ -106,6 +89,45 @@ export class CustomerMgmtPage {
     //       console.log('this.paginationDetails = ' + JSON.stringify(this.paginationDetails));
     //     }
     //   );
+  }
+
+  updateCustomerDataFromDB() {
+
+    this.databaseProvider.getCustomerData()
+      .subscribe(
+        res => {
+          if (res.rows.length > 0) {
+            console.log('CustData = ' + res.rows.item(0).data);
+            this.customersList = JSON.parse(res.rows.item(0).data);
+          }
+
+          this.orginalCustomersList = this.customersList;
+          this.orginalListDuplicate = this.customersList;
+
+          this.setCustomerBalanceFromOriginalList();
+        }
+        , (e) => {
+          console.log(JSON.stringify(e));
+        });
+  }
+
+  setCustomerBalanceFromOriginalList() {
+
+    let sortedList: any[] = [];
+    this.totalOutstanding = 0;
+    this.customersList.forEach(
+      (customer) => {
+        let custBal = customer.customerDetails.balance;
+        this.totalOutstanding = this.totalOutstanding + custBal;
+
+        customer.calculatedBal = custBal;
+
+        sortedList.push(customer);
+      }
+    );
+
+    this.customersList = sortedList;
+    console.log('total outstanding: ' + this.totalOutstanding);
   }
 
   getCustMgmtApiEndpoint(pageNo: number) {
@@ -297,45 +319,53 @@ export class CustomerMgmtPage {
           let selectedSortOrder: number = Number.parseInt(data.sortOrder);
           console.log('selectedSortOrder = ' + selectedSortOrder);
 
-          switch (selectedSortOrder) {
-
-            // 1 = Amount (Low - High)
-            case 1:
-              this.customersList.sort(
-                (a, b) => a.customerDetails.balance <= b.customerDetails.balance ? -1 : 1
-              );
-              this.currentSortOrder = selectedSortOrder;
-              break;
-
-            // 2 = Amount (High - Low) 
-            case 2:
-              this.customersList.sort(
-                (a, b) => a.customerDetails.balance >= b.customerDetails.balance ? -1 : 1
-              );
-              this.currentSortOrder = selectedSortOrder;
-              break;
-
-            // 3 = Due Days (Low - High)
-            case 3:
-              this.customersList.sort(
-                (a, b) => a.dueDateInDays <= b.dueDateInDays ? -1 : 1
-              );
-              this.currentSortOrder = selectedSortOrder;
-              break;
-
-            // 4 = Due Days (High - Low)
-            case 4:
-              this.customersList.sort(
-                (a, b) => a.dueDateInDays >= b.dueDateInDays ? -1 : 1
-              );
-              this.currentSortOrder = selectedSortOrder;
-              break;
-
-            default:
-              break;
-          }
+          this.sortDataBySelectedSortOrder(selectedSortOrder);
         }
       });
+  }
+
+  sortDataBySelectedSortOrder(selectedSortOrder: number) {
+
+    switch (selectedSortOrder) {
+
+      // 1 = Amount (Low - High)
+      case 1:
+        this.customersList.sort(
+          (a, b) => a.calculatedBal <= b.calculatedBal ? -1 : 1
+          // (a, b) => a.customerDetails.balance <= b.customerDetails.balance ? -1 : 1
+        );
+        this.currentSortOrder = selectedSortOrder;
+        break;
+
+      // 2 = Amount (High - Low) 
+      case 2:
+        this.customersList.sort(
+          (a, b) => a.calculatedBal >= b.calculatedBal ? -1 : 1
+          // (a, b) => a.customerDetails.balance >= b.customerDetails.balance ? -1 : 1
+        );
+        this.currentSortOrder = selectedSortOrder;
+        break;
+
+      // 3 = Due Days (Low - High)
+      case 3:
+        this.customersList.sort(
+          (a, b) => a.dueDateInDays <= b.dueDateInDays ? -1 : 1
+        );
+        this.currentSortOrder = selectedSortOrder;
+        break;
+
+      // 4 = Due Days (High - Low)
+      case 4:
+        this.customersList.sort(
+          (a, b) => a.dueDateInDays >= b.dueDateInDays ? -1 : 1
+        );
+        this.currentSortOrder = selectedSortOrder;
+        break;
+
+      default:
+        this.currentSortOrder = selectedSortOrder;
+        break;
+    }
   }
 
   presentPopoverAging(event: any) {
@@ -353,57 +383,160 @@ export class CustomerMgmtPage {
           let selectedAgingPeriod: number = Number.parseInt(data.agingPeriod);
           console.log('selectedAgingPeriod = ' + selectedAgingPeriod);
 
-          // if (selectedAgingPeriod == 0) {
+          if (selectedAgingPeriod == 0) {
+            this.setCustomerBalanceFromOriginalList();
+          } else {
+            console.log('tillDate = ' + this.tillDate);
+            let dateToCompare: Date = new Date(this.tillDate);
 
-          // } else {
-          console.log('tillDate = ' + this.tillDate);
-          let dateToCompare: Date = new Date(this.tillDate);
+            console.log('Active Date = ' + dateToCompare.toISOString()
+              + ', selectedAgingPeriod = ' + selectedAgingPeriod);
 
-          console.log('Active Date = ' + dateToCompare.toISOString()
-            + ', selectedAgingPeriod = ' + selectedAgingPeriod);
+            dateToCompare.setDate(dateToCompare.getDate() - selectedAgingPeriod);
+            console.log('Date Back by selectedAgingPeriod Days = ' + dateToCompare.toISOString());
 
-          dateToCompare.setDate(dateToCompare.getDate() - selectedAgingPeriod);
-          console.log('Date Back by selectedAgingPeriod Days = ' + dateToCompare.toISOString());
+            let dateToCompareFormatted: any = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(dateToCompare.toISOString(), 'yyyy-MM-dd');
+            console.log('dateToCompareFormatted = ' + dateToCompareFormatted);
 
-          let dateToCompareFormatted: any = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(dateToCompare.toISOString(), 'yyyy-MM-dd');
-          console.log('dateToCompareFormatted = ' + dateToCompareFormatted);
+            let sortedList: any[] = [];
+            this.totalOutstanding = 0;
 
-          let sortedList: any[] = [];
-          this.totalOutstanding = 0;
+            this.orginalCustomersList.forEach((customer: any) => {
 
-          this.orginalCustomersList.forEach((customer: any) => {
+              // let custDebit: number = 0;
+              // let custCredit: number = 0;
+              let custBalance: number = 0;
 
-            let custDebit: number = 0;
-            let custCredit: number = 0;
-
-            customer.customerInvoicesList.forEach(
-              (invoice: any) => {
-                if (invoice.invoiceDate < dateToCompareFormatted) {
-                  // if (invoice.invoiceDate < dateToCompareFormatted && invoice.isPaid == 'O'
-                  // && invoice.grossTotal > 0) {
-                  custDebit = custDebit + Number.parseFloat(invoice.debit);
-                  custCredit = custCredit + Number.parseFloat(invoice.credit);
+              customer.customerInvoicesList.forEach(
+                (invoice: any) => {
+                  if (invoice.invoiceDate < dateToCompareFormatted
+                    && (invoice.type == 'IN' || invoice.type == 'OB' || invoice.type == 'JE')) {
+                    // custDebit = custDebit + Number.parseFloat(invoice.debit);
+                    // custCredit = custCredit + Number.parseFloat(invoice.credit);
+                    custBalance = custBalance + Number.parseFloat(invoice.grossTotal);
+                  }
                 }
-              }
-            );
+              );
 
-            let custBalance: number = custDebit - custCredit;
-            
-            this.totalOutstanding = this.totalOutstanding + custBalance;
+              // let custBalance: number = custDebit - custCredit;
 
-            customer.calculatedBal = custBalance;
-            console.log('calculatedBal = ' + customer.calculatedBal);
+              this.totalOutstanding = this.totalOutstanding + custBalance;
 
-            sortedList.push(customer);
-          });
+              customer.calculatedBal = custBalance;
+              console.log('calculatedBal = ' + customer.calculatedBal);
 
-          this.customersList = sortedList;
-          // }
+              sortedList.push(customer);
+            });
+
+            this.customersList = sortedList;
+
+          }
 
           this.displayCriteria = selectedAgingPeriod;
+          this.sortDataBySelectedSortOrder(this.currentSortOrder);
         }
       }
     );
   }
 
+  syncCustomerData() {
+
+    let customersDetailsApiEndpoint = ConstantsProvider.API_BASE_URL
+      + ConstantsProvider.API_ENDPOINT_CUST_DTLS + ConstantsProvider.URL_SEPARATOR
+      + ConstantsProvider.API_ENDPOINT_SYNC;
+
+    this.isDataSynching = true;
+
+    this.restService.getDetailsWithoutLoader(customersDetailsApiEndpoint)
+      .subscribe(
+        (response) => {
+          console.log('Customers Data = ' + JSON.stringify(response.response));
+          let customersDetailsList: any[] = response.response;
+
+          this.databaseProvider.initializeSqlLiteDb().then((db: SQLiteObject) => {
+
+            db.executeSql('SELECT data from metadata where configname=?',
+              [ConstantsProvider.CONFIG_NM_CUST_DATA])
+              .then(
+                res => {
+                  if (res.rows.length > 0) {
+                    this.updateCustomerDetailsFromApi(customersDetailsList);
+                  } else {
+                    db.executeSql('INSERT INTO metadata(configname, data) VALUES(?,?)',
+                      [ConstantsProvider.CONFIG_NM_CUST_DATA, ''])
+                      .then(res => {
+                        console.log('Inserted Empty Customer Record');
+                        this.updateCustomerDetailsFromApi(customersDetailsList);
+                      })
+                      .catch(e => console.log(JSON.stringify(e)));
+                  }
+                }
+              );
+          })
+            .catch(e => {
+              console.log(JSON.stringify(e))
+            })
+        }
+      );
+  }
+
+  updateCustomerDetailsFromApi(customersDetailsList: any[]) {
+
+    this.databaseProvider.initializeSqlLiteDb().then((db: SQLiteObject) => {
+      db.executeSql('UPDATE metadata set data=? WHERE configname=?', [JSON.stringify(customersDetailsList),
+      ConstantsProvider.CONFIG_NM_CUST_DATA])
+        .then(
+          res => {
+            console.log('Updated Customer Record');
+
+            db.executeSql('SELECT data from metadata where configname=?',
+              [ConstantsProvider.CONFIG_NM_LAST_UPDATED_TS])
+              .then(
+                res => {
+                  if (res.rows.length > 0) {
+                    this.updateLastUpdatedTs();
+                  } else {
+                    db.executeSql('INSERT INTO metadata(configname, data) VALUES(?,?)',
+                      [ConstantsProvider.CONFIG_NM_LAST_UPDATED_TS, ''])
+                      .then(res => {
+                        console.log('Inserted Empty Customer Record');
+                        this.updateLastUpdatedTs();
+                      })
+                      .catch(e => console.log(JSON.stringify(e)));
+                  }
+                }
+              );
+          }
+        )
+        .catch(e => {
+          console.log(JSON.stringify(e))
+        });
+    })
+      .catch(e => {
+        console.log(JSON.stringify(e))
+      })
+  }
+
+  updateLastUpdatedTs() {
+
+    this.databaseProvider.initializeSqlLiteDb().then((db: SQLiteObject) => {
+      let updatedTs = new Date().toISOString();
+      this.tillDate = updatedTs;
+      db.executeSql('UPDATE metadata set data=? WHERE configname=?', [updatedTs,
+      ConstantsProvider.CONFIG_NM_LAST_UPDATED_TS])
+        .then(
+          res => {
+            console.log('Updated Last Updated Ts');
+            this.updateCustomerDataFromDB();
+            this.isDataSynching = false;
+          }
+        )
+        .catch(e => {
+          console.log(JSON.stringify(e))
+        })
+    })
+      .catch(e => {
+        console.log(JSON.stringify(e))
+      })
+  }
 }

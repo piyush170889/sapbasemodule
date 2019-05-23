@@ -111,7 +111,7 @@ export class CustomerDetailsPage {
     this.customerAllInvoicesList.forEach(
       (invoice: any) => {
 
-        if (invoice.type == 'IN' || invoice.type == 'OB') {
+        if (invoice.type == 'IN' || invoice.type == 'OB' || invoice.type == 'JE') {
           console.log('invoice.grossTotal = ' + invoice.grossTotal);
           this.customerBalance = this.customerBalance + Number.parseFloat(invoice.grossTotal);
         }
