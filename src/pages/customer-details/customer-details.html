@@ -111,6 +111,18 @@
     </ion-row> -->
   </ion-card>
 
+    <!-- Credit Limit And Deviation -->
+    <ion-row no-padding>
+      <ion-col padding text-center col-6 style="border-right: 1px solid #FFCB08">
+        <p color="primary"><strong>Credit Limit</strong></p>
+        <p color="primary">{{customer.customerDetails.creditLine}}</p>
+      </ion-col>
+      <ion-col col-6 padding text-center >
+        <p color="primary"><strong>Credit Deviation</strong></p>
+        <p color="primary">{{customer.customerDetails.creditDeviation}}</p>
+      </ion-col>
+    </ion-row>
+  
   <!-- Customer Actions  -->
   <!-- <ion-card *ngIf="!isModalData">
     <ion-row>
@@ -325,7 +337,7 @@
   </ion-fab>
 
   <div id="pdfDivLedger" style="display:none">
-  <!-- <div id="pdfDivLedger"> -->
+    <!-- <div id="pdfDivLedger"> -->
     <div style="text-align: center;">
       <h4>JAGTAP BUILDING SOLUTIONS</h4>
       <p>Asthavinayak Soc, Opp Bharat Jyoti Stop,</p>
