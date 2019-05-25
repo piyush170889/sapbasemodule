@@ -11,6 +11,7 @@ import { DatabaseProvider } from '../../providers/database/database';
 import { AgingFilterPopoverPage } from '../aging-filter-popover/aging-filter-popover';
 import { DatePipe } from '@angular/common';
 import { SQLiteObject } from '@ionic-native/sqlite';
+import { Network } from '@ionic-native/network';
 
 /**
  * Generated class for the CustomerMgmtPage page.
@@ -51,6 +52,7 @@ export class CustomerMgmtPage {
     private commonUtility: CommonUtilityProvider,
     private popOverController: PopoverController,
     private restService: RestserviceProvider,
+    private network: Network,
     private databaseProvider: DatabaseProvider) {
 
     this.databaseProvider.getLastUpdatedTs()
@@ -447,6 +449,7 @@ export class CustomerMgmtPage {
 
     this.isDataSynching = true;
 
+    if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
     this.restService.getDetailsWithoutLoader(customersDetailsApiEndpoint)
       .subscribe(
         (response) => {
@@ -478,6 +481,7 @@ export class CustomerMgmtPage {
             })
         }
       );
+      }
   }
 
   updateCustomerDetailsFromApi(customersDetailsList: any[]) {

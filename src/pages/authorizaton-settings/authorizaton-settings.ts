@@ -10,6 +10,7 @@ import { AdminUsersPage } from '../admin-users/admin-users';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
 import { DatabaseProvider } from '../../providers/database/database';
+import { LoginPage } from '../login/login';
 
 // declare var google: any;
 
@@ -67,25 +68,30 @@ export class AuthorizatonSettingsPage {
         //         }
         //     );
 
-        this.rolesArray = JSON.parse(localStorage.getItem('roles'));
-        this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
+        this.rolesArray = null != localStorage.getItem('roles') ? JSON.parse(localStorage.getItem('roles')) : null;
+        this.userDetails = null != localStorage.getItem('userDetails') ? JSON.parse(localStorage.getItem('userDetails')) : null;
 
         console.log('this.rolesArray = ' + JSON.stringify(this.rolesArray));
 
-        if (this.userDetails.isPasswordChanged == 0) {
-            if (this.rolesArray.indexOf(ConstantsProvider.ROLE_SALES) > -1) {
-                // this.trackUserLocation();
-                this.navCtrl.setRoot(CustomerMgmtPage);
-            } else if (this.rolesArray.indexOf(ConstantsProvider.ROLE_ADMIN) > -1) {
-                this.navCtrl.setRoot(CustomerMgmtPage);
-            }
-        } else {
-            this.navCtrl.setRoot(ChangePasswordPage, {
-                isForceChange: true
-            });
-        }
+        if (null != this.userDetails && null != this.rolesArray) {
 
-        this.events.publish("rolesUpdated");
+            if (this.userDetails.isPasswordChanged == 0) {
+                if (this.rolesArray.indexOf(ConstantsProvider.ROLE_SALES) > -1) {
+                    // this.trackUserLocation();
+                    this.navCtrl.setRoot(CustomerMgmtPage);
+                } else if (this.rolesArray.indexOf(ConstantsProvider.ROLE_ADMIN) > -1) {
+                    this.navCtrl.setRoot(CustomerMgmtPage);
+                }
+            } else {
+                this.navCtrl.setRoot(ChangePasswordPage, {
+                    isForceChange: true
+                });
+            }
+
+            this.events.publish("rolesUpdated");
+        } else {
+            this.navCtrl.setRoot(LoginPage);
+        }
     }
 
     public trackUserLocation(): void {
