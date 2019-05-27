@@ -566,8 +566,11 @@ export class CustomerDetailsPage {
     let todaysDate: Date = new Date();
     this.agingReportList = [];
 
+    let i = 1;
     this.customerAllInvoicesList.forEach(
       (invoice) => {
+        console.log('i = ' + i);
+        i++;
         if ((invoice.type == 'JE' || invoice.type == 'IN' || invoice.type == 'OB')) {
 
           let goAhead: boolean = true;
@@ -591,6 +594,8 @@ export class CustomerDetailsPage {
       }
     );
 
+    console.log('final i = ' + i);
+
     this.agingReportList.push({
       invoiceDate: '', type: '', invoiceNo: 'Total', grossTotal: this.totalInvoiceBalance,
       dueDate: '', overduedays: ''
@@ -600,8 +605,12 @@ export class CustomerDetailsPage {
     this.datePeriod = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(this.tillDate, ConstantsProvider.REPORTS_DATE_FORMAT)
       + ' | ' + this.agingPeriod;
 
-    var page = document.getElementById('pdfDivAging');
-    cordova.plugins.printer.print(page, 'Overdue_Report.pdf');
+    console.log('agingReportList = ' + JSON.stringify(this.agingReportList));
+
+    setTimeout(() => {
+      var page = document.getElementById('pdfDivAging');
+      cordova.plugins.printer.print(page, 'Overdue_Report.pdf');
+    }, 2000);
   }
 
 }

@@ -55,6 +55,8 @@ export class CustomerMgmtPage {
     private network: Network,
     private databaseProvider: DatabaseProvider) {
 
+    this.isDataSynching = false;
+
     this.databaseProvider.getLastUpdatedTs()
       .subscribe(response => {
         this.tillDate = response.rows.item(0).data;
@@ -451,10 +453,13 @@ export class CustomerMgmtPage {
 
     this.isDataSynching = true;
 
-    if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
+    if (this.network.type != "unknown" && this.network.type != "none" && this.network.type != undefined) {
+
       this.restService.getDetailsWithoutLoader(customersDetailsApiEndpoint)
         .subscribe(
           (response) => {
+            this.isDataSynching = false;
+
             console.log('Customers Data = ' + JSON.stringify(response.response));
             let customersDetailsList: any[] = response.response;
 
@@ -473,16 +478,30 @@ export class CustomerMgmtPage {
                           console.log('Inserted Empty Customer Record');
                           this.updateCustomerDetailsFromApi(customersDetailsList);
                         })
-                        .catch(e => console.log(JSON.stringify(e)));
+                        .catch(e => {
+                          console.log(JSON.stringify(e))
+                          this.isDataSynching = false;
+                        })
                     }
                   }
-                );
+                )
+                .catch(e => {
+                  console.log(JSON.stringify(e))
+                  this.isDataSynching = false;
+                })
             })
               .catch(e => {
                 console.log(JSON.stringify(e))
+                this.isDataSynching = false;
               })
+          },
+          (err) => {
+            this.isDataSynching = false;
           }
         );
+    } else {
+      this.commonUtility.presentErrorToast('No Internet Connection');
+      this.isDataSynching = false;
     }
   }
 

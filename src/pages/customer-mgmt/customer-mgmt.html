@@ -83,41 +83,39 @@
   <ion-card *ngFor="let customer of customersList">
 
     <ion-card-header (click)="viewCustomerDetails(customer)">
-      <ion-row>
+      <!-- <ion-row>
         <ion-col col-12>
           <strong>{{customer.customerDetails.cardCode}}</strong>
         </ion-col>
-        <!-- <ion-col col-1 *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != ''"
-          (click)="callCust(customer)">
-          <ion-icon name="md-call"></ion-icon>
-        </ion-col> -->
-      </ion-row>
+      </ion-row> -->
       <ion-row>
-        <ion-col col-12>
-          <strong>{{customer.customerDetails.cardName}}</strong>
+        <ion-col col-9>
+          <p style="color: #FFCB08 !important"><strong>{{customer.customerDetails.cardName}}</strong></p>
+        </ion-col>
+        <ion-col col-3>
+          <strong><i *ngIf="customer.calculatedBal != null && customer.calculatedBal != ''" class="fa fa-rupee"></i>
+            {{customer.calculatedBal == null || customer.calculatedBal == '' ? 'NA' : customer.calculatedBal }}</strong>
         </ion-col>
       </ion-row>
     </ion-card-header>
 
     <ion-card-content>
 
-      <ion-row>
+      <!-- <ion-row>
         <ion-col col-5>
           Balance
         </ion-col>
         <ion-col col-7>
-          <!-- {{customer.customerDetails.balance == null || customer.customerDetails.balance == '' ? 'Not Available' :
-          customer.customerDetails.balance }} And -->
-          {{customer.calculatedBal == null || customer.calculatedBal == '' ? 'Not Available' :
+            <i class="fa fa-rupee"></i> {{customer.calculatedBal == null || customer.calculatedBal == '' ? 'Not Available' :
           customer.calculatedBal }}
         </ion-col>
-      </ion-row>
+      </ion-row> -->
 
-      <ion-row>
+      <!-- <ion-row>
         <ion-col col-12>
           Contact No.
         </ion-col>
-      </ion-row>
+      </ion-row> -->
       <ion-row *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != ''">
         <ion-col col-11>
           {{customer.customerDetails.cellular}}
