@@ -61,10 +61,10 @@ export class CustomerMgmtPage {
         console.log('tillDate = ' + this.tillDate + ', Response = ' + JSON.stringify(response));
 
         this.updateCustomerDataFromDB();
-    
+
         let timeSinceLastSync: number = this.commonUtility.calculateDiffInMins(new Date(this.tillDate), new Date());
-          console.log('Till Date : ' + this.tillDate + ', Current Date = ' + new Date() + ', timeSinceLastSync = ' + timeSinceLastSync);
-    
+        console.log('Till Date : ' + this.tillDate + ', Current Date = ' + new Date() + ', timeSinceLastSync = ' + timeSinceLastSync);
+
         if (timeSinceLastSync >= 30) {
           console.log('Synching Data');
           this.syncCustomerData();
@@ -117,7 +117,8 @@ export class CustomerMgmtPage {
 
     let sortedList: any[] = [];
     this.totalOutstanding = 0;
-    this.customersList.forEach(
+    // this.customersList.forEach(
+    this.orginalCustomersList.forEach(
       (customer) => {
         let custBal = customer.customerDetails.balance;
         this.totalOutstanding = this.totalOutstanding + custBal;
@@ -422,16 +423,17 @@ export class CustomerMgmtPage {
 
               // let custBalance: number = custDebit - custCredit;
 
-              this.totalOutstanding = this.totalOutstanding + custBalance;
+              if (custBalance > 0) {
+                this.totalOutstanding = this.totalOutstanding + custBalance;
 
-              customer.calculatedBal = custBalance;
-              console.log('calculatedBal = ' + customer.calculatedBal);
+                customer.calculatedBal = custBalance;
+                console.log('calculatedBal = ' + customer.calculatedBal);
 
-              sortedList.push(customer);
+                sortedList.push(customer);
+              }
             });
 
             this.customersList = sortedList;
-
           }
 
           this.displayCriteria = selectedAgingPeriod;
@@ -450,38 +452,38 @@ export class CustomerMgmtPage {
     this.isDataSynching = true;
 
     if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
-    this.restService.getDetailsWithoutLoader(customersDetailsApiEndpoint)
-      .subscribe(
-        (response) => {
-          console.log('Customers Data = ' + JSON.stringify(response.response));
-          let customersDetailsList: any[] = response.response;
+      this.restService.getDetailsWithoutLoader(customersDetailsApiEndpoint)
+        .subscribe(
+          (response) => {
+            console.log('Customers Data = ' + JSON.stringify(response.response));
+            let customersDetailsList: any[] = response.response;
 
-          this.databaseProvider.initializeSqlLiteDb().then((db: SQLiteObject) => {
+            this.databaseProvider.initializeSqlLiteDb().then((db: SQLiteObject) => {
 
-            db.executeSql('SELECT data from metadata where configname=?',
-              [ConstantsProvider.CONFIG_NM_CUST_DATA])
-              .then(
-                res => {
-                  if (res.rows.length > 0) {
-                    this.updateCustomerDetailsFromApi(customersDetailsList);
-                  } else {
-                    db.executeSql('INSERT INTO metadata(configname, data) VALUES(?,?)',
-                      [ConstantsProvider.CONFIG_NM_CUST_DATA, ''])
-                      .then(res => {
-                        console.log('Inserted Empty Customer Record');
-                        this.updateCustomerDetailsFromApi(customersDetailsList);
-                      })
-                      .catch(e => console.log(JSON.stringify(e)));
+              db.executeSql('SELECT data from metadata where configname=?',
+                [ConstantsProvider.CONFIG_NM_CUST_DATA])
+                .then(
+                  res => {
+                    if (res.rows.length > 0) {
+                      this.updateCustomerDetailsFromApi(customersDetailsList);
+                    } else {
+                      db.executeSql('INSERT INTO metadata(configname, data) VALUES(?,?)',
+                        [ConstantsProvider.CONFIG_NM_CUST_DATA, ''])
+                        .then(res => {
+                          console.log('Inserted Empty Customer Record');
+                          this.updateCustomerDetailsFromApi(customersDetailsList);
+                        })
+                        .catch(e => console.log(JSON.stringify(e)));
+                    }
                   }
-                }
-              );
-          })
-            .catch(e => {
-              console.log(JSON.stringify(e))
+                );
             })
-        }
-      );
-      }
+              .catch(e => {
+                console.log(JSON.stringify(e))
+              })
+          }
+        );
+    }
   }
 
   updateCustomerDetailsFromApi(customersDetailsList: any[]) {
@@ -527,7 +529,7 @@ export class CustomerMgmtPage {
       let updatedTs = new Date().toISOString();
       this.tillDate = updatedTs;
       db.executeSql('UPDATE metadata set data=? WHERE configname=?', [updatedTs,
-      ConstantsProvider.CONFIG_NM_LAST_UPDATED_TS])
+        ConstantsProvider.CONFIG_NM_LAST_UPDATED_TS])
         .then(
           res => {
             console.log('Updated Last Updated Ts');

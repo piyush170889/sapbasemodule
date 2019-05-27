@@ -30,20 +30,22 @@
       <ion-spinner name="crescent" *ngIf="isDataSynching" color="plain"></ion-spinner>
     </ion-col>
   </ion-row>
+
+  <ion-row>
+    <ion-col col-12>
+      <ion-searchbar [(ngModel)]="myInput" (ionChange)="onInput()" placeholder="Search By Name, Phone No., Code">
+      </ion-searchbar>
+    </ion-col>
+    <!-- <ion-col col-2 (click)="searchCustomers()">
+      <ion-icon name="md-search" class="search-btn"></ion-icon>
+    </ion-col> -->
+  </ion-row>
+
 </ion-header>
 
 
 <ion-content>
 
-  <ion-row>
-    <ion-col col-10>
-      <ion-searchbar [(ngModel)]="myInput" (ionChange)="onInput()" placeholder="Search By Name, Phone No., Code">
-      </ion-searchbar>
-    </ion-col>
-    <ion-col col-2 (click)="searchCustomers()">
-      <ion-icon name="md-search" class="search-btn"></ion-icon>
-    </ion-col>
-  </ion-row>
 
   <div *ngIf="customersList.length==0" class="pj-empty-page" style="margin-top: 40%;">
     <ion-icon name="ios-contact-outline"></ion-icon>

@@ -54,6 +54,9 @@ export class CustomerDetailsPage {
   totalDebitBalance: number = 0;
   totalCreditBalance: number = 0;
   currDate: any = new Date().toISOString();
+  agingReportList: any[] = [];
+  agingPeriod: any = '';
+  datePeriod: any = '';
 
 
   constructor(public navCtrl: NavController,
@@ -290,9 +293,9 @@ export class CustomerDetailsPage {
         console.log('Sharing PDF');
         this.share();
       })
-      .catch(e => {
-        console.log('Error = ' + JSON.stringify(e));
-      })
+        .catch(e => {
+          console.log('Error = ' + JSON.stringify(e));
+        })
     });
   }
 
@@ -536,7 +539,7 @@ export class CustomerDetailsPage {
       let docDefinition = this.commonUtility.getDocDefination('Overdue Report', datePeriod,
         '', this.customer.customerDetails.cardName, body);
 
-        console.log('Creating PDF');
+      console.log('Creating PDF');
       this.pdfObj = pdfMake.createPdf(docDefinition);
       console.log('Created PDF');
 
@@ -556,4 +559,49 @@ export class CustomerDetailsPage {
     var page = document.getElementById('pdfDivLedger');
     cordova.plugins.printer.print(page, 'Ledger_Report.pdf');
   }
+
+  downloadAgingReport() {
+
+    this.totalInvoiceBalance = 0;
+    let todaysDate: Date = new Date();
+    this.agingReportList = [];
+
+    this.customerAllInvoicesList.forEach(
+      (invoice) => {
+        if ((invoice.type == 'JE' || invoice.type == 'IN' || invoice.type == 'OB')) {
+
+          let goAhead: boolean = true;
+
+          if (invoice.type == 'IN' && invoice.isPaid != 'O')
+            goAhead = false;
+
+          if (goAhead) {
+            this.agingReportList.push({
+              invoiceDate: new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.invoiceDate, ConstantsProvider.REPORTS_DATE_FORMAT),
+              type: invoice.type,
+              invoiceNo: invoice.invoiceNo,
+              grossTotal: invoice.grossTotal,
+              dueDate: new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.dueDate, ConstantsProvider.REPORTS_DATE_FORMAT),
+              overduedays: this.commonUtility.calculateDiffInDays(new Date(invoice.invoiceDate), todaysDate)
+            });
+          }
+
+          this.totalInvoiceBalance = this.totalInvoiceBalance + Number.parseFloat(invoice.grossTotal);
+        }
+      }
+    );
+
+    this.agingReportList.push({
+      invoiceDate: '', type: '', invoiceNo: 'Total', grossTotal: this.totalInvoiceBalance,
+      dueDate: '', overduedays: ''
+    });
+
+    this.agingPeriod = '>' + this.displayCriteria;
+    this.datePeriod = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(this.tillDate, ConstantsProvider.REPORTS_DATE_FORMAT)
+      + ' | ' + this.agingPeriod;
+
+    var page = document.getElementById('pdfDivAging');
+    cordova.plugins.printer.print(page, 'Overdue_Report.pdf');
+  }
+
 }
