@@ -34,6 +34,7 @@ export class InvoiceDetailsPage {
   pdfObj = null;
   pdf: any;
   totalTax: number = 0;
+  imgPath: string = cordova.file.applicationDirectory + 'www/assets/imgs/stamp.jpg';
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -61,7 +62,7 @@ export class InvoiceDetailsPage {
     console.log('downloadReport InvoiceDetailsPage');
 
     var page = document.getElementById('pdfDiv');
-    cordova.plugins.printer.print(page, 'Aging_Report.pdf');
+    cordova.plugins.printer.print(page, 'JBS_Invoice.pdf');
   }
 
   isNull(term: any) {

@@ -5,11 +5,16 @@ import { Network } from "@ionic-native/network";
 import { ConstantsProvider } from '../constants/constants';
 import { DatePipe } from '@angular/common';
 import { CallNumber } from '@ionic-native/call-number';
+import { FileOpener } from '@ionic-native/file-opener';
+import { File } from '@ionic-native/file';
+
+declare var cordova: any;
 
 @Injectable()
 export class CommonUtilityProvider {
 
     isNetworkAvailableFlag: boolean = true;
+    imgPath: string = cordova.file.applicationDirectory + 'www/' + ConstantsProvider.CONFIG_DS_IMG_PATH;
 
     constructor(
         private toastCtrl: ToastController,
@@ -17,35 +22,15 @@ export class CommonUtilityProvider {
         public events: Events,
         private loadingCtrl: LoadingController,
         private network: Network,
-        private callNumberNative: CallNumber
-    ) {
+        private callNumberNative: CallNumber,
+        private file: File,
+        public fileOpener: FileOpener) {
         console.log('Hello CommonUtilityProvider Provider');
     }
 
-    isNetworkAvailable() {
-
-        if (!this.isNetworkAvailableFlag) {
-            let alert = this.alertCtrl.create({
-                subTitle: 'No Internet Connection',
-                enableBackdropDismiss: false,
-                buttons: [
-                    {
-                        text: 'OK',
-                        handler: () => {
-                            this.isNetworkAvailable();
-                        }
-                    }
-                ]
-            });
-            alert.present();
-        }
-
-        return this.isNetworkAvailableFlag;
-    }
-
-
     // isNetworkAvailable() {
-    //     if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
+
+    //     if (!this.isNetworkAvailableFlag) {
     //         let alert = this.alertCtrl.create({
     //             subTitle: 'No Internet Connection',
     //             enableBackdropDismiss: false,
@@ -59,12 +44,33 @@ export class CommonUtilityProvider {
     //             ]
     //         });
     //         alert.present();
-    //         return false;
-    //     } else {
-    //         return true;
     //     }
 
+    //     return this.isNetworkAvailableFlag;
     // }
+
+
+    isNetworkAvailable() {
+        if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined) {
+            let alert = this.alertCtrl.create({
+                subTitle: 'No Internet Connection',
+                enableBackdropDismiss: false,
+                buttons: [
+                    {
+                        text: 'OK',
+                        handler: () => {
+                            this.isNetworkAvailable();
+                        }
+                    }
+                ]
+            });
+            alert.present();
+            return false;
+        } else {
+            return true;
+        }
+
+    }
 
     callNumber(numberToCall: any, bypassAppChooser: boolean) {
         // this.callNumberNative.isCallSupported()
@@ -171,6 +177,7 @@ export class CommonUtilityProvider {
     }
 
     public getDocDefination(reportyType, datePeriod, custCity, custName, body) {
+
         let description = {
             content: [
                 { text: 'JAGTAP BUILDING SOLUTIONS', style: 'header' },
@@ -217,8 +224,79 @@ export class CommonUtilityProvider {
                 }
             }
         }
-
         return description;
+
+        // const ROOT_DIRECTORY = this.file.dataDirectory;
+        // const downloadFolderName = 'tempJBSDownload';
+        // const imageName = 'stamp.jpg';
+
+        // //Create a folder in memory location
+        // this.file.createDir(ROOT_DIRECTORY, downloadFolderName, true)
+        //     .then((entries) => {
+
+        //         //Copy our asset/img/FreakyJolly.jpg to folder we created
+        //         this.file.copyFile(this.file.applicationDirectory + "www/assets/imgs/", imageName,
+        //             ROOT_DIRECTORY + downloadFolderName + '//', imageName)
+        //             .then((entries) => {
+        //                 this.imgPath = ROOT_DIRECTORY + downloadFolderName + "/" + imageName;
+
+        //                 let description = {
+        //                     content: [
+        //                         { text: 'JAGTAP BUILDING SOLUTIONS', style: 'header' },
+        //                         { text: 'Asthavinayak Soc, Opp Bharat Jyoti Stop', alignment: 'center' },
+        //                         { text: 'Bibwewadi , Pune - 411037', alignment: 'center' },
+        //                         { text: 'Tel No. : (O) 24216162, 9822610611', alignment: 'center' },
+        //                         { text: 'Phone no. : 02024216162', alignment: 'center' },
+        //                         { text: 'Pin code : 411037', alignment: 'center' },
+        //                         { text: 'GSTIN : 27AFJPJ8271L1ZV', alignment: 'center' },
+        //                         { text: 'E-Mail : jagtapbsolutions@gmail.com', alignment: 'center' },
+        //                         { text: custName, style: 'subheader' },
+        //                         // { text: custCity },
+        //                         { text: reportyType, style: 'subheader' },
+        //                         { text: '' },
+        //                         { text: datePeriod, style: 'story' },
+        //                         { text: 'Report Date: ' + new DatePipe('en-US').transform(new Date().toISOString(), 'dd MMM yy'), style: 'story' },
+        //                         { text: '' },
+        //                         {
+        //                             table: {
+        //                                 widths: '*',
+        //                                 body: body
+        //                             }
+        //                         },
+        //                         { image: this.imgPath, alignment: 'right' }
+        //                     ],
+        //                     styles: {
+        //                         header: {
+        //                             fontSize: 18,
+        //                             bold: true,
+        //                             alignment: 'center'
+        //                         },
+        //                         cardname: {
+        //                             margin: [5, 0, 5, 0]
+        //                         },
+        //                         subheader: {
+        //                             fontSize: 14,
+        //                             bold: true,
+        //                             margin: [0, 15, 0, 0],
+        //                             alignment: 'center'
+        //                         },
+        //                         story: {
+        //                             italic: true,
+        //                             alignment: 'center',
+        //                             width: '50%',
+        //                         }
+        //                     }
+        //                 }
+        //                 return description;
+        //             })
+        //             .catch((error) => {
+        //                 alert('error ' + JSON.stringify(error));
+        //             });
+        //     })
+        //     .catch((error) => {
+        //         alert('error ' + JSON.stringify(error));
+        //     });
+
     }
 
     public getDocDefinationPendingInvoices(reportyType, datePeriod, custCity, custName, body, totalPendingAmount) {

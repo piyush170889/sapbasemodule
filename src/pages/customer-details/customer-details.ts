@@ -57,6 +57,7 @@ export class CustomerDetailsPage {
   agingReportList: any[] = [];
   agingPeriod: any = '';
   datePeriod: any = '';
+  imgPath: string = cordova.file.applicationDirectory + 'www/' + ConstantsProvider.CONFIG_DS_IMG_PATH;
 
 
   constructor(public navCtrl: NavController,
