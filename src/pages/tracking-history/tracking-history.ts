@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
-import SlidingMarker from 'marker-animate-unobtrusive';
+// import SlidingMarker from 'marker-animate-unobtrusive';
 import { ConstantsProvider } from '../../providers/constants/constants';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
 
@@ -170,13 +170,14 @@ export class TrackingHistoryPage {
 
   addMarker(location, image) {
     //Create New Marker on Map
-    this.marker = new SlidingMarker({
+    // this.marker = new SlidingMarker({
+      this.marker = new google.maps.Marker({
       position: location,
       map: this.map,
       // title: "I'm sliding marker",
       // label: 'I am test label',
       icon: image,
-      easing: "easeOutExpo"
+      // easing: "easeOutExpo"
     });
     this.marker.setDuration(TrackingHistoryPage.DEFAULT_MARKER_ANIMATE_DURATION);
     // marker.setEasing('linear');

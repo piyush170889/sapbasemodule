@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import * as firebase from 'Firebase';
-import SlidingMarker from 'marker-animate-unobtrusive';
+// import SlidingMarker from 'marker-animate-unobtrusive';
 import { GeocoderProvider } from "../../providers/geocoder/geocoder";
 
 /**
@@ -11,7 +11,7 @@ import { GeocoderProvider } from "../../providers/geocoder/geocoder";
  * Ionic pages and navigation.
  */
 
- declare var google: any;
+declare var google: any;
 
 @IonicPage()
 @Component({
@@ -50,8 +50,8 @@ export class TrackingPage {
     this.adminUser = this.navParams.get('adminUser');
 
     this.adminUserName = this.adminUser.userDtl.firstName + ' ' + this.adminUser.userDtl.lastName;
-    console.log('Admin User Name = ' + this.adminUserName  
-    + ", firebaseId = " + this.firebaseId);
+    console.log('Admin User Name = ' + this.adminUserName
+      + ", firebaseId = " + this.firebaseId);
 
     this.ref = firebase.database().ref(this.nodeName + this.firebaseId);
 
@@ -68,9 +68,9 @@ export class TrackingPage {
           && '' != this.longitude && '0' != this.longitude) {
           this.geocoderProvider.reverseGeocode(this.latitude, this.longitude)
             .subscribe(
-            (response) => {
-              this.address = response;
-            }
+              (response) => {
+                this.address = response;
+              }
             );
         } else {
           this.address = 'Address Not Available';
@@ -121,7 +121,8 @@ export class TrackingPage {
 
   addMarker(location, image) {
     //Create New Marker on Map
-    this.marker = new SlidingMarker({
+    // this.marker = new SlidingMarker({
+    this.marker = new google.maps.Marker({
       position: location,
       map: this.map,
       // title: "I'm sliding marker",
