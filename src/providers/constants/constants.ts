@@ -70,8 +70,9 @@ export class ConstantsProvider {
   public static APP_DATETIME_DISPLAY_FORMAT = 'dd MMM yy hh:mm A';
 
   // DB Constants
-  public static JBS_APP_DB_NM = 'jbs_app_db.db';
-  public static JBS_APP_DB_LOC = 'default';
+  public static APP_DB_NM = 'jbs_app_db.db';
+  public static APP_DB_LOC = 'default';
+  public static APP_DB_IOS_LOC = 'Library';
 
   //ROLES Constants
   public static ROLE_ADMIN = 'ROLE_ADMIN';
@@ -79,9 +80,11 @@ export class ConstantsProvider {
   public static ROLE_SALES = 'ROLE_SALES';
 
   //CONFIG Constants
-  public static SW_VER = '2.2.2';
+  public static SW_VER = '2.3.3';
   public static BASIC_AUTH_TOKEN = 'c2FwYmFzZW1vZHVsZTpzYXBiYXNlbW9kdWxlLXNlY3JldA==';
   public static CONFIG_NM_CUST_DATA = 'customer_data';
   public static CONFIG_NM_LAST_UPDATED_TS = "last_updated_ts";
-  public static CONFIG_DS_IMG_PATH= 'assets/imgs/stamp.jpg';
+  public static CONFIG_DS_IMG_PATH = 'assets/imgs/stamp.jpg';
+  public static CONFIG_NM_REFRESH_TOKEN = 'refresh-token';
+  public static CONFIG_NM_ACCESS_TOKEN = 'token';
 }

@@ -38,6 +38,7 @@ export class LoginPage {
         private databaseProvider: DatabaseProvider
     ) {
         this.commonUtility.clearStorage();
+
         this.credentials = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
@@ -112,9 +113,13 @@ export class LoginPage {
                                             let userDetails = response.response.userDetails;
 
                                             //Set Data in LocalStorage
-                                            localStorage.setItem('roles', JSON.stringify(rolesArray));
-                                            localStorage.setItem('isRolesUpdated', '1');
-                                            localStorage.setItem('userDetails', JSON.stringify(userDetails));
+                                            this.databaseProvider.setItem('roles', JSON.stringify(rolesArray));
+                                            this.databaseProvider.setItem('isRolesUpdated', '1');
+                                            this.databaseProvider.setItem('userDetails', JSON.stringify(userDetails));
+
+                                            // localStorage.setItem('roles', JSON.stringify(rolesArray));
+                                            // localStorage.setItem('isRolesUpdated', '1');
+                                            // localStorage.setItem('userDetails', JSON.stringify(userDetails));
 
                                             this.syncCustomerData(AuthorizatonSettingsPage);
                                         }
@@ -131,7 +136,7 @@ export class LoginPage {
         }
     }
 
-    
+
     syncCustomerData(componentToNavigate: Page) {
 
         let customersDetailsApiEndpoint = ConstantsProvider.API_BASE_URL

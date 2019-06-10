@@ -1,13 +1,12 @@
 import { AlertController, Events } from 'ionic-angular';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
 
 import { Observable } from 'rxjs';
 import { _throw } from 'rxjs/observable/throw';
-import { catchError, mergeMap } from 'rxjs/operators';
 import { CommonUtilityProvider } from "../common-utility/common-utility";
 import { ConstantsProvider } from "../constants/constants";
+import { DatabaseProvider } from '../database/database';
 
 
 /*
@@ -46,7 +45,8 @@ export class InterceptorProvider implements HttpInterceptor {
         private alertCtrl: AlertController,
         private http: HttpClient,
         private commonUtility: CommonUtilityProvider,
-        public events: Events) { }
+        public events: Events,
+        private databaseProvider: DatabaseProvider) { }
 
     // Intercepts all HTTP requests!
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -137,6 +137,7 @@ export class InterceptorProvider implements HttpInterceptor {
                 .switchMap((response: any) => {
                     if (response.access_token) {
                         this.commonUtility.setTokenInStorage(response);
+                        // this.databaseProvider.setTokenInDb(response);
                         let clonedReq = this.addToken(request, response.access_token);
                         return next.handle(clonedReq);
                     }

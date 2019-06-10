@@ -6,13 +6,10 @@ import { CommonUtilityProvider } from '../../providers/common-utility/common-uti
 import { HttpClient } from '@angular/common/http';
 import { ChangePasswordPage } from '../change-password/change-password';
 import { CustomerMgmtPage } from '../customer-mgmt/customer-mgmt';
-import { AdminUsersPage } from '../admin-users/admin-users';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { LocationTrackerProvider } from '../../providers/location-tracker/location-tracker';
 import { DatabaseProvider } from '../../providers/database/database';
 import { LoginPage } from '../login/login';
-
-// declare var google: any;
 
 @IonicPage()
 @Component({
@@ -23,7 +20,7 @@ export class AuthorizatonSettingsPage {
     // export class AuthorizatonSettingsPage extends BaseComponent {
 
     rolesArray: any = [];
-    userDetails: any;
+    userDetails: any = null;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -68,30 +65,55 @@ export class AuthorizatonSettingsPage {
         //         }
         //     );
 
-        this.rolesArray = null != localStorage.getItem('roles') ? JSON.parse(localStorage.getItem('roles')) : null;
-        this.userDetails = null != localStorage.getItem('userDetails') ? JSON.parse(localStorage.getItem('userDetails')) : null;
+        //Get RolesArray And UserDetails From Storage
+        this.databaseProvider.getItem('roles')
+            .then(
+                res => {
+                    console.log('roles DB Call Response = ' + JSON.stringify(res));
+                    if (res.rows.length > 0) {
+                        let rowData: any = res.rows.item(0).data;
+                        this.rolesArray = null != rowData ? JSON.parse(rowData) : null;
+                    } else
+                        this.rolesArray = null;
 
-        console.log('this.rolesArray = ' + JSON.stringify(this.rolesArray));
+                    this.databaseProvider.getItem('userDetails')
+                        .then(
+                            res => {
+                                if (res.rows.length > 0) {
+                                    let rowData: any = res.rows.item(0).data;
+                                    this.userDetails = null != rowData ? JSON.parse(rowData) : null;
+                                } else
+                                    this.userDetails = null;
 
-        if (null != this.userDetails && null != this.rolesArray) {
+                                console.log('this.rolesArray = ' + JSON.stringify(this.rolesArray));
 
-            if (this.userDetails.isPasswordChanged == 0) {
-                if (this.rolesArray.indexOf(ConstantsProvider.ROLE_SALES) > -1) {
-                    // this.trackUserLocation();
-                    this.navCtrl.setRoot(CustomerMgmtPage);
-                } else if (this.rolesArray.indexOf(ConstantsProvider.ROLE_ADMIN) > -1) {
-                    this.navCtrl.setRoot(CustomerMgmtPage);
+                                if (null != this.userDetails && null != this.rolesArray) {
+
+                                    if (this.userDetails.isPasswordChanged == 0) {
+                                        if (this.rolesArray.indexOf(ConstantsProvider.ROLE_SALES) > -1) {
+                                            // this.trackUserLocation();
+                                            this.navCtrl.setRoot(CustomerMgmtPage);
+                                        } else if (this.rolesArray.indexOf(ConstantsProvider.ROLE_ADMIN) > -1) {
+                                            this.navCtrl.setRoot(CustomerMgmtPage);
+                                        }
+                                    } else {
+                                        this.navCtrl.setRoot(ChangePasswordPage, {
+                                            isForceChange: true
+                                        });
+                                    }
+
+                                    this.events.publish("rolesUpdated");
+                                } else {
+                                    this.navCtrl.setRoot(LoginPage);
+                                }
+                            });
                 }
-            } else {
-                this.navCtrl.setRoot(ChangePasswordPage, {
-                    isForceChange: true
-                });
-            }
+            )
 
-            this.events.publish("rolesUpdated");
-        } else {
-            this.navCtrl.setRoot(LoginPage);
-        }
+        // this.rolesArray = null != localStorage.getItem('roles') ? JSON.parse(localStorage.getItem('roles')) : null;
+        // this.userDetails = null != localStorage.getItem('userDetails') ? JSON.parse(localStorage.getItem('userDetails')) : null;
+
+
     }
 
     public trackUserLocation(): void {

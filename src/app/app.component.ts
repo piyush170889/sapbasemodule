@@ -15,6 +15,7 @@ import { OrderMgmtPage } from '../pages/order-mgmt/order-mgmt';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
 import { DatabaseProvider } from '../providers/database/database';
+import { SQLiteObject } from '@ionic-native/sqlite';
 
 const config = {
     apiKey: 'AIzaSyAwE6RUI2st4uTM40fotjuPJVRJNfuayko',
@@ -45,7 +46,7 @@ export class MyApp {
         private locationTracker: LocationTrackerProvider,
         private databaseProvider: DatabaseProvider
     ) {
-        console.log('Refresh Token = ' + localStorage.getItem('refresh-token'));
+        // console.log('Refresh Token = ' + localStorage.getItem('refresh-token'));
         this.rootPage = localStorage.getItem('refresh-token') == null ? LoginPage : AuthorizatonSettingsPage;
 
         // this.pages.push(
@@ -60,6 +61,26 @@ export class MyApp {
             // Intialize Database
             console.log('Intializing DB');
             this.databaseProvider.intializeDatabase();
+
+            // setTimeout(
+            //     () => {
+            //         this.databaseProvider.getRefreshToken()
+            //             .subscribe(
+            //                 (res: any) => {
+            //                     let refreshToken: any = null;
+            //                     console.log('Refresh Token Fetch Response = ' + JSON.stringify(res));
+
+            //                     if (res.rows.length > 0)
+            //                         refreshToken = JSON.parse(res.rows.item(0).data);
+
+            //                     console.log('Refresh Token = ' + refreshToken);
+            //                     this.rootPage = refreshToken == null ? LoginPage : AuthorizatonSettingsPage;
+            //                 },
+            //                 (err) => {
+            //                     console.log(JSON.stringify(err));
+            //                 }
+            //             );
+            //     }, 1000);
 
             /* let getUserData = localStorage.getItem('roles');
             if (getUserData) {
@@ -127,31 +148,72 @@ export class MyApp {
 
     getSideMenuOptionsByRole() {
         this.pages = [];
-        if (this.commonUtility.hasRole(ConstantsProvider.ROLE_ADMIN)) {
-            console.log('Admin Role Matched');
-            this.pages.push(
-                // { title: 'Tag Mgmt', component: TagMgmtPage },
-                { title: 'Customer Management', component: CustomerMgmtPage },
-                { title: 'Orders', component: OrderMgmtPage },
-                { title: 'Users Mgmt', component: AdminUsersPage },
-                { title: 'Settings', component: SettingsPage },
-            );
-        } else if (this.commonUtility.hasRole(ConstantsProvider.ROLE_SALES)) {
-            console.log('ROLE_SALES Matched');
-            this.pages.push(
-                { title: 'Customer Management', component: CustomerMgmtPage },
-                { title: 'Orders', component: OrderMgmtPage },
-                { title: 'Settings', component: SettingsPage }
-            );
-        } else {
-            console.log('No Roles Matched');
-            this.events.publish("unauthorized:requestError");
-        }
 
-        this.pages.push(
-            { title: 'Logout', component: LoginPage },
-            // { title: 'TestPage', component: TestPage }
-        );
+        this.databaseProvider.initializeSqlLiteDb().then((db: SQLiteObject) => {
+            db.executeSql('SELECT data FROM metadata WHERE configname=?',
+                ['roles'])
+                .then(
+                    res => {
+                        let rolesArray: any[] = null;
+
+                        if (res.rows.length > 0) {
+                            let rowData: any = res.rows.item(0).data;
+                            rolesArray = JSON.parse(rowData);
+                            console.log('rolesArray = ' + JSON.stringify(rolesArray));
+                        }
+
+                        if (rolesArray.indexOf(ConstantsProvider.ROLE_ADMIN) > -1) {
+                            console.log('Admin Role Matched');
+                            this.pages.push(
+                                { title: 'Customer Management', component: CustomerMgmtPage },
+                                { title: 'Orders', component: OrderMgmtPage },
+                                { title: 'Users Mgmt', component: AdminUsersPage },
+                                { title: 'Settings', component: SettingsPage },
+                            );
+                        } else if (rolesArray.indexOf(ConstantsProvider.ROLE_SALES) > -1) {
+                            console.log('ROLE_SALES Matched');
+                            this.pages.push(
+                                { title: 'Customer Management', component: CustomerMgmtPage },
+                                { title: 'Orders', component: OrderMgmtPage },
+                                { title: 'Settings', component: SettingsPage }
+                            );
+                        } else {
+                            console.log('No Roles Matched');
+                            this.events.publish("unauthorized:requestError");
+                        }
+
+                        this.pages.push(
+                            { title: 'Logout', component: LoginPage },
+                        );
+                    }
+                )
+        });
+
+        // if (this.commonUtility.hasRole(ConstantsProvider.ROLE_ADMIN)) {
+        //     console.log('Admin Role Matched');
+        //     this.pages.push(
+        //         // { title: 'Tag Mgmt', component: TagMgmtPage },
+        //         { title: 'Customer Management', component: CustomerMgmtPage },
+        //         { title: 'Orders', component: OrderMgmtPage },
+        //         { title: 'Users Mgmt', component: AdminUsersPage },
+        //         { title: 'Settings', component: SettingsPage },
+        //     );
+        // } else if (this.commonUtility.hasRole(ConstantsProvider.ROLE_SALES)) {
+        //     console.log('ROLE_SALES Matched');
+        //     this.pages.push(
+        //         { title: 'Customer Management', component: CustomerMgmtPage },
+        //         { title: 'Orders', component: OrderMgmtPage },
+        //         { title: 'Settings', component: SettingsPage }
+        //     );
+        // } else {
+        //     console.log('No Roles Matched');
+        //     this.events.publish("unauthorized:requestError");
+        // }
+
+        // this.pages.push(
+        //     { title: 'Logout', component: LoginPage },
+        //     // { title: 'TestPage', component: TestPage }
+        // );
     }
 }
 

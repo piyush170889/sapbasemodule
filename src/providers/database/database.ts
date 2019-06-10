@@ -5,7 +5,6 @@ import { ConstantsProvider } from '../constants/constants';
 import { Network } from '@ionic-native/network';
 import { Observable } from 'rxjs';
 import { RestserviceProvider } from '../restservice/restservice';
-import { CommonUtilityProvider } from '../common-utility/common-utility';
 
 /*
   Generated class for the DatabaseProvider provider.
@@ -20,7 +19,7 @@ export class DatabaseProvider {
     private sqlite: SQLite,
     private network: Network,
     private restService: RestserviceProvider,
-    private commonUtility: CommonUtilityProvider
+    // private commonUtility: CommonUtilityProvider
   ) {
 
     console.log('DatabaseProvider Provider');
@@ -29,8 +28,9 @@ export class DatabaseProvider {
   initializeSqlLiteDb() {
 
     return this.sqlite.create({
-      name: ConstantsProvider.JBS_APP_DB_NM,
-      location: ConstantsProvider.JBS_APP_DB_LOC
+      name: ConstantsProvider.APP_DB_NM,
+      location: ConstantsProvider.APP_DB_LOC
+      // iosDatabaseLocation: ConstantsProvider.APP_DB_IOS_LOC
     });
   }
 
@@ -44,6 +44,20 @@ export class DatabaseProvider {
         .catch(e => console.log(JSON.stringify(e)));
     })
       .catch(e => console.log(JSON.stringify(e)));
+  }
+
+  getRefreshToken() {
+
+    return Observable.fromPromise(
+      this.initializeSqlLiteDb().then((db: SQLiteObject) => {
+        return db.executeSql('SELECT data FROM metadata WHERE configname=?',
+          [ConstantsProvider.CONFIG_NM_REFRESH_TOKEN])
+      })
+        .catch(e => {
+          console.log(JSON.stringify(e));
+          return Observable.throw(e);
+        })
+    );
   }
 
   getCustomerData() {
@@ -146,7 +160,7 @@ export class DatabaseProvider {
 
                 let lastUpdatedTs: Date = new Date(lastUpdatedTsData);
 
-                let diffInMins: number = this.commonUtility.calculateDiffInMins(lastUpdatedTs, new Date());
+                let diffInMins: number = this.calculateDiffInMins(lastUpdatedTs, new Date());
                 if (diffInMins >= 30) {
                   this.syncCustomerData();
                 }
@@ -172,5 +186,148 @@ export class DatabaseProvider {
       .catch(e => {
         console.log(JSON.stringify(e))
       })
+  }
+
+  // setTokenInDb(data: any) {
+
+  //   console.log('Access Token = ' + data.access_token);
+  //   console.log('Refresh Token = ' + data.refresh_token);
+
+  //   this.initializeSqlLiteDb().then((db: SQLiteObject) => {
+
+  //     // Store Refresh Token
+  //     this.setItem(ConstantsProvider.CONFIG_NM_REFRESH_TOKEN, data.refresh_token);
+
+  //     // Store Access Token
+  //     db.executeSql('SELECT data FROM metadata WHERE configname=?', [ConstantsProvider.CONFIG_NM_ACCESS_TOKEN])
+  //       .then(
+  //         res => {
+  //           if (res.rows.length > 0) {
+  //             console.log('Fetched Access Token = ' + res.rows.item(0).data);
+
+  //             db.executeSql('UPDATE metadata set data=? WHERE configname=?', [data.access_token,
+  //             ConstantsProvider.CONFIG_NM_ACCESS_TOKEN])
+  //               .then(
+  //                 res => {
+  //                   console.log('Updated Access Token');
+  //                 }
+  //               )
+  //               .catch(e => {
+  //                 console.log(JSON.stringify(e));
+  //               })
+  //           } else {
+
+  //             db.executeSql('INSERT INTO metadata(configname, data) VALUES(?,?)',
+  //               [ConstantsProvider.CONFIG_NM_ACCESS_TOKEN, data.access_token])
+  //               .then(res => {
+  //                 console.log('Inserted Access Token');
+  //               })
+  //               .catch(e => console.log(JSON.stringify(e)));
+  //           }
+  //         });
+
+  //   })
+  //     .catch(e => {
+  //       console.log(JSON.stringify(e))
+  //     });
+  // }
+
+  setItem(configName: any, configValue: any) {
+
+    console.log('Setting : ' + configName + ' = ' + configValue);
+    this.initializeSqlLiteDb().then((db: SQLiteObject) => {
+
+      db.executeSql('SELECT data FROM metadata WHERE configname=?', [configName])
+        .then(
+          res => {
+            if (res.rows.length > 0) {
+              console.log('Fetched ' + configName + ' = ' + res.rows.item(0).data);
+
+              db.executeSql('UPDATE metadata set data=? WHERE configname=?', [configValue, configName])
+                .then(
+                  res => {
+                    console.log('Updated ' + configName);
+                  }
+                )
+                .catch(e => {
+                  console.log(JSON.stringify(e));
+                })
+            } else {
+
+              db.executeSql('INSERT INTO metadata(configname, data) VALUES(?,?)',
+                [configName, configValue])
+                .then(res => {
+                  console.log('Inserted ' + configName);
+                })
+                .catch(e => console.log(JSON.stringify(e)));
+            }
+          });
+    })
+      .catch(e => {
+        console.log(JSON.stringify(e))
+      });
+  }
+
+  getItem(configName: any) {
+
+      return this.initializeSqlLiteDb().then((db: SQLiteObject) => {
+        return db.executeSql('SELECT data FROM metadata WHERE configname=?',
+          [configName])
+      })
+        .catch(e => {
+          console.log(JSON.stringify(e));
+          // return Observable.throw(e);
+        })
+  }
+
+
+  async getItemAsync(configName: any) {
+
+    let db: SQLiteObject = await this.initializeSqlLiteDb();
+
+    let res: any = await db.executeSql('SELECT data FROM metadata WHERE configname=?', [configName]);
+
+    if (res.rows.length > 0) {
+      return res.rows.item(0).data;
+    }
+  }
+
+  calculateDiffInMins(startDate: Date, endDate: Date) {
+    //Get 1 day in milliseconds
+    var one_day = 1000 * 60;
+
+    // Convert both dates to milliseconds
+    var date1_ms = startDate.getTime();
+    var date2_ms = endDate.getTime();
+
+    // Calculate the difference in milliseconds
+    var difference_ms = date2_ms - date1_ms;
+
+    // Convert back to days and return
+    let diff = Math.round(difference_ms / one_day);
+
+    console.log('diff In Mins = ' + diff);
+    return diff;
+  }
+
+  clearDatabase() {
+
+    this.sqlite.deleteDatabase({
+      name: ConstantsProvider.APP_DB_NM,
+      location: ConstantsProvider.APP_DB_LOC
+      // iosDatabaseLocation: ConstantsProvider.APP_DB_IOS_LOC
+    }).
+      then(
+        res => {
+          console.log(JSON.stringify(res));
+          console.log('Deleted Database');
+        }
+      )
+      .catch(
+        (err) => {
+          console.log(JSON.stringify(err));
+          console.log('Cannot Delete Database');
+        }
+      );
   }
 }

@@ -331,6 +331,8 @@ export class CustomerMgmtPage {
 
   sortDataBySelectedSortOrder(selectedSortOrder: number) {
 
+    console.log('selectedSortOrder = ' + selectedSortOrder);
+
     switch (selectedSortOrder) {
 
       // 1 = Amount (Low - High)
@@ -339,7 +341,6 @@ export class CustomerMgmtPage {
           (a, b) => a.calculatedBal <= b.calculatedBal ? -1 : 1
           // (a, b) => a.customerDetails.balance <= b.customerDetails.balance ? -1 : 1
         );
-        this.currentSortOrder = selectedSortOrder;
         break;
 
       // 2 = Amount (High - Low) 
@@ -348,7 +349,6 @@ export class CustomerMgmtPage {
           (a, b) => a.calculatedBal >= b.calculatedBal ? -1 : 1
           // (a, b) => a.customerDetails.balance >= b.customerDetails.balance ? -1 : 1
         );
-        this.currentSortOrder = selectedSortOrder;
         break;
 
       // 3 = Due Days (Low - High)
@@ -356,7 +356,6 @@ export class CustomerMgmtPage {
         this.customersList.sort(
           (a, b) => a.dueDateInDays <= b.dueDateInDays ? -1 : 1
         );
-        this.currentSortOrder = selectedSortOrder;
         break;
 
       // 4 = Due Days (High - Low)
@@ -364,13 +363,13 @@ export class CustomerMgmtPage {
         this.customersList.sort(
           (a, b) => a.dueDateInDays >= b.dueDateInDays ? -1 : 1
         );
-        this.currentSortOrder = selectedSortOrder;
         break;
 
       default:
-        this.currentSortOrder = selectedSortOrder;
         break;
     }
+
+    this.currentSortOrder = selectedSortOrder;
   }
 
   presentPopoverAging(event: any) {
@@ -412,16 +411,18 @@ export class CustomerMgmtPage {
               // let custCredit: number = 0;
               let custBalance: number = 0;
 
-              customer.customerInvoicesList.forEach(
-                (invoice: any) => {
-                  if (invoice.invoiceDate < dateToCompareFormatted
-                    && (invoice.type == 'IN' || invoice.type == 'OB' || invoice.type == 'JE')) {
-                    // custDebit = custDebit + Number.parseFloat(invoice.debit);
-                    // custCredit = custCredit + Number.parseFloat(invoice.credit);
-                    custBalance = custBalance + Number.parseFloat(invoice.grossTotal);
+              if (customer.customerInvoicesList != null && customer.customerInvoicesList.length > 0) {
+                customer.customerInvoicesList.forEach(
+                  (invoice: any) => {
+                    if (invoice.invoiceDate < dateToCompareFormatted
+                      && (invoice.type == 'IN' || invoice.type == 'OB' || invoice.type == 'JE')) {
+                      // custDebit = custDebit + Number.parseFloat(invoice.debit);
+                      // custCredit = custCredit + Number.parseFloat(invoice.credit);
+                      custBalance = custBalance + Number.parseFloat(invoice.grossTotal);
+                    }
                   }
-                }
-              );
+                );
+              }
 
               // let custBalance: number = custDebit - custCredit;
 

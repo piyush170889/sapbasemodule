@@ -7,6 +7,8 @@ import { DatePipe } from '@angular/common';
 import { CallNumber } from '@ionic-native/call-number';
 import { FileOpener } from '@ionic-native/file-opener';
 import { File } from '@ionic-native/file';
+import { DatabaseProvider } from '../database/database';
+import { SQLiteObject } from '@ionic-native/sqlite';
 
 declare var cordova: any;
 
@@ -14,7 +16,8 @@ declare var cordova: any;
 export class CommonUtilityProvider {
 
     isNetworkAvailableFlag: boolean = true;
-    imgPath: string = cordova.file.applicationDirectory + 'www/' + ConstantsProvider.CONFIG_DS_IMG_PATH;
+    imgPath: string = '';
+    isAsynchTaskCompleted: boolean = false;
 
     constructor(
         private toastCtrl: ToastController,
@@ -23,9 +26,11 @@ export class CommonUtilityProvider {
         private loadingCtrl: LoadingController,
         private network: Network,
         private callNumberNative: CallNumber,
-        private file: File,
+        private databaseProvider: DatabaseProvider,
         public fileOpener: FileOpener) {
+
         console.log('Hello CommonUtilityProvider Provider');
+        this.imgPath = cordova.file.applicationDirectory + 'www/' + ConstantsProvider.CONFIG_DS_IMG_PATH;
     }
 
     // isNetworkAvailable() {
@@ -139,9 +144,11 @@ export class CommonUtilityProvider {
 
     public clearStorage() {
         localStorage.clear();
+        // this.databaseProvider.clearDatabase();
     }
 
     public setTokenInStorage(data: any) {
+
         console.log('Access Token = ' + data.access_token);
         console.log('Refresh Token = ' + data.refresh_token);
 
@@ -150,28 +157,55 @@ export class CommonUtilityProvider {
         localStorage.setItem('isLoggedIn', '1');
     }
 
-    public hasRole(...rolesToCheck) {
+    public hasRole(...rolesToCheck): boolean {
+
         console.log('rolesToCheck = ' + rolesToCheck);
-        let rolesArray = JSON.parse(localStorage.getItem('roles'));
-        console.log('rolesArray = ' + JSON.stringify(rolesArray));
+
+        // let rolesArray = JSON.parse(localStorage.getItem('roles'));
 
         let isRolePresent: boolean = false;
+        this.isAsynchTaskCompleted = false;
 
-        if (null != rolesArray && rolesArray.length != 0) {
-            let rolesToCheckLength = rolesToCheck.length;
-            let rolesArrayLength = rolesArray.length;
-            for (let i = 0; i < rolesToCheckLength; i++) {
-                let roleInCheck = rolesToCheck[i];
-                console.log('roleInCheck = ' + roleInCheck);
-                for (let j = 0; j < rolesArrayLength; j++) {
-                    if (roleInCheck == rolesArray[j]) {
-                        isRolePresent = true;
+        // this.databaseProvider.getItem('roles')
+        this.getRolesFromDb()
+            .then(
+                res => {
+                    console.log('Roles Fetch Res = ' + JSON.stringify(res));
+                    let rolesArray: any[] = null;
+                    if (res.rows.length > 0) {
+                        let rowData: any = res.rows.item(0).data;
+                        rolesArray = JSON.parse(rowData);
+                        console.log('rolesArray = ' + JSON.stringify(rolesArray));
                     }
+
+
+                    if (null != rolesArray && rolesArray.length != 0) {
+                        let rolesToCheckLength = rolesToCheck.length;
+                        let rolesArrayLength = rolesArray.length;
+                        for (let i = 0; i < rolesToCheckLength; i++) {
+                            let roleInCheck = rolesToCheck[i];
+                            console.log('roleInCheck = ' + roleInCheck);
+                            for (let j = 0; j < rolesArrayLength; j++) {
+                                if (roleInCheck == rolesArray[j]) {
+                                    isRolePresent = true;
+                                }
+                            }
+                        }
+                    } else {
+                        this.events.publish("unauthorized:requestError");
+                    }
+
+                    this.isAsynchTaskCompleted = true;
+                    // return isRolePresent;
+                },
+                err => {
+                    console.log(JSON.stringify(err));
+                    this.isAsynchTaskCompleted = true;
+                    // return isRolePresent;
                 }
-            }
-        } else {
-            this.events.publish("unauthorized:requestError");
-        }
+            );
+
+        console.log('Returning Now');
 
         return isRolePresent;
     }
@@ -402,5 +436,15 @@ export class CommonUtilityProvider {
 
         console.log('diff In Mins = ' + diff);
         return diff;
+    }
+
+    async getRolesFromDb() {
+
+        console.log('Rnning');
+
+        return await this.databaseProvider.initializeSqlLiteDb().then((db: SQLiteObject) => {
+            return db.executeSql('SELECT data FROM metadata WHERE configname=?',
+                ['roles']);
+        });
     }
 }
