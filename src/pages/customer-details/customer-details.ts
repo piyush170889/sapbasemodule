@@ -112,15 +112,17 @@ export class CustomerDetailsPage {
     this.customerBalance = 0;
     // let todaysDate: Date = new Date();
 
-    this.customerAllInvoicesList.forEach(
-      (invoice: any) => {
+    if (null != this.customerAllInvoicesList && this.customerAllInvoicesList.length > 0) {
+      this.customerAllInvoicesList.forEach(
+        (invoice: any) => {
 
-        if (invoice.type == 'IN' || invoice.type == 'OB' || invoice.type == 'JE') {
-          console.log('invoice.grossTotal = ' + invoice.grossTotal);
-          this.customerBalance = this.customerBalance + Number.parseFloat(invoice.grossTotal);
-        }
-        // this.commonUtility.calculateDiff(new Date(invoice.invoiceDate), todaysDate)
-      });
+          if (invoice.type == 'IN' || invoice.type == 'OB' || invoice.type == 'JE') {
+            console.log('invoice.grossTotal = ' + invoice.grossTotal);
+            this.customerBalance = this.customerBalance + Number.parseFloat(invoice.grossTotal);
+          }
+          // this.commonUtility.calculateDiff(new Date(invoice.invoiceDate), todaysDate)
+        });
+    }
   }
 
   ionViewDidLoad() {
@@ -201,16 +203,18 @@ export class CustomerDetailsPage {
     let sortedList: any[] = [];
     this.totalLedgerInvoiceBalance = 0;
 
-    this.originalCustomerAllInvoicesList.forEach(
-      (invoice: any) => {
+    if (null != this.originalCustomerAllInvoicesList && this.originalCustomerAllInvoicesList.length > 0) {
+      this.originalCustomerAllInvoicesList.forEach(
+        (invoice: any) => {
 
-        if (invoice.invoiceDate >= '2019-04-01') {
-          console.log("Pass: " + JSON.stringify('Invoice no = ' + invoice.invoiceNo));
-          sortedList.push(invoice);
-          this.totalDebitBalance = this.totalDebitBalance + Number.parseFloat(invoice.debit);
-          this.totalCreditBalance = this.totalCreditBalance + Number.parseFloat(invoice.credit);
-        }
-      });
+          if (invoice.invoiceDate >= '2019-04-01') {
+            console.log("Pass: " + JSON.stringify('Invoice no = ' + invoice.invoiceNo));
+            sortedList.push(invoice);
+            this.totalDebitBalance = this.totalDebitBalance + Number.parseFloat(invoice.debit);
+            this.totalCreditBalance = this.totalCreditBalance + Number.parseFloat(invoice.credit);
+          }
+        });
+    }
 
     this.ledgerInvoiceList = [];
     this.ledgerInvoiceList = sortedList;

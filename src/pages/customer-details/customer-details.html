@@ -295,7 +295,7 @@
 
   <!-- Customer All Invoices List-->
 
-  <div *ngIf="customerAllInvoicesList.length == 0" class="pj-empty-page" style="margin-top: 20%;">
+  <div *ngIf="null == customerAllInvoicesList || customerAllInvoicesList.length == 0" class="pj-empty-page" style="margin-top: 20%;">
     <ion-icon name="ios-document-outline"></ion-icon>
     <h4>No Invoices To Show</h4>
   </div>
