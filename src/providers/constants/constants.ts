@@ -80,7 +80,7 @@ export class ConstantsProvider {
   public static ROLE_SALES = 'ROLE_SALES';
 
   //CONFIG Constants
-  public static SW_VER = '2.3.3';
+  public static SW_VER = '2.3.4';
   public static BASIC_AUTH_TOKEN = 'c2FwYmFzZW1vZHVsZTpzYXBiYXNlbW9kdWxlLXNlY3JldA==';
   public static CONFIG_NM_CUST_DATA = 'customer_data';
   public static CONFIG_NM_LAST_UPDATED_TS = "last_updated_ts";
