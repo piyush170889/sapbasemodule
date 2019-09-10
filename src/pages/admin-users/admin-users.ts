@@ -4,11 +4,7 @@ import { BaseComponent } from '../../custom/base-component';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
 import { HttpClient } from '@angular/common/http';
 import { ConstantsProvider } from '../../providers/constants/constants';
-import { ModalAuAdminUsersPage } from '../modal-au-admin-users/modal-au-admin-users';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
-import { TrackingPage } from '../tracking/tracking';
-import { DatePipe } from "@angular/common/";
-import { TrackingHistoryPage } from '../tracking-history/tracking-history';
 
 /**
  * Generated class for the AdminUsersPage page.
@@ -32,7 +28,8 @@ export class AdminUsersPage extends BaseComponent {
   verifyPasswordUrl: string = ConstantsProvider.API_BASE_URL
     + ConstantsProvider.API_ENDPOINT_VERIFY_PSSWD;
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
     public commonUtility: CommonUtilityProvider,
     public http: HttpClient,
@@ -120,7 +117,7 @@ export class AdminUsersPage extends BaseComponent {
       emailId: ''
     };
 
-    this.navCtrl.push(ModalAuAdminUsersPage, {
+    this.navCtrl.push('ModalAuAdminUsersPage', {
       adminUserDetails: adminUserDetails,
       isAddOperation: false
     });
@@ -181,7 +178,7 @@ export class AdminUsersPage extends BaseComponent {
     // this.createAdminUserModal(true, null);
     let adminUserModalData: any = null;
 
-    this.navCtrl.push(ModalAuAdminUsersPage, {
+    this.navCtrl.push('ModalAuAdminUsersPage', {
       adminUserDetails: adminUserModalData,
       isAddOperation: true
     });
@@ -191,7 +188,7 @@ export class AdminUsersPage extends BaseComponent {
 
     // this.createAdminUserModal(false, adminUser);
 
-    this.navCtrl.push(ModalAuAdminUsersPage, {
+    this.navCtrl.push('ModalAuAdminUsersPage', {
       adminUserDetails: adminUser,
       isAddOperation: false
     });
@@ -220,7 +217,7 @@ export class AdminUsersPage extends BaseComponent {
       };
     }
 
-    let adminDetailsModal: Modal = this.modal.create(ModalAuAdminUsersPage, {
+    let adminDetailsModal: Modal = this.modal.create('ModalAuAdminUsersPage', {
       adminUserDetails: adminUserModalData,
       isAddOperation: isAddOperation
     });
@@ -255,7 +252,7 @@ export class AdminUsersPage extends BaseComponent {
               .subscribe(
                 () => {
                   this.navCtrl.pop();
-                  this.navCtrl.push(AdminUsersPage);
+                  this.navCtrl.push('AdminUsersPage');
                 }
               );
           } else {
@@ -264,7 +261,7 @@ export class AdminUsersPage extends BaseComponent {
               .subscribe(
                 () => {
                   this.navCtrl.pop();
-                  this.navCtrl.push(AdminUsersPage);
+                  this.navCtrl.push('AdminUsersPage');
                 }
               )
           }
@@ -302,14 +299,6 @@ export class AdminUsersPage extends BaseComponent {
 
   navigateToTrackingView(adminUser: any) {
     console.log('Admin User' + JSON.stringify(adminUser));
-
-    if (this.commonUtility.isNetworkAvailable()) {
-      this.navCtrl.push(TrackingPage, {
-        firebaseId: adminUser.firebaseId,
-        // firebaseId: '-LO25JjhKHcpEHRpK448',
-        adminUser: adminUser
-      })
-    }
   }
 
 
@@ -319,19 +308,7 @@ export class AdminUsersPage extends BaseComponent {
 
   showTodaysTrackingRecord(adminUser: any) {
 
-    let pipe = new DatePipe('en-US'); // Use your own locale
-
-    const now = Date.now();
-    const myFormattedDate = pipe.transform(now, 'yyyy-MM-dd');
-
-    console.log('myFormattedDate = ' + myFormattedDate);
-
-    if (this.commonUtility.isNetworkAvailable()) {
-      this.navCtrl.push(TrackingHistoryPage, {
-        adminUser: adminUser,
-        trackDate: myFormattedDate
-      });
-    }
+   console.log('showTodaysTrackingRecord AdminUsersPage');
   }
 
 }

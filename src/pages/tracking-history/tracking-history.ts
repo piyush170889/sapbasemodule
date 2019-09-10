@@ -45,6 +45,8 @@ export class TrackingHistoryPage {
   trackDate: any;
   adminUser: any;
   adminUserName: string;
+  currentDate: string = new Date().toISOString();
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public platform: Platform,
@@ -66,7 +68,8 @@ export class TrackingHistoryPage {
   getTrackingHistoryUrl(): string {
 
     return ConstantsProvider.API_BASE_URL + ConstantsProvider.API_ENDPOINT_USERS 
-    + ConstantsProvider.URL_SEPARATOR + this.adminUser.userDtl.userDtlsId 
+    + ConstantsProvider.URL_SEPARATOR + this.adminUser.contactNum 
+    // + ConstantsProvider.URL_SEPARATOR + this.adminUser.userDtl.userDtlsId 
     + ConstantsProvider.URL_SEPARATOR + ConstantsProvider.API_ENDPOINT_TRACKING_HISTORY + this.trackDate;
 
     // return '';
@@ -179,7 +182,8 @@ export class TrackingHistoryPage {
       icon: image,
       // easing: "easeOutExpo"
     });
-    this.marker.setDuration(TrackingHistoryPage.DEFAULT_MARKER_ANIMATE_DURATION);
+    
+    // this.marker.setDuration(TrackingHistoryPage.DEFAULT_MARKER_ANIMATE_DURATION);
     // marker.setEasing('linear');
   }
 

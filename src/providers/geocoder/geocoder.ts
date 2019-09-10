@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import {
   NativeGeocoder,
-  NativeGeocoderReverseResult,
-  NativeGeocoderForwardResult
+  NativeGeocoderReverseResult
 } from '@ionic-native/native-geocoder';
 import { Observable } from "rxjs/Rx";
 
@@ -17,8 +16,10 @@ import { Observable } from "rxjs/Rx";
 @Injectable()
 export class GeocoderProvider {
 
-  constructor(public http: HttpClient,
-    private _GEOCODE: NativeGeocoder) {
+  constructor(
+    public http: HttpClient,
+    private _GEOCODE: NativeGeocoder
+    ) {
 
     console.log('Hello GeocoderProvider Provider');
   }
@@ -43,7 +44,7 @@ export class GeocoderProvider {
         (results: NativeGeocoderReverseResult[]) => {
           // alert('results = ' + JSON.stringify(results));
 
-          let str: string = `The reverseGeocode address is ${results[0].locality} in ${results[0].countryCode}`;
+          // let str: string = `The reverseGeocode address is ${results[0].locality} in ${results[0].countryCode}`;
           let resolvedLocality = (results[0].locality == null || results[0].locality == '') ? '' : (results[0].locality + ', ');
           let resolvedAddress: string = resolvedLocality + results[0].thoroughfare + ', ' + results[0].subAdministrativeArea
              + ', ' + results[0].administrativeArea;

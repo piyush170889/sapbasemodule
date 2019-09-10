@@ -1,0 +1,79 @@
+<!--
+  Generated template for the DownloadDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="navbar" text-center>
+    <ion-title>Download Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+
+  <div *ngIf="!isDownloadCompleted && !isDownloadSuccessfull" style="margin-top:40%;">
+    <ion-row>
+      <ion-col col-12 text-center>
+        <ion-spinner name="crescent" color="plain"></ion-spinner>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 text-center>
+        <p>Downloading...</p>
+      </ion-col>
+    </ion-row>
+
+  </div>
+
+  <div *ngIf="isDownloadCompleted && isDownloadSuccessfull" style="margin-top:40%;">
+    <ion-row>
+      <ion-col col-12 (click)="openFile()" style="font-style: italic;" text-center>
+        <p>Download Completed. Please check your downloads folder for a file with name: </p>
+        <p>{{ filename }}</p>
+      </ion-col>
+    </ion-row>
+  </div>
+
+
+  <div *ngIf="isDownloadCompleted && !isDownloadSuccessfull" style="margin-top:40%;">
+    <ion-row>
+      <ion-col col-12 (click)="openFile()" style="font-style: italic;" text-center>
+        <p>Unable to complete download. Please try again.</p>
+        <p>{{ error }}</p>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div id="visithistoryxlsx" style="display:none;">
+    <table>
+      <thead>
+        <tr>
+          <td>Location</td>
+          <td>Visited By</td>
+          <td>Entry</td>
+          <!-- <td>Entry Time</td> -->
+          <td>Exit</td>
+          <!-- <td>Exit Time</td> -->
+          <td>Purpose</td>
+          <td>Remarks</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let visitHistoryExcelDataObj of visitHistoryExcelData">
+          <td>{{ visitHistoryExcelDataObj.siteDtls.geofenceName }}</td>
+          <td>{{ visitHistoryExcelDataObj.visitorNm }}</td>
+          <td>. {{ visitHistoryExcelDataObj.entryDt }} {{ visitHistoryExcelDataObj.entryTm }}</td>
+          <td>. {{ visitHistoryExcelDataObj.exitDt }} {{ visitHistoryExcelDataObj.exitTm }}</td>
+          <!-- <td>{{visitHistoryExcelDataObj.}}</td> -->
+          <td>{{ visitHistoryExcelDataObj.visitPurpose }}</td>
+          <td>{{ visitHistoryExcelDataObj.remarks }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</ion-content>

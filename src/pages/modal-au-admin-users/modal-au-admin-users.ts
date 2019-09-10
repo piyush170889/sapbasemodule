@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AdminUsersPage } from '../admin-users/admin-users';
 import { BaseComponent } from '../../custom/base-component';
 import { ConstantsProvider } from '../../providers/constants/constants';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
@@ -19,21 +18,22 @@ import { HttpClient } from '@angular/common/http';
   selector: 'page-modal-au-admin-users',
   templateUrl: 'modal-au-admin-users.html',
 })
-export class ModalAuAdminUsersPage extends BaseComponent{
+export class ModalAuAdminUsersPage extends BaseComponent {
 
   adminUserDetails: any;
   adminUserFormGroup: FormGroup;
   isAddOperation: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
     private formBuilder: FormBuilder,
-    private view: ViewController,
     public commonUtility: CommonUtilityProvider,
     public http: HttpClient) {
 
-      super(ConstantsProvider.API_ENDPOINT_USERS + ConstantsProvider.URL_SEPARATOR
-        + ConstantsProvider.API_ENDPOINT_ADMIN_USERS, commonUtility, http, null);
-  
+    super(ConstantsProvider.API_ENDPOINT_USERS + ConstantsProvider.URL_SEPARATOR
+      + ConstantsProvider.API_ENDPOINT_ADMIN_USERS, commonUtility, http, null);
+
     this.adminUserDetails = this.navParams.get('adminUserDetails');
     this.isAddOperation = this.navParams.get('isAddOperation');
 
@@ -108,7 +108,7 @@ export class ModalAuAdminUsersPage extends BaseComponent{
       this.create(this.adminUserDetails)
         .subscribe(
           () => {
-            this.navCtrl.setRoot(AdminUsersPage);
+            this.navCtrl.setRoot('AdminUsersPage');
             this.commonUtility.presentToast('User Added Successfully', 3000);
           }
         );
@@ -117,7 +117,7 @@ export class ModalAuAdminUsersPage extends BaseComponent{
       this.update(this.adminUserDetails)
         .subscribe(
           () => {
-            this.navCtrl.setRoot(AdminUsersPage);
+            this.navCtrl.setRoot('AdminUsersPage');
             this.commonUtility.presentToast('User Updated Successfully', 3000);
           }
         )

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the PopoverSortFiltersPage page.
@@ -18,9 +18,10 @@ export class PopoverSortFiltersPage {
   sortOrder: number = 0;
   isCustMgmt: boolean = false;
 
-  constructor(public navCtrl: NavController,
+  constructor(
     public navParams: NavParams,
-    private viewController: ViewController) {
+    private viewController: ViewController
+    ) {
 
     this.sortOrder = Number.parseInt(this.navParams.get('sortOrder'));
     this.isCustMgmt = this.navParams.get('isCustMgmt') == null || this.navParams.get('isCustMgmt') == undefined ? false : this.navParams.get('isCustMgmt');

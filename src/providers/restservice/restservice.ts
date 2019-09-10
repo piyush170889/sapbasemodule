@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { CommonUtilityProvider } from "../common-utility/common-utility";
 import { Loading, Events, LoadingController, ToastController, AlertController } from "ionic-angular";
 import { ConstantsProvider } from "../constants/constants";
 import { Network } from '@ionic-native/network';

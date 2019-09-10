@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerAgingReportPage } from '../customer-aging-report/customer-aging-report';
-import { DatePipe } from '@angular/common';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
 
 /**
@@ -23,7 +22,8 @@ export class AgingReportFiltersPage {
   customer: any;
   maxTime: string = new Date().toISOString();
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
     private formBuilder: FormBuilder,
     private commonUtility: CommonUtilityProvider) {
@@ -47,7 +47,7 @@ export class AgingReportFiltersPage {
     console.log('FromDate = ' + this.agingReportFilterFormGroup.controls['fromDate'].value);
       // + ', No Of Days = ' + this.agingReportFilterFormGroup.controls['noOfDays'].value);
 
-    this.navCtrl.push(CustomerAgingReportPage, {
+    this.navCtrl.push('CustomerAgingReportPage', {
       customer: this.customer,
       fromDate: this.agingReportFilterFormGroup.controls['fromDate'].value,
       // noOfDays: this.agingReportFilterFormGroup.controls['noOfDays'].value

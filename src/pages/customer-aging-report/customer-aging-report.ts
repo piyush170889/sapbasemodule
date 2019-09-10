@@ -2,16 +2,13 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Modal, ModalController, AlertController, PopoverController } from 'ionic-angular';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
 import { ConstantsProvider } from '../../providers/constants/constants';
-import { InvoicesListingPage } from '../invoices-listing/invoices-listing';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
-import { CustomerDetailsPage } from '../customer-details/customer-details';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { FileOpener } from '@ionic-native/file-opener';
 import { File } from '@ionic-native/file';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { DatePipe } from '@angular/common';
-import { InvoiceListingSettingsPopoverPage } from '../invoice-listing-settings-popover/invoice-listing-settings-popover';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -52,7 +49,8 @@ export class CustomerAgingReportPage {
   fourthQInvoicesList: any[] = [];
   otherQInvoicesList: any[] = [];
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
     private popOverController: PopoverController,
     private restService: RestserviceProvider,
@@ -146,7 +144,7 @@ export class CustomerAgingReportPage {
       + ', invoicesListToPass = ' + JSON.stringify(invoicesListToPass));
 
     if (invoicesListToPass.length > 0) {
-      this.navCtrl.push(InvoicesListingPage, {
+      this.navCtrl.push('InvoicesListingPage', {
         customer: this.customer,
         fromDate: this.fromDate,
         noOfDays: noOfDays,
@@ -168,7 +166,7 @@ export class CustomerAgingReportPage {
 
   viewCustInfo() {
 
-    let customerDetailsModal: Modal = this.modal.create(CustomerDetailsPage, {
+    let customerDetailsModal: Modal = this.modal.create('CustomerDetailsPage', {
       customer: this.customer,
       isModalData: true
     });
@@ -179,7 +177,7 @@ export class CustomerAgingReportPage {
 
   presentPopover(event: any) {
 
-    const popOver = this.popOverController.create(InvoiceListingSettingsPopoverPage, {
+    const popOver = this.popOverController.create('InvoiceListingSettingsPopoverPage', {
       customer: this.customer
     });
     popOver.present();

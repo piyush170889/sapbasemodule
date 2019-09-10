@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
-import { ChangePasswordPage } from '../change-password/change-password';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ConstantsProvider } from '../../providers/constants/constants';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
-import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
 
 /**
  * Generated class for the SettingsPage page.
@@ -25,10 +23,11 @@ export class SettingsPage {
   isAdmin: boolean = false;
   doEnableNfc: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
     private restService: RestserviceProvider,
-    private alertCtrl: AlertController,
-    private commonUtility: CommonUtilityProvider) {
+    private alertCtrl: AlertController) {
 
   }
 
@@ -65,7 +64,7 @@ export class SettingsPage {
             this.restService.postDetails(this.verifyPasswordUrl, dataTopass)
               .subscribe(
                 () => {
-                  this.navCtrl.push(ChangePasswordPage, {
+                  this.navCtrl.push('ChangePasswordPage', {
                     isForceChange: false
                   });
                 }

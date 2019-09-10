@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavParams } from 'ionic-angular';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
 import { ConstantsProvider } from '../../providers/constants/constants';
 
@@ -19,7 +19,7 @@ export class OrdersBookedPage {
 
   bookedOrdersList: any[] = [];
 
-  constructor(public navCtrl: NavController,
+  constructor(
     public navParams: NavParams,
     private restService: RestserviceProvider) {
 

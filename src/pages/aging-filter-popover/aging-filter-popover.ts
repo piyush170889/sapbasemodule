@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the AgingFilterPopoverPage page.
@@ -17,7 +17,7 @@ export class AgingFilterPopoverPage {
 
   agingperiod: any = 0;
 
-  constructor(public navCtrl: NavController,
+  constructor(
     public navParams: NavParams,
     private viewController: ViewController) {
 

@@ -1,0 +1,61 @@
+<!--
+  Generated template for the PunchExitPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="navbar" text-center>
+    <ion-title>Punch Exit</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-grid>
+
+    <ion-row *ngIf="isPendingRequest">
+      <ion-col col-12>
+        <p style="font-style:italic; font-size:10px;color:red; text-align: center">
+          (Please Punch Exit For Your Last Entry Before Punching Any New Entry)
+        </p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>
+        <h2 color="primary">{{ visitHistory.siteDtls.geofenceName }}</h2>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-4>
+        Entry
+      </ion-col>
+      <ion-col col-8>
+        <!-- {{ momentjs(visitHistory.entryDt).format('DD MMM YY') }} {{ momentjs(visitHistory.entryTm).format('hh:mm a') }} -->
+        {{ momentjs(momentjs(visitHistory.entryDt,'DDMMYY')).format('DD MMM YY') }} {{
+          momentjs(momentjs(visitHistory.entryTm, 'HHmmss')).format('hh:mm A') }}
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>
+        <ion-item class="pj-card-floating-label">
+          <ion-label floating>Remarks*</ion-label>
+          <ion-input type="text" [(ngModel)]="remarks"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-6>
+        <button ion-button class="pj-button-danger" type="button" (click)="dismissModal()">CANCEL</button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button class="pj-button" type="submit" (click)="punchExit()">SUBMIT</button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

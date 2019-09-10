@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { DatePipe } from '@angular/common';
-import { PendingInvoicesPage } from '../pending-invoices/pending-invoices';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
 
 /**
@@ -40,7 +38,7 @@ export class PendingInvoicesFilterPage {
     console.log('fromDate = ' + this.fromDate + ', toDate = ' + this.toDate);
 
     if (this.commonUtility.isNetworkAvailable()) {
-      this.navCtrl.push(PendingInvoicesPage, {
+      this.navCtrl.push('PendingInvoicesPage', {
         fromDate: this.fromDate,
         toDate: this.toDate,
         customer: this.customer

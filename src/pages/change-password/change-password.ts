@@ -22,7 +22,9 @@ export class ChangePasswordPage {
   isForceChange: boolean = false;
   newPassword: string = '';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
     private restService: RestserviceProvider,
     private commonUtility: CommonUtilityProvider) {
     this.isForceChange = this.navParams.get('isForceChange');
@@ -44,7 +46,7 @@ export class ChangePasswordPage {
           this.commonUtility.presentToast('Password Changed SuccessFully', 5000);
 
           setTimeout(() => {
-            this.navCtrl.setRoot(LoginPage);
+            this.navCtrl.setRoot('LoginPage');
           }, 2000);
         }
       )

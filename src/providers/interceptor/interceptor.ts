@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { _throw } from 'rxjs/observable/throw';
 import { CommonUtilityProvider } from "../common-utility/common-utility";
 import { ConstantsProvider } from "../constants/constants";
-import { DatabaseProvider } from '../database/database';
 
 
 /*
@@ -45,8 +44,7 @@ export class InterceptorProvider implements HttpInterceptor {
         private alertCtrl: AlertController,
         private http: HttpClient,
         private commonUtility: CommonUtilityProvider,
-        public events: Events,
-        private databaseProvider: DatabaseProvider) { }
+        public events: Events) { }
 
     // Intercepts all HTTP requests!
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

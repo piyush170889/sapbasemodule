@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ToastController, AlertController, LoadingController, Events } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController, Events, Platform } from 'ionic-angular';
 import { HttpHeaders } from '@angular/common/http';
 import { Network } from "@ionic-native/network";
 import { ConstantsProvider } from '../constants/constants';
 import { DatePipe } from '@angular/common';
 import { CallNumber } from '@ionic-native/call-number';
 import { FileOpener } from '@ionic-native/file-opener';
-import { File } from '@ionic-native/file';
+import * as moment from 'moment-timezone';
 import { DatabaseProvider } from '../database/database';
 import { SQLiteObject } from '@ionic-native/sqlite';
 
@@ -15,6 +15,27 @@ declare var cordova: any;
 @Injectable()
 export class CommonUtilityProvider {
 
+    replaceCustomerInvoice(customer: any, invoice: any): any {
+
+        let customerInvoiceList: any[] = customer.customerInvoicesList;
+
+        customerInvoiceList.forEach(
+            (customerInvoice) => {
+                if (customerInvoice.invoiceNo == invoice.invoiceNo) {
+                    customerInvoiceList.splice(customerInvoiceList.indexOf(customerInvoice), 1);
+                    customerInvoiceList.push(invoice);
+                }
+            }
+        );
+
+        customer.customerInvoicesList = customerInvoiceList
+
+        this.saveCustomerRecord(customer);
+
+        return true;
+    }
+
+    momentjs: any = moment;
     isNetworkAvailableFlag: boolean = true;
     imgPath: string = '';
     isAsynchTaskCompleted: boolean = false;
@@ -27,10 +48,13 @@ export class CommonUtilityProvider {
         private network: Network,
         private callNumberNative: CallNumber,
         private databaseProvider: DatabaseProvider,
-        public fileOpener: FileOpener) {
+        public fileOpener: FileOpener,
+        private platform: Platform) {
 
         console.log('Hello CommonUtilityProvider Provider');
-        this.imgPath = cordova.file.applicationDirectory + 'www/' + ConstantsProvider.CONFIG_DS_IMG_PATH;
+        this.platform.ready().then(() => {
+            this.imgPath = cordova.file.applicationDirectory + 'www/' + ConstantsProvider.CONFIG_DS_IMG_PATH;
+        });
     }
 
     // isNetworkAvailable() {
@@ -446,5 +470,99 @@ export class CommonUtilityProvider {
             return db.executeSql('SELECT data FROM metadata WHERE configname=?',
                 ['roles']);
         });
+    }
+
+    formatDate(dateToFormat: any, format: any) {
+        return this.momentjs(dateToFormat).format(format);
+    }
+
+    distance(lat1, lon1, lat2, lon2, unit) {
+
+        if ((lat1 == lat2) && (lon1 == lon2)) {
+            return 0;
+        }
+        else {
+            let radlat1 = Math.PI * lat1 / 180;
+            let radlat2 = Math.PI * lat2 / 180;
+
+            let theta = lon1 - lon2;
+
+            let radtheta = Math.PI * theta / 180;
+
+            let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+
+            if (dist > 1) {
+                dist = 1;
+            }
+
+            dist = Math.acos(dist);
+            dist = dist * 180 / Math.PI;
+            dist = dist * 60 * 1.1515;
+
+            if (unit == "K") { dist = dist * 1.609344 }
+            if (unit == "N") { dist = dist * 0.8684 }
+
+            return dist;
+        }
+    }
+
+    saveCustomerRecord(customer: any) {
+
+        this.databaseProvider.getCustomerData()
+            .subscribe(
+                (res) => {
+                    let customersList: any[] = [];
+
+                    if (res.rows.length > 0) {
+                        console.log('CustData = ' + res.rows.item(0).data);
+                        customersList = JSON.parse(res.rows.item(0).data);
+
+                        customersList.forEach(
+                            (customerElement: any) => {
+                                if (customerElement.customerDetails.cardCode == customer.customerDetails.cardCode) {
+                                    customersList.splice(customersList.indexOf(customerElement), 1);
+                                    customersList.push(customer);
+                                }
+                            }
+                        );
+
+                        this.databaseProvider.setItem(ConstantsProvider.CONFIG_NM_CUST_DATA, JSON.stringify(customersList));
+                    }
+                }
+            );
+    }
+
+    isNetworkPresent() {
+        if (this.network.type == "unknown" || this.network.type == "none" || this.network.type == undefined)
+            return false;
+        else
+            return true;
+    }
+
+
+    resetSummaryReportDisplayData(summaryReportList: any[]) {
+
+        let finalSummaryReportList: any[] = [];
+
+        summaryReportList.forEach(
+            summaryRecord => {
+                summaryRecord.displayBrand = summaryRecord.brand;
+                summaryRecord.displayApr = summaryRecord.apr;
+                summaryRecord.displayMay = summaryRecord.may;
+                summaryRecord.displayJun = summaryRecord.jun;
+                summaryRecord.displayJul = summaryRecord.jul;
+                summaryRecord.displayAug = summaryRecord.aug;
+                summaryRecord.displaySep = summaryRecord.sep;
+                summaryRecord.displayOct = summaryRecord.oct;
+                summaryRecord.displayNov = summaryRecord.nov;
+                summaryRecord.displayDec = summaryRecord.dec;
+                summaryRecord.displayJan = summaryRecord.jan;
+                summaryRecord.displayFeb = summaryRecord.feb;
+                summaryRecord.displayMar = summaryRecord.mar;
+
+                finalSummaryReportList.push(summaryRecord);
+            });
+
+        return finalSummaryReportList;
     }
 }

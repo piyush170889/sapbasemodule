@@ -1,0 +1,206 @@
+<!--
+  Generated template for the LedgerListingDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="navbar" text-center>
+    <ion-title>Ledger Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-padding>
+
+  <!-- Customer Basic Details -->
+  <ion-card no-margin style="width:100%;">
+
+    <ion-card-header>
+      <ion-row>
+        <ion-col col-12 text-center>
+          <strong>{{customer.customerDetails.cardCode}} - {{customer.customerDetails.cardName}}</strong>
+        </ion-col>
+      </ion-row>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-row>
+        <ion-col col-12 text-center>
+          <span style="font-size:4rem;">
+            <strong>
+              <i class="fa fa-rupee"></i>
+              {{ totalLedgerBalanceDue }}
+            </strong>
+          </span>
+          <p style="color:#E4EBED;font-size:10px;">( Total Ledger Balance )</p>
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Customer All Invoices List-->
+  <ion-row style="margin-bottom:0%;">
+    <ion-col col-6 class="pj-full-width-border" no-margin>
+      <button ion-button (click)="createLedgerPdfAndShare()" style="background-color: #1c2431; font-size: 20px; color:#E4EBED;">
+        <ion-icon name="share"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col col-6 class="pj-full-width-border" no-margin>
+      <button ion-button (click)="downloadLedgerReport()" style="background-color: #1c2431; font-size: 20px; color:#E4EBED;">
+        <ion-icon name="ios-download-outline"></ion-icon>
+      </button>
+    </ion-col>
+    <!-- <ion-col col-4 class="pj-full-width-border" no-margin>
+      <button ion-button (click)="presentPopoverDataSorting($event)" style="background-color: #1c2431; font-size: 20px; color:#E4EBED;">
+        <ion-icon name="ios-funnel"></ion-icon>
+      </button>
+    </ion-col> -->
+  </ion-row>
+
+  <p class="ledger-date" (click)="openLedgerDateSelectionCriteria()">{{
+    momentjs(fromDate).format('DD MMM YY') }} - {{
+    momentjs(tillDate).format('DD MMM YY') }}</p>
+
+
+  <!-- Ledger Invoices List-->
+  <div *ngIf="null == ledgerInvoiceList || ledgerInvoiceList.length == 0" class="pj-empty-page" style="margin-top: 20%;">
+    <ion-icon name="ios-document-outline"></ion-icon>
+    <h4>No Invoices To Show</h4>
+  </div>
+
+  <ion-list>
+    <div *ngFor="let invoice of ledgerInvoiceList">
+      <button color="bgcolor" ion-item (click)="showInvoiceDetails(invoice)">
+        <ion-row>
+          <ion-col col-9>
+            <p color="light"><strong>{{invoice.invoiceNo}}</strong></p>
+            <span style="font-size:10px; color:#AFAFAF">{{momentjs(invoice.invoiceDate).format('DD MMM')}} |
+              {{invoice.dueDateInDays}} Days | Due: {{momentjs(invoice.dueDate).format('DD MMM')}}</span>
+          </ion-col>
+          <!-- <ion-col col-3 *ngIf="invoice.invoiceItemsList != null && invoice.invoiceItemsList != undefined">
+            <p><i class="fa fa-rupee"></i>
+              {{ invoice.grossTotal == 0 ? (Number.parseFloat(invoice.invoiceItemsList[0].total) +
+              Number.parseFloat(invoice.invoiceItemsList[0].cgstTax) +
+              Number.parseFloat(invoice.invoiceItemsList[0].sgstTax) +
+              Number.parseFloat(invoice.invoiceItemsList[0].roundDif)) : invoice.grossTotal}}
+            </p>
+            <span class="pj-bill-status">{{invoice.type}}</span>
+          </ion-col> -->
+          <ion-col col-3>
+            <!-- <p><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p> -->
+            <p><i class="fa fa-rupee"></i> {{invoice.actualTotal}}</p>
+            <span class="pj-bill-status">{{invoice.type}}</span>
+          </ion-col>
+        </ion-row>
+      </button>
+    </div>
+  </ion-list>
+  <!-- ./Ledger Invoices List-->
+
+
+
+  <div id="pdfDivLedger" style="display:none">
+    <!-- <div id="pdfDivLedger"> -->
+    <div style="text-align: center;">
+      <h4>JAGTAP BUILDING SOLUTIONS</h4>
+      <p>Asthavinayak Soc, Opp Bharat Jyoti Stop,</p>
+      <p>Bibwewadi , Pune - 411037</p>
+      <p>Tel No. : (O) 24216162, 9822610611</p>
+      <p>Phone no. : 02024216162</p>
+      <p>Pin code : 411037</p>
+      <p>GSTIN : 27AFJPJ8271L1ZV</p>
+      <p>E-Mail : jagtapbsolutions@gmail.com</p>
+    </div>
+
+    <div style="margin:5% 0;text-align: center; font-weight: bold">
+      <h4>{{customer.customerDetails.cardName}}</h4>
+    </div>
+
+    <div style="text-align: center;">
+      <h4>Ledger Report</h4>
+      <p>{{ momentjs(fromDate).format('DD MMM YY') }} - momentjs(tillDate).format('DD MMM YY')</p>
+      <p>Date {{ momentjs(currDate).format('DD MMM YY') }}</p>
+    </div>
+
+    <div style="margin-top:5%">
+
+      <table style="border:1px solid #000;border-collapse: collapse; width:100%;">
+        <tr>
+          <td style="border:1px solid #000;">
+            Post. Date
+          </td>
+          <td style="border:1px solid #000;">
+            Trans.
+          </td>
+          <td style="border:1px solid #000;">
+            Ref2
+          </td>
+          <td style="border:1px solid #000;">
+            Source
+          </td>
+          <td style="border:1px solid #000;">
+            Debit
+          </td>
+          <td style="border:1px solid #000;">
+            Credit
+          </td>
+        </tr>
+        <tr *ngFor="let ledgerInvoice of ledgerInvoiceList">
+          <td style="border:1px solid #000;">
+            {{momentjs(ledgerInvoice.invoiceDate).format('DD MMM YY')}}
+          </td>
+          <td style="border:1px solid #000;" *ngIf="ledgerInvoice.type == 'OB'">
+            {{ ledgerInvoice.transId }}
+          </td>
+          <td style="border:1px solid #000;" *ngIf="ledgerInvoice.type == 'RC'">
+            {{ ledgerInvoice.originNo }}
+          </td>
+          <td style="border:1px solid #000;" *ngIf="ledgerInvoice.type != 'RC' && ledgerInvoice.type != 'OB'">
+            {{ ledgerInvoice.invoiceNo }}
+          </td>
+          <td style="border:1px solid #000;">
+            {{ledgerInvoice.ref2}}
+          </td>
+          <td style="border:1px solid #000;">
+            {{ ledgerInvoice.type }}
+          </td>
+          <td style="border:1px solid #000;">
+            {{ledgerInvoice.debit == 0 ? '' : ledgerInvoice.debit }}
+          </td>
+          <td style="border:1px solid #000;">
+            {{ledgerInvoice.credit == 0 ? '' : ledgerInvoice.credit}}
+          </td>
+        </tr>
+
+        <tr style="font-weight: bold;">
+          <td colspan=4 style="border:1px solid #000;">
+            Total
+          </td>
+          <td style="border:1px solid #000;">
+            {{totalDebitBalance}}
+          </td>
+          <td style="border:1px solid #000;">
+            {{totalCreditBalance}}
+          </td>
+        </tr>
+
+        <tr style="font-weight: bold;">
+          <td colspan=4 style="border:1px solid #000;">
+            Total Due Balance
+          </td>
+          <td colspan=2 style="border:1px solid #000;">
+            {{ totalLedgerBalanceDue }}
+          </td>
+        </tr>
+      </table>
+
+      <div style="margin-top: 5%; float:right;">
+        <img [src]="imgPath" style="width:100%;height:auto;" />
+      </div>
+    </div>
+  </div>
+</ion-content>

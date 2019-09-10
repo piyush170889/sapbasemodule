@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Modal, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Modal, ModalController, Platform } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { FileOpener } from '@ionic-native/file-opener';
 import { File } from '@ionic-native/file';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { DatePipe } from '@angular/common';
-import { CustomerDetailsPage } from '../customer-details/customer-details';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
-
+import * as moment from 'moment-timezone';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -28,33 +27,100 @@ declare var cordova: any;
 })
 export class InvoiceDetailsPage {
 
-  customer: any;
-  fromDate: string;
-  invoice: any = {};
+  customer: any = {
+    customerDetails: {}
+  };
+  fromDate: string = '';
+  invoice: any = {
+    invoiceItemsList: [{}]
+  };
   pdfObj = null;
   pdf: any;
   totalTax: number = 0;
-  imgPath: string = cordova.file.applicationDirectory + 'www/assets/imgs/stamp.jpg';
+  imgPath: string = '';
+  momentjs: any = moment;
+  signature: any = '';
 
-  constructor(public navCtrl: NavController,
+
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
     public file: File,
     public fileOpener: FileOpener,
     public socialSharing: SocialSharing,
     private modal: ModalController,
-    private commonUtility: CommonUtilityProvider) {
+    private commonUtility: CommonUtilityProvider,
+    private platform: Platform
+  ) {
+
+    console.log('Inside Invoice Details Page');
+
+    this.platform.ready().then(() => {
+      this.imgPath = cordova.file.applicationDirectory + 'www/assets/imgs/stamp.jpg';
+    });
+
+    // this.customer = this.navParams.get('customer');
+    // this.fromDate = this.navParams.get('fromDate');
+    // this.invoice = this.navParams.get('invoice');
+
+    // this.totalTax = Number.parseFloat(this.invoice.invoiceItemsList[0].cgstTax)
+    //   + Number.parseFloat(this.invoice.invoiceItemsList[0].sgstTax);
+    // console.log('total Tax: ' + this.totalTax);
+  }
+
+  ionViewDidLoad() {
+
+    console.log('ionViewDidLoad InvoiceDetailsPage');
 
     this.customer = this.navParams.get('customer');
     this.fromDate = this.navParams.get('fromDate');
     this.invoice = this.navParams.get('invoice');
 
-    this.totalTax = Number.parseFloat(this.invoice.invoiceItemsList[0].cgstTax)
-      + Number.parseFloat(this.invoice.invoiceItemsList[0].sgstTax);
-    console.log('total Tax: ' + this.totalTax);
+    this.signature = this.invoice.signature == null || this.invoice.signature == '' ? '' : this.invoice.signature;
+    console.log('Signature Form API = ' + this.invoice.signature + '\n signature Stored = ' + this.signature);
+
+    console.log('this.customer = ' + JSON.stringify(this.customer)
+      + ' \n this.fromDate = ' + JSON.stringify(this.fromDate)
+      + ' \n this.invoice = ' + JSON.stringify(this.invoice));
+
+    console.log('this.invoice.invoiceDate = ' + JSON.stringify(this.invoice.invoiceDate));
+    this.invoice.invoiceDate = this.invoice.invoiceDate == null || this.invoice.invoiceDate == '' ? ''
+      : new Date(this.invoice.invoiceDate).toISOString();
+
+    this.totalTax = 0;
+
+    if (null != this.invoice.invoiceItemsList && this.invoice.invoiceItemsList.length > 0) {
+      this.totalTax = Number.parseFloat(this.invoice.invoiceItemsList[0].cgstTax)
+        + Number.parseFloat(this.invoice.invoiceItemsList[0].sgstTax);
+      console.log('total Tax: ' + this.totalTax);
+    }
+
+
+    // if (this.invoice.grossTotal == 0) {
+    //   this.invoice.grossTotal = this.invoice.invoiceItemsList[0].total +
+    //     this.invoice.invoiceItemsList[0].cgstTax + this.invoice.invoiceItemsList[0].sgstTax
+    //     + this.invoice.invoiceItemsList[0].roundDif;
+    // }
+
+    // console.log('GrossTotal = ' + this.invoice.grossTotal);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad InvoiceDetailsPage');
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter loaded');
+  }
+
+
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter loaded');
+  }
+
+  ionViewWillLeave() {
+    console.log('ionViewWillLeave loaded');
+  }
+
+  ionViewDidLeave() {
+    console.log('ionViewDidLeave loaded');
   }
 
   downloadReport() {
@@ -119,7 +185,7 @@ export class InvoiceDetailsPage {
       { text: '', border: [false, false, true, false] },
       { text: '', border: [false, false, true, false] },
       { text: '', border: [false, false, true, false] },
-      { text: this.invoice.grossTotal, border: [false, false, false, false] }
+      { text: (this.invoice.grossTotal == 0 ? (Number.parseFloat(this.invoice.invoiceItemsList[0].total) + Number.parseFloat(this.invoice.invoiceItemsList[0].cgstTax) + Number.parseFloat(this.invoice.invoiceItemsList[0].sgstTax) + Number.parseFloat(this.invoice.invoiceItemsList[0].roundDif)) : this.invoice.grossTotal), border: [false, false, false, false] }
     ]);
 
     // let bodyContent: any[] = getTestBodyContent();
@@ -325,11 +391,30 @@ export class InvoiceDetailsPage {
 
   viewCustInfo() {
 
-    let customerDetailsModal: Modal = this.modal.create(CustomerDetailsPage, {
+    let customerDetailsModal: Modal = this.modal.create('CustomerDetailsPage', {
       customer: this.customer,
       isModalData: true
     });
 
     customerDetailsModal.present();
   }
+
+  takeAcknowledgement() {
+
+    console.log('takeAcknowledgement InvoiceDetailsPage');
+
+    this.navCtrl.push('VerifyPinPage', {
+      invoice: this.invoice,
+      customer: this.customer,
+      signature: this.signature,
+      fromDate: this.fromDate
+    });
+    // this.navCtrl.push(SignaturepadPage, {
+    //   invoice: this.invoice,
+    //   customer: this.customer,
+    //   signature: this.signature,
+    //   fromDate: this.fromDate
+    // })
+  }
+
 }

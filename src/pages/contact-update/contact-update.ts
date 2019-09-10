@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
@@ -26,7 +26,7 @@ export class ContactUpdatePage {
   deviceInfo: string = 'STATIC_DATA';
   referrer: any = '';
 
-  constructor(public navCtrl: NavController,
+  constructor(
     public navParams: NavParams,
     private formBuilder: FormBuilder,
     private view: ViewController,

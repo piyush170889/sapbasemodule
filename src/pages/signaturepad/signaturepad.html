@@ -1,0 +1,64 @@
+<!--
+  Generated template for the SignaturepadPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="navbar" text-center>
+    <ion-title>
+      {{invoiceNo}} - Acknowledgement
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-row>
+    <ion-col col-12 class="pj-full-width-border" no-margin>
+      <p *ngIf="customer.customerDetails != null">{{customer.customerDetails.cardCode}} -
+        {{customer.customerDetails.cardName}}</p>
+      <span class="pj-info-letters">{{momentjs(invoice.invoiceDate).format('DD MMM YY')}} | {{invoice.isPaid == 'O' ?
+        'Open' :
+        'Close'}} | Due Date: {{momentjs(invoice.dueDate).format('DD MMM YY')}}</span><br />
+      <span class="pj-info-letters">Ref#: {{invoice.invoiceNo}}</span>
+    </ion-col>
+  </ion-row>
+
+  <div class="title">Please draw your Signature</div>
+
+  <ion-row>
+    <ion-col col-2></ion-col>
+      <ion-col col-8>
+        <button ion-button full color="danger" (click)="clearPad()">Clear</button>
+      </ion-col>
+      <ion-col col-2></ion-col>
+  </ion-row>
+
+  <ion-row [ngClass]="{'drawing-active': isDrawing}">
+    <ion-col></ion-col>
+    <ion-col>
+      <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+    </ion-col>
+    <ion-col></ion-col>
+
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col col-2></ion-col>
+      <ion-col col-8>
+        <button ion-button full color="primary" (click)="savePad()">Save</button>
+      </ion-col>
+      <ion-col col-2></ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col></ion-col>
+    <ion-col width-80>
+      <img [src]="signature" />
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+
+</ion-content>

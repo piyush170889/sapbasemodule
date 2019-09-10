@@ -35,7 +35,7 @@ export class PendingInvoicesPage {
   pdf: any;
   openingBalance: number = 0;
 
-  constructor(public navCtrl: NavController,
+  constructor(
     public navParams: NavParams,
     public restService: RestserviceProvider,
     private commonUtility: CommonUtilityProvider,

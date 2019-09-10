@@ -123,6 +123,17 @@ ion-card-header {
     color: color($colors, primary, base);
 }
 
+.pj-full-width-without-border {
+    width: 100%;
+    /*border-top: 1px solid color($colors, primary, base) !important;
+    border-bottom: 1px solid color($colors, primary, base) !important;*/
+    text-align: center;
+    font-weight: bold;
+    margin: 5% 0 5% 0;
+    background-color: color($colors, dark, base) !important;
+    color: color($colors, primary, base);
+}
+
 .pj-empty-page {
     font-style: italic;
     color: color($colors, light, base) !important;
@@ -216,4 +227,9 @@ ion-card-header {
 
 .pj-paid-inv {
     color: color($colors, secondary, base) !important;
+}
+
+.locations {
+    padding: 1rem;
+    border-bottom: 1px solid color($colors, light, base) !important;
 }

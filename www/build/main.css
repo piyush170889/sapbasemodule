@@ -36725,7 +36725,7 @@ ion-card-header {
 .logo {
   color: #E4EBED !important;
   font-weight: bold;
-  margin-top: 25%;
+  margin-top: 5%;
 }
 
 .pj-full-width-border {
@@ -36735,6 +36735,17 @@ ion-card-header {
   text-align: center;
   font-weight: bold;
   margin-top: 5%;
+  background-color: #1c2431 !important;
+  color: #FFCB08;
+}
+
+.pj-full-width-without-border {
+  width: 100%;
+  /*border-top: 1px solid color($colors, primary, base) !important;
+    border-bottom: 1px solid color($colors, primary, base) !important;*/
+  text-align: center;
+  font-weight: bold;
+  margin: 5% 0 5% 0;
   background-color: #1c2431 !important;
   color: #FFCB08;
 }
@@ -36818,6 +36829,30 @@ ion-card-header {
   border-radius: 8%;
 }
 
+.pj-date-and-status {
+  font-size: 1rem !important;
+  float: right;
+}
+
+.pj-unpaid-inv {
+  color: #f53d3d !important;
+}
+
+.pj-paid-inv {
+  color: #32db64 !important;
+}
+
+.locations {
+  padding: 1rem;
+  border-bottom: 1px solid #E4EBED !important;
+}
+
+page-aging-filter-popover .activeagingperiod {
+  color: #FFCB08;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
 page-customer-aging-report table {
   border-collapse: separate;
   border-spacing: 0;
@@ -36856,10 +36891,6 @@ page-customer-aging-report .bold-heading {
   font-weight: bold !important;
 }
 
-page-customer-details ion-label {
-  margin: 0 !important;
-}
-
 page-customer-mgmt .search-btn {
   padding: 10px 12px;
   background-color: #FFCB08 !important;
@@ -36868,12 +36899,13 @@ page-customer-mgmt .search-btn {
   font-size: 26px;
 }
 
-page-invoices-listing .pj-unpaid-inv {
-  color: #f53d3d !important;
-}
-
-page-invoices-listing .pj-paid-inv {
-  color: #32db64 !important;
+page-ledger-listing-details .ledger-date {
+  color: #E4EBED;
+  font-size: 14px;
+  text-align: center;
+  background-color: #1c2431 !important;
+  padding: 1em;
+  margin: 0;
 }
 
 page-login .headline {
@@ -36909,6 +36941,173 @@ page-order-details .pj-underline-heading {
   color: #FFCB08;
   margin-top: 2%;
   border-bottom: 1px solid #FFCB08;
+}
+
+page-orders-booked .order-items {
+  border-bottom: 1px solid #FFCB08 !important;
+  color: #FFCB08 !important;
+  width: 100%;
+  font-weight: bold;
+  padding: 5px;
+}
+
+page-placeaddress {
+  /* Optional: Makes the sample page fill the window. */
+}
+
+page-placeaddress #map {
+  height: 100%;
+}
+
+page-placeaddress html, page-placeaddress body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+page-placeaddress #description {
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+page-placeaddress #infowindow-content .title {
+  font-weight: bold;
+}
+
+page-placeaddress #infowindow-content {
+  display: none;
+}
+
+page-placeaddress #map #infowindow-content {
+  display: inline;
+}
+
+page-placeaddress .pac-card {
+  margin: 10px 10px 0 0;
+  border-radius: 2px 0 0 2px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  font-family: Roboto;
+}
+
+page-placeaddress #pac-container {
+  padding-bottom: 12px;
+  margin-right: 12px;
+}
+
+page-placeaddress .pac-controls {
+  display: inline-block;
+  padding: 5px 11px;
+}
+
+page-placeaddress .pac-controls label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+page-placeaddress #pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+}
+
+page-placeaddress #pac-input:focus {
+  border-color: #4d90fe;
+}
+
+page-placeaddress #title {
+  color: #fff;
+  background-color: #4d90fe;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 6px 12px;
+}
+
+page-popover-sort-filters .activesortingfilter {
+  color: #FFCB08;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+page-popover-sort-visit .activesortingfilter {
+  color: #FFCB08;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+page-signaturepad .drawing-active {
+  background: #d6fffc;
+}
+
+page-signaturepad .title {
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+}
+
+page-summary-report table {
+  border-collapse: separate;
+  border-spacing: 0;
+  /*border-top: 1px solid grey;*/
+}
+
+page-summary-report td, page-summary-report th {
+  margin: 0;
+  /*border: 1px solid grey;*/
+  white-space: nowrap;
+  border-top-width: 0px;
+  padding: 14px 12px;
+  text-align: left;
+}
+
+page-summary-report .scroll-table-div {
+  width: 70%;
+  overflow-x: scroll;
+  margin-left: 28%;
+  overflow-y: scroll;
+  padding: 0;
+}
+
+page-summary-report .headcol {
+  position: absolute;
+  /*width: 1rem;*/
+  left: 0;
+  top: auto;
+  border-top-width: 1px;
+  /*only relevant for first row*/
+  margin-top: -1px;
+  /*compensate for top border*/
+}
+
+page-summary-report .bold-heading {
+  font-weight: bold !important;
+}
+
+page-summary-report .light-color {
+  color: #E4EBED !important;
+  border-bottom: 1px solid #E4EBED !important;
+}
+
+page-test .drawing-active {
+  background: #d6fffc;
+}
+
+page-test .title {
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
 }
 
 page-tracking-history .mapDisplay {

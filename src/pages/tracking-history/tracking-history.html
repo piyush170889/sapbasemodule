@@ -10,6 +10,9 @@
       {{adminUserName}}
     </ion-title>
   </ion-navbar>
+
+  <!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBshSrAhk_5uO903g1yp6wlgVAaF67ET5s&libraries=places"></script> -->
+
 </ion-header>
 
 <ion-content no-padding>
@@ -17,7 +20,7 @@
   <div style="top:0rem;z-index: 999; margin:0;width: 100%;height:8%">
     <ion-row>
       <ion-col col-12>
-        <ion-datetime text-center [(ngModel)]="trackDate" displayFormat="DD-MM-YYYY" (ionChange)="getTrackingData()"></ion-datetime>
+        <ion-datetime text-center [(ngModel)]="trackDate" [max]="currentDate" displayFormat="DD-MM-YYYY" (ionChange)="getTrackingData()"></ion-datetime>
       </ion-col>
     </ion-row>
   </div>

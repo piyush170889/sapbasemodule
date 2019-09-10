@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Modal, ModalController } from 'ionic-angular';
 import { CommonUtilityProvider } from "../../providers/common-utility/common-utility";
 import { ConstantsProvider } from "../../providers/constants/constants";
 import { RestserviceProvider } from '../../providers/restservice/restservice';
+import * as moment from 'moment-timezone';
 
 /**
  * Generated class for the OrderDetailsPage page.
@@ -12,6 +13,7 @@ import { RestserviceProvider } from '../../providers/restservice/restservice';
  */
 
 export class OrderDetails {
+
   orderDtlsId: number;
   orderPrefix: string = "OR";
   orderNo: string;
@@ -56,6 +58,7 @@ export class OrderDetails {
   createdBy: any;
   createdByName: string;
   orderItemsList: any = [];
+  deliveryDetailsList: any[] = [];
 }
 
 
@@ -67,49 +70,24 @@ export class OrderDetails {
 export class OrderDetailsPage {
 
   orderDtlsId: number;
-  // orderDetails: OrderDetails = new OrderDetails();
   orderDetails: any = {};
   orderItems: any = [];
+  deliveryDetailsList: any[] = [];
   showToast: boolean = false;
   toastMessage: string;
   passedOrderDtls: any;
+  momentjs: any = moment;
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
     public commonUtility: CommonUtilityProvider,
-    // public http: HttpClient) {
-    public restService: RestserviceProvider) {
+    public restService: RestserviceProvider,
+    private modal: ModalController
+  ) {
 
-    // super(ConstantsProvider.API_ENDPOINT_ORDERS, commonUtility, http, null);
     this.orderDtlsId = this.navParams.get("orderDtlsId");
     this.passedOrderDtls = this.navParams.get('orderDtls');
-
-    // this.getById(this.orderDtlsId)
-    //   .subscribe(
-    //   (response) => {
-    //     console.log('Response = ' + JSON.stringify(response));
-
-    //     this.orderDetails = response.response.orderDtls;
-    //     this.extractCustomerData(response.response.orderDtls.custDtl);
-    //     this.orderDetails.areaText = this.commonUtility.getAreaNameByAreaDtlsId(this.orderDetails.areaId);
-    //     this.orderDetails.cityText = this.commonUtility.getCityNameDtlByCityId(this.orderDetails.cityId);
-    //     this.orderDetails.stateText = this.commonUtility.getStateNameDtlByStateId(this.orderDetails.stateId);
-    //     this.orderDetails.createdByName = this.orderDetails.createdBy == null ? '' : this.orderDetails.createdBy.firstName + ' ' + this.orderDetails.createdBy.lastName
-    //     console.log('Area Name = ' + this.orderDetails.areaText + ", City Text = " + this.orderDetails.cityText +
-    //       ', State = ' + this.orderDetails.stateText + ', created By = ' + this.orderDetails.createdByName)
-
-    //     console.log('Order Details = ' + JSON.stringify(this.orderDetails));
-    //     this.orderItems = response.response.orderItemDtlList;
-    //     console.log('Order Items = ' + JSON.stringify(this.orderItems));
-
-    //     this.toastMessage = this.navParams.get('toastMessage');
-    //     this.showToast = this.navParams.get("showToast");
-
-    //     if (this.showToast) {
-    //       this.commonUtility.presentToast(this.toastMessage, 3000);
-    //     }
-    //   }
-    //   );
 
     let orderDetailsApiEndpoint = ConstantsProvider.API_BASE_URL +
       ConstantsProvider.API_ENDPOINT_ORDERS + ConstantsProvider.URL_SEPARATOR + this.orderDtlsId;
@@ -120,84 +98,24 @@ export class OrderDetailsPage {
           console.log('Order Details = ' + JSON.stringify(response));
           this.orderDetails = response.response;
           this.orderItems = this.orderDetails.orderItemsList;
+          this.deliveryDetailsList = this.orderDetails.deliveryDetailsList == null || this.orderDetails.deliveryDetailsList == undefined ? [] : this.orderDetails.deliveryDetailsList;
         }
-      )
+      );
 
-    // //Dummy Data
-    //   this.orderItems.push({
-    //     discount: 0,
-    //     grandTotal: 100,
-    //     itemDesc: 'This is a test Description for the item',
-    //     itemDtlsId: 0,
-    //     itemNo: 'ITM001',
-    //     itemQty: 9,
-    //     itemUom: 'KG',
-    //     reqDt: '1537018561000',
-    //     subTotal: 90,
-    //     taxValue: 10,
-    //     unitPrice: 10 
-    //   },
-    //   {
-    //     discount: 0,
-    //     grandTotal: 100,
-    //     itemDesc: 'This is a test Description for the item',
-    //     itemDtlsId: 0,
-    //     itemNo: 'ITM002',
-    //     itemQty: 9,
-    //     itemUom: 'KG',
-    //     reqDt: '1537018561000',
-    //     subTotal: 90,
-    //     taxValue: 10,
-    //     unitPrice: 10 
-    //   });
 
-    // this.orderDetails = {
-    //   orderDtlsId : this.orderDtlsId,
-    //   orderPrefix: 'OR',
-    //   orderNo : '001',
-    //   quotationPrefix : 'QR',
-    //   quotationNo : '001',
-    //   enquiryNo : '001',
-    //   orderDtls : {
-    //     orderPrefix : 'OR',
-    //     orderNo : '001'
-    //   },
-    //   custNo : '',
-    //   custGSTNo : '27MAHPIYUSH',
-    //   custNm : 'Piyush Jadhav',
-    //   custEmail : 'piyush.jadhav@repleteinc.com',
-    //   cntcPerNm : 'Piyush Jadhav',
-    //   cntcPerNo : '9096409749',
-    //   addrNm : 'Addr Name',
-    //   stAddr : 'Job Site Street Address',
-    //   landmark : 'Job Site Landmark',
-    //   areaId : 1,
-    //   areaText : 'jobSiteAreaText',
-    //   cityId : 1,
-    //   cityText : 'jobSiteCityText',
-    //   stateId : 1,
-    //   stateText : 'jobSiteStateText',
-    //   custDtlsId : 'sjds78wey97wvew97weruy239',
-    //   freightNet : 200,
-    //   freightTaxGross : 220,
-    //   freightTaxPerc : 10,
-    //   freightTaxVal : 20,
-    //   pnfNet : 200,
-    //   pnfTaxGross : 220,
-    //   pnfTaxPerc : 10,
-    //   pnfTaxVal : 20,
-    //   transNet : 200,
-    //   transTaxGross : 220,
-    //   transTaxPerc : 10,
-    //   transTaxVal : 20,
-    //   subTotal : 2000,
-    //   totalTax : 500,
-    //   grandTotal : 2500,
-    //   discount : 0,
-    //   validity : '1537018561000',
-    //   isActive : 1,
-    //   createdTs : '1537018561000'
-    // };
+    // let docNum = this.passedOrderDtls.docNum;
+
+    // let deliveryDetailsApiEndpoint: string = ConstantsProvider.API_BASE_URL
+    //   + ConstantsProvider.API_ENDPOINT_ORDERS + ConstantsProvider.URL_SEPARATOR
+    //   + docNum + ConstantsProvider.URL_SEPARATOR + ConstantsProvider.API_ENDPOINT_ORDER_DLVRY;
+
+    // this.restService.getDetails(deliveryDetailsApiEndpoint)
+    //   .subscribe(
+    //     (response) => {
+    //       console.log('Response = ' + JSON.stringify(response.response));
+    //       this.deliveryDetailsList
+    //     }
+    //   );
   }
 
   extractCustomerData(custData: any) {
@@ -212,29 +130,42 @@ export class OrderDetailsPage {
     console.log('ionViewDidLoad EnquiryDetailsPage');
   }
 
-  // naviagteToOrderUpdatePage() {
-  //   console.log('naviagteToOrderUpdatePage Called');
+  addDeliveryDetails() {
 
-  //   if (this.commonUtility.isNetworkAvailable()) {
-  //     this.navCtrl.push(OrderUpdatePage, {
-  //       orderDetails: this.orderDetails,
-  //       orderItems: this.orderItems,
-  //       isRegisteredCustomer: this.orderDetails.custNo == null || this.orderDetails.custNo == '' ? false : true
-  //     });
-  //   }
-  // }
+    let addDeliveryModal: Modal = this.modal.create('AddDeliveryPage', {
+      orderDetails: this.orderDetails,
+      orderItems: this.orderItems[0]
+    });
 
-  // orderItemDetails(orderItem) {
-  //   console.log('orderItemDetails() called');
+    addDeliveryModal.present();
 
-  //   if (this.commonUtility.isNetworkAvailable) {
-  //     // this.navCtrl.push(OrderItemDetailsPage, {
-  //     //   orderItem: orderItem
-  //     // });
-  //     this.navCtrl.push(DispatchOrdersPage, {
-  //       orderItem : orderItem,
-  //       orderId: this.orderDetails.docNum
-  //     });
-  //   }
-  // }
+    addDeliveryModal.onDidDismiss(
+      (addDeliveryModalData) => {
+        console.log('addDeliveryModalData = ' + JSON.stringify(addDeliveryModalData));
+
+        if (addDeliveryModalData.isAdded) {
+          console.log('quantity = ' + addDeliveryModalData.deliveryDetails.quantity + ', transporter = '
+            + addDeliveryModalData.deliveryDetails.transporterName + ', Veh no = '
+            + addDeliveryModalData.deliveryDetails.vehNo
+            + ', materialSource = ' + addDeliveryModalData.deliveryDetails.materialSource
+            + ', actualDestination = ' + addDeliveryModalData.deliveryDetails.actualDestination);
+
+          this.deliveryDetailsList.push(addDeliveryModalData.deliveryDetails);
+        }
+      });
+  }
+
+
+  navigateToVehicleTrackingView() {
+
+    console.log('firebaseId = -LO25MVjiRanSk4RtZDM');
+
+    // if (this.commonUtility.isNetworkAvailable()) {
+    //   this.navCtrl.push(VehicleTrackingPage, {
+    //     firebaseId: '-LO25MVjiRanSk4RtZDM',
+    //     vehicleNo: 'MH 12 QG 4452'
+    //   });
+    // }
+  }
+
 }

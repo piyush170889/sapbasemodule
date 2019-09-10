@@ -15,6 +15,7 @@ import { RestserviceProvider } from '../restservice/restservice';
 @Injectable()
 export class DatabaseProvider {
 
+
   constructor(public http: HttpClient,
     private sqlite: SQLite,
     private network: Network,
@@ -73,12 +74,39 @@ export class DatabaseProvider {
     );
   }
 
+
+  deleteItem(configName: string) {
+
+    return Observable.fromPromise(
+      this.initializeSqlLiteDb().then((db: SQLiteObject) => {
+        return db.executeSql('delete FROM metadata WHERE configname=?',
+          [configName])
+      })
+        .catch(e => {
+          console.log(JSON.stringify(e))
+        })
+    );
+  }
+
   getLastUpdatedTs() {
 
     return Observable.fromPromise(
       this.initializeSqlLiteDb().then((db: SQLiteObject) => {
         return db.executeSql('SELECT data FROM metadata WHERE configname=?',
           [ConstantsProvider.CONFIG_NM_LAST_UPDATED_TS])
+      })
+        .catch(e => {
+          console.log(JSON.stringify(e))
+        })
+    );
+  }
+
+  getMetaData(configName: any) {
+
+    return Observable.fromPromise(
+      this.initializeSqlLiteDb().then((db: SQLiteObject) => {
+        return db.executeSql('SELECT data FROM metadata WHERE configname=?',
+          [configName])
       })
         .catch(e => {
           console.log(JSON.stringify(e))
@@ -270,14 +298,14 @@ export class DatabaseProvider {
 
   getItem(configName: any) {
 
-      return this.initializeSqlLiteDb().then((db: SQLiteObject) => {
-        return db.executeSql('SELECT data FROM metadata WHERE configname=?',
-          [configName])
+    return this.initializeSqlLiteDb().then((db: SQLiteObject) => {
+      return db.executeSql('SELECT data FROM metadata WHERE configname=?',
+        [configName])
+    })
+      .catch(e => {
+        console.log(JSON.stringify(e));
+        // return Observable.throw(e);
       })
-        .catch(e => {
-          console.log(JSON.stringify(e));
-          // return Observable.throw(e);
-        })
   }
 
 
@@ -330,4 +358,5 @@ export class DatabaseProvider {
         }
       );
   }
+
 }

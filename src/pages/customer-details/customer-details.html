@@ -45,72 +45,7 @@
           <p style="color:#E4EBED;font-size:10px;">Total Due Balance</p>
         </ion-col>
       </ion-row>
-
-      <!-- <ion-row>
-        <ion-col col-12>
-          Contact No.
-        </ion-col>
-      </ion-row>
-      <ion-row *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != ''">
-        <ion-col col-11>
-          {{customer.customerDetails.cellular}}
-        </ion-col>
-        <ion-col col-1 color="primary" (click)="callCust(customer.customerDetails.cellular)">
-          <ion-icon name="md-call"></ion-icon>
-        </ion-col>
-      </ion-row>
-
-      <ion-row *ngIf="customer.customerDetails.phone1 != null && customer.customerDetails.phone1 != ''">
-        <ion-col col-11>
-          {{customer.customerDetails.phone1}}
-        </ion-col>
-        <ion-col col-1 color="primary" (click)="callCust(customer.customerDetails.phone1)">
-          <ion-icon name="md-call"></ion-icon>
-        </ion-col>
-      </ion-row>
-
-      <ion-row *ngIf="customer.customerDetails.phone2 != null && customer.customerDetails.phone2 != ''">
-        <ion-col col-11>
-          {{customer.customerDetails.phone2}}
-        </ion-col>
-        <ion-col col-1 color="primary" (click)="callCust(customer.customerDetails.phone2)">
-          <ion-icon name="md-call"></ion-icon>
-        </ion-col>
-      </ion-row>
-
-
-      <ion-row>
-        <ion-col col-5>
-          Email
-        </ion-col>
-        <ion-col col-7>
-          {{customer.customerDetails.eMail == null || customer.customerDetails.eMail == '' ? 'Not Available' :
-          customer.customerDetails.eMail }}
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col col-5>
-          Balance
-        </ion-col>
-        <ion-col col-7>
-          {{customer.customerDetails.balance == null || customer.customerDetails.balance == '' ? 'Not Available' :
-          customer.customerDetails.balance }}
-        </ion-col>
-      </ion-row> -->
-
     </ion-card-content>
-
-    <!-- <ion-row (click)="shareLedger()" *ngIf="!isModalData" color="dark" style="color: #FFCB08 !important; margin: 2% !important;">
-      <ion-col col-2></ion-col>
-      <ion-col col-2 text-center>
-        <ion-icon name="share" color="primary"></ion-icon>
-      </ion-col>
-      <ion-col col-6 text-left>
-        Share Ledger Report
-      </ion-col>
-      <ion-col col-2></ion-col>
-    </ion-row> -->
   </ion-card>
 
   <!-- Credit Limit And Deviation -->
@@ -125,125 +60,7 @@
     </ion-col>
   </ion-row>
 
-  <!-- Customer Actions  -->
-  <!-- <ion-card *ngIf="!isModalData">
-    <ion-row>
-      <ion-col col-12>
-        <ion-list>
-          <ion-item style="background-color: #1c2431 !important; margin: 0 !important; padding: 0 !important;">
-            <button color="dark" style="color: #FFCB08 !important; margin: 0 !important;" ion-item (click)="showAgingReport()">
-              Aging Report
-              <ion-icon item-end name="ios-arrow-forward"></ion-icon>
-            </button>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-  </ion-card> -->
 
-  <!-- <ion-card *ngIf="!isModalData">
-    <ion-row>
-      <ion-col col-12>
-        <ion-list>
-          <ion-item style="background-color: #1c2431 !important; margin: 0 !important; padding: 0 !important;">
-            <button color="dark" style="color: #FFCB08 !important; margin: 0 !important;" ion-item (click)="showOrders()">
-              Orders
-              <ion-icon item-end name="ios-arrow-forward"></ion-icon>
-            </button>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-  </ion-card> -->
-
-  <!-- Pending Invoices -->
-  <!-- 
-  <ion-card *ngIf="!isModalData">
-    <ion-row>
-      <ion-col col-12>
-        <ion-list>
-          <ion-item style="background-color: #1c2431 !important; margin: 0 !important; padding: 0 !important;">
-            <button color="dark" style="color: #FFCB08 !important; margin: 0 !important;" ion-item (click)="showPendingInvoicesFilter()">
-              Pending Invoices
-              <ion-icon item-end name="ios-arrow-forward"></ion-icon>
-            </button>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-  </ion-card> -->
-
-
-  <!-- Customer Contact Person Details Details -->
-  <!-- <ion-card>
-
-    <ion-card-header>
-      <ion-row>
-        <ion-col col-12 text-center style="border-bottom: 1px solid #FFCB08;">
-          Contact Person
-        </ion-col>
-      </ion-row>
-    </ion-card-header>
-
-    <ion-card-content>
-
-      <ion-row *ngIf="customer.customerDetails.cntctPrsn != null">
-        <ion-col col-8>
-          {{customer.customerDetails.cntctPrsn == '' ? 'Not Available' : customer.customerDetails.cntctPrsn }}
-        </ion-col>
-        <ion-col col-4>
-          {{customer.customerDetails.cntctPrsnNo == null ? '' : customer.customerDetails.cntctPrsnNo }}
-        </ion-col>
-      </ion-row>
-
-      <ion-row *ngIf="customer.customerDetails.cntctPrsn == null">
-        <ion-col col-12>
-          <div class="pj-empty-page">
-            <ion-icon name="ios-contact-outline"></ion-icon>
-            <h4>No Data Available</h4>
-          </div>
-        </ion-col>
-      </ion-row>
-
-    </ion-card-content>
-
-  </ion-card> -->
-
-  <!-- Customer Address Details -->
-  <!-- <ion-card>
-
-    <ion-card-header>
-      <ion-row>
-        <ion-col col-12 text-center style="border-bottom: 1px solid #FFCB08;">
-          Customer Address
-        </ion-col>
-      </ion-row>
-    </ion-card-header>
-
-    <ion-card-content>
-
-      <ion-row *ngIf="customer.customerAddressesList.length > 0">
-        <ion-col col-12 *ngFor="let customerAddresses of customer.customerAddressesList">
-          <p style="border-bottom: 1px solid #cececc; color: #fff;">
-            {{customerAddresses.block == null ? '' : customerAddresses.block }},
-            {{customerAddresses.street == null ? '' : customerAddresses.street }},
-            {{customerAddresses.address2 }}, {{customerAddresses.address3 }}
-          </p>
-        </ion-col>
-      </ion-row>
-
-      <ion-row *ngIf="customer.customerAddressesList.length == 0">
-        <ion-col col-12>
-          <div class="pj-empty-page">
-            <ion-icon name="ios-pin-outline"></ion-icon>
-            <h4>No Address Available</h4>
-          </div>
-        </ion-col>
-      </ion-row>
-
-    </ion-card-content>
-
-  </ion-card> -->
 
   <!-- Customer All Invoices List-->
   <ion-row style="margin-bottom:2%;">
@@ -270,11 +87,6 @@
         <ion-icon name="ios-funnel"></ion-icon>
       </button>
     </ion-col>
-    <!-- <ion-col col-2 class="pj-full-width-border" no-margin>
-      <button ion-button (click)="presentPopover($event)" style="background-color: #1c2431; font-size: 20px; color:#E4EBED;">
-        <ion-icon name="md-more"></ion-icon>
-      </button>
-    </ion-col> -->
   </ion-row>
 
   <ion-card *ngIf="customerBalance != null">
@@ -286,7 +98,8 @@
               <i class="fa fa-rupee"></i> {{customerBalance}}
             </strong>
           </span>
-          <p style="color:#E4EBED;font-size:10px;">( Pending Invoice Balance As Of {{tillDate | date : 'dd MMM yy'}} |
+          <p style="color:#E4EBED;font-size:10px;">( Pending Invoice Balance As Of {{momentjs(tillDate).format('DD MMM
+            YY')}} |
             > {{displayCriteria}} )</p>
         </ion-col>
       </ion-row>
@@ -321,13 +134,14 @@
         <ion-row>
           <ion-col col-9>
             <p color="light"><strong>{{invoice.invoiceNo}}</strong></p>
-            <span style="font-size:10px; color:#AFAFAF">{{invoice.invoiceDate |
-              date: 'dd MMM'}} | {{invoice.dueDateInDays}} Days | Due: {{invoice.dueDate | date: 'dd MMM'}}</span>
+            <span style="font-size:10px; color:#AFAFAF">{{momentjs(invoice.invoiceDate).format('DD MMM')}} |
+              {{invoice.dueDateInDays}} Days | Due: {{momentjs(invoice.dueDate).format('DD MMM')}}</span>
             <!-- <span style="font-size:10px; color:#AFAFAF">{{invoice.invoiceDate |
             date: 'dd MMM'}}</span> -->
           </ion-col>
           <ion-col col-3>
-            <p><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p>
+            <!-- <p><i class="fa fa-rupee"></i> {{invoice.grossTotal}}</p> -->
+            <p><i class="fa fa-rupee"></i> {{invoice.actualTotal}}</p>
             <span class="pj-bill-status">{{invoice.type}}</span>
           </ion-col>
         </ion-row>
@@ -363,7 +177,7 @@
     <div style="text-align: center;">
       <h4>Ledger Report</h4>
       <p>01 Apr 19 - 31 Mar 20</p>
-      <p>Date {{ currDate | date: 'dd MMM yy' }}</p>
+      <p>Date {{ momentjs(currDate).format('DD MMM YY') }}</p>
     </div>
 
     <div style="margin-top:5%">
@@ -391,7 +205,7 @@
         </tr>
         <tr *ngFor="let ledgerInvoice of ledgerInvoiceList">
           <td style="border:1px solid #000;">
-            {{ledgerInvoice.invoiceDate | date : 'dd MMM yy'}}
+            {{momentjs(ledgerInvoice.invoiceDate).format('DD MMM YY')}}
           </td>
           <td style="border:1px solid #000;">
             {{ ledgerInvoice.transId }}
@@ -459,7 +273,7 @@
     <div style="text-align: center;">
       <h4>Overdue Report</h4>
       <p>{{datePeriod}}</p>
-      <p>Date {{ currDate | date: 'dd MMM yy' }}</p>
+      <p>Date {{ momentjs(currDate).format('DD MMM YY') }}</p>
     </div>
 
     <div style="margin-top:5%">
@@ -487,7 +301,7 @@
         </tr>
         <tr *ngFor="let agingInvoice of agingReportList">
           <td style="border:1px solid #000;">
-            {{agingInvoice.invoiceDate | date : 'dd MMM yy'}}
+            {{ agingInvoice.invoiceDate == '' ? '' : momentjs(agingInvoice.invoiceDate).format('DD MMM YY')}}
           </td>
           <td style="border:1px solid #000;">
             {{ agingInvoice.type }}
@@ -499,7 +313,7 @@
             {{ agingInvoice.grossTotal }}
           </td>
           <td style="border:1px solid #000;">
-            {{ agingInvoice.dueDate | date : 'dd MMM yy' }}
+            {{ agingInvoice.dueDate == '' ? '' : momentjs(agingInvoice.dueDate).format('DD MMM YY') }}
           </td>
           <td style="border:1px solid #000;">
             {{ agingInvoice.overduedays }}

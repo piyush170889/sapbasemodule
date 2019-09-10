@@ -3,15 +3,11 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
 import { ConstantsProvider } from '../../providers/constants/constants';
-import { CustomerDetailsPage } from '../customer-details/customer-details';
-import { OrderAddPage } from '../order-add/order-add';
-import { OrderMgmtPage } from '../order-mgmt/order-mgmt';
-import { PopoverSortFiltersPage } from '../popover-sort-filters/popover-sort-filters';
 import { DatabaseProvider } from '../../providers/database/database';
-import { AgingFilterPopoverPage } from '../aging-filter-popover/aging-filter-popover';
 import { DatePipe } from '@angular/common';
 import { SQLiteObject } from '@ionic-native/sqlite';
 import { Network } from '@ionic-native/network';
+import { OrderMgmtPage } from '../order-mgmt/order-mgmt';
 
 /**
  * Generated class for the CustomerMgmtPage page.
@@ -59,19 +55,21 @@ export class CustomerMgmtPage {
 
     this.databaseProvider.getLastUpdatedTs()
       .subscribe(response => {
-        this.tillDate = response.rows.item(0).data;
-        console.log('tillDate = ' + this.tillDate + ', Response = ' + JSON.stringify(response));
+        if (response) {
+          this.tillDate = response.rows.item(0).data;
+          console.log('tillDate = ' + this.tillDate + ', Response = ' + JSON.stringify(response));
 
-        this.updateCustomerDataFromDB();
+          this.updateCustomerDataFromDB();
 
-        let timeSinceLastSync: number = this.commonUtility.calculateDiffInMins(new Date(this.tillDate), new Date());
-        console.log('Till Date : ' + this.tillDate + ', Current Date = ' + new Date() + ', timeSinceLastSync = ' + timeSinceLastSync);
+          let timeSinceLastSync: number = this.commonUtility.calculateDiffInMins(new Date(this.tillDate), new Date());
+          console.log('Till Date : ' + this.tillDate + ', Current Date = ' + new Date() + ', timeSinceLastSync = ' + timeSinceLastSync);
 
-        if (timeSinceLastSync >= 30) {
-          console.log('Synching Data');
-          this.syncCustomerData();
-        } else {
-          console.log('Not Synching Data');
+          if (timeSinceLastSync >= 30) {
+            console.log('Synching Data');
+            this.syncCustomerData();
+          } else {
+            console.log('Not Synching Data');
+          }
         }
       }
       );
@@ -132,7 +130,8 @@ export class CustomerMgmtPage {
     );
 
     this.customersList = sortedList;
-    console.log('total outstanding: ' + this.totalOutstanding);
+    console.log('total outstanding: ' + this.totalOutstanding.toFixed(2));
+    this.totalOutstanding = Number.parseFloat(this.totalOutstanding.toFixed(2));
   }
 
   getCustMgmtApiEndpoint(pageNo: number) {
@@ -203,10 +202,10 @@ export class CustomerMgmtPage {
 
         let searchValLowerCase = searchVal.toLowerCase();
 
-        if ((null != customerDetailsObj.customerDetails.cardName && customerDetailsObj.customerDetails.cardName.toLowerCase().indexOf(searchValLowerCase) > -1)
-          || (customerDetailsObj.customerDetails.phone1 != null
-            && customerDetailsObj.customerDetails.phone1.toLowerCase().indexOf(searchValLowerCase) > -1)
-          || customerDetailsObj.customerDetails.cardCode.toLowerCase().indexOf(searchValLowerCase) > -1)
+        if ((null != customerDetailsObj.customerDetails.cardName && customerDetailsObj.customerDetails.cardName.toLowerCase().indexOf(searchValLowerCase) > -1))
+          // || (customerDetailsObj.customerDetails.phone1 != null
+          //   && customerDetailsObj.customerDetails.phone1.toLowerCase().indexOf(searchValLowerCase) > -1)
+          // || customerDetailsObj.customerDetails.cardCode.toLowerCase().indexOf(searchValLowerCase) > -1)
           return true;
         else
           return false;
@@ -253,7 +252,7 @@ export class CustomerMgmtPage {
       switch (this.referrer) {
 
         case OrderMgmtPage.name:
-          this.navCtrl.push(OrderAddPage, {
+          this.navCtrl.push('OrderAddPage', {
             customer: customer
           });
           break;
@@ -263,7 +262,7 @@ export class CustomerMgmtPage {
       }
     } else {
 
-      this.navCtrl.push(CustomerDetailsPage, {
+      this.navCtrl.push('CustomerDetailsPage', {
         customer: customer,
         isModalData: false
       });
@@ -309,7 +308,7 @@ export class CustomerMgmtPage {
 
   presentPopoverDataSorting(event: any) {
 
-    const popOver = this.popOverController.create(PopoverSortFiltersPage, {
+    const popOver = this.popOverController.create('PopoverSortFiltersPage', {
       sortOrder: this.currentSortOrder,
       isCustMgmt: true
     });
@@ -374,7 +373,7 @@ export class CustomerMgmtPage {
 
   presentPopoverAging(event: any) {
 
-    const popOver = this.popOverController.create(AgingFilterPopoverPage, {
+    const popOver = this.popOverController.create('AgingFilterPopoverPage', {
       agingperiod: this.displayCriteria
     });
     popOver.present({
@@ -448,62 +447,50 @@ export class CustomerMgmtPage {
 
   syncCustomerData() {
 
-    let customersDetailsApiEndpoint = ConstantsProvider.API_BASE_URL
-      + ConstantsProvider.API_ENDPOINT_CUST_DTLS + ConstantsProvider.URL_SEPARATOR
-      + ConstantsProvider.API_ENDPOINT_SYNC;
+    this.databaseProvider.getItem(ConstantsProvider.CONFIG_NM_ACK_INV_OFFLINE)
+      .then(
+        (res) => {
+          console.log(' Offline Ackn Resp = ' + JSON.stringify(res));
 
-    this.isDataSynching = true;
+          if (res.rows.length > 0) {
+            let invoiceAckOffData: any[] = JSON.parse(res.rows.item(0).data);
 
-    if (this.network.type != "unknown" && this.network.type != "none" && this.network.type != undefined) {
+            let invoiceAckOffApiEndpoint: string = ConstantsProvider.API_BASE_URL
+              + ConstantsProvider.API_ENDPOINT_CUST_DTLS + ConstantsProvider.URL_SEPARATOR
+              + ConstantsProvider.API_ENDPOINT_INVOICE_ACKNOWLEDGEMENT;
 
-      this.restService.getDetailsWithoutLoader(customersDetailsApiEndpoint)
-        .subscribe(
-          (response) => {
-            this.isDataSynching = false;
+            this.restService.putDetails(invoiceAckOffApiEndpoint, invoiceAckOffData)
+              .subscribe(
+                (res) => {
+                  console.log('Sync Response = ' + JSON.stringify(res));
 
-            console.log('Customers Data = ' + JSON.stringify(response.response));
-            let customersDetailsList: any[] = response.response;
+                  this.databaseProvider.deleteItem(ConstantsProvider.CONFIG_NM_ACK_INV_OFFLINE)
+                    .subscribe(
+                      (res) => {
+                        console.log('Deleted Invoice Offline Acknowledgement After Sync');
 
-            this.databaseProvider.initializeSqlLiteDb().then((db: SQLiteObject) => {
-
-              db.executeSql('SELECT data from metadata where configname=?',
-                [ConstantsProvider.CONFIG_NM_CUST_DATA])
-                .then(
-                  res => {
-                    if (res.rows.length > 0) {
-                      this.updateCustomerDetailsFromApi(customersDetailsList);
-                    } else {
-                      db.executeSql('INSERT INTO metadata(configname, data) VALUES(?,?)',
-                        [ConstantsProvider.CONFIG_NM_CUST_DATA, ''])
-                        .then(res => {
-                          console.log('Inserted Empty Customer Record');
-                          this.updateCustomerDetailsFromApi(customersDetailsList);
-                        })
-                        .catch(e => {
-                          console.log(JSON.stringify(e))
-                          this.isDataSynching = false;
-                        })
-                    }
-                  }
-                )
-                .catch(e => {
-                  console.log(JSON.stringify(e))
-                  this.isDataSynching = false;
-                })
-            })
-              .catch(e => {
-                console.log(JSON.stringify(e))
-                this.isDataSynching = false;
-              })
-          },
-          (err) => {
-            this.isDataSynching = false;
+                        this.startSynchingCustomerData();
+                      }
+                    );
+                  // .catch(
+                  //   (e) => {
+                  //     console.log('Error = ' + JSON.stringify(e));
+                  //     this.commonUtility.presentErrorToast('Error Synching Customer Data');
+                  //   }
+                  // );
+                }
+              );
+          } else {
+            this.startSynchingCustomerData();
           }
-        );
-    } else {
-      this.commonUtility.presentErrorToast('No Internet Connection');
-      this.isDataSynching = false;
-    }
+        }
+      )
+      .catch(
+        (e) => {
+          console.log('Error = ' + JSON.stringify(e));
+          this.commonUtility.presentErrorToast('Error Synching Customer Data');
+        }
+      );
   }
 
   updateCustomerDetailsFromApi(customersDetailsList: any[]) {
@@ -564,5 +551,65 @@ export class CustomerMgmtPage {
       .catch(e => {
         console.log(JSON.stringify(e))
       })
+  }
+
+  startSynchingCustomerData() {
+
+    let customersDetailsApiEndpoint = ConstantsProvider.API_BASE_URL
+      + ConstantsProvider.API_ENDPOINT_CUST_DTLS + ConstantsProvider.URL_SEPARATOR
+      + ConstantsProvider.API_ENDPOINT_SYNC;
+
+    this.isDataSynching = true;
+
+    if (this.network.type != "unknown" && this.network.type != "none" && this.network.type != undefined) {
+
+      this.restService.getDetailsWithoutLoader(customersDetailsApiEndpoint)
+        .subscribe(
+          (response) => {
+            this.isDataSynching = false;
+
+            console.log('Customers Data = ' + JSON.stringify(response.response));
+            let customersDetailsList: any[] = response.response;
+
+            this.databaseProvider.initializeSqlLiteDb().then((db: SQLiteObject) => {
+
+              db.executeSql('SELECT data from metadata where configname=?',
+                [ConstantsProvider.CONFIG_NM_CUST_DATA])
+                .then(
+                  res => {
+                    if (res.rows.length > 0) {
+                      this.updateCustomerDetailsFromApi(customersDetailsList);
+                    } else {
+                      db.executeSql('INSERT INTO metadata(configname, data) VALUES(?,?)',
+                        [ConstantsProvider.CONFIG_NM_CUST_DATA, ''])
+                        .then(res => {
+                          console.log('Inserted Empty Customer Record');
+                          this.updateCustomerDetailsFromApi(customersDetailsList);
+                        })
+                        .catch(e => {
+                          console.log(JSON.stringify(e))
+                          this.isDataSynching = false;
+                        })
+                    }
+                  }
+                )
+                .catch(e => {
+                  console.log(JSON.stringify(e))
+                  this.isDataSynching = false;
+                })
+            })
+              .catch(e => {
+                console.log(JSON.stringify(e))
+                this.isDataSynching = false;
+              })
+          },
+          (err) => {
+            this.isDataSynching = false;
+          }
+        );
+    } else {
+      this.commonUtility.presentErrorToast('No Internet Connection');
+      this.isDataSynching = false;
+    }
   }
 }

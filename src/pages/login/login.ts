@@ -3,12 +3,10 @@ import { IonicPage, NavController, NavParams, Loading, Platform } from 'ionic-an
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
-import { AuthorizatonSettingsPage } from '../authorizaton-settings/authorizaton-settings';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { ConstantsProvider } from '../../providers/constants/constants';
 import { DatabaseProvider } from '../../providers/database/database';
 import { SQLiteObject } from '@ionic-native/sqlite';
-import { Page } from 'ionic-angular/umd/navigation/nav-util';
 
 /**
  * Generated class for the LoginPage page.
@@ -35,8 +33,10 @@ export class LoginPage {
         public restService: RestserviceProvider,
         private platform: Platform,
         private diagnostic: Diagnostic,
-        private databaseProvider: DatabaseProvider
+        private databaseProvider: DatabaseProvider,
     ) {
+        // this.locationTracker.stopTracking();
+
         this.commonUtility.clearStorage();
 
         this.credentials = this.formBuilder.group({
@@ -85,59 +85,68 @@ export class LoginPage {
     }*/
 
     doLogin() {
-        if (this.commonUtility.isNetworkAvailable()) {
-            this.loader = this.commonUtility.createLoader();
-            this.loader.present().then(
-                () => {
-                    let inputUsername = this.credentials.controls['username'].value;
-                    let inputPassword = this.credentials.controls['password'].value;
 
-                    console.log("Username From Ctrl - " + inputUsername + ", Password From Ctrl - " + inputPassword);
+        this.platform.ready().then(() => {
+            this.diagnostic.isLocationEnabled().then((available) => {
+                if (available) {
+                    if (this.commonUtility.isNetworkAvailable()) {
+                        this.loader = this.commonUtility.createLoader();
+                        this.loader.present().then(
+                            () => {
+                                let inputUsername = this.credentials.controls['username'].value;
+                                let inputPassword = this.credentials.controls['password'].value;
 
-                    this.restService.doLoginRequest(inputUsername, inputPassword)
-                        .subscribe((response) => {
-                            this.loader.dismiss();
-                            if (response) {
-                                // this.navCtrl.setRoot(AuthorizatonSettingsPage);
+                                console.log("Username From Ctrl - " + inputUsername + ", Password From Ctrl - " + inputPassword);
 
-                                let userRolesApiEndpoint = ConstantsProvider.API_BASE_URL +
-                                    ConstantsProvider.API_ENDPOINT_ROLES;
+                                this.restService.doLoginRequest(inputUsername, inputPassword)
+                                    .subscribe((response) => {
+                                        this.loader.dismiss();
+                                        if (response) {
+                                            // this.navCtrl.setRoot(AuthorizatonSettingsPage);
 
-                                this.restService.getDetails(userRolesApiEndpoint)
-                                    .subscribe(
-                                        (response) => {
-                                            console.log(JSON.stringify(response));
+                                            let userRolesApiEndpoint = ConstantsProvider.API_BASE_URL +
+                                                ConstantsProvider.API_ENDPOINT_ROLES;
 
-                                            //Extract REquired Data
-                                            let rolesArray = response.response.roles;
-                                            let userDetails = response.response.userDetails;
+                                            this.restService.getDetails(userRolesApiEndpoint)
+                                                .subscribe(
+                                                    (response) => {
+                                                        console.log(JSON.stringify(response));
 
-                                            //Set Data in LocalStorage
-                                            this.databaseProvider.setItem('roles', JSON.stringify(rolesArray));
-                                            this.databaseProvider.setItem('isRolesUpdated', '1');
-                                            this.databaseProvider.setItem('userDetails', JSON.stringify(userDetails));
+                                                        //Extract REquired Data
+                                                        let rolesArray = response.response.roles;
+                                                        let userDetails = response.response.userDetails;
 
-                                            // localStorage.setItem('roles', JSON.stringify(rolesArray));
-                                            // localStorage.setItem('isRolesUpdated', '1');
-                                            // localStorage.setItem('userDetails', JSON.stringify(userDetails));
+                                                        //Set Data in LocalStorage
+                                                        this.databaseProvider.setItem('roles', JSON.stringify(rolesArray));
+                                                        this.databaseProvider.setItem('isRolesUpdated', '1');
+                                                        this.databaseProvider.setItem('userDetails', JSON.stringify(userDetails));
 
-                                            this.syncCustomerData(AuthorizatonSettingsPage);
+                                                        // localStorage.setItem('roles', JSON.stringify(rolesArray));
+                                                        // localStorage.setItem('isRolesUpdated', '1');
+                                                        // localStorage.setItem('userDetails', JSON.stringify(userDetails));
+
+                                                        this.syncCustomerData('AuthorizatonSettingsPage');
+                                                    }
+                                                );
+                                        } else {
+                                            console.log('An server error occurred.');
                                         }
-                                    );
-                            } else {
-                                console.log('An server error occurred.');
-                            }
-                        }, (err) => {
-                            this.loader.dismiss();
-                            console.log(err)
-                        });
+                                    }, (err) => {
+                                        this.loader.dismiss();
+                                        console.log(err)
+                                    });
 
-                });
-        }
+                            });
+                    }
+                } else {
+                    this.diagnostic.switchToLocationSettings();
+                }
+            });
+        });
     }
 
 
-    syncCustomerData(componentToNavigate: Page) {
+    syncCustomerData(componentToNavigate: string) {
 
         let customersDetailsApiEndpoint = ConstantsProvider.API_BASE_URL
             + ConstantsProvider.API_ENDPOINT_CUST_DTLS + ConstantsProvider.URL_SEPARATOR
@@ -178,7 +187,7 @@ export class LoginPage {
             );
     }
 
-    updateCustomerDetailsFromApi(customersDetailsList: any[], componentToNavigate: Page) {
+    updateCustomerDetailsFromApi(customersDetailsList: any[], componentToNavigate: any) {
 
         this.databaseProvider.initializeSqlLiteDb().then((db: SQLiteObject) => {
             db.executeSql('UPDATE metadata set data=? WHERE configname=?', [JSON.stringify(customersDetailsList),
@@ -215,7 +224,7 @@ export class LoginPage {
             })
     }
 
-    updateLastUpdatedTs(componentToNavigate: Page) {
+    updateLastUpdatedTs(componentToNavigate: any) {
         this.databaseProvider.initializeSqlLiteDb().then((db: SQLiteObject) => {
             db.executeSql('UPDATE metadata set data=? WHERE configname=?', [new Date().toISOString(),
             ConstantsProvider.CONFIG_NM_LAST_UPDATED_TS])
@@ -232,5 +241,14 @@ export class LoginPage {
             .catch(e => {
                 console.log(JSON.stringify(e))
             })
+    }
+
+    
+    ionViewWillEnter() {
+        console.log('ionViewWillEnter AuthorizationSettingsPage');
+
+        // Intialize Database
+        console.log('Intializing DB');
+        this.databaseProvider.intializeDatabase();
     }
 }

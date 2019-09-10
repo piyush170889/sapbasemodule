@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { CommonUtilityProvider } from "../../providers/common-utility/common-utility";
-import { OrderDetailsPage } from "../order-details/order-details";
 import { ConstantsProvider } from "../../providers/constants/constants";
 import { RestserviceProvider } from '../../providers/restservice/restservice';
-import { CustomerMgmtPage } from '../customer-mgmt/customer-mgmt';
-import { OrdersBookedPage } from '../orders-booked/orders-booked';
 
 /**
  * Generated class for the OrderMgmtPage page.
@@ -68,7 +65,7 @@ export class OrderMgmtPage {
   naviagteToOrderCreatePage() {
 
     if (this.commonUtility.isNetworkAvailable()) {
-      this.navCtrl.push(CustomerMgmtPage, {
+      this.navCtrl.push('CustomerMgmtPage', {
         referrer: OrderMgmtPage.name
       });
     }
@@ -79,7 +76,7 @@ export class OrderMgmtPage {
 
     console.log('openOrderDetails()');
     if (this.commonUtility.isNetworkAvailable()) {
-      this.navCtrl.push(OrderDetailsPage, {
+      this.navCtrl.push('OrderDetailsPage', {
         orderDtlsId: orderDtls.docEntry,
         orderDtls: orderDtls
       });
@@ -119,7 +116,7 @@ export class OrderMgmtPage {
     console.log('openBookedOrders OrderMgmtPage');
     if (this.bookedOrderCount > 0) {
       if (this.commonUtility.isNetworkAvailable()) {
-        this.navCtrl.push(OrdersBookedPage);
+        this.navCtrl.push('OrdersBookedPage');
       }
     } else {
       this.commonUtility.presentErrorToast('No Booked Orders To Show');

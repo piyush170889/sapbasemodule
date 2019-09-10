@@ -1,22 +1,15 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController, PopoverController, Modal, ModalController } from 'ionic-angular';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
-import { AgingReportFiltersPage } from '../aging-report-filters/aging-report-filters';
-import { OrderMgmtPage } from '../order-mgmt/order-mgmt';
 import { DatePipe } from '@angular/common';
-import { RestserviceProvider } from '../../providers/restservice/restservice';
 import { ConstantsProvider } from '../../providers/constants/constants';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { FileOpener } from '@ionic-native/file-opener';
 import { File } from '@ionic-native/file';
-import { PendingInvoicesFilterPage } from '../pending-invoices-filter/pending-invoices-filter';
-import { InvoiceDetailsPage } from '../invoice-details/invoice-details';
-import { InvoiceListingSettingsPopoverPage } from '../invoice-listing-settings-popover/invoice-listing-settings-popover';
-import { AgingFilterPopoverPage } from '../aging-filter-popover/aging-filter-popover';
-import { PopoverSortFiltersPage } from '../popover-sort-filters/popover-sort-filters';
-import { ModalLedgerOptionsPage } from '../modal-ledger-options/modal-ledger-options';
+import * as moment from 'moment-timezone';
+
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -36,6 +29,8 @@ declare var cordova: any;
 })
 export class CustomerDetailsPage {
 
+  momentjs: any = moment;
+
   customer: any;
   isModalData: boolean = false;
   ledgerInvoiceList: any[] = [];
@@ -45,7 +40,7 @@ export class CustomerDetailsPage {
   pdf: any;
   customerAllInvoicesList: any[] = [];
   originalCustomerAllInvoicesList: any[] = [];
-  tillDate: any = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(new Date().toISOString(), 'yyyy-MM-dd');
+  tillDate: any = '';
   displayCriteria: any = '0';
   totalInvoiceBalance: number = 0;
   originalCustomerBalance: number = 0;
@@ -64,7 +59,6 @@ export class CustomerDetailsPage {
     public navParams: NavParams,
     private commonUtility: CommonUtilityProvider,
     private view: ViewController,
-    private restService: RestserviceProvider,
     private popOverController: PopoverController,
     private alertCtrl: AlertController,
     public file: File,
@@ -73,6 +67,8 @@ export class CustomerDetailsPage {
     private modalController: ModalController) {
 
 
+    console.log('Running Newest');
+    this.tillDate = this.momentjs(new Date()).format('DD MMM YY');
     this.customer = this.navParams.get('customer');
     this.isModalData = this.navParams.get('isModalData') == undefined || this.navParams.get('isModalData') == null || this.navParams.get('isModalData') == '' ? false : this.navParams.get('isModalData');
 
@@ -81,11 +77,12 @@ export class CustomerDetailsPage {
     this.originalCustomerBalance = Number.parseFloat(this.customer.customerDetails.balance);
     console.log('Original Customer Balance = ' + this.originalCustomerBalance);
 
-    this.customerAllInvoicesList = this.customer.customerInvoicesList;
-    this.originalCustomerAllInvoicesList = this.customer.customerInvoicesList;
+    // this.customerAllInvoicesList = this.customer.customerInvoicesList;
+    // this.originalCustomerAllInvoicesList = this.customer.customerInvoicesList;
 
-    this.setCustomerBalanceAndDueDateInDays();
-    this.updateLedgerList();
+    // this.setCustomerBalanceAndDueDateInDays();
+    // this.updateLedgerList();
+
 
     // let customerAllInvoicesApiEndpoint = ConstantsProvider.API_BASE_URL + ConstantsProvider.API_ENDPOINT_CUST_DTLS
     //   + ConstantsProvider.URL_SEPARATOR + this.customer.customerDetails.cardCode
@@ -127,6 +124,60 @@ export class CustomerDetailsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CustomerDetailsPage');
+
+    //OLD CODE
+    // this.customerAllInvoicesList = this.customer.customerInvoicesList;
+    // this.originalCustomerAllInvoicesList = this.customer.customerInvoicesList;
+
+    //NEW CODE
+    let invoiceSortedList: any[] = this.customer.customerInvoicesList;
+
+    invoiceSortedList.forEach(
+      (invoice: any) => {
+        console.log('Invoice In Iteration = ' + JSON.stringify(invoice));
+        // if (invoice.type == "IN" && invoice.grossTotal == 0) {
+        if (invoice.type == "IN") {
+          let invoiceItemListToIterate: any[] = invoice.invoiceItemsList;
+
+          let invoiceActualTotal: number = 0;
+          let invoiceTotalCgstTax: number = 0;
+          let invoiceTotalSgstTax: number = 0;
+          let invoiceTotalRoundOff: number = 0;
+
+          if (null != invoiceItemListToIterate && undefined != invoiceItemListToIterate && invoiceItemListToIterate.length > 0) {
+            invoiceItemListToIterate.forEach(
+              (invoiceItem: any) => {
+                invoiceTotalCgstTax = invoiceTotalCgstTax + Number.parseFloat(Number.parseFloat(invoiceItem.cgstTax).toFixed(2));
+                invoiceTotalSgstTax = invoiceTotalSgstTax + Number.parseFloat(Number.parseFloat(invoiceItem.sgstTax).toFixed(2));
+                invoiceTotalRoundOff = invoiceTotalRoundOff + Number.parseFloat(Number.parseFloat(invoiceItem.roundDif).toFixed(2));
+                invoiceActualTotal = invoiceActualTotal + Number.parseFloat(Number.parseFloat(invoiceItem.total + invoiceItem.cgstTax
+                  + invoiceItem.sgstTax + invoiceItem.roundDif).toFixed(2));
+              }
+            );
+
+            invoice.actualTotal = invoiceActualTotal;
+            invoice.invoiceTotalCgstTax = invoiceTotalCgstTax;
+            invoice.invoiceTotalSgstTax = invoiceTotalSgstTax;
+            invoice.invoiceTotalRoundOff = invoiceTotalRoundOff;
+          }
+        } else {
+          invoice.actualTotal = invoice.grossTotal;
+          invoice.invoiceTotalCgstTax = invoice.cgstTax;
+          invoice.invoiceTotalSgstTax = invoice.sgstTax;
+          invoice.invoiceTotalRoundOff = invoice.roundDif;
+        }
+
+        console.log('Gross Total = ' + invoice.grossTotal + ', Actual Total = ' + invoice.actualTotal);
+
+        this.customerAllInvoicesList.push(invoice);
+      }
+    );
+
+    this.originalCustomerAllInvoicesList = this.customerAllInvoicesList;
+    //.NEW CODE
+
+    this.setCustomerBalanceAndDueDateInDays();
+    this.updateLedgerList();
   }
 
   dismissModal() {
@@ -141,7 +192,7 @@ export class CustomerDetailsPage {
     console.log('showAgingReport CustomerDetailsPage');
 
     if (this.commonUtility.isNetworkAvailable()) {
-      this.navCtrl.push(AgingReportFiltersPage, {
+      this.navCtrl.push('AgingReportFiltersPage', {
         customer: this.customer
       });
     }
@@ -151,7 +202,7 @@ export class CustomerDetailsPage {
 
     console.log('showOrders CustomerDetailsPage');
     // this.commonUtility.presentToast('Not Yet Implemented', 5000);
-    this.navCtrl.push(OrderMgmtPage, {
+    this.navCtrl.push('OrderMgmtPage', {
       customer: this.customer
     });
   }
@@ -259,7 +310,7 @@ export class CustomerDetailsPage {
       (ledgerInvoice) => {
 
         body.push([
-          new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(ledgerInvoice.invoiceDate, 'dd MMM yyyy'),
+          this.momentjs(ledgerInvoice.invoiceDate).format('DD MMM YYYY'),
           ledgerInvoice.transId, ledgerInvoice.ref2, ledgerInvoice.type,
           ledgerInvoice.debit == 0 ? '' : ledgerInvoice.debit,
           ledgerInvoice.credit == 0 ? '' : ledgerInvoice.credit]);
@@ -318,7 +369,7 @@ export class CustomerDetailsPage {
 
     console.log('showPendingInvoicesFilter CustomerDetails');
 
-    this.navCtrl.push(PendingInvoicesFilterPage, {
+    this.navCtrl.push('PendingInvoicesFilterPage', {
       customer: this.customer
     });
   }
@@ -326,11 +377,12 @@ export class CustomerDetailsPage {
 
   showInvoiceDetails(invoice) {
 
-    console.log('showInvoiceDetails InvoiceListingPage');
-    console.log('invoice.invoiceItemsList = ' + invoice.invoiceItemsList);
+    console.log('showInvoiceDetails CustomerDetailsPage');
+    // console.log('invoice.invoiceItemsList = ' + invoice.invoiceItemsList);
 
     if (invoice.type == 'IN') {
-      this.navCtrl.push(InvoiceDetailsPage, {
+      console.log('Navigating to Invoice Deatils Page')
+      this.navCtrl.push('InvoiceDetailsPage', {
         customer: this.customer,
         fromDate: this.tillDate,
         invoice: invoice
@@ -349,7 +401,7 @@ export class CustomerDetailsPage {
 
   presentPopover(event: any) {
 
-    const popOver = this.popOverController.create(InvoiceListingSettingsPopoverPage, {
+    const popOver = this.popOverController.create('InvoiceListingSettingsPopoverPage', {
       customer: this.customer
     });
     popOver.present({
@@ -359,34 +411,49 @@ export class CustomerDetailsPage {
     popOver.onDidDismiss(
       (data) => {
         if (data && data.showLedger) {
-          // this.shareLedger();
+          // this.showLedgerShareOptions();
 
-          let modal: Modal = this.modalController.create(ModalLedgerOptionsPage);
-          modal.present();
-
-          modal.onDidDismiss(
-            (data) => {
-              if (data.isAdded) {
-                console.log('selected option = ' + data.optionSelected);
-                this.updateLedgerList();
-
-                if (data.optionSelected == 'Share') {
-                  this.shareLedger();
-                } else if (data.optionSelected == 'Print') {
-                  this.downloadLedgerReport();
-                }
-              } else
-                console.log('Nothing Selected');
-            }
-          )
+          this.updateLedgerList();
+          this.navCtrl.push('LedgerListingDetailsPage', {
+            ledgerInvoiceList: this.ledgerInvoiceList,
+            customer: this.customer
+          })
+        } else if (data && data.showSummary) {
+          this.navCtrl.push('CustomerSummaryReportPage', {
+            customerDetails: this.customer.customerDetails,
+            cutomerSummaryReportDetailsList: this.customer.cutomerSummaryReportDetailsList
+          })
         }
       }
     );
   }
 
+
+  showLedgerOptions() {
+    let modal: Modal = this.modalController.create('ModalLedgerOptionsPage');
+    modal.present();
+
+    modal.onDidDismiss(
+      (data) => {
+        if (data.isAdded) {
+          console.log('selected option = ' + data.optionSelected);
+          this.updateLedgerList();
+
+          if (data.optionSelected == 'Share') {
+            this.shareLedger();
+          } else if (data.optionSelected == 'Print') {
+            this.downloadLedgerReport();
+          }
+        } else
+          console.log('Nothing Selected');
+      }
+    );
+  }
+
+
   presentPopoverAging(event: any) {
 
-    const popOver = this.popOverController.create(AgingFilterPopoverPage, {
+    const popOver = this.popOverController.create('AgingFilterPopoverPage', {
       agingperiod: this.displayCriteria
     });
     popOver.present({
@@ -442,7 +509,7 @@ export class CustomerDetailsPage {
 
   presentPopoverDataSorting(event: any) {
 
-    const popOver = this.popOverController.create(PopoverSortFiltersPage, {
+    const popOver = this.popOverController.create('PopoverSortFiltersPage', {
       sortOrder: this.currentSortOrder
     });
 
@@ -520,12 +587,11 @@ export class CustomerDetailsPage {
 
             if (goAhead) {
               body.push([
-                new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.invoiceDate, ConstantsProvider.REPORTS_DATE_FORMAT),
+                this.momentjs(invoice.invoiceDate).format(ConstantsProvider.REPORTS_DATE_FORMAT),
                 invoice.type,
                 invoice.invoiceNo,
                 invoice.grossTotal,
-                new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.dueDate, ConstantsProvider.REPORTS_DATE_FORMAT),
-                // (invoice.dueDateInDays + '').indexOf("-") > -1 ? (invoice.dueDateInDays + '').replace("-", "") : '-' + invoice.dueDateInDays,
+                this.momentjs(invoice.dueDate).format(ConstantsProvider.REPORTS_DATE_FORMAT),
                 this.commonUtility.calculateDiffInDays(new Date(invoice.invoiceDate), todaysDate)
               ]);
             }
@@ -538,7 +604,9 @@ export class CustomerDetailsPage {
       body.push(['', '', 'Total', this.totalInvoiceBalance, '', '']);
 
       let agingPeriod = '>' + this.displayCriteria;
-      let datePeriod = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(this.tillDate, ConstantsProvider.REPORTS_DATE_FORMAT)
+      // let datePeriod = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(this.tillDate, ConstantsProvider.REPORTS_DATE_FORMAT)
+      //   + ' | ' + agingPeriod;
+      let datePeriod = this.momentjs(this.tillDate).format(ConstantsProvider.REPORTS_DATE_FORMAT)
         + ' | ' + agingPeriod;
 
       let docDefinition = this.commonUtility.getDocDefination('Overdue Report', datePeriod,
@@ -572,32 +640,40 @@ export class CustomerDetailsPage {
     this.agingReportList = [];
 
     let i = 1;
-    this.customerAllInvoicesList.forEach(
-      (invoice) => {
-        console.log('i = ' + i);
-        i++;
-        if ((invoice.type == 'JE' || invoice.type == 'IN' || invoice.type == 'OB')) {
 
-          let goAhead: boolean = true;
+    console.log('this.customerAllInvoicesList = ' + JSON.stringify(this.customerAllInvoicesList));
 
-          if (invoice.type == 'IN' && invoice.isPaid != 'O')
-            goAhead = false;
+    if (null != this.customerAllInvoicesList && this.customerAllInvoicesList.length > 0) {
 
-          if (goAhead) {
-            this.agingReportList.push({
-              invoiceDate: new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.invoiceDate, ConstantsProvider.REPORTS_DATE_FORMAT),
-              type: invoice.type,
-              invoiceNo: invoice.invoiceNo,
-              grossTotal: invoice.grossTotal,
-              dueDate: new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.dueDate, ConstantsProvider.REPORTS_DATE_FORMAT),
-              overduedays: this.commonUtility.calculateDiffInDays(new Date(invoice.invoiceDate), todaysDate)
-            });
+      this.customerAllInvoicesList.forEach(
+        (invoice) => {
+          console.log('i = ' + i);
+          i++;
+          if ((invoice.type == 'JE' || invoice.type == 'IN' || invoice.type == 'OB')) {
+
+            let goAhead: boolean = true;
+
+            if (invoice.type == 'IN' && invoice.isPaid != 'O')
+              goAhead = false;
+
+            if (goAhead) {
+              this.agingReportList.push({
+                invoiceDate: this.momentjs(invoice.invoiceDate).format(ConstantsProvider.REPORTS_DATE_FORMAT),
+                // invoiceDate: new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.invoiceDate, ConstantsProvider.REPORTS_DATE_FORMAT),
+                type: invoice.type,
+                invoiceNo: invoice.invoiceNo,
+                grossTotal: invoice.grossTotal,
+                dueDate: this.momentjs(invoice.dueDate).format(ConstantsProvider.REPORTS_DATE_FORMAT),
+                // dueDate: new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(invoice.dueDate, ConstantsProvider.REPORTS_DATE_FORMAT),
+                overduedays: this.commonUtility.calculateDiffInDays(new Date(invoice.invoiceDate), todaysDate)
+              });
+            }
+
+            this.totalInvoiceBalance = this.totalInvoiceBalance + Number.parseFloat(invoice.grossTotal);
           }
-
-          this.totalInvoiceBalance = this.totalInvoiceBalance + Number.parseFloat(invoice.grossTotal);
         }
-      }
-    );
+      );
+    }
 
     console.log('final i = ' + i);
 
@@ -607,8 +683,10 @@ export class CustomerDetailsPage {
     });
 
     this.agingPeriod = '>' + this.displayCriteria;
-    this.datePeriod = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(this.tillDate, ConstantsProvider.REPORTS_DATE_FORMAT)
+    this.datePeriod = this.commonUtility.formatDate(this.tillDate, ConstantsProvider.REPORTS_DATE_FORMAT)
       + ' | ' + this.agingPeriod;
+    // this.datePeriod = new DatePipe(ConstantsProvider.APP_DATE_LOCALE).transform(this.tillDate, ConstantsProvider.REPORTS_DATE_FORMAT)
+    // + ' | ' + this.agingPeriod;
 
     console.log('agingReportList = ' + JSON.stringify(this.agingReportList));
 

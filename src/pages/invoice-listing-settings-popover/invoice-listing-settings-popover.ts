@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the InvoiceListingSettingsPopoverPage page.
@@ -15,15 +15,16 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class InvoiceListingSettingsPopoverPage {
 
-  constructor(public navCtrl: NavController,
+  constructor(
     public navParams: NavParams,
-    private viewController: ViewController) {
+    private viewController: ViewController
+  ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad InvoiceListingSettingsPopoverPage');
   }
-  
+
   dismissPopOver(data: any) {
 
     this.viewController.dismiss(data);
@@ -34,9 +35,19 @@ export class InvoiceListingSettingsPopoverPage {
     console.log('showLedgerReport InvoiceListingSettingsPopoverPage');
 
     this.dismissPopOver({
-      showLedger: true
-    })
+      showLedger: true,
+      showSummary: false
+    });
+  }
 
+  showSummaryReport() {
+
+    console.log('showSummaryReport InvoiceListingSettingsPopoverPage');
+
+    this.dismissPopOver({
+      showLedger: false,
+      showSummary: true
+    });
   }
 
 }

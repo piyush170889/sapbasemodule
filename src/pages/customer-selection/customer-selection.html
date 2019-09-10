@@ -1,0 +1,62 @@
+<!--
+  Generated template for the CustomerSelectionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="navbar">
+    <ion-title text-center>Customer Selection</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-grid no-padding>
+
+    <form [formGroup]="visitFilterGroup">
+
+      <ion-row>
+        <ion-col col-12>
+          <ion-item class="pj-card-floating-label">
+            <ion-label floating>From Date*</ion-label>
+            <ion-datetime formControlName="fromDate" [max]="currDate" pickerFormat="DD-MMM-YYYY" displayFormat="DD-MMM-YYYY"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-12>
+          <ion-item class="pj-card-floating-label">
+            <ion-label floating>Till Date*</ion-label>
+            <ion-datetime formControlName="tillDate" [max]="currDate" pickerFormat="DD-MMM-YYYY" displayFormat="DD-MMM-YYYY"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label>Customer*</ion-label>
+            <ionic-selectable item-content [canSearch]="true" name="itemSelected" [(ngModel)]="selectedCustomerDetails"
+              [items]="customersList" itemValueField="cardCode" itemTextField="cardName" [ngModelOptions]="{standalone : true}"
+              (onChange)="showSelectedCustomer($event)">
+            </ionic-selectable>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-6>
+          <button ion-button class="pj-button-danger" type="button" (click)="dismissModal()">CANCEL</button>
+        </ion-col>
+        <ion-col col-6>
+          <button ion-button class="pj-button" type="submit" (click)="save()">FILTER</button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+  </ion-grid>
+
+</ion-content>

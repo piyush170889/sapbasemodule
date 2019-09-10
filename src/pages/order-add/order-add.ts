@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Modal, ModalController } from 'ionic-angular';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
 import { ConstantsProvider } from '../../providers/constants/constants';
-import { ModalAddItemPage } from '../modal-add-item/modal-add-item';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
-import { OrderMgmtPage } from '../order-mgmt/order-mgmt';
 
 /**
  * Generated class for the OrderAddPage page.
@@ -25,7 +23,8 @@ export class OrderAddPage {
   orderItemsList: any[] = [];
   itemsList: any[] = [];
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
     public restService: RestserviceProvider,
     public modal: ModalController,
@@ -74,7 +73,7 @@ export class OrderAddPage {
 
   createOrderItemModal(isAddOperation: boolean, itemData: any) {
 
-    let orderItemModal: Modal = this.modal.create(ModalAddItemPage, {
+    let orderItemModal: Modal = this.modal.create('ModalAddItemPage', {
       isAddOperation: isAddOperation,
       itemData: itemData,
       itemsList: this.itemsList
@@ -131,7 +130,7 @@ export class OrderAddPage {
             (response) => {
 
               console.log('Response = ' + JSON.stringify(response.response));
-              this.navCtrl.setRoot(OrderMgmtPage);
+              this.navCtrl.setRoot('OrderMgmtPage');
               this.commonUtility.presentToast('Successfully Booked Order', 5000);
             }
           );

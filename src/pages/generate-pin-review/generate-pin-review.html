@@ -1,0 +1,66 @@
+<!--
+  Generated template for the GeneratePinReviewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="navbar" text-center>
+    <ion-title>Generate Pin</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div *ngIf="isCellularAvailable || isPhone1Available || isPhone2Available">
+    <ion-row>
+      <ion-col col-12 color="primary">
+        <h6 style="font-style: italic;">Please select the mobile no. to send verification PIN</h6>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="customer.customerDetails.cellular != null && customer.customerDetails.cellular != ''">
+      <ion-col col-11>
+        <h2>{{customer.customerDetails.cellular}}</h2>
+      </ion-col>
+      <ion-col col-1 color="primary" (click)="generatePin(customer.customerDetails.cellular)">
+        <ion-icon name="ios-arrow-dropright-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="customer.customerDetails.phone1 != null && customer.customerDetails.phone1 != ''">
+      <ion-col col-11>
+        <h2>{{customer.customerDetails.phone1}}</h2>
+      </ion-col>
+      <ion-col col-1 color="primary" (click)="generatePin(customer.customerDetails.phone1)">
+        <ion-icon name="ios-arrow-dropright-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="customer.customerDetails.phone2 != null && customer.customerDetails.phone2 != ''">
+      <ion-col col-11>
+        <h2>{{customer.customerDetails.phone2}}</h2>
+      </ion-col>
+      <ion-col col-1 color="primary" (click)="generatePin(customer.customerDetails.phone2)">
+        <ion-icon name="ios-arrow-dropright-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div *ngIf="!isCellularAvailable && !isPhone1Available && !isPhone2Available">
+    <h6 style="font-style:italic;">This customer has no mobile no. associated with it. Please enter the mobile no. manually to send verification
+      code</h6>
+    <ion-row>
+      <ion-col col-12>
+        <ion-item class="pj-card-floating-label">
+          <ion-label floating>Contact No.*</ion-label>
+          <ion-input type="number" [(ngModel)]="contactNo"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <button ion-button class="pj-button" type="button" (click)="generatePinOnManualNo()">GENERATE PIN</button>
+    </ion-row>
+  </div>
+</ion-content>

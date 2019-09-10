@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Popover, AlertController, Modal, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Modal, ModalController } from 'ionic-angular';
 import { RestserviceProvider } from '../../providers/restservice/restservice';
-import { InvoiceDetailsPage } from '../invoice-details/invoice-details';
 import { ConstantsProvider } from '../../providers/constants/constants';
 import { PopoverController } from 'ionic-angular';
-import { InvoiceListingSettingsPopoverPage } from '../invoice-listing-settings-popover/invoice-listing-settings-popover';
 import { CommonUtilityProvider } from '../../providers/common-utility/common-utility';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { FileOpener } from '@ionic-native/file-opener';
@@ -12,7 +10,6 @@ import { File } from '@ionic-native/file';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { DatePipe } from '@angular/common';
-import { CustomerDetailsPage } from '../customer-details/customer-details';
 
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -52,7 +49,8 @@ export class InvoicesListingPage {
   shareSubject: string = '';
 
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
     public restService: RestserviceProvider,
     private popOverController: PopoverController,
@@ -61,7 +59,8 @@ export class InvoicesListingPage {
     public file: File,
     public fileOpener: FileOpener,
     public socialSharing: SocialSharing,
-    public modal: ModalController) {
+    public modal: ModalController
+    ) {
 
     this.customer = this.navParams.get('customer');
     this.fromDate = this.navParams.get('fromDate');
@@ -125,7 +124,7 @@ export class InvoicesListingPage {
     console.log('invoice.invoiceItemsList = ' + invoice.invoiceItemsList);
 
     if (invoice.type == 'A/R Inv') {
-      this.navCtrl.push(InvoiceDetailsPage, {
+      this.navCtrl.push('InvoiceDetailsPage', {
         customer: this.customer,
         fromDate: this.fromDate,
         invoice: invoice
@@ -144,7 +143,7 @@ export class InvoicesListingPage {
 
   presentPopover(event: any) {
 
-    const popOver = this.popOverController.create(InvoiceListingSettingsPopoverPage, {
+    const popOver = this.popOverController.create('InvoiceListingSettingsPopoverPage', {
       customer: this.customer
     });
     popOver.present();
@@ -385,7 +384,7 @@ export class InvoicesListingPage {
 
   viewCustInfo() {
 
-    let customerDetailsModal: Modal = this.modal.create(CustomerDetailsPage, {
+    let customerDetailsModal: Modal = this.modal.create('CustomerDetailsPage', {
       customer: this.customer,
       isModalData: true
     });

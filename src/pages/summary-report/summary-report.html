@@ -1,0 +1,88 @@
+<!--
+  Generated template for the SummaryReportPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="navbar" text-center>
+    <ion-title>Summary Report</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+  <ion-row style="background-color: #2F3C51 !important; color: #FFCB08 !important">
+    <ion-col col-10 text-center>
+      Last Synced: {{tillDate == null || tillDate == '' ? 'Not Synced' : tillDate | date : 'dd MMM yy hh:mm a'}}
+    </ion-col>
+    <ion-col col-2 text-center>
+      <ion-icon ios="ios-refresh" (click)="syncSummaryReportsData()" md="md-refresh" *ngIf="!isDataSynching"></ion-icon>
+      <ion-spinner name="crescent" *ngIf="isDataSynching" color="plain"></ion-spinner>
+    </ion-col>
+  </ion-row>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-row>
+    <ion-col col-6 text-center color="light" (click)="applyMonthFilters()">
+      Month Filters
+    </ion-col>
+    <ion-col col-6 text-center color="light" (click)="clearFilters()">
+      Clear Filters
+    </ion-col>
+  </ion-row>
+
+  <div class="scroll-table-div">
+    <table>
+      <tr>
+        <th class="headcol light-color" (click)="sortByCust()">Customer Name</th>
+        <td class="long bold-heading light-color" (click)="sortBySalesEmp()">Sale Emp Name</td>
+        <td class="long bold-heading light-color" (click)="sortByBrand()">Brand</td>
+        <td class="long bold-heading light-color" *ngIf="dispApr">Apr</td>
+        <td class="long bold-heading light-color" *ngIf="dispMay">May</td>
+        <td class="long bold-heading light-color" *ngIf="dispJun">Jun</td>
+        <td class="long bold-heading light-color" *ngIf="dispJul">Jul</td>
+        <td class="long bold-heading light-color" *ngIf="dispAug">Aug</td>
+        <td class="long bold-heading light-color" *ngIf="dispSep">Sep</td>
+        <td class="long bold-heading light-color" *ngIf="dispOct">Oct</td>
+        <td class="long bold-heading light-color" *ngIf="dispNov">Nov</td>
+        <td class="long bold-heading light-color" *ngIf="dispDec">Dec</td>
+        <td class="long bold-heading light-color" *ngIf="dispJan">Jan</td>
+        <td class="long bold-heading light-color" *ngIf="dispFeb">Feb</td>
+        <td class="long bold-heading light-color" *ngIf="dispMar">Mar</td>
+      </tr>
+      <tr *ngFor="let summaryReport of summaryReportList">
+        <th class="headcol">{{summaryReport.cardName}}</th>
+        <th class="long">{{summaryReport.salesEmpName}}</th>
+        <!-- <th class="long">{{summaryReport.brand}}</th>
+        <th class="long">{{summaryReport.apr}}</th>
+        <th class="long">{{summaryReport.may}}</th>
+        <th class="long">{{summaryReport.jun}}</th>
+        <th class="long">{{summaryReport.jul}}</th>
+        <th class="long">{{summaryReport.aug}}</th>
+        <th class="long">{{summaryReport.sep}}</th>
+        <th class="long">{{summaryReport.oct}}</th>
+        <th class="long">{{summaryReport.nov}}</th>
+        <th class="long">{{summaryReport.dec}}</th>
+        <th class="long">{{summaryReport.jan}}</th>
+        <th class="long">{{summaryReport.feb}}</th>
+        <th class="long">{{summaryReport.mar}}</th> -->
+        <th class="long">{{summaryReport.displayBrand}}</th>
+        <th class="long" *ngIf="dispApr">{{summaryReport.displayApr}}</th>
+        <th class="long" *ngIf="dispMay">{{summaryReport.displayMay}}</th>
+        <th class="long" *ngIf="dispJun">{{summaryReport.displayJun}}</th>
+        <th class="long" *ngIf="dispJul">{{summaryReport.displayJul}}</th>
+        <th class="long" *ngIf="dispAug">{{summaryReport.displayAug}}</th>
+        <th class="long" *ngIf="dispSep">{{summaryReport.displaySep}}</th>
+        <th class="long" *ngIf="dispOct">{{summaryReport.displayOct}}</th>
+        <th class="long" *ngIf="dispNov">{{summaryReport.displayNov}}</th>
+        <th class="long" *ngIf="dispDec">{{summaryReport.displayDec}}</th>
+        <th class="long" *ngIf="dispJan">{{summaryReport.displayJan}}</th>
+        <th class="long" *ngIf="dispFeb">{{summaryReport.displayFeb}}</th>
+        <th class="long" *ngIf="dispMar">{{summaryReport.displayMar}}</th>
+      </tr>
+    </table>
+  </div>
+
+</ion-content>
