@@ -26,7 +26,7 @@ export class ConstantsProvider {
   // public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapitest/v1/";
 
   // PRODUCTION
-  public static API_BASE_URL: string = "http://116.75.129.27:8089/sapbaseapi/v1/";
+  public static API_BASE_URL: string = "http://116.74.206.28:8089/sapbaseapi/v1/";
 
 
   //API Endpoints

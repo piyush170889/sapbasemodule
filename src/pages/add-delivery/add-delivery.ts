@@ -82,7 +82,7 @@ export class AddDeliveryPage {
           + ConstantsProvider.API_ENDPOINT_ORDERS + ConstantsProvider.URL_SEPARATOR
           + docNum + ConstantsProvider.URL_SEPARATOR + ConstantsProvider.API_ENDPOINT_ORDER_DLVRY;
 
-        let deliveryDetails: any = {
+        let deliveryDetails: any ={ 
           appOrdrDlvryId: 0,
           quantity: quantity,
           appOrdrId: docNum,

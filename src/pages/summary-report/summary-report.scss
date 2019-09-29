@@ -16,15 +16,15 @@ page-summary-report {
       }
       
       .scroll-table-div {
-        width: 70%;
+        width: 98%;
         overflow-x: scroll;
-        margin-left: 28%;
-        overflow-y: scroll;
+        margin-left: 1%;
+        overflow-y: hidden;
         padding: 0;
       }
       
       .headcol {
-        position: absolute;
+        position: fixed;
         /*width: 1rem;*/
         left: 0;
         top: auto;

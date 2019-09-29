@@ -36,7 +36,7 @@
   <div class="scroll-table-div">
     <table>
       <tr>
-        <th class="headcol light-color" (click)="sortByCust()">Customer Name</th>
+        <th class="long light-color" (click)="sortByCust()">Customer Name</th>
         <td class="long bold-heading light-color" (click)="sortBySalesEmp()">Sale Emp Name</td>
         <td class="long bold-heading light-color" (click)="sortByBrand()">Brand</td>
         <td class="long bold-heading light-color" *ngIf="dispApr">Apr</td>
@@ -53,7 +53,7 @@
         <td class="long bold-heading light-color" *ngIf="dispMar">Mar</td>
       </tr>
       <tr *ngFor="let summaryReport of summaryReportList">
-        <th class="headcol">{{summaryReport.cardName}}</th>
+        <th class="long">{{summaryReport.cardName}}</th>
         <th class="long">{{summaryReport.salesEmpName}}</th>
         <!-- <th class="long">{{summaryReport.brand}}</th>
         <th class="long">{{summaryReport.apr}}</th>

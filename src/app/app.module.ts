@@ -39,7 +39,7 @@ import { FileOpener } from '@ionic-native/file-opener';
 import { File } from '@ionic-native/file';
 // import { OrderAddPage } from '../pages/order-add/order-add';
 // import { ModalAddItemPage } from '../pages/modal-add-item/modal-add-item';
-// import { IonicSelectableModule } from 'ionic-selectable';
+import { IonicSelectableModule } from 'ionic-selectable';
 import { Diagnostic } from "@ionic-native/diagnostic";
 import { CallNumber } from '@ionic-native/call-number';
 // import { OrdersBookedPage } from '../pages/orders-booked/orders-booked';
@@ -138,10 +138,10 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {mode : 'md'}),
     // SignaturePadModule,
     HttpClientModule,
-    // IonicSelectableModule
+    IonicSelectableModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
